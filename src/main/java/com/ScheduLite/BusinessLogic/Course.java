@@ -18,5 +18,5 @@ public class Course {
     public String description;
     public String course_type;
 
-    // no methods??>?><?!!?!!!?!?!??!?!>
+    // this might serve best as a record instead of a class
 }

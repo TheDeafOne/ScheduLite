@@ -24,13 +24,11 @@ public class Session {
      * @param schedule the schedule to load
      */
     public void loadSchedule(Schedule schedule) {
-        currentSchedule = schedule;
-        search.loadSchedule(schedule);
+
     }
 
     public void unloadSchedule(){
-        currentSchedule = null;
-        search.unloadSchedule();
+
 
     }
     public void saveSchedule(Schedule schedule) {}

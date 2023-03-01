@@ -13,12 +13,6 @@ public class Search {
 
     public void queryDB(){
 
-        scheduleInstance.addCourse(new Course());
-        // if have schedule
-        // auto filter results on the current term
-
-        // if the schedule attribute is NULL (no schedule provided in init)
-            // provide a new filter option on the side to filter on term
     }
 
     // user clicks on a class to add
