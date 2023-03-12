@@ -17,6 +17,7 @@
 /schedulite.webservice/out/
 /schedulite.webservice/!**/src/main/**/out/
 /schedulite.webservice/!**/src/test/**/out/
+/schedulite.webservice/.idea/workspace.xml
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
