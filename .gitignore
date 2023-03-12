@@ -1,22 +1,45 @@
 *.env
 
 ### Webservice ### .IDEA
-/webservice/.gradle
-/webservice/build/
-/webservice/!gradle/wrapper/gradle-wrapper.jar
-/webservice/!**/src/main/**/build/
-/webservice/!**/src/test/**/build/
-/webservice/.idea/compiler.xml
-/webservice/.idea/workspace.xml
-/webservice/.idea/jarRepositories.xml
-/webservice/.idea/modules.xml
-/webservice/.idea/libraries/
-/webservice/*.iws
-/webservice/*.iml
-/webservice/*.ipr
-/webservice/out/
-/webservice/!**/src/main/**/out/
-/webservice/!**/src/test/**/out/
+/schedulite.webservice/.gradle
+/schedulite.webservice/build/
+/schedulite.webservice/!gradle/wrapper/gradle-wrapper.jar
+/schedulite.webservice/!**/src/main/**/build/
+/schedulite.webservice/!**/src/test/**/build/
+/schedulite.webservice/.idea/compiler.xml
+/schedulite.webservice/.idea/workspace.xml
+/schedulite.webservice/.idea/jarRepositories.xml
+/schedulite.webservice/.idea/modules.xml
+/schedulite.webservice/.idea/libraries/
+/schedulite.webservice/*.iws
+/schedulite.webservice/*.iml
+/schedulite.webservice/*.ipr
+/schedulite.webservice/out/
+/schedulite.webservice/!**/src/main/**/out/
+/schedulite.webservice/!**/src/test/**/out/
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/schedulite.clientapp/node_modules
+/schedulite.clientapp/.pnp
+/schedulite.clientapp.pnp.js
+
+# testing
+/schedulite.clientapp/coverage
+
+# production
+/schedulite.clientapp/build
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 ### VS Code ###
 .vscode/
