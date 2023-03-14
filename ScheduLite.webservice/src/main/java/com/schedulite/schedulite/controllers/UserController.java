@@ -20,6 +20,4 @@ public class UserController {
     public ResponseEntity<?> getRoles() {
         return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
     }
-
-
 }
