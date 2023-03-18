@@ -1,7 +1,6 @@
 package com.schedulite.schedulite.controllers;
 
 import com.schedulite.schedulite.services.CourseService;
-import com.schedulite.schedulite.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +16,8 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @GetMapping("/courses")
-    public ResponseEntity<?> getCourses() {
-        return new ResponseEntity<>(courseService.getAllRoles(), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<?> getRoles() {
+        return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 }

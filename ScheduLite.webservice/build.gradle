@@ -27,7 +27,8 @@ dependencies {
 //	implementation 'javax.xml.bind:jaxb-api:2.3.1'
 	// https://mvnrepository.com/artifact/me.paulschwarz/spring-dotenv
 	implementation 'me.paulschwarz:spring-dotenv:3.0.0'
-
+ //   https://mvnrepository.com/artifact/me.paulschwarz/spring-dotenv
+	implementation 'me.paulschwarz:spring-dotenv:3.0.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 }
