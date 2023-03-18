@@ -1,0 +1,15 @@
+.main-body {
+    padding: 20px;
+    background-color: crimson;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.center-panel {
+    background-color: dodgerblue;
+    flex-direction: column;
+    flex: 3 1 0;
+}
+.side-panel {
+    flex: 1 1 0;
+}
