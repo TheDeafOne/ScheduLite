@@ -13,9 +13,22 @@ const SearchPage = () => {
     const [response, setResponse] = useState([{}]);
     const [query, setQuery] = useState("")
 
-    const setSearchResponse = () => {
-
+    const setSearchResponse = (newValue: any) => {
+        setResponse(newValue);
     }
+    const onEnter = (q : any) => {
+        console.log("PRESSED ENTER")
+        console.log(q);
+        // setResponse([{id: "640fe2f84c63f508ebd1d2b4", name: "ROLE_USER"}, {id: "640fe2f84c63f508ebd1d2b5", name: "ROLE_MODERATOR"}, {id: "640fe2f84c63f508ebd1d2b6", name: "ROLE_ADMIN"}])
+            /**
+             * THIS IS WHERE WE ARE GOING TO MAKE A CALL TO THE DATABASE
+             */
+            axiosConfig.get("/courses")
+                .then(r => {
+                    setResponse(r.data);
+                    console.log((r.data));
+                })
+    };
     // useEffect(() => {
     //     axiosConfig.get("/users/roles")
     //         .then(r => {
@@ -29,15 +42,15 @@ const SearchPage = () => {
             console.log("PRESSED ENTER")
             console.log(query);
 
-            setResponse([{id: "640fe2f84c63f508ebd1d2b4", name: "ROLE_USER"}, {id: "640fe2f84c63f508ebd1d2b5", name: "ROLE_MODERATOR"}, {id: "640fe2f84c63f508ebd1d2b6", name: "ROLE_ADMIN"}])
+            // setResponse([{id: "640fe2f84c63f508ebd1d2b4", name: "ROLE_USER"}, {id: "640fe2f84c63f508ebd1d2b5", name: "ROLE_MODERATOR"}, {id: "640fe2f84c63f508ebd1d2b6", name: "ROLE_ADMIN"}])
             /**
              * THIS IS WHERE WE ARE GOING TO MAKE A CALL TO THE DATABASE
              */
-            // axiosConfig.get("/users/roles")
-            //     .then(r => {
-            //         setResponse(r.data);
-            //         console.log((r.data));
-            //     })
+            axiosConfig.get("/courses")
+                .then(r => {
+                    setResponse(r.data);
+                    console.log((r.data));
+                })
         }
     };
 
@@ -46,7 +59,7 @@ const SearchPage = () => {
         {/*FILTER PANEL*/}
         <FilterPanel />
         <div className={"center-panel"}>
-            <SearchBar setResponse={() => setResponse}/>
+            <SearchBar setResponse={setSearchResponse} onEnter={onEnter}/>
             <Results response={response} />
         </div>
         <CourseDetailPanel />

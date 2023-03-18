@@ -18,14 +18,15 @@ const Home = () => {
     //
     // }, [])
     return (
-        <div className={"main-body"}>
-            <CoursePanel />
-            <div className={"center-panel"}>
-                <SearchBar />
-                <ScheduleView />
-            </div>
-            <CoursePanel />
-        </div>
+        <SearchPage />
+        // <div className={"main-body"}>
+        //     <CoursePanel />
+        //     <div className={"center-panel"}>
+        //         <SearchBar />
+        //         <ScheduleView />
+        //     </div>
+        //     <CoursePanel />
+        // </div>
     )
 }
 export default Home

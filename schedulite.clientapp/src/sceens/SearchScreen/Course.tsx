@@ -7,8 +7,15 @@ const Course = (props : any) => {
 
     console.log(props.response)
     const onClick = (event : any) => {
-        console.log(props.data.id);
+        console.log(props.data);
+        console.log(props);
+        console.log(event)
+
         // ADD TO SCHEDULE HERE
+        // axiosConfig.get("https://64161c4d351c4aed49178971.mockapi.io/api/v1/courses")
+        //     .then(r => {
+        //         console.log((r.data));
+        //     })
         // HANDLE BAD ADDITION TO SCHEDULE
 
     }

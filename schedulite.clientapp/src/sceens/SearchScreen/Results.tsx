@@ -14,6 +14,7 @@ const Results = (props : any) => {
     //         });
     //
     // }, [])
+
     console.log(props.response)
     return (
         <div>

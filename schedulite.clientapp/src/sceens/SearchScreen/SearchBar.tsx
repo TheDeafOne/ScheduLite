@@ -20,14 +20,15 @@ const SearchBar = (props : any) => {
     const handleKeyDown = (event : any) => {
         if (event.key === 'Enter') {
             // 👇 Get input value
+            props.onEnter(query);
             console.log("PRESSED ENTER")
             console.log(query);
-
-            props.setResponse([{id: "640fe2f84c63f508ebd1d2b4", name: "ROLE_USER"}, {id: "640fe2f84c63f508ebd1d2b5", name: "ROLE_MODERATOR"}, {id: "640fe2f84c63f508ebd1d2b6", name: "ROLE_ADMIN"}])
+            console.log(props);
+            // props.setResponse([{id: "640fe2f84c63f508ebd1d2b4", name: "ROLE_USER"}, {id: "640fe2f84c63f508ebd1d2b5", name: "ROLE_MODERATOR"}, {id: "640fe2f84c63f508ebd1d2b6", name: "ROLE_ADMIN"}])
             /**
              * THIS IS WHERE WE ARE GOING TO MAKE A CALL TO THE DATABASE
              */
-            // axiosConfig.get("/users/roles")
+            // axiosConfig.get("/courses")
             //     .then(r => {
             //         setResponse(r.data);
             //         console.log((r.data));
