@@ -5,11 +5,13 @@ import Results from "./Results";
 // import List from "./Components/List";
 // import "./App.css";
 
-const CourseDetailPanel = () => {
+const CourseDetailPanel = (props : any) => {
 
     return (
         <div className={"side-panel"}>
             Course Detail View
+            <br/>
+            {props.data ? props.data.course_title : ""}
         </div>
     )
 }

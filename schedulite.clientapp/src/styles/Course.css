@@ -1,0 +1,24 @@
+.course {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3c404e;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    /*column-gap: 10px;*/
+}
+
+.class-info {
+    text-align: start;
+    /*background-color: #597179;*/
+}
+
+.course-title {
+    font-weight: bold;
+    font-size: larger;
+}
+.subtitle {
+    color: #c4c4c4;
+}

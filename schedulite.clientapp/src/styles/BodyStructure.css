@@ -1,15 +1,24 @@
+div {
+    font-family: Arial, serif;
+}
 .main-body {
-    padding: 20px;
+    /*padding: 20px;*/
     background-color: crimson;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 .center-panel {
+    display: flex;
+    /*gap: 20px;*/
     background-color: dodgerblue;
     flex-direction: column;
     flex: 3 1 0;
+
+    /*row-gap: 20px;*/
+    /*column-gap: 20px;*/
 }
 .side-panel {
     flex: 1 1 0;
+    background-color: #ddabff;
 }

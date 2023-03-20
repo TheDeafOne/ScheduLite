@@ -1,0 +1,11 @@
+.results {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    background-color: #61dafb;
+    padding: 5px;
+
+    /*column-gap: 10px;*/
+
+    /*column-gap: 10px;*/
+}

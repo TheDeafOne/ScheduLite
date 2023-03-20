@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import CourseDetailPanel from "./CourseDetailPanel";
 import FilterPanel from "./FilterPanel";
 import "../../styles/BodyStructure.css"
+import Course from "./Course";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
 // import "./App.css";
@@ -12,9 +13,21 @@ import "../../styles/BodyStructure.css"
 const SearchPage = () => {
     const [response, setResponse] = useState([{}]);
     const [query, setQuery] = useState("")
-
+    const [currCourse, setCourse]= useState({});
+    const [viewCourse, setViewCourse] = useState(false);
     const setSearchResponse = (newValue: any) => {
         setResponse(newValue);
+    }
+    const onCourseClick = (course : any) => {
+        console.log(course);
+        console.log(currCourse);
+        if (course === currCourse) {
+            setViewCourse(false);
+            setCourse({});
+        } else {
+            setViewCourse(true);
+            setCourse(course);
+        }
     }
     const onEnter = (q : any) => {
         console.log("PRESSED ENTER")
@@ -60,9 +73,9 @@ const SearchPage = () => {
         <FilterPanel />
         <div className={"center-panel"}>
             <SearchBar setResponse={setSearchResponse} onEnter={onEnter}/>
-            <Results response={response} />
+            <Results response={response} onCourseClick={onCourseClick}/>
         </div>
-        <CourseDetailPanel />
+        <CourseDetailPanel data={currCourse}/>
         {/*DETAIL VIEW*/}
     </div>
     )

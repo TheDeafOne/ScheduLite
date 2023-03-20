@@ -3,7 +3,7 @@ import axiosConfig from "../../api/axios-config";
 import Results from "./Results";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
-// import "./App.css";
+import "../../styles/SearchBar.css";
 
 const SearchBar = (props : any) => {
     // const [response, setResponse] = useState(props.response);
@@ -36,7 +36,7 @@ const SearchBar = (props : any) => {
         }
     };
     return (
-        <div>
+        <div className={"searchBar"}>
             {/*FILTER PANEL*/}
 
             <input placeholder="Enter Post Title"

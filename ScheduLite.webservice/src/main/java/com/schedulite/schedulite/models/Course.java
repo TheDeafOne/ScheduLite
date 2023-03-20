@@ -3,23 +3,23 @@ package com.schedulite.schedulite.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "roles")
+@Document(collection = "courses")
 public class Course {
 
     @Id
     public String id;
     public int year;
-    public String seemster;
+    public String semester;
     public String coursePrefix;
     public int courseNumber;
     public String courseSection;
     public String lastName;
     public String firstName;
-    public String courseTitle;
+    public String course_title;
     public int creditHours;
     public String creditVariation;
     public int courseCapacity;
-    public int courseEntrollment;
+    public int courseEnrollment;
     public String buildingCode;
     public int roomCode;
     public String onMonday;
@@ -27,20 +27,20 @@ public class Course {
     public Course() {
     }
 
-    public Course(String id, int year, String seemster, String coursePrefix, int courseNumber, String courseSection, String lastName, String firstName, String courseTitle, int creditHours, String creditVariation, int courseCapacity, int courseEntrollment, String buildingCode, int roomCode, String onMonday, String onTuesday, String onWednesday, String onThursday, String onFriday, String startTime, String endTime, String preferredName) {
+    public Course(String id, int year, String semester, String coursePrefix, int courseNumber, String courseSection, String lastName, String firstName, String courseTitle, int creditHours, String creditVariation, int courseCapacity, int courseEnrollment, String buildingCode, int roomCode, String onMonday, String onTuesday, String onWednesday, String onThursday, String onFriday, String startTime, String endTime, String preferredName) {
         this.id = id;
         this.year = year;
-        this.seemster = seemster;
+        this.semester = semester;
         this.coursePrefix = coursePrefix;
         this.courseNumber = courseNumber;
         this.courseSection = courseSection;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.courseTitle = courseTitle;
+        this.course_title = courseTitle;
         this.creditHours = creditHours;
         this.creditVariation = creditVariation;
         this.courseCapacity = courseCapacity;
-        this.courseEntrollment = courseEntrollment;
+        this.courseEnrollment = courseEnrollment;
         this.buildingCode = buildingCode;
         this.roomCode = roomCode;
         this.onMonday = onMonday;
@@ -69,12 +69,12 @@ public class Course {
         this.year = year;
     }
 
-    public String getSeemster() {
-        return seemster;
+    public String getSemester() {
+        return semester;
     }
 
-    public void setSeemster(String seemster) {
-        this.seemster = seemster;
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
 
     public String getCoursePrefix() {
@@ -117,12 +117,12 @@ public class Course {
         this.firstName = firstName;
     }
 
-    public String getCourseTitle() {
-        return courseTitle;
+    public String getCourse_title() {
+        return course_title;
     }
 
-    public void setCourseTitle(String courseTitle) {
-        this.courseTitle = courseTitle;
+    public void setCourse_title(String course_title) {
+        this.course_title = course_title;
     }
 
     public int getCreditHours() {
@@ -149,12 +149,12 @@ public class Course {
         this.courseCapacity = courseCapacity;
     }
 
-    public int getCourseEntrollment() {
-        return courseEntrollment;
+    public int getCourseEnrollment() {
+        return courseEnrollment;
     }
 
-    public void setCourseEntrollment(int courseEntrollment) {
-        this.courseEntrollment = courseEntrollment;
+    public void setCourseEnrollment(int courseEnrollment) {
+        this.courseEnrollment = courseEnrollment;
     }
 
     public String getBuildingCode() {
