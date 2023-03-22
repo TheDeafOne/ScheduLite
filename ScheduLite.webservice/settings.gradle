@@ -1,1 +1,3 @@
 rootProject.name = 'schedulite'
+include 'test'
+
