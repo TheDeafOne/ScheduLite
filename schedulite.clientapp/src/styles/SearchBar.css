@@ -1,0 +1,16 @@
+input {
+    padding: 20px;
+    border-radius: 20px;
+    border-style: none;
+    font-size: 25px;
+    font-weight: bold;
+
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #282c34;
+    color: gainsboro;
+}
+
+.searchBar {
+    padding: 10px;
+}
