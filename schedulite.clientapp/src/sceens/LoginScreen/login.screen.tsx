@@ -5,7 +5,6 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import AuthService from "../../services/auth.service";
-import { receiveMessageOnPort } from 'worker_threads';
 
 const Login = () => {
     const [redirect, setRedirect] = useState<string>();
