@@ -24,16 +24,12 @@ class CourseControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CourseService service;
+    private CourseService service; // instance allows mockmvc to use during tests
 
    // public List<Course> courses;
     @Test
-    public void courseShouldReturnMessageFromService() throws Exception {
+    public void getCourses() throws Exception {
         //when(service.getAllCourses()).thenReturn(courses);
         this.mockMvc.perform(get("/api/v1/courses")).andDo(print()).andExpect(status().isOk());
-    }
-    @Test
-    void getRoles() {
-
     }
 }
