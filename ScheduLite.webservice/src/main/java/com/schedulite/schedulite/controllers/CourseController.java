@@ -17,7 +17,7 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping
-    public ResponseEntity<?> getRoles() {
+    public ResponseEntity<?> getCourses() {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 }
