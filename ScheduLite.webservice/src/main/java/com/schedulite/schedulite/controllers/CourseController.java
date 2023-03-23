@@ -4,10 +4,9 @@ import com.schedulite.schedulite.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @CrossOrigin
@@ -20,4 +19,8 @@ public class CourseController {
     public ResponseEntity<?> getCourses() {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
+
+//    @GetMapping("/query")
+//    public ResponseEntity<?> getFilteredCourses(@RequestBody String query) {
+//        return new ResponseEntity<>(courseService.getByCourseNum(query), HttpStatus.OK);}
 }
