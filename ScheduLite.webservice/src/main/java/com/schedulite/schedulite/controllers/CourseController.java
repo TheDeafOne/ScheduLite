@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 
 @RestController
 @CrossOrigin
@@ -21,7 +20,7 @@ public class CourseController {
     }
 
     @GetMapping("/query")
-    public ResponseEntity<?> getFilteredCourses(@RequestBody String query) {
-        return new ResponseEntity<>(courseService.getByCourseNum(query), HttpStatus.OK);
+    public ResponseEntity<?> getFilteredCourses(@RequestParam(required = false) String query) {
+        return new ResponseEntity<>(courseService.getCourseByCourseNumber(query), HttpStatus.OK);
     }
 }

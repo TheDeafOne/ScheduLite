@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +21,11 @@ public class CourseService {
     private MongoTemplate mongoTemplate;
     public List<Course> getAllCourses() {return courseRepository.findAll();}
 
-    public List<Course> getByCourseNum(String number) {
-        final Query query = new Query();
-        final List<Criteria> criteria = new ArrayList<>();
-        criteria.add(Criteria.where("course_number").is(number));
-        query.addCriteria(criteria.get(0));
+    public List<Course> getCourseByCourseNumber(String courseNumber) {
+        Query query = new Query();
+        query.addCriteria(
+                Criteria.where("course_number").is(courseNumber)
+        );
         return mongoTemplate.find(query,Course.class);
     }
-
-//    public Optional<Course> getByCoursePrefix(String prefix) {
-//        return courseRepository.findCoursesByCourse_prefix(prefix);
-//    }
 }
