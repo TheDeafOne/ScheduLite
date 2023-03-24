@@ -20,7 +20,8 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
-//    @GetMapping("/query")
-//    public ResponseEntity<?> getFilteredCourses(@RequestBody String query) {
-//        return new ResponseEntity<>(courseService.getByCourseNum(query), HttpStatus.OK);}
+    @GetMapping("/query")
+    public ResponseEntity<?> getFilteredCourses(@RequestBody String query) {
+        return new ResponseEntity<>(courseService.getByCourseNum(query), HttpStatus.OK);
+    }
 }
