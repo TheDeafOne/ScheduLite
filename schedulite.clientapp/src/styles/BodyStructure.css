@@ -7,18 +7,46 @@ div {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    overflow-y: scroll;
+    height: 100vh;
 }
 .center-panel {
     display: flex;
     /*gap: 20px;*/
-    background-color: dodgerblue;
+    background-color: #ffffff;
     flex-direction: column;
     flex: 3 1 0;
-
+    overflow-y: scroll;
+    /*height: 100%;*/
     /*row-gap: 20px;*/
     /*column-gap: 20px;*/
 }
 .side-panel {
     flex: 1 1 0;
-    background-color: #ddabff;
+    background-color: #4c4c5e;
+    text-align: start;
+    color: white;
+    /*height: 100vh;*/
+    /*height: 100%;*/
+    overflow-y: scroll;
+}
+
+.side-panel-title {
+    padding: 20px 0 0 10px;
+    font-weight: bold;
+    font-size: 25px;
+}
+.expand {
+    /*background-color: #223239;*/
+    background-color: gold;
+    width: 60px;
+    height: 20px;
+    position: relative;
+    left: 50%;
+    top: 3%;
+    border-radius: 2px;
+}
+.background {
+    background-color: #223239;
+
 }

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import axiosConfig from "../../api/axios-config";
-import Results from "./Results";
+import axiosConfig from "../../../api/axios-config";
+import Results from "../../../components/Results";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
-import "../../styles/SearchBar.css";
+import "../../../styles/SearchBar.css";
 
 const SearchBar = (props : any) => {
     // const [response, setResponse] = useState(props.response);
     const [query, setQuery] = useState("")
-    //
+    // const [firstClick, setFirstClick] = useState(true)
     // useEffect(() => {
     //     axiosConfig.get("/users/roles")
     //         .then(r => {
@@ -16,6 +16,12 @@ const SearchBar = (props : any) => {
     //             console.log((r.data));
     //         })
     // }, []);
+    const onclick = () => {
+        if (props.firstClick) {
+            // setFirstClick(false)
+            props.navigate()
+        }
+    }
 
     const handleKeyDown = (event : any) => {
         if (event.key === 'Enter') {
@@ -38,10 +44,11 @@ const SearchBar = (props : any) => {
     return (
         <div className={"searchBar"}>
             {/*FILTER PANEL*/}
-
-            <input placeholder="Enter Post Title"
+            <input placeholder="Search Classes"
+                   autoFocus={props.autofocus}
                    onChange={event => setQuery(event.target.value)}
-                   onKeyDown={handleKeyDown}/>
+                   onKeyDown={handleKeyDown}
+                   onClick={onclick}/>
             {/*DETAIL VIEW*/}
         </div>
     )

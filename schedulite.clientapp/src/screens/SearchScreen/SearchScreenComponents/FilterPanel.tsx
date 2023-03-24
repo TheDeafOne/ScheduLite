@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import axiosConfig from "../../api/axios-config";
-import Results from "./Results";
+import axiosConfig from "../../../api/axios-config";
+import Results from "../../../components/Results";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
 // import "./App.css";
@@ -8,7 +8,9 @@ import Results from "./Results";
 const FilterPanel = () => {
     return (
         <div className={"side-panel"}>
-            Filter Page
+            <div className={"side-panel-title"} >
+                Filter Page
+            </div>
         </div>
     )
 }

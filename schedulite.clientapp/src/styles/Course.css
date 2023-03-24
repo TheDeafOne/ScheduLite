@@ -9,7 +9,20 @@
     border-radius: 20px;
     /*column-gap: 10px;*/
 }
-
+.course:hover {
+    filter: brightness(1.2);
+}
+.active {
+    filter: brightness(.85);
+}
+.add-course {
+    display: flex;
+    column-gap: 10px;
+    text-align: center;
+}
+.panel {
+    column-gap: 0;
+}
 .class-info {
     text-align: start;
     /*background-color: #597179;*/
@@ -21,4 +34,23 @@
 }
 .subtitle {
     color: #c4c4c4;
+}
+button {
+    all: unset;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    font-weight: bold;
+    /*padding: 5px 5px 5px 5px;*/
+    border-radius: 5px;
+    /*text-align: center;*/
+}
+button:hover {
+    background-color: #4b566c;
+}
+
+
+button:focus {
+    outline: orange 5px auto;
 }

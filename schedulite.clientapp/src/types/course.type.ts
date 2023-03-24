@@ -1,0 +1,26 @@
+export default interface ICourse {
+    id: string,
+    year: number,
+    semester: string,
+    course_prefix: string,
+    course_number: number,
+    last_name: string,
+    first_name: string,
+    course_title: string,
+    credit_hours: number,
+    credit_variation: string,
+    course_capacity: number,
+    crs_enrollment: string | number,
+    course_section?: string,
+    building_code?: string | null,
+    room_code?: string | null,
+    on_monday?: string | null,
+    on_tuesday?: string | null,
+    on_wednesday?: string | null,
+    on_thursday?: string | null,
+    on_friday?: string | null,
+    start_time?: string | null,
+    end_time?: string | null,
+    preferred_name?: string | null
+
+}

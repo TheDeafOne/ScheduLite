@@ -2,11 +2,13 @@
 import React, {useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "./SearchPage";
-import Course from "./Course";
+import Course from "../../components/Course";
 import "../../styles/Results.css"
+import {DndContext} from '@dnd-kit/core';
 
 
 const Results = (props : any) => {
+    const [isDropped, setIsDropped] = useState(false);
     // useEffect(() => {
     //     axiosConfig.get("/users/roles")
     //         .then(r => {
@@ -22,7 +24,7 @@ const Results = (props : any) => {
     return (
         <>
             {
-                props.response[1] ?
+                props.response[1] &&
                     (
                         <div className={"results"}>
                             {
@@ -35,10 +37,6 @@ const Results = (props : any) => {
                             }
                         </div>
                     )
-                    :
-                    <>
-
-                    </>
             }
 
         </>

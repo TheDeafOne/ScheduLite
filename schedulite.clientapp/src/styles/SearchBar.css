@@ -9,8 +9,11 @@ input {
     box-sizing: border-box;
     background-color: #282c34;
     color: gainsboro;
+    z-index: 9999;
+
 }
 
 .searchBar {
     padding: 10px;
+    /*background-color: #61dafb;*/
 }

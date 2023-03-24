@@ -3,7 +3,7 @@ package com.schedulite.schedulite.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "roles")
+@Document(collection = "courses")
 public class Course {
 
     @Id
@@ -21,7 +21,7 @@ public class Course {
     public int course_capacity;
     public int crs_enrollment;
     public String building_code;
-    public int room_code;
+    public String room_code;
     public String on_monday;
     public String on_tuesday;
     public String on_wednesday;
@@ -34,7 +34,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String id, int year, String semester, String course_prefix, int course_number, String course_section, String last_name, String first_name, String course_title, int credit_hours, String credit_variation, int course_capacity, int crs_enrollment, String building_code, int room_code, String on_monday, String on_tuesday, String on_wednesday, String on_thursday, String on_friday, String start_time, String end_time, String preferred_name) {
+    public Course(String id, int year, String semester, String course_prefix, int course_number, String course_section, String last_name, String first_name, String course_title, int credit_hours, String credit_variation, int course_capacity, int crs_enrollment, String building_code, String room_code, String on_monday, String on_tuesday, String on_wednesday, String on_thursday, String on_friday, String start_time, String end_time, String preferred_name) {
         this.id = id;
         this.year = year;
         this.semester = semester;
@@ -172,11 +172,11 @@ public class Course {
         this.building_code = building_code;
     }
 
-    public int getRoom_code() {
+    public String getRoom_code() {
         return room_code;
     }
 
-    public void setRoom_code(int room_code) {
+    public void setRoom_code(String room_code) {
         this.room_code = room_code;
     }
 
