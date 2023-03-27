@@ -8,18 +8,18 @@ public class Course {
 
     @Id
     public String id;
-    public int year;
+    public String year;
     public String semester;
     public String course_prefix;
-    public int course_number;
+    public String course_number;
     public String course_section;
     public String last_name;
     public String first_name;
     public String course_title;
-    public int credit_hours;
+    public String credit_hours;
     public String credit_variation;
-    public int course_capacity;
-    public int crs_enrollment;
+    public String course_capacity;
+    public String crs_enrollment;
     public String building_code;
     public String room_code;
     public String on_monday;
@@ -34,7 +34,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String id, int year, String semester, String course_prefix, int course_number, String course_section, String last_name, String first_name, String course_title, int credit_hours, String credit_variation, int course_capacity, int crs_enrollment, String building_code, String room_code, String on_monday, String on_tuesday, String on_wednesday, String on_thursday, String on_friday, String start_time, String end_time, String preferred_name) {
+    public Course(String id, String year, String semester, String course_prefix, String course_number, String course_section, String last_name, String first_name, String course_title, String credit_hours, String credit_variation, String course_capacity, String crs_enrollment, String building_code, String room_code, String on_monday, String on_tuesday, String on_wednesday, String on_thursday, String on_friday, String start_time, String end_time, String preferred_name) {
         this.id = id;
         this.year = year;
         this.semester = semester;
@@ -68,11 +68,11 @@ public class Course {
         this.id = id;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -92,11 +92,11 @@ public class Course {
         this.course_prefix = course_prefix;
     }
 
-    public int getCourse_number() {
+    public String getCourse_number() {
         return course_number;
     }
 
-    public void setCourse_number(int course_number) {
+    public void setCourse_number(String course_number) {
         this.course_number = course_number;
     }
 
@@ -132,11 +132,11 @@ public class Course {
         this.course_title = course_title;
     }
 
-    public int getCredit_hours() {
+    public String getCredit_hours() {
         return credit_hours;
     }
 
-    public void setCredit_hours(int credit_hours) {
+    public void setCredit_hours(String credit_hours) {
         this.credit_hours = credit_hours;
     }
 
@@ -148,19 +148,19 @@ public class Course {
         this.credit_variation = credit_variation;
     }
 
-    public int getCourse_capacity() {
+    public String getCourse_capacity() {
         return course_capacity;
     }
 
-    public void setCourse_capacity(int course_capacity) {
+    public void setCourse_capacity(String course_capacity) {
         this.course_capacity = course_capacity;
     }
 
-    public int getCrs_enrollment() {
+    public String getCrs_enrollment() {
         return crs_enrollment;
     }
 
-    public void setCrs_enrollment(int crs_enrollment) {
+    public void setCrs_enrollment(String crs_enrollment) {
         this.crs_enrollment = crs_enrollment;
     }
 
@@ -242,5 +242,34 @@ public class Course {
 
     public void setPreferred_name(String preferred_name) {
         this.preferred_name = preferred_name;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id='" + id + '\'' +
+                ", year='" + year + '\'' +
+                ", semester='" + semester + '\'' +
+                ", course_prefix='" + course_prefix + '\'' +
+                ", course_number='" + course_number + '\'' +
+                ", course_section='" + course_section + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", course_title='" + course_title + '\'' +
+                ", credit_hours='" + credit_hours + '\'' +
+                ", credit_variation='" + credit_variation + '\'' +
+                ", course_capacity='" + course_capacity + '\'' +
+                ", crs_enrollment='" + crs_enrollment + '\'' +
+                ", building_code='" + building_code + '\'' +
+                ", room_code='" + room_code + '\'' +
+                ", on_monday='" + on_monday + '\'' +
+                ", on_tuesday='" + on_tuesday + '\'' +
+                ", on_wednesday='" + on_wednesday + '\'' +
+                ", on_thursday='" + on_thursday + '\'' +
+                ", on_friday='" + on_friday + '\'' +
+                ", start_time='" + start_time + '\'' +
+                ", end_time='" + end_time + '\'' +
+                ", preferred_name='" + preferred_name + '\'' +
+                '}';
     }
 }
