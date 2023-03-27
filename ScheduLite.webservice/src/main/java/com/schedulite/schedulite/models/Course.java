@@ -243,4 +243,33 @@ public class Course {
     public void setPreferred_name(String preferred_name) {
         this.preferred_name = preferred_name;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id='" + id + '\'' +
+                ", year='" + year + '\'' +
+                ", semester='" + semester + '\'' +
+                ", course_prefix='" + course_prefix + '\'' +
+                ", course_number='" + course_number + '\'' +
+                ", course_section='" + course_section + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", course_title='" + course_title + '\'' +
+                ", credit_hours='" + credit_hours + '\'' +
+                ", credit_variation='" + credit_variation + '\'' +
+                ", course_capacity='" + course_capacity + '\'' +
+                ", crs_enrollment='" + crs_enrollment + '\'' +
+                ", building_code='" + building_code + '\'' +
+                ", room_code='" + room_code + '\'' +
+                ", on_monday='" + on_monday + '\'' +
+                ", on_tuesday='" + on_tuesday + '\'' +
+                ", on_wednesday='" + on_wednesday + '\'' +
+                ", on_thursday='" + on_thursday + '\'' +
+                ", on_friday='" + on_friday + '\'' +
+                ", start_time='" + start_time + '\'' +
+                ", end_time='" + end_time + '\'' +
+                ", preferred_name='" + preferred_name + '\'' +
+                '}';
+    }
 }
