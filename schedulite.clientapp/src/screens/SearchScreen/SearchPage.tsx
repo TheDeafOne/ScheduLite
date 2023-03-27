@@ -39,7 +39,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         /**
          * THIS IS WHERE WE ARE GOING TO MAKE A CALL TO THE DATABASE
          */
-        axiosConfig.get("/courses")
+        axiosConfig.get(`/courses/query?query=${q}`)
             .then(r => {
                 setResponse(r.data.slice(0,10));
                 console.log((r.data));
