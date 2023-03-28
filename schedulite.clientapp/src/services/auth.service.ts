@@ -1,11 +1,10 @@
-import axios from "axios";
+import axios from "../api/axios-config";
 
-const API_URL = "http://localhost:8080/api/auth/";
-
+const authPrefix = 'auth'
 class AuthService {
   login(username: string, password: string) {
     return axios
-      .post(API_URL + "signin", {
+      .post(authPrefix + "/signin", {
         username,
         password
       })
@@ -23,7 +22,7 @@ class AuthService {
   }
 
   register(username: string, email: string, password: string) {
-    return axios.post(API_URL + "signup", {
+    return axios.post(authPrefix + "/signup", {
       username,
       email,
       password
