@@ -3,15 +3,12 @@ package com.schedulite.schedulite.services;
 import com.schedulite.schedulite.models.Course;
 import com.schedulite.schedulite.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CourseService {
@@ -26,6 +23,19 @@ public class CourseService {
         query.addCriteria(
                 Criteria.where("course_number").is(courseNumber)
         );
+        return mongoTemplate.find(query,Course.class);
+    }
+
+    public List<Course> getCourseByFilters(String semester, String title, String prefix, String number, String time, String name) {
+        Criteria crit = new Criteria();
+        if (semester != null) { crit.and("semester").regex(semester, "i");}
+        if (title != null) { crit.and("course_title").regex(title, "i");}
+        if (prefix != null) { crit.and("course_prefix").regex(semester, "i");}
+        if (number != null) { crit.and("course_number").is(number);}
+        if (time != null) { crit.and("start_time").is(time);}
+        if (name != null) { crit.and("last_name").regex(semester, "i");}
+
+        Query query = new Query(crit);
         return mongoTemplate.find(query,Course.class);
     }
 }

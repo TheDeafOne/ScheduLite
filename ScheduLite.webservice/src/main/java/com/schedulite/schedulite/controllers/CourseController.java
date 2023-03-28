@@ -20,7 +20,12 @@ public class CourseController {
     }
 
     @GetMapping("/query")
-    public ResponseEntity<?> getFilteredCourses(@RequestParam(required = false) String query) {
+    public ResponseEntity<?> getCourseByNumber(@RequestParam(required = false) String query) {
         return new ResponseEntity<>(courseService.getCourseByCourseNumber(query), HttpStatus.OK);
+    }
+
+    @GetMapping("/filters")
+    public ResponseEntity<?> getFilteredCourses(@RequestParam(required = false) String semester, @RequestParam(required = false) String title, @RequestParam(required = false) String prefix, @RequestParam(required = false) String number, @RequestParam(required = false) String time, @RequestParam(required = false) String name) {
+        return new ResponseEntity<>(courseService.getCourseByFilters(semester, title, prefix, number, time, name), HttpStatus.OK);
     }
 }
