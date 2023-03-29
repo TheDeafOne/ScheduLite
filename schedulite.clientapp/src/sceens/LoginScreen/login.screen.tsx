@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import AuthService from "../../services/auth.service";
-import { receiveMessageOnPort } from 'worker_threads';
 
 const Login = () => {
-    const [redirect, setRedirect] = useState<string>();
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
+    const navigate = useNavigate();
     
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
         if (currentUser) {
-            const navigate = useNavigate();
-            navigate("/profile");
+            navigate("/profile",{replace:true});
         }
     },[])
 
@@ -35,7 +30,7 @@ const Login = () => {
         setLoading(true);
         AuthService.login(username, password).then(
             () => {
-                setRedirect("/profile");
+                navigate("/profile",{replace:true});
             },
             error => {
                 const resMessage = (
