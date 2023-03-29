@@ -4,12 +4,12 @@ import SearchPage from "../SearchScreen/SearchPage";
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar";
 import "../../styles/BodyStructure.css"
 import CoursePanel from "./CoursePanel";
-import ScheduleView from "./ScheduleView";
 import CourseDetailPanel from "../SearchScreen/SearchScreenComponents/CourseDetailPanel";
 import {useNavigate} from "react-router-dom";
 import { motion } from "framer-motion"
 import ISchedule from "../../types/schedule.type";
 import ICourse from "../../types/course.type";
+
 import Calendar from "./Calendar";
 const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, setSchedule : Function, removeCourse: Function }) => {
     const [response, setResponse] = useState<ICourse[]>();
