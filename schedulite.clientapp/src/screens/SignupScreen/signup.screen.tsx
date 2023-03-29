@@ -5,9 +5,6 @@ import * as Yup from "yup";
 import AuthService from '../../services/auth.service';
 
 const Signup = () => {
-    const [username, setUsername] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
     const [successful, setSuccessful] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
 
