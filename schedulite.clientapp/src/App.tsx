@@ -6,6 +6,9 @@ import SearchPage from "./screens/SearchScreen/SearchPage";
 import {AnimatePresence} from "framer-motion";
 import ISchedule from "./types/schedule.type";
 import ICourse from "./types/course.type";
+import Profile from "./screens/ProfileScreen/profile.screen"
+import Signup from "./screens/SignupScreen/signup.screen";
+import Login from "./screens/LoginScreen/login.screen";
 
 function App() {
     const location = useLocation();
