@@ -30,10 +30,10 @@ public class CourseService {
         Criteria crit = new Criteria();
         if (semester != null) { crit.and("semester").regex(semester, "i");}
         if (title != null) { crit.and("course_title").regex(title, "i");}
-        if (prefix != null) { crit.and("course_prefix").regex(semester, "i");}
+        if (prefix != null) { crit.and("course_prefix").regex(prefix, "i");}
         if (number != null) { crit.and("course_number").is(number);}
-        if (time != null) { crit.and("start_time").is(time);}
-        if (name != null) { crit.and("last_name").regex(semester, "i");}
+        if (time != null) { crit.and("start_time").regex(time, "i");}
+        if (name != null) { crit.and("last_name").regex(name, "i");}
 
         Query query = new Query(crit);
         return mongoTemplate.find(query,Course.class);
