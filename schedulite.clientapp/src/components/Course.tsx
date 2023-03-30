@@ -25,6 +25,8 @@ const Course = (props : any) => {
         // console.log(props)
         props.onCourseClick(props.data)
     }
+    console.log("OVER LAP FROM COURSE")
+    console.log(props.overlap)
     const [active, setActive] = useState(props.active)
     const [tentative, setTentative] = useState(props.tentative)
     // console.log("FROM COURSE")
@@ -60,7 +62,7 @@ const Course = (props : any) => {
     }
     const onClick = (event : any) => {
         event.stopPropagation();
-        console.log(props);
+        // console.log(props);
         props.switchAction(props.data.id)
         // ADD TO SCHEDULE HERE
         // axiosConfig.get("https://64161c4d351c4aed49178971.mockapi.io/api/v1/courses")
@@ -74,23 +76,24 @@ const Course = (props : any) => {
     return (
         <>
             {props.panel ?
-                (<div className={"course"}
+                (<div className={`course ${props.overlap ? 'overlap' : ''}`}
                       onClick={onCourseClick}
                       onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(props.data.course_title) : null}
                       onMouseLeave={props.onMouseLeave ? props.onMouseLeave : null}
                       key={props.data.key}>
-                    <div className={"class-info"}>
+                    <div className={`class-info`}>
                         <div className={"course-title"}>
                             {props.data.course_title}
                         </div>
                         <div className={"subtitle"}>
                             {props.data.semester}
+
                         </div>
                         {/*{props.data.id}*/}
                     </div>
 
                     {/*ONLY SHOW THE BUTTON IF THE USER IS SIGNED IN*/}
-                    <div className={"add-course panel"}>
+                    <div className={`add-course panel`}>
                         <button type="button" onClick={onClick}>{props.button}</button>
                         <button type="button" onClick={() => props.removeCourse(props.data.id, props.schedule)}><HiX style={{color: "red"}}/></button>
                         {/*<button type="button" onClick={onClick}><BiAddToQueue /></button>*/}
@@ -98,14 +101,14 @@ const Course = (props : any) => {
 
                 </div>)
                 :
-                (<div className={"course"} onClick={onCourseClick} key={props.data.key}>
+                (<div className={`course ${props.overlap ? 'overlap' : ''}`} onClick={onCourseClick} key={props.data.key}>
                     <div className={"class-info"}>
                         <div className={"course-title"}>
                             {props.data.course_title}
                         </div>
 
                         <div className={"subtitle"}>
-                        {props.data.semester}
+                        {props.data.semester} | {props.data.converted_start_date.format("hh:mm")} - {props.data.converted_end_date.format("hh:mm")}
                         </div>
                         {/*{props.data.id}*/}
                     </div>

@@ -6,9 +6,26 @@ import Course from "./Course";
 import "../styles/Results.css"
 import ICourse from "../types/course.type";
 import courseDetailPanel from "../screens/SearchScreen/SearchScreenComponents/CourseDetailPanel";
+import moment from "moment";
+import course from "./Course";
 
 
 const Results = (props : any) => {
+
+    const overLap = (course1 : ICourse, course2: ICourse) => {
+        const startDate1 = moment(course1["start_time"], 'DD/MM/YYYY hh:mm')
+        const endDate1 = moment(course1["end_time"], 'DD/MM/YYYY hh:mm A')
+        const startDate2 = moment(course2["start_time"], 'DD/MM/YYYY hh:mm')
+        const endDate2 = moment(course2["end_time"], 'DD/MM/YYYY hh:mm A')
+
+        const daysSame = course1.on_monday === course2.on_monday
+            || course1.on_tuesday === course2.on_tuesday
+            || course1.on_wednesday === course2.on_wednesday
+            || course1.on_thursday === course2.on_thursday
+            || course1.on_friday === course2.on_friday
+
+        return (startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1) && daysSame)
+    }
     // useEffect(() => {
     //     axiosConfig.get("/users/roles")
     //         .then(r => {
@@ -21,7 +38,7 @@ const Results = (props : any) => {
 
     // console.log(props.response)
     console.log("from results props")
-    console.log(props)
+    // console.log(props)
     return (
         <>
             {
@@ -30,12 +47,15 @@ const Results = (props : any) => {
                         <div className={"results"}>
                             {
                                 props.response.map((data : ICourse , idx: number) => {
+
                                     if (props.sched) {
-                                        console.log(props.sched)
+                                        const inSchedule = props.sched.activeCourses.some((e : ICourse) => (e.id === data.id))
+                                        const actOverlap = inSchedule && props.sched.activeCourses.some((e : ICourse) => (e.id !== data.id
+                                            && overLap(e, data)));
+
                                         const tent = props.sched.tentativeCourses.some((e : ICourse) => e.id === data.id)
                                         const act = props.sched.activeCourses.some((e : ICourse) => e.id === data.id)
-                                        console.log(tent)
-                                        console.log(act)
+
                                         return (
                                             // <Course /> WILL PROBABLY GO HERE WITH ALL THE INFORMATION ABOUT EACH COURSE
                                             <Course data={data}
@@ -53,9 +73,13 @@ const Results = (props : any) => {
                                                     removeCourse={props.removeCourse}
                                                     active={act}
                                                     tentative={tent}
+                                                    overlap={actOverlap}
                                             />
                                         )
                                     } else {
+                                        const actOverlap = props.response.some((e : ICourse) => (e.id !== data.id
+                                            && overLap(e, data)
+                                            && (props.schedule==="active")))
                                         return (
                                             <Course data={data}
                                                     idx={idx}
@@ -70,6 +94,8 @@ const Results = (props : any) => {
                                                     schedule={props.schedule}
                                                     addCourse={props.addCourse}
                                                     removeCourse={props.removeCourse}
+                                                    // overlap={"UH OH"}
+                                                    overlap={actOverlap}
                                             />
                                         )
                                     }

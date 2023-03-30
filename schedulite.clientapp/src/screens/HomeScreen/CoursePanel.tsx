@@ -67,6 +67,7 @@ const CoursePanel = (props : any) => {
             </div>
             <Results
                 response={props.schedule.activeCourses}
+
                 panel={true}
                 switchAction={activeToTentative}
                 button={<HiOutlineMinus />}

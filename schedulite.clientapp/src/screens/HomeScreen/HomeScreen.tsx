@@ -11,6 +11,7 @@ import ISchedule from "../../types/schedule.type";
 import ICourse from "../../types/course.type";
 
 import Calendar from "./Calendar";
+import FilterPanel from "../SearchScreen/SearchScreenComponents/FilterPanel";
 const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, setSchedule : Function, removeCourse: Function }) => {
     const [response, setResponse] = useState<ICourse[]>();
     const [hoverCourse, setHoverCourse] = useState<ICourse>();
@@ -77,7 +78,7 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
 
                     {/*<ScheduleView />*/}
                 </div>
-                <CourseDetailPanel />
+                <FilterPanel />
             </div>
         </motion.div>
     )

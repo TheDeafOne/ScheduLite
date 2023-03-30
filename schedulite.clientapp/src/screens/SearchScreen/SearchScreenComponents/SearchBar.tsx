@@ -45,6 +45,7 @@ const SearchBar = (props : any) => {
         <div className={"searchBar"}>
             {/*FILTER PANEL*/}
             <input placeholder="Search Classes"
+                   className={"searchBarInput"}
                    autoFocus={props.autofocus}
                    onChange={event => setQuery(event.target.value)}
                    onKeyDown={handleKeyDown}

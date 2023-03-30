@@ -22,10 +22,8 @@ function App() {
         console.log(`Remove course :${courseId} ${schedule}`)
         let currSchedule: ICourse[];
         if (sched === "active") {
-            console.log("active here")
             currSchedule = schedule.activeCourses
         } else {
-            console.log("tentative here")
             currSchedule = schedule.tentativeCourses
         }
         currSchedule.forEach(function(elem : ICourse, index : number) {

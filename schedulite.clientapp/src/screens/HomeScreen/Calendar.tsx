@@ -11,10 +11,10 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
     const [activeSchedule, setActiveSchedule] = useState<ICourse[]>(schedule.activeCourses)
     // const [objStringified, setObj] = useState(JSON.stringify(schedule.activeCourses))
 
-    console.log(schedule);
+    // console.log(schedule);
     console.log(`HOVER COURSE: ${hoverCourse}`)
     const convertClassToEvent = (course : ICourse) => {
-        console.log(course);
+        // console.log(course);
         let days = []
         const startDate = moment(course["start_time"], 'DD/MM/YYYY hh:mm')
         const endDate = moment(course["end_time"], 'DD/MM/YYYY hh:mm A')
@@ -149,7 +149,7 @@ const Day = ({dayOfWeek, eventKey}: {dayOfWeek: string, eventKey: any}) => {
     )
 }
 function loadEvents(events : any) {
-    console.log(`events loaded: ${events}`)
+    // console.log(`events loaded: ${events}`)
     let key: any = {}
 
     // let events = [{"timeStart": "8:00", "timeEnd": "8:50", "days": ["m", "w", "f"], "length":50, "courseTitle":"Principles of Accounting 101" },
@@ -166,7 +166,7 @@ function loadEvents(events : any) {
             // }
         }
     }
-    console.log(key);
+    // console.log(key);
     return key
 }
 export default Calendar
