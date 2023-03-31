@@ -2,6 +2,7 @@ package com.schedulite.schedulite.controllers;
 
 import com.schedulite.schedulite.models.ERole;
 import com.schedulite.schedulite.models.Role;
+import com.schedulite.schedulite.models.Schedule;
 import com.schedulite.schedulite.models.User;
 import com.schedulite.schedulite.repositories.RoleRepository;
 import com.schedulite.schedulite.repositories.UserRepository;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -116,6 +118,8 @@ public class AuthController {
         }
 
         user.setRoles(roles);
+        List<Schedule> schedules = new ArrayList<>();
+        user.setSchedules(schedules);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
