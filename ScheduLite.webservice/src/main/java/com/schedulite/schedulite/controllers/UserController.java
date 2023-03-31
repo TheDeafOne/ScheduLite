@@ -44,7 +44,47 @@ public class UserController {
         currentUser.addSchedule(newSchedule);
         userService.setUpdatedUser(currentUser);
 
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>("Successfully added schedule", HttpStatus.OK);
+    }
+
+    @PostMapping("remove-schedule")
+    public ResponseEntity<?> removeSchedule(@Valid @RequestBody Schedule oldSchedule) {
+        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if (userId == null) {
+            return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
+        }
+
+        Optional<User> optionalUser = userService.getUserByUserId(userId);
+        if (optionalUser.isEmpty()) {
+            return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
+        }
+        User currentUser = optionalUser.get();
+
+        currentUser.removeSchedule(oldSchedule.getScheduleName());
+        userService.setUpdatedUser(currentUser);
+
+        return new ResponseEntity<>("Successfully removed schedule", HttpStatus.OK);
+    }
+
+    @PostMapping("update-schedule")
+    public ResponseEntity<?> updateSchedule(@Valid @RequestBody Schedule updatedSchedule) {
+        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if (userId == null) {
+            return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
+        }
+
+        Optional<User> optionalUser = userService.getUserByUserId(userId);
+        if (optionalUser.isEmpty()) {
+            return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
+        }
+        User currentUser = optionalUser.get();
+
+        currentUser.removeSchedule(updatedSchedule.getScheduleName());
+        currentUser.addSchedule(updatedSchedule);
+
+        userService.setUpdatedUser(currentUser);
+
+        return new ResponseEntity<>("Successfully updated schedule", HttpStatus.OK);
     }
 
 }
