@@ -96,4 +96,13 @@ public class User {
     public void addSchedule(Schedule schedule) {
         schedules.add(schedule);
     }
+
+    public void removeSchedule(String scheduleName) {
+        for (Schedule schedule : schedules) {
+            if (schedule.getScheduleName().equals(scheduleName)) {
+                schedules.remove(schedule);
+                break;
+            }
+        }
+    }
 }

@@ -16,6 +16,7 @@ public class Schedule {
     public Schedule () {
 
     }
+
     public Schedule(String scheduleName, String semester, List<Course> tentativeCourses, List<Course> activeCourses) {
         this.scheduleName = scheduleName;
         this.semester = semester;
@@ -39,11 +40,11 @@ public class Schedule {
         this.semester = semester;
     }
 
-    public List<Course> getTentativeCourseIds() {
+    public List<Course> getTentativeCourses() {
         return tentativeCourses;
     }
 
-    public void setTentativeCourseIds(List<Course> tentativeCourses) {
+    public void setTentativeCourses (List<Course> tentativeCourses) {
         this.tentativeCourses = tentativeCourses;
     }
 
