@@ -1,23 +1,26 @@
 package com.schedulite.schedulite.models;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Schedule {
     private String scheduleName;
     private String semester;
-    @DocumentReference
-    private List<Course> activeCourses;
-    @DocumentReference
-    private List<Course> tentativeCourses;
+    @DBRef
+    private Set<Course> activeCourses = new HashSet<>();
+    @DBRef
+    private Set<Course> tentativeCourses = new HashSet<>();
 
     public Schedule () {
 
     }
 
-    public Schedule(String scheduleName, String semester, List<Course> tentativeCourses, List<Course> activeCourses) {
+    public Schedule(String scheduleName, String semester, Set<Course> tentativeCourses, Set<Course> activeCourses) {
         this.scheduleName = scheduleName;
         this.semester = semester;
         this.tentativeCourses = tentativeCourses;
@@ -40,19 +43,24 @@ public class Schedule {
         this.semester = semester;
     }
 
-    public List<Course> getTentativeCourses() {
+    public Set<Course> getTentativeCourses() {
         return tentativeCourses;
     }
 
-    public void setTentativeCourses (List<Course> tentativeCourses) {
+    public void setTentativeCourses (Set<Course> tentativeCourses) {
         this.tentativeCourses = tentativeCourses;
     }
 
-    public List<Course> getActiveCourses() {
+    public Set<Course> getActiveCourses() {
         return activeCourses;
     }
 
-    public void setActiveCourses(List<Course> activeCourses) {
+    public void setActiveCourses(Set<Course> activeCourses) {
         this.activeCourses = activeCourses;
+    }
+
+    @Override
+    public int hashCode() {
+        return scheduleName.hashCode();
     }
 }
