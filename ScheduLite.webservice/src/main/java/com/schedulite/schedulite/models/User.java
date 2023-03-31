@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,7 +33,7 @@ public class User {
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
-    private Set<Schedule> schedules = new HashSet<>();
+    private ArrayList<Schedule> schedules;
 
     public User() {
 
@@ -83,11 +85,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<Schedule> getSchedules() {
+    public ArrayList<Schedule> getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(Set<Schedule> schedules) {
+    public void setSchedules(ArrayList<Schedule> schedules) {
         this.schedules = schedules;
     }
 
@@ -96,6 +98,11 @@ public class User {
     }
 
     public void removeSchedule(String scheduleName) {
-        schedules.remove(scheduleName);
+        for (Schedule schedule : schedules) {
+            if (schedule.getScheduleName().equals(scheduleName)) {
+                schedules.remove(schedule);
+                break;
+            }
+        }
     }
 }
