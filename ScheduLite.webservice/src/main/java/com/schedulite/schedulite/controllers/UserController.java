@@ -1,5 +1,6 @@
 package com.schedulite.schedulite.controllers;
 
+import com.schedulite.schedulite.models.Course;
 import com.schedulite.schedulite.models.Schedule;
 import com.schedulite.schedulite.models.User;
 import com.schedulite.schedulite.services.RoleService;
@@ -12,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -29,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/add-schedule")
-    public ResponseEntity<?> postSchedule(@Valid @RequestBody Schedule newSchedule) {
+    public ResponseEntity<?> addSchedule(@Valid @RequestBody Schedule newSchedule) {
         String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         if (userId == null) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
@@ -41,6 +44,7 @@ public class UserController {
         }
 
         User currentUser = optionalUser.get();
+
         currentUser.addSchedule(newSchedule);
         userService.setUpdatedUser(currentUser);
 

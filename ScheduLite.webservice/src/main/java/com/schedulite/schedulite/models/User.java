@@ -1,6 +1,5 @@
 package com.schedulite.schedulite.models;
 
-import com.mongodb.lang.Nullable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,8 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Document(collection = "users")
@@ -33,7 +33,7 @@ public class User {
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
-    private List<Schedule> schedules;
+    private ArrayList<Schedule> schedules;
 
     public User() {
 
@@ -85,11 +85,11 @@ public class User {
         this.roles = roles;
     }
 
-    public List<Schedule> getSchedules() {
+    public ArrayList<Schedule> getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(List<Schedule> schedules) {
+    public void setSchedules(ArrayList<Schedule> schedules) {
         this.schedules = schedules;
     }
 

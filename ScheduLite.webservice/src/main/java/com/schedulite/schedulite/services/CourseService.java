@@ -3,12 +3,15 @@ package com.schedulite.schedulite.services;
 import com.schedulite.schedulite.models.Course;
 import com.schedulite.schedulite.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Service
 public class CourseService {
@@ -21,9 +24,9 @@ public class CourseService {
     public List<Course> getCourseByCourseNumber(String courseNumber) {
         Query query = new Query();
         query.addCriteria(
-                Criteria.where("course_number").is(courseNumber)
+                where("course_number").is(courseNumber)
         );
-        return mongoTemplate.find(query,Course.class);
+        return mongoTemplate.find(query, Course.class);
     }
 
     public List<Course> getCourseByFilters(String semester, String title, String prefix, String number, String time, String name) {
