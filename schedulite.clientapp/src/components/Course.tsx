@@ -25,8 +25,8 @@ const Course = (props : any) => {
         // console.log(props)
         props.onCourseClick(props.data)
     }
-    console.log("OVER LAP FROM COURSE")
-    console.log(props.overlap)
+    // console.log("OVER LAP FROM COURSE")
+    // console.log(props.overlap)
     const [active, setActive] = useState(props.active)
     const [tentative, setTentative] = useState(props.tentative)
     // console.log("FROM COURSE")
@@ -86,7 +86,7 @@ const Course = (props : any) => {
                             {props.data.course_title}
                         </div>
                         <div className={"subtitle"}>
-                            {props.data.semester}
+                            {props.data.course_prefix} {props.data.course_number}{props.data.course_section} | {props.data.semester}
 
                         </div>
                         {/*{props.data.id}*/}
@@ -104,7 +104,7 @@ const Course = (props : any) => {
                 (<div className={`course ${props.overlap ? 'overlap' : ''}`} onClick={onCourseClick} key={props.data.key}>
                     <div className={"class-info"}>
                         <div className={"course-title"}>
-                            {props.data.course_title}
+                            {props.data.course_prefix} {props.data.course_number}{props.data.course_section} - <span className={"course-name"}>{props.data.course_title}</span>
                         </div>
 
                         <div className={"subtitle"}>

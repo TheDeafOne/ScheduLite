@@ -16,10 +16,22 @@ const CourseCard = ({course} :{ course : ICourse}) => {
     return (
         <div className={"course-card-container"}>
             <div className={"course-card-title"}>
-                {course.course_title}<span className={"course-card-title course-section"}> - {course.course_section}</span>
+                {course.course_title}<span className={"course-card-title course-section"}> - {course.course_section} | {course.credit_hours} cr.</span>
             </div>
             <div className={"course-card-subtitle"}>
                 {course.on_monday}{course.on_tuesday}{course.on_wednesday}{course.on_thursday}{course.on_friday}, {course.converted_start_date ? course.converted_start_date.format("hh:mm") : ""} - {course.converted_end_date ? course.converted_end_date.format("hh:mm") : ""} | {course.semester}
+            </div>
+            <div>
+                {course.course_prefix} {course.course_number}
+            </div>
+            <div>
+                Professor: {course.first_name} {course.last_name}
+            </div>
+            <div>
+                Course capacity: {course.course_capacity}
+            </div>
+            <div>
+
             </div>
         </div>
     )

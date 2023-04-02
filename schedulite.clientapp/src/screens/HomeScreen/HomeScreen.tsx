@@ -4,7 +4,7 @@ import SearchPage from "../SearchScreen/SearchPage";
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar";
 import "../../styles/BodyStructure.css"
 import CoursePanel from "./CoursePanel";
-import CourseDetailPanel from "../SearchScreen/SearchScreenComponents/CourseDetailPanel";
+import CourseDetailPanel from "../../components/CourseDetailPanel";
 import {useNavigate} from "react-router-dom";
 import { motion } from "framer-motion"
 import ISchedule from "../../types/schedule.type";
@@ -12,9 +12,25 @@ import ICourse from "../../types/course.type";
 
 import Calendar from "./Calendar";
 import FilterPanel from "../SearchScreen/SearchScreenComponents/FilterPanel";
+import {hover} from "@testing-library/user-event/dist/hover";
 const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, setSchedule : Function, removeCourse: Function }) => {
     const [response, setResponse] = useState<ICourse[]>();
     const [hoverCourse, setHoverCourse] = useState<ICourse>();
+    const [currCourse, setCourse]= useState<ICourse>();
+    const [viewCourse, setViewCourse] = useState(false);
+
+    const onCourseClick = (course : any) => {
+        console.log(course);
+        console.log(currCourse);
+        if (course === currCourse) {
+            setViewCourse(false);
+            setCourse(Object);
+        } else {
+            setViewCourse(true);
+            setCourse(course);
+        }
+    }
+
     let navigate = useNavigate();
     const routeChange = () =>{
         let path = `/Search`;
@@ -52,7 +68,7 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
             // transition={{ duration: 2 }}
         >
             <div className={"main-body"}>
-                <CoursePanel schedule={schedule} setSchedule={setSchedule} onMouseEnter={addEvent} onMouseLeave={removeEvent} />
+                <CoursePanel schedule={schedule} setSchedule={setSchedule} onMouseEnter={addEvent} onMouseLeave={removeEvent} onCourseClick={onCourseClick} />
                 <div className={"center-panel"}>
                     <motion.div
                         key="home"
@@ -78,7 +94,7 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
 
                     {/*<ScheduleView />*/}
                 </div>
-                <FilterPanel />
+                <CourseDetailPanel course={currCourse} />
             </div>
         </motion.div>
     )

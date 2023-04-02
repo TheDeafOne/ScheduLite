@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import axiosConfig from "../../../api/axios-config";
-import Results from "../../../components/Results";
-import CourseCard from "../../../components/CourseCard";
-import ICourse from "../../../types/course.type";
+import axiosConfig from "../api/axios-config";
+import Results from "./Results";
+import CourseCard from "./CourseCard";
+import ICourse from "../types/course.type";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
 // import "./App.css";
@@ -10,7 +10,7 @@ import ICourse from "../../../types/course.type";
 const CourseDetailPanel = ({course}: {course : ICourse | undefined}) => {
 
     return (
-        <div className={"side-panel"}>
+        <div className={"side-panel right-panel"}>
             <div className={"side-panel-title"} >
                 Course Detail View
             </div>

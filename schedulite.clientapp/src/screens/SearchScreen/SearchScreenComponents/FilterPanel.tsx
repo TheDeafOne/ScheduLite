@@ -7,7 +7,7 @@ import Results from "../../../components/Results";
 
 const FilterPanel = () => {
     return (
-        <div className={"side-panel"}>
+        <div className={"side-panel left-panel"}>
             <div className={"side-panel-title"} >
                 Filter Page
             </div>

@@ -13,7 +13,7 @@ div {
 .center-panel {
     display: flex;
     /*gap: 20px;*/
-    background-color: #3c4249;
+    background-color: #344850;
     flex-direction: column;
     flex: 3 1 0;
     overflow-y: scroll;
@@ -23,18 +23,37 @@ div {
 }
 .side-panel {
     flex: 1 1 0;
-    background-color: #4c4c5e;
+    background-color: #344850;
     text-align: start;
     color: white;
+    padding: 5px;
+    /*column-gap: 10px;*/
     /*height: 100vh;*/
     /*height: 100%;*/
     overflow-y: scroll;
 }
+.right-panel {
+    border-left: 1px solid #636363;
+    /*background-color: #61dafb;*/
+}
+.left-panel {
+    border-right: 1px solid #636363;
+}
 
 .side-panel-title {
-    padding: 20px 0 0 10px;
+    padding: 20px 10px 0 10px;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 23px;
+}
+.credits {
+    color: #b2b2b8;
+    font-size: 23px;
+}
+.side-panel-title-container {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #636363;
+
 }
 .expand {
     /*background-color: #223239;*/

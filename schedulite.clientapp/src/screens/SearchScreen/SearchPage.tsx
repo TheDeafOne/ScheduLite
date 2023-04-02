@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axiosConfig from "../../api/axios-config";
 import Results from "../../components/Results";
 import SearchBar from "./SearchScreenComponents/SearchBar";
-import CourseDetailPanel from "./SearchScreenComponents/CourseDetailPanel";
+import CourseDetailPanel from "../../components/CourseDetailPanel";
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import "../../styles/BodyStructure.css"
 import Course from "../../components/Course";
@@ -15,6 +15,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse]= useState<ICourse>();
+    const [searchType, setSearchType] = useState("Course Title")
 
     const [viewCourse, setViewCourse] = useState(false);
     const setSearchResponse = (newValue: any) => {
@@ -47,8 +48,16 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         //     })
         // console.log(active)
         // setResponse(active)
-
-        axiosConfig.get(`/courses/query?query=${q}`)
+        console.log(searchType);
+        let url = ""
+        if (searchType === "Course Code") {
+            let params = q.split(" ")
+            url = `/courses/filters?prefix=${params[0]}&number=${params[1]}`
+        } else if (searchType === "Course Title") {
+            url = `/courses/filters?title=${q}`
+        }
+        console.log(url)
+        axiosConfig.get(url)
             .then(r => {
                 setResponse(r.data);
                 r.data.forEach(function(course : ICourse, index : number, array : Array<ICourse>) {
@@ -108,7 +117,14 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
                         // exit={{ opacity: 0 }}
                         transition={{ duration: .75 }}
                     >
-                    <SearchBar setResponse={setSearchResponse} onEnter={onEnter} autofocus={true} firstClick={false}/>
+                    <SearchBar
+                        setResponse={setSearchResponse}
+                        onEnter={onEnter}
+                        autofocus={true}
+                        firstClick={false}
+                        searchType={searchType}
+                        setSearchType={setSearchType}
+                    />
                     </motion.div>
                     <Results response={response}
                              onCourseClick={onCourseClick}
