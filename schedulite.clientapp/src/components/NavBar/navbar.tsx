@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import './navbar.css';
+import UserOptions from '../UserOptions/UserOptions';
+import AuthOptions from '../AuthOptions/AuthOptions';
+import './NavBar.scss';
 
 const NavBar = ({loggedIn}: {loggedIn: boolean}) => {
-    // const [loggedIn]
-    // useEffect(() => {
-    //     if (loggedIn) {
-
-    //     }
-    // },[])
-
     return (
         <div className="navbar">
-            <div className="navbar-content-container">
-                <div>
-                    name
-                </div>
-                <div>
-                    logo
-                </div>
+            <div className="left-side-container">
+                ScheduLite
+            </div>
+            <div className="right-side-container">
+                {loggedIn ? <UserOptions /> : <AuthOptions />}
             </div>
         </div>
     )

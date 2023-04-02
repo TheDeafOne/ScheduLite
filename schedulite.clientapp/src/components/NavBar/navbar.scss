@@ -1,22 +1,17 @@
 .navbar {
-    height: 20px;
-    width: 100vw;
-    background-color: black;
+    height: 50px;
+    background-color: #3c4249;
+    border: 1px solid black;
     color: white;
-}
-
-.navbar-content-container {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    
-    .right-size-container {
-        .user-content {
-        
-        }
-    
-        .auth-content {
-    
-        }
+
+    .right-side-container {
+        padding-right: 35px;
     }
-    
+
+    .left-side-container {
+        margin-left: 10px;
+    }
 }
