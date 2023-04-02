@@ -10,6 +10,4 @@ import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends MongoRepository<Course, String> {
-//    @Query("{course_number:?0}")
-//    Optional<List<Course>> getCourseByCourse_number(String course_number);
 }
