@@ -1,5 +1,5 @@
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axiosConfig from "../api/axios-config";
 import SearchPage from "../screens/SearchScreen/SearchPage";
 import "../styles/Course.css"
@@ -18,10 +18,10 @@ enum ResultState {
     addedToTentative
 }
 
-const Course = (props : any) => {
+const Course = (props: any) => {
 
     // console.log(props.response)
-    const onCourseClick = (event : any) => {
+    const onCourseClick = (event: any) => {
         // console.log(props)
         props.onCourseClick(props.data)
     }
@@ -32,7 +32,7 @@ const Course = (props : any) => {
     // console.log(active)
     // console.log(tentative)
     // console.log("END")
-    const addToActive = (event : any) => {
+    const addToActive = (event: any) => {
         // console.log("add to active")
         event.stopPropagation();
         // console.log(active)
@@ -46,7 +46,7 @@ const Course = (props : any) => {
         setActive(!active)
         // props.
     }
-    const addToTentative = (event : any) => {
+    const addToTentative = (event: any) => {
         console.log("add to tentative")
         event.stopPropagation();
         setActive(false)
@@ -58,7 +58,7 @@ const Course = (props : any) => {
         }
         setTentative(!tentative)
     }
-    const onClick = (event : any) => {
+    const onClick = (event: any) => {
         event.stopPropagation();
         console.log(props);
         props.switchAction(props.data.id)
@@ -75,10 +75,10 @@ const Course = (props : any) => {
         <>
             {props.panel ?
                 (<div className={"course"}
-                      onClick={onCourseClick}
-                      onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(props.data.course_title) : null}
-                      onMouseLeave={props.onMouseLeave ? props.onMouseLeave : null}
-                      key={props.data.key}>
+                    onClick={onCourseClick}
+                    onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(props.data.course_title) : null}
+                    onMouseLeave={props.onMouseLeave ? props.onMouseLeave : null}
+                    key={props.data.key}>
                     <div className={"class-info"}>
                         <div className={"course-title"}>
                             {props.data.course_title}
@@ -91,9 +91,9 @@ const Course = (props : any) => {
 
                     {/*ONLY SHOW THE BUTTON IF THE USER IS SIGNED IN*/}
                     <div className={"add-course panel"}>
-                        <button type="button" onClick={onClick}>{props.button}</button>
-                        <button type="button" onClick={() => props.removeCourse(props.data.id, props.schedule)}><HiX style={{color: "red"}}/></button>
-                        {/*<button type="button" onClick={onClick}><BiAddToQueue /></button>*/}
+                        <button className="course-button" type="button" onClick={onClick}>{props.button}</button>
+                        <button className="course-button" type="button" onClick={() => props.removeCourse(props.data.id, props.schedule)}><HiX style={{ color: "red" }} /></button>
+                        {/*<button className="course-button" type="button" onClick={onClick}><BiAddToQueue /></button>*/}
                     </div>
 
                 </div>)
@@ -105,7 +105,7 @@ const Course = (props : any) => {
                         </div>
 
                         <div className={"subtitle"}>
-                        {props.data.semester}
+                            {props.data.semester}
                         </div>
                         {/*{props.data.id}*/}
                     </div>
@@ -113,14 +113,14 @@ const Course = (props : any) => {
 
                     {/*ONLY SHOW THE BUTTON IF THE USER IS SIGNED IN*/}
                     <div className={"add-course"}>
-                        <button type="button" title="Add a course to active schedule!" onClick={addToActive}>
+                        <button className="course-button" type="button" title="Add a course to active schedule!" onClick={addToActive}>
                             {active
-                                ? <HiCheck style={{color: "lightgreen"}}/>
+                                ? <HiCheck style={{ color: "lightgreen" }} />
                                 : <HiOutlinePlus />}
                         </button>
-                        <button type="button" title="Add a course to tentative schedule!" onClick={addToTentative}>
+                        <button className="course-button" type="button" title="Add a course to tentative schedule!" onClick={addToTentative}>
                             {tentative
-                                ? <BiListCheck style={{color: "lightgreen"}}/>
+                                ? <BiListCheck style={{ color: "lightgreen" }} />
                                 : <BiListPlus />
                             }
 
@@ -129,7 +129,7 @@ const Course = (props : any) => {
 
                 </div>)
             }
-    </>
+        </>
     )
 }
 

@@ -35,7 +35,7 @@
 .subtitle {
     color: #c4c4c4;
 }
-button {
+.course-button {
     all: unset;
     cursor: pointer;
     font-size: 20px;
