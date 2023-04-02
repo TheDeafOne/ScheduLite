@@ -1,0 +1,29 @@
+.vertical-tabs {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+  }
+  
+  .tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    border-top: 1px solid #ddd;
+  }
+  
+  .tab.active {
+    background-color: #fff;
+    font-weight: bold;
+  }
+  
+  .tab-content {
+    flex: 1;
+    padding: 16px;
+  }
+  
