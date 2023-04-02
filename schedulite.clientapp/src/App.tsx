@@ -10,6 +10,8 @@ import Profile from "./screens/ProfileScreen/profile.screen"
 import Signup from "./screens/SignupScreen/signup.screen";
 import Login from "./screens/LoginScreen/login.screen";
 import NavBar from "./components/NavBar/NavBar"
+import {UserProvider} from "./context/UserContext";
+import {ScheduleProvider} from "./context/ScheduleContext";
 
 function App() {
     const location = useLocation();
@@ -89,17 +91,20 @@ function App() {
     return (
         // <UserProvider>
             // <ScheduleProvider
-        <div className="App">
-            <AnimatePresence mode={"wait"}>
-                <Routes location={location} key={location.pathname}>
-                    {/*<Route path="/" element={<Home />} />*/}
-                    <Route path="/signin" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/*" Component={DefaultRoutes} />
-                </Routes>
-            </AnimatePresence>
-
-        </div>
+        <UserProvider>
+            <ScheduleProvider>
+                <div className="App">
+                    <AnimatePresence mode={"wait"}>
+                        <Routes location={location} key={location.pathname}>
+                            {/*<Route path="/" element={<Home />} />*/}
+                            <Route path="/signin" element={<Login />} />
+                            <Route path="/signup" element={<Signup />} />
+                            <Route path="/*" Component={DefaultRoutes} />
+                        </Routes>
+                    </AnimatePresence>
+                </div>
+            </ScheduleProvider>
+        </UserProvider>
     );
 }
 

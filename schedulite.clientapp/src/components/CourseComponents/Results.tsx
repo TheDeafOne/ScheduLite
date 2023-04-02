@@ -1,5 +1,5 @@
 
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "../../screens/SearchScreen/SearchPage";
 import Course from "./Course";
@@ -8,9 +8,12 @@ import ICourse from "../../types/course.type";
 import courseDetailPanel from "./CourseDetailPanel";
 import moment from "moment";
 import course from "./Course";
+import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
 
 
 const Results = (props : any) => {
+
+    const { activeCourses, tentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
     const overLap = (course1 : ICourse, course2: ICourse) => {
         const startDate1 = moment(course1["start_time"], 'DD/MM/YYYY hh:mm')
@@ -26,19 +29,7 @@ const Results = (props : any) => {
 
         return (startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1) && daysSame)
     }
-    // useEffect(() => {
-    //     axiosConfig.get("/users/roles")
-    //         .then(r => {
-    //             console.log(r);
-    //             // console.log(r.data[0].get("name"));
-    //             setResponse(r.data.toString());
-    //         });
-    //
-    // }, [])
 
-    // console.log(props.response)
-    console.log("from results props")
-    // console.log(props)
     return (
         <>
             {
@@ -49,16 +40,16 @@ const Results = (props : any) => {
                                 props.response.map((data : ICourse , idx: number) => {
 
                                     if (props.sched) {
-                                        const inSchedule = props.sched.activeCourses.some((e : ICourse) => (e.id === data.id))
-                                        const actOverlap = inSchedule && props.sched.activeCourses.some((e : ICourse) => (e.id !== data.id
+                                        const inSchedule = activeCourses.courses.some((e : ICourse) => (e.id === data.id))
+                                        const actOverlap = inSchedule && activeCourses.courses.some((e : ICourse) => (e.id !== data.id
                                             && overLap(e, data)));
 
-                                        const tent = props.sched.tentativeCourses.some((e : ICourse) => e.id === data.id)
-                                        const act = props.sched.activeCourses.some((e : ICourse) => e.id === data.id)
+                                        const tent = tentativeCourses.courses.some((e : ICourse) => e.id === data.id)
+                                        const act = activeCourses.courses.some((e : ICourse) => e.id === data.id)
 
                                         return (
                                             // <Course /> WILL PROBABLY GO HERE WITH ALL THE INFORMATION ABOUT EACH COURSE
-                                            <Course data={data}
+                                            <Course course={data}
                                                     idx={idx}
                                                     key={idx}
                                                 // props={...props}
@@ -69,19 +60,18 @@ const Results = (props : any) => {
                                                     switchAction={props.switchAction}
                                                     button={props.button}
                                                     schedule={props.schedule}
-                                                    addCourse={props.addCourse}
-                                                    removeCourse={props.removeCourse}
                                                     active={act}
                                                     tentative={tent}
                                                     overlap={actOverlap}
                                             />
                                         )
                                     } else {
+                                        console.log("not props.sched")
                                         const actOverlap = props.response.some((e : ICourse) => (e.id !== data.id
                                             && overLap(e, data)
                                             && (props.schedule==="active")))
                                         return (
-                                            <Course data={data}
+                                            <Course course={data}
                                                     idx={idx}
                                                     key={idx}
                                                 // props={...props}
@@ -92,9 +82,6 @@ const Results = (props : any) => {
                                                     switchAction={props.switchAction}
                                                     button={props.button}
                                                     schedule={props.schedule}
-                                                    addCourse={props.addCourse}
-                                                    removeCourse={props.removeCourse}
-                                                    // overlap={"UH OH"}
                                                     overlap={actOverlap}
                                             />
                                         )

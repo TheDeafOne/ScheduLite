@@ -19,6 +19,8 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
     const [currCourse, setCourse]= useState<ICourse>();
     const [viewCourse, setViewCourse] = useState(false);
 
+    // const {}
+
     const onCourseClick = (course : any) => {
         console.log(course);
         console.log(currCourse);

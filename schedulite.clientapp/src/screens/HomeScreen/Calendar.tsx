@@ -1,15 +1,17 @@
 import "../../styles/Calendar.css"
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import ICourse from "../../types/course.type";
 import course from "../../components/CourseComponents/Course";
 import moment from "moment";
 import ISchedule from "../../types/schedule.type";
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import {hover} from "@testing-library/user-event/dist/hover";
+import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
 
 const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse: ICourse | undefined}) => {
-    const [activeSchedule, setActiveSchedule] = useState<ICourse[]>(schedule.activeCourses)
+    // const [activeCourses, setActiveCourses] = useState<ICourse[]>(schedule.activeCourses)
     // const [objStringified, setObj] = useState(JSON.stringify(schedule.activeCourses))
+    const { activeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
     // console.log(schedule);
     console.log(`HOVER COURSE: ${hoverCourse}`)
@@ -60,7 +62,7 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
         const day = hour * 24;
         const year = day * 365;
         let events = []
-        for (const course of activeSchedule) {
+        for (const course of activeCourses.courses) {
             events.push(convertClassToEvent(course));
         }
         if (hoverCourse) {

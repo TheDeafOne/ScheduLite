@@ -2,10 +2,10 @@ import React, {createContext, useContext, useReducer, useState} from "react";
 import {number} from "yup";
 
 // type State = {}
-interface User {
+export interface User {
     username: string
 }
-interface UserContextType {
+export interface UserContextType {
     user: User,
     setUser: (user: User) => void
 }
