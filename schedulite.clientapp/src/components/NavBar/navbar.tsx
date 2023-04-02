@@ -3,7 +3,7 @@ import UserOptions from '../UserOptions/UserOptions';
 import AuthOptions from '../AuthOptions/AuthOptions';
 import './NavBar.scss';
 
-const NavBar = ({loggedIn}: {loggedIn: boolean}) => {
+const NavBar = ({ loggedIn }: { loggedIn: boolean }) => {
     return (
         <div className="navbar">
             <div className="left-side-container">
