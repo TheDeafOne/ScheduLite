@@ -14,6 +14,7 @@ import { UserContext, UserContextType } from './context/UserContext';
 import IUser from './types/user.type';
 import { ScheduleProvider } from './context/ScheduleContext';
 import BlockPage from './screens/ScheduleSelectionScreen/ScheduleSelectionScreen';
+import AuthService from './services/auth.service';
 
 function App() {
     const { setUser } = useContext(UserContext) as UserContextType;
@@ -53,6 +54,13 @@ function App() {
         const userStr = localStorage.getItem("user");
         if (userStr) {
             let user: IUser = JSON.parse(userStr);
+            AuthService.login(user.username, user.password);
+            const newUserStr = localStorage.getItem("user");
+            console.log(user.username,user.password);
+            if (newUserStr !== null) {
+                user = JSON.parse(newUserStr);
+            }
+
             // console.log(user);
             setUser(user);
         }
