@@ -56,6 +56,7 @@ function App() {
             // console.log(user);
             setUser(user);
         }
+        
     }, [])
 
     const DefaultRoutes = () => {
