@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import authService from '../../services/auth.service';
+import VerticalTabs from './VerticalTabs';
 
 const Profile = () => {
     const [userData, setUserData] = useState<string>("");
@@ -8,7 +9,7 @@ const Profile = () => {
     },[])
     return (
         <div>
-            hello
+            <VerticalTabs />
         </div>
     )
 }

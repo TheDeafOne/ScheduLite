@@ -11,20 +11,32 @@ const VerticalTabs = () => {
 
   const tabs: Tab[] = [
     {
-      name: 'Personal',
-      content: <div> <Personal/> </div>
+      name: 'User Settings',
+      content: <div> <Personal /> </div>
     },
     {
-      name: 'Display',
-      content: <div>This is the display tab content.</div>
+      name: 'Academic Info',
+      content: <div> <Personal /> </div>
     },
     {
-      name: 'Previous Courses',
-      content: <div>This is the previous courses tab content.</div>
+      name: 'Appearance',
+      content: <div> <Personal /> </div>
     },
     {
-      name: 'Advisor',
-      content: <div>This is the advisor tab content.</div>
+      name: 'Accessibility',
+      content: <div> <Personal /> </div>
+    },
+    {
+      name: 'Keybinds',
+      content: <div> <Personal /> </div>
+    },
+    {
+      name: 'Languages',
+      content: <div> <Personal /> </div>
+    },
+    {
+      name: 'Advances',
+      content: <div> <Personal /> </div>
     },
   ];
 
