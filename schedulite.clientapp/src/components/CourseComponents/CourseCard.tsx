@@ -1,14 +1,14 @@
 
 import React, {useEffect, useState} from 'react'
-import axiosConfig from "../api/axios-config";
-import SearchPage from "../screens/SearchScreen/SearchPage";
-import "../styles/CourseCard.css"
+import axiosConfig from "../../api/axios-config";
+import SearchPage from "../../screens/SearchScreen/SearchPage";
+import "../../styles/CourseCard.css"
 import { BiListPlus, BiListCheck } from 'react-icons/bi'
 import { HiOutlinePlus, HiOutlineMinus, HiX, HiCheck } from 'react-icons/hi'
 import { MdOutlinePlaylistAddCheck, MdOutlinePlaylistAdd } from "react-icons/md";
 
 import { BiAddToQueue } from 'react-icons/bi'
-import ICourse from "../types/course.type";
+import ICourse from "../../types/course.type";
 
 const CourseCard = ({course} :{ course : ICourse}) => {
 

@@ -3,7 +3,7 @@ export default function authHeader() {
     let user = null;
     if (userStr)
       user = JSON.parse(userStr);
-  
+
     if (user && user.accessToken) {
       return { Authorization: 'Bearer ' + user.accessToken };
     } else {

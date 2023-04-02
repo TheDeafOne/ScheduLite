@@ -1,7 +1,7 @@
 import "../../styles/Calendar.css"
 import {useEffect, useState} from "react";
 import ICourse from "../../types/course.type";
-import course from "../../components/Course";
+import course from "../../components/CourseComponents/Course";
 import moment from "moment";
 import ISchedule from "../../types/schedule.type";
 import useDeepCompareEffect from 'use-deep-compare-effect';

@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "../SearchScreen/SearchPage";
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar";
-import Results from "../../components/Results";
+import Results from "../../components/CourseComponents/Results";
 // import {Sortab}
 import {useDraggable} from '@dnd-kit/core';
-import Course from "../../components/Course";
+import Course from "../../components/CourseComponents/Course";
 import ISchedule from "../../types/schedule.type";
 import { HiOutlinePlus, HiOutlineMinus } from 'react-icons/hi'
 

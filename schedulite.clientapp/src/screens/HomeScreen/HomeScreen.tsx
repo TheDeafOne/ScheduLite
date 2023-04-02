@@ -4,7 +4,7 @@ import SearchPage from "../SearchScreen/SearchPage";
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar";
 import "../../styles/BodyStructure.css"
 import CoursePanel from "./CoursePanel";
-import CourseDetailPanel from "../../components/CourseDetailPanel";
+import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
 import {useNavigate} from "react-router-dom";
 import { motion } from "framer-motion"
 import ISchedule from "../../types/schedule.type";

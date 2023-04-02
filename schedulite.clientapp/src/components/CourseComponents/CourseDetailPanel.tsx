@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import axiosConfig from "../api/axios-config";
+import axiosConfig from "../../api/axios-config";
 import Results from "./Results";
 import CourseCard from "./CourseCard";
-import ICourse from "../types/course.type";
+import ICourse from "../../types/course.type";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
 // import "./App.css";

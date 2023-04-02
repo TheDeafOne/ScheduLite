@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axiosConfig from "../../../api/axios-config";
-import Results from "../../../components/Results";
+import Results from "../../../components/CourseComponents/Results";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
 import "../../../styles/SearchBar.css";

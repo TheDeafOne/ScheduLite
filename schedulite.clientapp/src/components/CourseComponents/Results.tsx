@@ -1,10 +1,10 @@
 
 import React, {useEffect, useState} from 'react'
-import axiosConfig from "../api/axios-config";
-import SearchPage from "../screens/SearchScreen/SearchPage";
+import axiosConfig from "../../api/axios-config";
+import SearchPage from "../../screens/SearchScreen/SearchPage";
 import Course from "./Course";
-import "../styles/Results.css"
-import ICourse from "../types/course.type";
+import "../../styles/Results.css"
+import ICourse from "../../types/course.type";
 import courseDetailPanel from "./CourseDetailPanel";
 import moment from "moment";
 import course from "./Course";

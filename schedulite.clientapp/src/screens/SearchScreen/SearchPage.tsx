@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import axiosConfig from "../../api/axios-config";
-import Results from "../../components/Results";
+import Results from "../../components/CourseComponents/Results";
 import SearchBar from "./SearchScreenComponents/SearchBar";
-import CourseDetailPanel from "../../components/CourseDetailPanel";
+import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import "../../styles/BodyStructure.css"
-import Course from "../../components/Course";
+import Course from "../../components/CourseComponents/Course";
 import { motion } from "framer-motion";
 import ICourse from "../../types/course.type";
 import ISchedule from "../../types/schedule.type";
