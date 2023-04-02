@@ -11,6 +11,8 @@ import java.util.Set;
 public class Schedule {
     private String scheduleName;
     private String semester;
+
+    private String year;
     @DBRef
     private Set<Course> activeCourses = new HashSet<>();
     @DBRef
@@ -20,8 +22,9 @@ public class Schedule {
 
     }
 
-    public Schedule(String scheduleName, String semester, Set<Course> tentativeCourses, Set<Course> activeCourses) {
+    public Schedule(String scheduleName, String semester, String year, Set<Course> tentativeCourses, Set<Course> activeCourses) {
         this.scheduleName = scheduleName;
+        this.year = year;
         this.semester = semester;
         this.tentativeCourses = tentativeCourses;
         this.activeCourses = activeCourses;
@@ -57,6 +60,14 @@ public class Schedule {
 
     public void setActiveCourses(Set<Course> activeCourses) {
         this.activeCourses = activeCourses;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     @Override

@@ -16,28 +16,28 @@ const VerticalTabs = () => {
     },
     {
       name: 'Academic Info',
-      content: <div> <Personal /> </div>
+      content: <div> Academic Info </div>
     },
     {
       name: 'Appearance',
-      content: <div> <Personal /> </div>
+      content: <div> Appearance </div>
     },
     {
       name: 'Accessibility',
-      content: <div> <Personal /> </div>
+      content: <div> Accessibility </div>
     },
     {
       name: 'Keybinds',
-      content: <div> <Personal /> </div>
+      content: <div> Keybinds </div>
     },
     {
       name: 'Languages',
-      content: <div> <Personal /> </div>
+      content: <div> Languges </div>
     },
     {
-      name: 'Advances',
-      content: <div> <Personal /> </div>
-    },
+      name: 'Advanced',
+      content: <div> Advanced </div>
+    }
   ];
 
   return (

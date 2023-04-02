@@ -10,16 +10,17 @@ import Profile from "./screens/ProfileScreen/profile.screen"
 import Signup from "./screens/SignupScreen/signup.screen";
 import Login from "./screens/LoginScreen/login.screen";
 import NavBar from "./components/NavBar/NavBar"
-import { UserContext, UserContextType, UserProvider } from './context/UserContext';
+import { UserContext, UserContextType } from './context/UserContext';
 import IUser from './types/user.type';
 import { ScheduleProvider } from './context/ScheduleContext';
+import BlockPage from './screens/ScheduleSelectionScreen/ScheduleSelectionScreen';
 
 function App() {
     const { setUser } = useContext(UserContext) as UserContextType;
     const location = useLocation();
     const active: ICourse[] = [];
     const tentative: ICourse[] = [];
-    const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative, scheduleName: "new", semester: "Spring" })
+    const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative, scheduleName: "new", year:"2018", semester: "Spring" })
 
     const removeCourse = (courseId: string, sched: string) => {
         console.log(`Remove course :${courseId} ${schedule}`)
@@ -36,7 +37,7 @@ function App() {
                 currSchedule.splice(index, 1);
             }
         });
-        setSchedule({ activeCourses: schedule.activeCourses, tentativeCourses: schedule.tentativeCourses, scheduleName: "new", semester: "Spring" })
+        setSchedule({ activeCourses: schedule.activeCourses, tentativeCourses: schedule.tentativeCourses, scheduleName: "new", year:"2018", semester: "Spring" })
     }
     const addCourse = (course: ICourse, sched: string) => {
         console.log("ADD COURSE")
@@ -84,6 +85,7 @@ function App() {
                         }
                     />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/schedule-selection" element={<BlockPage />} />
                 </Routes>
             </div>
         )
