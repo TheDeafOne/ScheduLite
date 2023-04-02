@@ -71,7 +71,18 @@ public class Schedule {
     }
 
     @Override
-    public int hashCode() {
-        return scheduleName.hashCode();
+    public String toString() {
+        return "Schedule{" +
+                "scheduleName='" + scheduleName + '\'' +
+                ", semester='" + semester + '\'' +
+                ", year='" + year + '\'' +
+                ", activeCourses=" + activeCourses +
+                ", tentativeCourses=" + tentativeCourses +
+                '}';
     }
+
+    //    @Override
+//    public int hashCode() {
+//        return scheduleName.hashCode();
+//    }
 }

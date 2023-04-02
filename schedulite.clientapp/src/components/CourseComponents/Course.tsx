@@ -59,7 +59,7 @@ const Course = (props : any) => {
                       onClick={onCourseClick}
                       onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(course.course_title) : null}
                       onMouseLeave={props.onMouseLeave ? props.onMouseLeave : null}
-                      key={props.course.key}>
+                      key={props.key}>
                     <div className={`class-info`}>
                         <div className={"course-title"}>
                             {course.course_title}
@@ -71,8 +71,9 @@ const Course = (props : any) => {
 
                     {/*ONLY SHOW THE BUTTON IF THE USER IS SIGNED IN*/}
                     <div className={`add-course panel`}>
-                        <button type="button" onClick={onClick}>{props.button}</button>
+                        <button className="course-button" type="button" onClick={onClick}>{props.button}</button>
                         <button
+                            className="course-button"
                             type="button"
                             onClick={conditionalRemoveCourse}>
                             <HiX style={{color: "red"}}/>
@@ -104,12 +105,12 @@ const Course = (props : any) => {
 
                     {/*ONLY SHOW THE BUTTON IF THE USER IS SIGNED IN*/}
                     <div className={"add-course"}>
-                        <button type="button" title="Add a course to active schedule!" onClick={addToActive}>
+                        <button className="course-button" type="button" title="Add a course to active schedule!" onClick={addToActive}>
                             {active
                                 ? <HiCheck style={{color: "lightgreen"}}/>
                                 : <HiOutlinePlus />}
                         </button>
-                        <button type="button" title="Add a course to tentative schedule!" onClick={addToTentative}>
+                        <button className="course-button" type="button" title="Add a course to tentative schedule!" onClick={addToTentative}>
                             {tentative
                                 ? <BiListCheck style={{color: "lightgreen"}}/>
                                 : <BiListPlus />

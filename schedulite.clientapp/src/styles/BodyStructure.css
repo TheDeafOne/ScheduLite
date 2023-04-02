@@ -69,3 +69,61 @@ div {
     background-color: #223239;
 
 }
+.save-button {
+    /*all: unset;*/
+    font-size: 20px;
+    /*width: ;*/
+    width: 70px;
+    padding: 15px;
+    /*height: 2em;*/
+    color: white;
+    background-color: #5353ff;
+    border-radius: 5px;
+}
+.save-bar {
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+}
+.save-button {
+    align-items: center;
+    background-color: #2e54ee;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .5rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 10px;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: 70px;
+}
+.save-button:hover, .save-button:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(43, 43, 43, 0.34) 0 4px 12px;
+    color: rgba(255, 252, 252, 0.65);
+}
+.save-button:hover {
+    transform: translateY(-1px);
+}
+.save-button:active {
+    background-color: rgba(46, 84, 238, 0.76);
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(255, 255, 255, 0.65);
+    transform: translateY(0);
+}

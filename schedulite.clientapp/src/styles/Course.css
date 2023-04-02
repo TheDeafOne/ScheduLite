@@ -45,7 +45,7 @@
 .subtitle {
     color: #c4c4c4;
 }
-button {
+.course-button {
     all: unset;
     cursor: pointer;
     font-size: 20px;
@@ -56,11 +56,11 @@ button {
     border-radius: 5px;
     /*text-align: center;*/
 }
-button:hover {
+.course-button:hover {
     background-color: #4b566c;
 }
 
 
-button:focus {
+.course-button:focus {
     outline: orange 5px auto;
 }

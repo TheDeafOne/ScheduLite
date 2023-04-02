@@ -1,8 +1,11 @@
-import React, {createContext, useContext, useReducer, useState} from "react";
+import React, {createContext, useContext, useEffect, useReducer, useState} from "react";
 import ICourse from "../types/course.type";
 import {stat} from "fs";
-import {UserContext} from "./UserContext";
+import {UserContext, UserContextType} from "./UserContext";
 import {bool} from "yup";
+import axios from "../api/axios-config";
+import {replace} from "formik";
+import authHeader from "../services/auth-header";
 
 // export default
 // schedule =
@@ -21,7 +24,9 @@ export interface ScheduleContextType {
     setActiveCourses: Dispatch,
     tentativeCourses: State,
     setTentativeCourses: Dispatch,
-    calcActiveCredits: () => number
+    calcActiveCredits: () => number,
+    saved: boolean,
+    saveSchedule: () => void
 }
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);
 
@@ -53,6 +58,38 @@ export const ScheduleProvider = (props: any) => {
     // const empty: ICourse[] = [];
     const [activeCourses, setActiveCourses] = useReducer(coursesReducer, {courses: []})
     const [tentativeCourses, setTentativeCourses] = useReducer(coursesReducer, {courses: []})
+    const [semester, setSemester] = useState("default")
+    const [year, setYear] = useState("1900")
+    const [name, setName] = useState("default3")
+    const [saved, setSaved] = useState(true)
+
+    const { user, scheduleExists } = useContext(UserContext) as UserContextType
+    const saveSchedule = () => {
+        // let schedule = {
+        //
+        // }
+        let activeIds = activeCourses.courses.map( (value: ICourse) => {
+            return {id: value.id}
+        })
+        let tentativeIds = activeCourses.courses.map( (value: ICourse) => {
+            return {id: value.id}
+        })
+        let schedule = {
+            scheduleName: name,
+            semester: semester,
+            year: year,
+            tentativeCourses: tentativeIds,
+            activeCourses: activeIds
+        }
+        let request = scheduleExists(name) ? "/users/update-schedule" : "/users/add-schedule";
+        console.log(request);
+        axios
+            .post( request, JSON.stringify(schedule),{headers: authHeader()})
+            .then(response => {
+                console.log(response);
+                setSaved(true)
+            });
+    }
     const calcActiveCredits = () : number => {
         let credits : number = 0
         activeCourses.courses.forEach(function(elem : ICourse, index : number) {
@@ -60,7 +97,12 @@ export const ScheduleProvider = (props: any) => {
         });
         return credits
     }
-    const value = {activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, calcActiveCredits}
+    useEffect(() => {
+        setSaved(false);
+        // console.log(saved);
+    }, [activeCourses, tentativeCourses])
+    // const [saved]
+    const value = {activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, calcActiveCredits, saved, saveSchedule}
     return (
         <ScheduleContext.Provider value={value}>
             {props.children}
