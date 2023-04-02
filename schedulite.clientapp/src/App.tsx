@@ -9,7 +9,7 @@ import ICourse from "./types/course.type";
 import Profile from "./screens/ProfileScreen/profile.screen"
 import Signup from "./screens/SignupScreen/signup.screen";
 import Login from "./screens/LoginScreen/login.screen";
-import NavBar from './components/NavBar/NavBar';
+import NavBar from "./components/NavBar/NavBar"
 
 function App() {
     const location = useLocation();
