@@ -1,0 +1,17 @@
+.navbar {
+    height: 50px;
+    background-color: #3c4249;
+    border: 1px solid black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .right-side-container {
+        padding-right: 35px;
+    }
+
+    .left-side-container {
+        margin-left: 10px;
+    }
+}
