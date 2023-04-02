@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './styles/App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './screens/HomeScreen/HomeScreen';
 import SearchPage from "./screens/SearchScreen/SearchPage";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, useTransform } from "framer-motion";
 import ISchedule from "./types/schedule.type";
 import ICourse from "./types/course.type";
 import Profile from "./screens/ProfileScreen/profile.screen"
 import Signup from "./screens/SignupScreen/signup.screen";
 import Login from "./screens/LoginScreen/login.screen";
 import NavBar from "./components/NavBar/NavBar"
-import {UserProvider} from "./context/UserContext";
-import {ScheduleProvider} from "./context/ScheduleContext";
+import { UserContext, UserContextType, UserProvider } from './context/UserContext';
+import IUser from './types/user.type';
+import { ScheduleProvider } from './context/ScheduleContext';
 
 function App() {
+    const { setUser } = useContext(UserContext) as UserContextType;
     const location = useLocation();
     const active: ICourse[] = [];
     const tentative: ICourse[] = [];
-    const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative })
-    const [loggedIn, setLoggedIn] = useState<boolean>(false);
+    const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative, scheduleName: "new", semester: "Spring" })
 
     const removeCourse = (courseId: string, sched: string) => {
         console.log(`Remove course :${courseId} ${schedule}`)
@@ -35,7 +36,7 @@ function App() {
                 currSchedule.splice(index, 1);
             }
         });
-        setSchedule({ activeCourses: schedule.activeCourses, tentativeCourses: schedule.tentativeCourses })
+        setSchedule({ activeCourses: schedule.activeCourses, tentativeCourses: schedule.tentativeCourses, scheduleName: "new", semester: "Spring" })
     }
     const addCourse = (course: ICourse, sched: string) => {
         console.log("ADD COURSE")
@@ -49,14 +50,17 @@ function App() {
 
     useEffect(() => {
         const userStr = localStorage.getItem("user");
-        if (userStr)
-            setLoggedIn(true);
+        if (userStr) {
+            let user: IUser = JSON.parse(userStr);
+            // console.log(user);
+            setUser(user);
+        }
     }, [])
 
     const DefaultRoutes = () => {
         return (
             <div>
-                <NavBar loggedIn={loggedIn} />
+                <NavBar />
                 <Routes>
                     <Route
                         path="/"
@@ -81,7 +85,7 @@ function App() {
                     />
                     <Route path="/profile" element={<Profile />} />
                 </Routes>
-        </div>
+            </div>
         )
     }
 
@@ -89,22 +93,20 @@ function App() {
 
 
     return (
-        // <UserProvider>
-            // <ScheduleProvider
-        <UserProvider>
-            <ScheduleProvider>
-                <div className="App">
-                    <AnimatePresence mode={"wait"}>
-                        <Routes location={location} key={location.pathname}>
-                            {/*<Route path="/" element={<Home />} />*/}
-                            <Route path="/signin" element={<Login />} />
-                            <Route path="/signup" element={<Signup />} />
-                            <Route path="/*" Component={DefaultRoutes} />
-                        </Routes>
-                    </AnimatePresence>
-                </div>
-            </ScheduleProvider>
-        </UserProvider>
+        <ScheduleProvider>
+            <div className="App">
+                <AnimatePresence mode={"wait"}>
+                    <Routes location={location} key={location.pathname}>
+                        {/*<Route path="/" element={<Home />} />*/}
+                        <Route path="/signin" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/*" Component={DefaultRoutes} />
+                    </Routes>
+                </AnimatePresence>
+
+            </div>
+
+        </ScheduleProvider>
     );
 }
 
