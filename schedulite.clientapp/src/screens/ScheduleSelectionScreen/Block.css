@@ -1,36 +1,63 @@
+.schedule-options {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  justify-content: center;
+  /*overflow-wrap: ;*/
+  /*flex-direction: column;*/
+}
+
 .block {
-    display: inline-block;
-    width: calc(25% - 16px);
-    margin: 8px;
-    padding: 8px;
-    text-align: center;
-    background-color: #fff;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  }
+  /*display: inline-block;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  column-gap: 10px;
+  /*row-gap: 10px;*/
+  width: 300px;
+  height: 200px;
+  /*height: 250px;*/
+  /*margin: 8px;*/
+  padding: 8px;
+  text-align: center;
+  background-color: #19262b;
+  border-radius: 10px;
+  border: 1px solid rgba(143, 143, 158, 0.32);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.41);
+  color: white;
+  transition: all .5s ease;
+}
 .block:hover {
   cursor:pointer;
+  filter: brightness(1.2);
+  transform: translateY(-3px);
+
 }
   
   .block img {
-    display: block;
-    width: 100%;
-    height: calc(3 / 5 * 100%);
+    /*display: block;*/
+    /*width: 100%;*/
+    /*height: calc(3 / 5 * 100%);*/
     object-fit: cover;
     object-position: center;
     margin-bottom: 8px;
   }
   
-  .block div {
-    height: calc(2 / 5 * 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-  }
+  /*.block div {*/
+  /*  !*height: calc(2 / 5 * 100%);*!*/
+  /*  display: flex;*/
+  /*  flex-direction: column;*/
+  /*  justify-content: center;*/
+  /*  align-items: center;*/
+  /*  !*font-size: 16px;*!*/
+  /*}*/
   
   .block.new {
-    background-color: #ccc;
+    background-color: #4c6671;
     color: #fff;
     font-size: 64px;
     font-weight: bold;
@@ -38,18 +65,25 @@
   }
   
   .block.new:hover {
-    background-color: #aaa;
+    filter: brightness(1.2);
   }
   
-  .schedule-select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    font-size: 16px;
-    margin-right: 16px;
-  }
-  .schedule-select-container {
-    /*background-color: #344850;*/
-    /*height: 100%;*/
-  }
+.schedule-select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  /*font-size: 16px;*/
+  /*margin-right: 16px;*/
+}
+.schedule-select-container {
+  font-size: 16px;
+  color: white;
+  /*background-color: #344850;*/
+  /*height: 100%;*/
+}
+.schedule-name {
+  font-size: 24px !important;
+  font-weight: bold;
+  padding-bottom: 10px;
+}

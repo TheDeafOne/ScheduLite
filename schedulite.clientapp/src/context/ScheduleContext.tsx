@@ -82,8 +82,8 @@ export const ScheduleProvider = (props: any) => {
     const [activeCourses, setActiveCourses] = useReducer(coursesReducer, {courses: []})
     const [tentativeCourses, setTentativeCourses] = useReducer(coursesReducer, {courses: []})
     const [semester, setSemester] = useState("")
-    const [year, setYear] = useState("1900")
-    const [name, setName] = useState("default4")
+    const [year, setYear] = useState("")
+    const [name, setName] = useState("")
     const [saved, setSaved] = useState(true)
 
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
@@ -114,6 +114,7 @@ export const ScheduleProvider = (props: any) => {
             tentativeCourses: tentativeCourses.courses,
             activeCourses: activeCourses.courses
         }
+        console.log(name)
         if (scheduleExists(name)) {
             axios
                 .post( "/users/update-schedule", JSON.stringify(requestBody),{headers: authHeader()})

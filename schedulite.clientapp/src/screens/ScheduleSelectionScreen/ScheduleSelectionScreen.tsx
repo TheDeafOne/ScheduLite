@@ -35,6 +35,7 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     setSemesterFilter(event.target.value);
   };
 
+  // const newSchedule = ()
   const handleBlockClick = (currentSchedule: ISchedule) => {
     setName(currentSchedule.scheduleName);
     setSemester(currentSchedule.semester);
@@ -69,10 +70,10 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
           <option value="Spring">Spring</option>
         </select>
       </div>
-      <div>
+      <div className={"schedule-options"}>
         {filteredBlocks!.map((block, index) => (
           <div key={index} className="block" onClick={() => handleBlockClick(block)}>
-            <div>{block.scheduleName}</div><br/>  <div>{block.semester}</div><br/><div>{block.year}</div>
+            <div className={"schedule-name"}>{block.scheduleName}</div><div>Semester: {block.semester ? block.semester : "No Semester"}</div><div>Year: {block.year}</div>
           </div>
         ))}
         <div className="block new" onClick={() => {
