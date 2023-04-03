@@ -1,21 +1,26 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axiosConfig from "../../api/axios-config";
-import Results from "../../components/Results";
+import Results from "../../components/CourseComponents/Results";
 import SearchBar from "./SearchScreenComponents/SearchBar";
-import CourseDetailPanel from "./SearchScreenComponents/CourseDetailPanel";
+import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import "../../styles/BodyStructure.css"
-import Course from "../../components/Course";
+import Course from "../../components/CourseComponents/Course";
 import { motion } from "framer-motion";
 import ICourse from "../../types/course.type";
 import ISchedule from "../../types/schedule.type";
+import moment from "moment";
+import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
 
 const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { schedule : ISchedule, setSchedule : Function, addCourse: Function, removeCourse: Function }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse]= useState<ICourse>();
-
+    const [searchType, setSearchType] = useState("Course Title")
     const [viewCourse, setViewCourse] = useState(false);
+
+    const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
+
     const setSearchResponse = (newValue: any) => {
         setResponse(newValue);
     }
@@ -34,39 +39,34 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
     const onEnter = (q : any) => {
         console.log("PRESSED ENTER")
         console.log(q);
-        // setResponse(active)
-        // setResponse([{id: "640fe2f84c63f508ebd1d2b4", name: "ROLE_USER"}, {id: "640fe2f84c63f508ebd1d2b5", name: "ROLE_MODERATOR"}, {id: "640fe2f84c63f508ebd1d2b6", name: "ROLE_ADMIN"}])
-        /**
-         * THIS IS WHERE WE ARE GOING TO MAKE A CALL TO THE DATABASE
-         */
-        axiosConfig.get(`/courses/query?query=${q}`)
+
+        console.log(searchType);
+        let url = ""
+        if (searchType === "Course Code") {
+            let params = q.split(" ")
+            url = `/courses/filters?prefix=${params[0]}&number=${params[1]}`
+        } else if (searchType === "Course Title") {
+            url = `/courses/filters?title=${q}`
+        }
+        console.log(url)
+        axiosConfig.get(url)
             .then(r => {
-                setResponse(r.data.slice(0,10));
-                console.log((r.data));
-            })
+                setResponse(r.data);
+                r.data.forEach(function(course : ICourse, index : number, array : Array<ICourse>) {
+                    array[index].converted_start_date = moment(course["start_time"], 'DD/MM/YYYY h:mm');
+                    array[index].converted_end_date = moment(course["end_time"], 'DD/MM/YYYY h:mm');
+                })
+                console.log(`r = ${r}`)
+                }
+            )
     };
-    // useEffect(() => {
-    //     axiosConfig.get("/users/roles")
-    //         .then(r => {
-    //             setResponse(r.data);
-    //             console.log((r.data));
-    //         })
-    // }, []);
+
     const handleKeyDown = (event : any) => {
         if (event.key === 'Enter') {
             // 👇 Get input value
             console.log("PRESSED ENTER")
             console.log(query);
 
-            // setResponse(active)
-            /**
-             * THIS IS WHERE WE ARE GOING TO MAKE A CALL TO THE DATABASE
-             */
-            // axiosConfig.get("/courses")
-            //     .then(r => {
-            //         setResponse(r.data);
-            //         console.log((r.data));
-            //     })
         }
     };
 
@@ -94,7 +94,14 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
                         // exit={{ opacity: 0 }}
                         transition={{ duration: .75 }}
                     >
-                    <SearchBar setResponse={setSearchResponse} onEnter={onEnter} autofocus={true} firstClick={false}/>
+                    <SearchBar
+                        setResponse={setSearchResponse}
+                        onEnter={onEnter}
+                        autofocus={true}
+                        firstClick={false}
+                        searchType={searchType}
+                        setSearchType={setSearchType}
+                    />
                     </motion.div>
                     <Results response={response}
                              onCourseClick={onCourseClick}
@@ -102,7 +109,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
                              removeCourse={removeCourse}
                              sched={schedule}/>
                 </div>
-                <CourseDetailPanel data={currCourse}/>
+                <CourseDetailPanel course={currCourse}/>
                 {/*DETAIL VIEW*/}
             </div>
         </motion.div>

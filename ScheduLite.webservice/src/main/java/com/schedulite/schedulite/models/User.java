@@ -7,10 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Document(collection = "users")
 public class User {
@@ -33,7 +30,7 @@ public class User {
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
-    private ArrayList<Schedule> schedules;
+    private ArrayList<Schedule> schedules = new ArrayList<>();
 
     public User() {
 
