@@ -7,7 +7,8 @@ import ISchedule from "../types/schedule.type";
 export interface UserContextType {
     user: IUser | null,
     setUser: (user: IUser) => void,
-    scheduleExists: (name: string) => boolean | undefined | null
+    scheduleExists: (name: string) => boolean | undefined | null,
+    addUserSchedule: (schedule: ISchedule) => void
 }
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
@@ -18,9 +19,16 @@ export const UserProvider = (props : any) => {
     const scheduleExists = (name: string) => {
         return user && user.schedules && user.schedules.some((e : ISchedule) => e.scheduleName === name)
     }
+    const addUserSchedule = (schedule: ISchedule) => {
+        if (user) {
+            let tempUser = user
+            tempUser.schedules = tempUser.schedules ? [...tempUser.schedules, schedule] : [schedule]
+            setUser(tempUser)
+        }
+    }
     return (
         <UserContext.Provider
-            value={{user, setUser, scheduleExists}}>
+            value={{user, setUser, scheduleExists, addUserSchedule}}>
             {props.children}
         </UserContext.Provider>
     )

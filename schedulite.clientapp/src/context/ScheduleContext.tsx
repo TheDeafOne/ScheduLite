@@ -6,6 +6,7 @@ import {bool} from "yup";
 import axios from "../api/axios-config";
 import {replace} from "formik";
 import authHeader from "../services/auth-header";
+import ISchedule from "../types/schedule.type";
 
 // export default
 // schedule =
@@ -60,10 +61,10 @@ export const ScheduleProvider = (props: any) => {
     const [tentativeCourses, setTentativeCourses] = useReducer(coursesReducer, {courses: []})
     const [semester, setSemester] = useState("default")
     const [year, setYear] = useState("1900")
-    const [name, setName] = useState("default3")
+    const [name, setName] = useState("default4")
     const [saved, setSaved] = useState(true)
 
-    const { user, scheduleExists } = useContext(UserContext) as UserContextType
+    const { user, setUser, scheduleExists, addUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
         // let schedule = {
         //
@@ -71,24 +72,47 @@ export const ScheduleProvider = (props: any) => {
         let activeIds = activeCourses.courses.map( (value: ICourse) => {
             return {id: value.id}
         })
-        let tentativeIds = activeCourses.courses.map( (value: ICourse) => {
+        let tentativeIds = tentativeCourses.courses.map( (value: ICourse) => {
             return {id: value.id}
         })
-        let schedule = {
+        let requestBody = {
             scheduleName: name,
             semester: semester,
             year: year,
             tentativeCourses: tentativeIds,
             activeCourses: activeIds
         }
-        let request = scheduleExists(name) ? "/users/update-schedule" : "/users/add-schedule";
-        console.log(request);
-        axios
-            .post( request, JSON.stringify(schedule),{headers: authHeader()})
-            .then(response => {
-                console.log(response);
-                setSaved(true)
-            });
+        // let request = scheduleExists(name) ? "/users/update-schedule" : "/users/add-schedule";
+        // console.log(request);
+        // let schedule = requestBody
+        let schedule: ISchedule = {
+            scheduleName: name,
+            semester: semester,
+            year: year,
+            tentativeCourses: tentativeCourses.courses,
+            activeCourses: activeCourses.courses
+        }
+        if (scheduleExists(name)) {
+            axios
+                .post( "/users/update-schedule", JSON.stringify(requestBody),{headers: authHeader()})
+                .then(response => {
+                    console.log(response);
+                    if (response.status === 200) {
+                        setSaved(true)
+                    }
+                });
+        } else {
+            axios
+                .post( "/users/add-schedule", JSON.stringify(requestBody),{headers: authHeader()})
+                .then(response => {
+                    console.log(response);
+                    if (response.status === 200) {
+                        setSaved(true)
+                        addUserSchedule(schedule)
+                    }
+                });
+        }
+
     }
     const calcActiveCredits = () : number => {
         let credits : number = 0

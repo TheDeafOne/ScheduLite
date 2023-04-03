@@ -56,7 +56,6 @@ function App() {
             let user: IUser = JSON.parse(userStr);
             AuthService.login(user.username, user.password);
             const newUserStr = localStorage.getItem("user");
-            console.log(user.username,user.password);
             if (newUserStr !== null) {
                 user = JSON.parse(newUserStr);
             }

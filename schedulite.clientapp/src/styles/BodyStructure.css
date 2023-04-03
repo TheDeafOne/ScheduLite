@@ -85,6 +85,10 @@ div {
     align-items: center;
     /*justify-content: center;*/
 }
+.saved-text {
+    color: #00ff00;
+    font-weight: bold;
+}
 .save-button {
     align-items: center;
     background-color: #2e54ee;

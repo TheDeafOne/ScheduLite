@@ -133,8 +133,6 @@ const Day = ({dayOfWeek, eventKey}: {dayOfWeek: string, eventKey: any}) => {
         //
         // } else {
         if (eventKey[`${times[i]} ${dayOfWeek}`]) {
-            // const html : string = eventKey[`${times[i]} ${dayOfWeek}`]
-            // console.log(eventKey[`${times[i]} ${dayOfWeek}`].props.className)
             slots.push(<div className={`day-slot`} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}>{eventKey[`${times[i]} ${dayOfWeek}`]}</div>)
         } else {
             slots.push(<div className={"day-slot"} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}></div>)

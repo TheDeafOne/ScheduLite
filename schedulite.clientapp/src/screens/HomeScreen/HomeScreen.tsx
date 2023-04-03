@@ -73,8 +73,6 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
                     <motion.div
                         key="home"
                         className="container text-center"
-                    //     transformOrigin: "top center",
-                    // transformOrigin: "top center",
                         initial={{scale: 1 }}
                         animate={{scale: .97 }}
                         transition={{ duration: .75 }}
@@ -96,7 +94,7 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
                     <div className={"save-bar"}>
                         <button className="save-button" type={"button"} onClick={saveSchedule}>Save</button>
                         {
-                            scheduleSaved && <span>Saved!</span>
+                            scheduleSaved && <span className={"saved-text"}>Saved!</span>
                         }
                     </div>
                 </div>
