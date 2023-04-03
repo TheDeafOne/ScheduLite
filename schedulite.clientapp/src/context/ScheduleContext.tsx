@@ -86,7 +86,7 @@ export const ScheduleProvider = (props: any) => {
     const [name, setName] = useState("default4")
     const [saved, setSaved] = useState(true)
 
-    const { user, setUser, scheduleExists, addUserSchedule } = useContext(UserContext) as UserContextType
+    const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
         // let schedule = {
         //
@@ -121,6 +121,8 @@ export const ScheduleProvider = (props: any) => {
                     console.log(response);
                     if (response.status === 200) {
                         setSaved(true)
+                        updateUserSchedule(schedule)
+                        // state.courses.findIndex((x) => x.id === action.course!.id);
                     }
                 });
         } else {
