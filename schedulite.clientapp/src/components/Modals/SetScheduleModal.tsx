@@ -28,7 +28,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
-            </select>
+            </select> <br />
             <label>schedule semester</label> <br />
             <select id="schedule-semester" onChange={(change) => {
                 setSemester(change.target.value);
