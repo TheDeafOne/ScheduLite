@@ -10,11 +10,15 @@ import Profile from "./screens/ProfileScreen/profile.screen"
 import Signup from "./screens/SignupScreen/signup.screen";
 import Login from "./screens/LoginScreen/login.screen";
 import NavBar from "./components/NavBar/NavBar"
+import Modal from 'react-modal';
 import { UserContext, UserContextType } from './context/UserContext';
 import IUser from './types/user.type';
 import { ScheduleProvider } from './context/ScheduleContext';
 import BlockPage from './screens/ScheduleSelectionScreen/ScheduleSelectionScreen';
 import AuthService from './services/auth.service';
+import SetScheduleModal from './components/Modals/SetScheduleModal';
+
+Modal.setAppElement('#root');
 
 function App() {
     const { setUser } = useContext(UserContext) as UserContextType;
@@ -22,7 +26,22 @@ function App() {
     const active: ICourse[] = [];
     const tentative: ICourse[] = [];
     const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative, scheduleName: "new", year:"2018", semester: "Spring" })
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [modal, setModal] = useState(null);
 
+
+    const customModalStyles = {
+        content: {
+          top: '50%',
+          left: '50%',
+          width: '50%',
+        //   right: 'auto',
+        //   bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      };
+      
     const removeCourse = (courseId: string, sched: string) => {
         console.log(`Remove course :${courseId} ${schedule}`)
         let currSchedule: ICourse[];
@@ -66,9 +85,31 @@ function App() {
         
     }, [])
 
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function afterOpenModal() {
+        console.log("after open model");
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     const DefaultRoutes = () => {
         return (
             <div>
+                <Modal
+                    isOpen={modalIsOpen}
+                    onAfterOpen={afterOpenModal}
+                    onRequestClose={closeModal}
+                    contentLabel="modal"
+                    shouldCloseOnEsc={true}
+                    shouldCloseOnOverlayClick={true}
+                    style={customModalStyles}>
+                        {modal}
+                </Modal>
                 <NavBar />
                 <Routes>
                     <Route
@@ -93,7 +134,7 @@ function App() {
                         }
                     />
                     <Route path="/profile" element={<Profile />} />
-                    <Route path="/schedule-selection" element={<BlockPage />} />
+                    <Route path="/schedule-selection" element={<BlockPage setIsOpen={setIsOpen} setModal={setModal} />} />
                 </Routes>
             </div>
         )

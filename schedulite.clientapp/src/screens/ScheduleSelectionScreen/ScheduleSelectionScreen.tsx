@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { UserContext, UserContextType } from '../../context/UserContext';
 import ISchedule from "../../types/schedule.type";
 import "./Block.css";
+import SetScheduleModal from "../../components/Modals/SetScheduleModal";
 
 
 const blocks: ISchedule[] = [];
 
 
-const BlockPage = () => {
+const BlockPage = ({setIsOpen, setModal}: any) => {
   const { user, setUser } = useContext(UserContext) as UserContextType;
   const [yearFilter, setYearFilter] = useState<number | undefined>();
   const [semesterFilter, setSemesterFilter] = useState<string | undefined>();
@@ -33,9 +34,9 @@ const BlockPage = () => {
     console.log(currentSchedule);
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     
-  }, [])
+  // }, [])
 
   return (
     <div>
@@ -65,7 +66,10 @@ const BlockPage = () => {
             {/* <div>{`${block.semester} ${block.year} ${block.name}`}</div> */}
           </div>
         ))}
-        <div className="block new" onClick={() => navigate("/new-schedule")}>
+        <div className="block new" onClick={() => {
+          setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
+          setIsOpen(true);
+        }}>
           +
         </div>
       </div>
