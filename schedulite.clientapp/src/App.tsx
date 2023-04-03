@@ -145,8 +145,8 @@ function App() {
 
     return (
         <ScheduleProvider>
-            <div className="App">
-                <div className={"main-div"}>
+            <div className="App" id={"app"}>
+                {/*<div className={"main-div"}>*/}
                     <AnimatePresence mode={"wait"}>
                         <Routes location={location} key={location.pathname}>
                             {/*<Route path="/" element={<Home />} />*/}
@@ -156,7 +156,7 @@ function App() {
                         </Routes>
                     </AnimatePresence>
 
-                </div>
+                {/*</div>*/}
 
             </div>
 
