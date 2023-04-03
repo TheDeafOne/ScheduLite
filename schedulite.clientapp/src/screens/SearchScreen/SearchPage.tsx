@@ -12,14 +12,35 @@ import ISchedule from "../../types/schedule.type";
 import moment from "moment";
 import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
 
+
+export interface Filters {
+    nameFilter: string,
+    setNameFilter: Function,
+    timeFilter: string,
+    setTimeFilter: Function,
+    dayFilter: string,
+    setDayFilter: Function,
+    semester: string,
+    setSemesterFilter: Function
+}
 const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { schedule : ISchedule, setSchedule : Function, addCourse: Function, removeCourse: Function }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
-    const [currCourse, setCourse]= useState<ICourse>();
+    const [currCourse, setCourse]= useState<ICourse | undefined>();
     const [searchType, setSearchType] = useState("Course Title")
     const [viewCourse, setViewCourse] = useState(false);
 
-    const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
+    const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, semester } = useContext(ScheduleContext) as ScheduleContextType
+    // filters
+    const [nameFilter, setNameFilter] = useState("")
+    const [timeFilter, setTimeFilter] = useState("")
+    const [dayFilter, setDayFilter] = useState("")
+    const [semesterFilter, setSemesterFilter] = useState(semester)
+
+    let filters = {
+        nameFilter, setNameFilter, timeFilter, setTimeFilter, dayFilter, setDayFilter, semester, setSemesterFilter
+    }
+
 
     const setSearchResponse = (newValue: any) => {
         setResponse(newValue);
@@ -29,7 +50,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         console.log(currCourse);
         if (course === currCourse) {
             setViewCourse(false);
-            setCourse(Object);
+            setCourse(undefined);
         } else {
             setViewCourse(true);
             setCourse(course);
@@ -39,14 +60,18 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
     const onEnter = (q : any) => {
         console.log("PRESSED ENTER")
         console.log(q);
-
+        console.log(filters);
         console.log(searchType);
         let url = ""
+        // if (semester === "") {
+            // setSemesterFilter("Set semester when creating schedule!")
+        // }
+        let filterParams = `semester=${semesterFilter}&name=${nameFilter}&time=${timeFilter}&days=${dayFilter}`
         if (searchType === "Course Code") {
             let params = q.split(" ")
-            url = `/courses/filters?prefix=${params[0]}&number=${params[1]}`
+            url = `/courses/filters?prefix=${params[0]}&number=${params[1]}&${filterParams}`
         } else if (searchType === "Course Title") {
-            url = `/courses/filters?title=${q}`
+            url = `/courses/filters?title=${q}&${filterParams}`
         }
         console.log(url)
         axiosConfig.get(url)
@@ -82,7 +107,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         >
             <div className={"main-body"}>
                 {/*FILTER PANEL*/}
-                <FilterPanel />
+                <FilterPanel filters={filters}/>
                 <div className={"center-panel"}>
                     <motion.div
                         key="search"
@@ -109,7 +134,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
                              removeCourse={removeCourse}
                              sched={schedule}/>
                 </div>
-                <CourseDetailPanel course={currCourse}/>
+                <CourseDetailPanel course={currCourse} viewCourse={viewCourse}/>
                 {/*DETAIL VIEW*/}
             </div>
         </motion.div>

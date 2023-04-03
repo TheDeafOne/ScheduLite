@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { UserContext, UserContextType } from '../../context/UserContext';
 import ISchedule from "../../types/schedule.type";
 import "./Block.css";
+import SetScheduleModal from "../../components/Modals/SetScheduleModal";
 
 
 const blocks: ISchedule[] = [];
 
 
-const BlockPage = () => {
+const BlockPage = ({setIsOpen, setModal}: any) => {
   const { user, setUser } = useContext(UserContext) as UserContextType;
   const [yearFilter, setYearFilter] = useState<number | undefined>();
   const [semesterFilter, setSemesterFilter] = useState<string | undefined>();
@@ -33,15 +34,15 @@ const BlockPage = () => {
     console.log(currentSchedule);
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     
-  }, [])
+  // }, [])
 
   return (
     <div>
       <div>
         <label htmlFor="year-filter">Year:</label>
-        <select id="year-filter" onChange={handleYearFilterChange}>
+        <select className="schedule-select" id="year-filter" onChange={handleYearFilterChange}>
           <option value="">All</option>
           <option value="2022">2020</option>
           <option value="2022">2021</option>
@@ -51,7 +52,7 @@ const BlockPage = () => {
       </div>
       <div>
         <label htmlFor="semester-filter">Semester:</label>
-        <select id="semester-filter" onChange={handleSemesterFilterChange}>
+        <select className="schedule-select" id="semester-filter" onChange={handleSemesterFilterChange}>
           <option value="">All</option>
           <option value="Fall">Fall</option>
           <option value="Spring">Spring</option>
@@ -65,7 +66,10 @@ const BlockPage = () => {
             {/* <div>{`${block.semester} ${block.year} ${block.name}`}</div> */}
           </div>
         ))}
-        <div className="block new" onClick={() => navigate("/new-schedule")}>
+        <div className="block new" onClick={() => {
+          setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
+          setIsOpen(true);
+        }}>
           +
         </div>
       </div>

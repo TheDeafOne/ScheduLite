@@ -131,3 +131,45 @@ div {
     color: rgba(255, 255, 255, 0.65);
     transform: translateY(0);
 }
+
+.back-button {
+    all: unset;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    font-weight: bold;
+    margin: 5px;
+    border-radius: 5px;
+}
+.back-button:hover {
+    background-color: #4b566c;
+}
+
+.back-button:focus {
+    outline: orange 5px auto;
+}
+.filter-input {
+    font-size: 15px;
+    padding: 1em;
+    border-style: unset;
+    border-radius: 5px;
+    background-color: #19262b;
+    color: white;
+}
+label {
+    padding-bottom: 5px;
+}
+.filters {
+    /*line-height: 2em;*/
+    display: flex;
+    flex-direction: column;
+}
+.filter-input:disabled {
+    background-color: #243740;
+    font-weight: bold;
+    color: #282c34;
+}
+.filter-input:disabled:hover {
+    cursor: not-allowed;
+}

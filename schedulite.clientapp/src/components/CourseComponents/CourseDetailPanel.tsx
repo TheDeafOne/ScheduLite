@@ -7,7 +7,7 @@ import ICourse from "../../types/course.type";
 // import List from "./Components/List";
 // import "./App.css";
 
-const CourseDetailPanel = ({course}: {course : ICourse | undefined}) => {
+const CourseDetailPanel = ({course, viewCourse}: {course : ICourse | undefined, viewCourse: boolean}) => {
 
     return (
         <div className={"side-panel right-panel"}>
@@ -15,7 +15,9 @@ const CourseDetailPanel = ({course}: {course : ICourse | undefined}) => {
                 Course Detail View
             </div>
             <br/>
-            {course ? <CourseCard course={course} />: ""}
+            {
+                viewCourse && course && <CourseCard course={course} />
+            }
         </div>
     )
 }

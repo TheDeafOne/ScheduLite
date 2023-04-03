@@ -26,3 +26,11 @@
     color: #c2c2d0;
     /*border: unset;*/
 }
+.data {
+    display: flex;
+    justify-content: space-between;
+    /*align-items: ;*/
+}
+.data-title {
+    font-weight: bold;
+}

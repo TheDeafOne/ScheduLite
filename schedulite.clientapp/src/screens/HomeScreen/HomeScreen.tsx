@@ -112,7 +112,7 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
                         }
                     </div>
                 </div>
-                <CourseDetailPanel course={currCourse} />
+                <CourseDetailPanel course={currCourse} viewCourse={viewCourse}/>
             </div>
         </motion.div>
     )
