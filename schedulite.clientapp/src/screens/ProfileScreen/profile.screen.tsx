@@ -20,7 +20,7 @@ const Profile = () => {
             <VerticalTabs />
             <button onClick={() => {
                 AuthService.logout();
-                navigate("/");
+                navigate("/signin");
             }}>
                 Log Out
             </button>
