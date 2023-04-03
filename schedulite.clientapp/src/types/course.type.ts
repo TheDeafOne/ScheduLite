@@ -24,7 +24,7 @@ export default interface ICourse {
     start_time?: string | null,
     end_time?: string | null,
     preferred_name?: string | null,
-    overlap?: string | null,
+    overlap?: boolean | null,
     converted_start_date?: moment.Moment | null,
     converted_end_date?: moment.Moment | null,
 

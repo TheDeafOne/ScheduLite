@@ -18,7 +18,7 @@ import {UserContext, UserContextType} from "../../context/UserContext";
 const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, setSchedule : Function, removeCourse: Function }) => {
     const [response, setResponse] = useState<ICourse[]>();
     const [hoverCourse, setHoverCourse] = useState<ICourse>();
-    const [currCourse, setCourse]= useState<ICourse>();
+    const [currCourse, setCourse]= useState<ICourse | undefined>();
     const [viewCourse, setViewCourse] = useState(false);
     const { saved, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType
@@ -47,7 +47,7 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
         console.log(currCourse);
         if (course === currCourse) {
             setViewCourse(false);
-            setCourse(Object);
+            setCourse(undefined);
         } else {
             setViewCourse(true);
             setCourse(course);
