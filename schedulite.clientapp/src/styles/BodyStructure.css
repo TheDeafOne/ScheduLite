@@ -1,6 +1,9 @@
 div {
     font-family: Arial, serif;
 }
+.main-div {
+    height: 100vh;
+}
 .main-body {
     /*padding: 20px;*/
     background-color: crimson;
@@ -8,7 +11,7 @@ div {
     flex-direction: row;
     justify-content: center;
     overflow-y: scroll;
-    height: 100vh;
+    height: 94vh;
 }
 .center-panel {
     display: flex;

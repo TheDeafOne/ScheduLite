@@ -99,7 +99,7 @@ function App() {
 
     const DefaultRoutes = () => {
         return (
-            <div>
+            <div >
                 <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}
@@ -146,14 +146,17 @@ function App() {
     return (
         <ScheduleProvider>
             <div className="App">
-                <AnimatePresence mode={"wait"}>
-                    <Routes location={location} key={location.pathname}>
-                        {/*<Route path="/" element={<Home />} />*/}
-                        <Route path="/signin" element={<Login />} />
-                        <Route path="/signup" element={<Signup />} />
-                        <Route path="/*" Component={DefaultRoutes} />
-                    </Routes>
-                </AnimatePresence>
+                <div className={"main-div"}>
+                    <AnimatePresence mode={"wait"}>
+                        <Routes location={location} key={location.pathname}>
+                            {/*<Route path="/" element={<Home />} />*/}
+                            <Route path="/signin" element={<Login />} />
+                            <Route path="/signup" element={<Signup />} />
+                            <Route path="/*" Component={DefaultRoutes} />
+                        </Routes>
+                    </AnimatePresence>
+
+                </div>
 
             </div>
 
