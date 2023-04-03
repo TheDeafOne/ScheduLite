@@ -77,11 +77,11 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         console.log(url)
         axiosConfig.get(url)
             .then(r => {
-                setResponse(r.data);
                 r.data.forEach(function(course : ICourse, index : number, array : Array<ICourse>) {
                     array[index].converted_start_date = moment(course["start_time"], 'DD/MM/YYYY h:mm');
                     array[index].converted_end_date = moment(course["end_time"], 'DD/MM/YYYY h:mm');
                 })
+                setResponse(r.data.splice(0,20));
                 console.log(`r = ${r}`)
                 }
             )
