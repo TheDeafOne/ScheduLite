@@ -47,6 +47,8 @@ const Results = (props : any) => {
                                         const tent = tentativeCourses.courses.some((e : ICourse) => e.id === data.id)
                                         const act = activeCourses.courses.some((e : ICourse) => e.id === data.id)
 
+                                        console.log(`tent : ${tent}`)
+                                        console.log(`active : ${act}`)
                                         return (
                                             // <Course /> WILL PROBABLY GO HERE WITH ALL THE INFORMATION ABOUT EACH COURSE
                                             <Course course={data}
@@ -93,9 +95,9 @@ const Results = (props : any) => {
                         </div>
                     )
                     :
-                    <>
-
-                    </>
+                    <div>
+                        {/*No results found!*/}
+                    </div>
             }
 
         </>

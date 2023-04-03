@@ -53,8 +53,9 @@ function coursesReducer(state: State, action: Action) {
         }
         case "remove": {
             let courseIndex = -1
+            console.log("REMOVE")
             if (action.course) {
-                const courseIndex = state.courses.findIndex((x) => x.id === action.course!.id);
+                courseIndex = state.courses.findIndex((x) => x.id === action.course!.id);
             } 
             // if no match, return the previous state
             if ( courseIndex < 0) return state;

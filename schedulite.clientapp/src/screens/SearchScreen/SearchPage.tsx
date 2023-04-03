@@ -62,6 +62,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         console.log(q);
         console.log(filters);
         console.log(searchType);
+        setResponse([])
         let url = ""
         // if (semester === "") {
             // setSemesterFilter("Set semester when creating schedule!")
