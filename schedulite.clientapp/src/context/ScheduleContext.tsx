@@ -27,6 +27,12 @@ export interface ScheduleContextType {
     setTentativeCourses: Dispatch,
     calcActiveCredits: () => number,
     saved: boolean,
+    year: string,
+    setYear: React.Dispatch<React.SetStateAction<string>>,
+    name: string,
+    setName: React.Dispatch<React.SetStateAction<string>>,
+    semester: string,
+    setSemester: React.Dispatch<React.SetStateAction<string>>,
     saveSchedule: () => void
 }
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);
@@ -126,7 +132,16 @@ export const ScheduleProvider = (props: any) => {
         // console.log(saved);
     }, [activeCourses, tentativeCourses])
     // const [saved]
-    const value = {activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, calcActiveCredits, saved, saveSchedule}
+    const value = {
+        activeCourses, setActiveCourses, 
+        tentativeCourses, setTentativeCourses, 
+        saved, saveSchedule,
+        name, setName,
+        semester, setSemester,
+        year, setYear,
+        calcActiveCredits, 
+        
+    }
     return (
         <ScheduleContext.Provider value={value}>
             {props.children}
