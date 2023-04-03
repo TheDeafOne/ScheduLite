@@ -7,6 +7,7 @@ import axios from "../api/axios-config";
 import {replace} from "formik";
 import authHeader from "../services/auth-header";
 import ISchedule from "../types/schedule.type";
+import { IconBaseProps } from "react-icons/lib";
 
 // export default
 // schedule =
@@ -16,7 +17,8 @@ import ISchedule from "../types/schedule.type";
 //  else {
 //  NEED LOGGED IN
 // setSchedule=(
-type Action = {course: ICourse, type: 'add' | 'remove', unshift?: boolean | null}
+type Action = {course: ICourse | null, type: 'add' | 'remove' | 'setAll', unshift?: boolean | null, courseList?: ICourse[] | null}
+
 type Dispatch = (action: Action) => void
 type State = {courses: Array<ICourse>}
 
@@ -40,18 +42,31 @@ export const ScheduleContext = createContext<ScheduleContextType | undefined>(un
 function coursesReducer(state: State, action: Action) {
     switch (action.type) {
         case "add": {
-            return {
-                courses: action.unshift ? [action.course, ...state.courses] : [...state.courses, action.course]
-            }
+            if (action.course) {
+                return {
+                    courses: action.unshift ? [action.course, ...state.courses] : [...state.courses, action.course]
+                }
+            } else return {courses: state.courses}
+            // return {
+            //     courses: action.unshift ? [action.course, ...state.courses] : [...state.courses, action.course]
+            // }
         }
         case "remove": {
-            const courseIndex = state.courses.findIndex((x) => x.id === action.course.id);
+            let courseIndex = -1
+            if (action.course) {
+                const courseIndex = state.courses.findIndex((x) => x.id === action.course!.id);
+            } 
             // if no match, return the previous state
             if ( courseIndex < 0) return state;
             // avoid mutating the original state, create a copy
             const stateUpdate = [...state.courses];
             // then splice it out from the array
             stateUpdate.splice(courseIndex, 1);
+            return {courses: stateUpdate};
+        }
+        case "setAll": {
+            const stateUpdate : Array<ICourse> = action.courseList ? action.courseList : state.courses
+            
             return {courses: stateUpdate};
         }
         default: {
