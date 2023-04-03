@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import AuthService from "../../services/auth.service";
-import { UserContext, UserContextType } from '../../context/UserContext';
 
 const Login = () => {
-    const { setUser } = useContext(UserContext) as UserContextType;
     const [loading, setLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
     const navigate = useNavigate();
@@ -33,7 +31,6 @@ const Login = () => {
         AuthService.login(username, password).then(
             () => {
                 navigate("/profile",{replace:true});
-                setUser(AuthService.getCurrentUser());
             },
             error => {
                 const resMessage = (
@@ -92,6 +89,10 @@ const Login = () => {
               )}
             </Form>
         </Formik>
+        <label>
+            need an account?
+        </label>
+        <button onClick={() => {navigate("/signup")}}>sign up</button>
         </div>
     )
 }
