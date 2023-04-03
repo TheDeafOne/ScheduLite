@@ -26,16 +26,16 @@ export interface Filters {
 const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { schedule : ISchedule, setSchedule : Function, addCourse: Function, removeCourse: Function }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
-    const [currCourse, setCourse]= useState<ICourse>();
+    const [currCourse, setCourse]= useState<ICourse | undefined>();
     const [searchType, setSearchType] = useState("Course Title")
     const [viewCourse, setViewCourse] = useState(false);
 
-    const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
+    const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, semester } = useContext(ScheduleContext) as ScheduleContextType
     // filters
     const [nameFilter, setNameFilter] = useState("")
     const [timeFilter, setTimeFilter] = useState("")
     const [dayFilter, setDayFilter] = useState("")
-    const [semester, setSemesterFilter] = useState("")
+    const [semesterFilter, setSemesterFilter] = useState(semester)
 
     let filters = {
         nameFilter, setNameFilter, timeFilter, setTimeFilter, dayFilter, setDayFilter, semester, setSemesterFilter
@@ -50,7 +50,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         console.log(currCourse);
         if (course === currCourse) {
             setViewCourse(false);
-            setCourse(Object);
+            setCourse(undefined);
         } else {
             setViewCourse(true);
             setCourse(course);
@@ -63,7 +63,10 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         console.log(filters);
         console.log(searchType);
         let url = ""
-        let filterParams = `semester=${semester}&name=${nameFilter}&time=${timeFilter}&days=${dayFilter}`
+        // if (semester === "") {
+            // setSemesterFilter("Set semester when creating schedule!")
+        // }
+        let filterParams = `semester=${semesterFilter}&name=${nameFilter}&time=${timeFilter}&days=${dayFilter}`
         if (searchType === "Course Code") {
             let params = q.split(" ")
             url = `/courses/filters?prefix=${params[0]}&number=${params[1]}&${filterParams}`
@@ -131,7 +134,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
                              removeCourse={removeCourse}
                              sched={schedule}/>
                 </div>
-                <CourseDetailPanel course={currCourse}/>
+                <CourseDetailPanel course={currCourse} viewCourse={viewCourse}/>
                 {/*DETAIL VIEW*/}
             </div>
         </motion.div>
