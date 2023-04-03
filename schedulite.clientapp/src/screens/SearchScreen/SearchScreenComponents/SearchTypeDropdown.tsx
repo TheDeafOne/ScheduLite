@@ -9,7 +9,7 @@ const SearchTypeDropdown = (props : any) => {
     };
     return (
         <div>
-            <select className={"minimal"} id={"options"} value={props.searchType} onChange={handleChange}>
+            <select className={"minimal search-select"} id={"options"} value={props.searchType} onChange={handleChange}>
                 <option value={"Course Code"}>Course Code</option>
                 <option value={"Course Title"}>Course Title</option>
             </select>
