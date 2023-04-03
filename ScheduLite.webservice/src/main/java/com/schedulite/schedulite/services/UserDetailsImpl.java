@@ -1,11 +1,13 @@
 package com.schedulite.schedulite.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.schedulite.schedulite.models.Schedule;
 import com.schedulite.schedulite.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -20,17 +22,20 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
+    private ArrayList<Schedule> schedules;
+
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(String id, String username, String email, String password,
+    public UserDetailsImpl(String id, String username, String email, String password, ArrayList<Schedule> schedules,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.schedules = schedules;
         this.authorities = authorities;
     }
 
@@ -44,7 +49,16 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getSchedules(),
                 authorities);
+    }
+
+    public ArrayList<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(ArrayList<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
     @Override

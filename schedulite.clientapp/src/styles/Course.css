@@ -3,11 +3,18 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #3c404e;
+    background-color: #213844;
     color: white;
     padding: 20px;
     border-radius: 20px;
+    border: 1px solid #636363;
+
+    /*border: 1px solid white;*/
+    /*overflow-x: hidden;*/
     /*column-gap: 10px;*/
+}
+.overlap {
+    background-color: #5e2929;
 }
 .course:hover {
     filter: brightness(1.2);
@@ -32,6 +39,9 @@
     font-weight: bold;
     font-size: larger;
 }
+.course-name {
+    color: #d0d0d0;
+}
 .subtitle {
     color: #c4c4c4;
 }
@@ -46,11 +56,11 @@
     border-radius: 5px;
     /*text-align: center;*/
 }
-button:hover {
+.course-button:hover {
     background-color: #4b566c;
 }
 
 
-button:focus {
+.course-button:focus {
     outline: orange 5px auto;
 }

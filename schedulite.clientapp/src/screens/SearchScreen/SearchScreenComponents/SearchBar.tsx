@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axiosConfig from "../../../api/axios-config";
-import Results from "../../../components/Results";
+import Results from "../../../components/CourseComponents/Results";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
 import "../../../styles/SearchBar.css";
+import SearchTypeDropdown from "./SearchTypeDropdown";
 
 const SearchBar = (props : any) => {
     // const [response, setResponse] = useState(props.response);
@@ -44,11 +45,21 @@ const SearchBar = (props : any) => {
     return (
         <div className={"searchBar"}>
             {/*FILTER PANEL*/}
-            <input placeholder="Search Classes"
-                   autoFocus={props.autofocus}
-                   onChange={event => setQuery(event.target.value)}
-                   onKeyDown={handleKeyDown}
-                   onClick={onclick}/>
+            <div className={"searchBarInputContainer"}>
+                {
+                    props.firstClick ?
+                        null
+                        :
+                        <SearchTypeDropdown searchType={props.searchType} setSearchType={props.setSearchType}/>
+                }
+                <input placeholder="Search Classes"
+                       className={"searchBarInput"}
+                       autoFocus={props.autofocus}
+                       onChange={event => setQuery(event.target.value)}
+                       onKeyDown={handleKeyDown}
+                       onClick={onclick}/>
+            </div>
+
             {/*DETAIL VIEW*/}
         </div>
     )

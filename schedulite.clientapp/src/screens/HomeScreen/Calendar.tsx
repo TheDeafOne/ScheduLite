@@ -1,20 +1,22 @@
 import "../../styles/Calendar.css"
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import ICourse from "../../types/course.type";
-import course from "../../components/Course";
+import course from "../../components/CourseComponents/Course";
 import moment from "moment";
 import ISchedule from "../../types/schedule.type";
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import {hover} from "@testing-library/user-event/dist/hover";
+import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
 
 const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse: ICourse | undefined}) => {
-    const [activeSchedule, setActiveSchedule] = useState<ICourse[]>(schedule.activeCourses)
+    // const [activeCourses, setActiveCourses] = useState<ICourse[]>(schedule.activeCourses)
     // const [objStringified, setObj] = useState(JSON.stringify(schedule.activeCourses))
+    const { activeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
-    console.log(schedule);
+    // console.log(schedule);
     console.log(`HOVER COURSE: ${hoverCourse}`)
     const convertClassToEvent = (course : ICourse) => {
-        console.log(course);
+        // console.log(course);
         let days = []
         const startDate = moment(course["start_time"], 'DD/MM/YYYY hh:mm')
         const endDate = moment(course["end_time"], 'DD/MM/YYYY hh:mm A')
@@ -45,7 +47,8 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
             "timeEnd": convert(`${endDate.hours()}:${endDate.minute()}`),
             "days": days,
             "length": time,
-            "courseTitle": course.course_title
+            "courseTitle": course.course_title,
+            "course": course
         }
         return event
     }
@@ -59,12 +62,7 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
         const day = hour * 24;
         const year = day * 365;
         let events = []
-        for (const course of activeSchedule) {
-            // convertClassToEvent(course)
-
-            // console.log("EVENT!!!")
-            // console.log(event);
-            // console.log(event);
+        for (const course of activeCourses.courses) {
             events.push(convertClassToEvent(course));
         }
         if (hoverCourse) {
@@ -121,7 +119,7 @@ const Times = () => {
     )
 }
 const Day = ({dayOfWeek, eventKey}: {dayOfWeek: string, eventKey: any}) => {
-    console.log("changed")
+    // console.log("changed")
     let slots = []
     let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00" ,"5:30", "6:00", "6:30", "7:00", "7:30"]
     // let events = [{"timeStart": "8:00", "timeEnd": "8:50", "days": ["m", "w", "f"], "length":50, "courseTitle":"Principles of Accounting 101" },
@@ -135,8 +133,7 @@ const Day = ({dayOfWeek, eventKey}: {dayOfWeek: string, eventKey: any}) => {
         //
         // } else {
         if (eventKey[`${times[i]} ${dayOfWeek}`]) {
-            // const html : string = eventKey[`${times[i]} ${dayOfWeek}`]
-            slots.push(<div className={"day-slot"} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}>{eventKey[`${times[i]} ${dayOfWeek}`]}</div>)
+            slots.push(<div className={`day-slot`} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}>{eventKey[`${times[i]} ${dayOfWeek}`]}</div>)
         } else {
             slots.push(<div className={"day-slot"} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}></div>)
         }
@@ -149,7 +146,7 @@ const Day = ({dayOfWeek, eventKey}: {dayOfWeek: string, eventKey: any}) => {
     )
 }
 function loadEvents(events : any) {
-    console.log(`events loaded: ${events}`)
+    // console.log(`events loaded: ${events}`)
     let key: any = {}
 
     // let events = [{"timeStart": "8:00", "timeEnd": "8:50", "days": ["m", "w", "f"], "length":50, "courseTitle":"Principles of Accounting 101" },
@@ -157,16 +154,30 @@ function loadEvents(events : any) {
     for (const event of events) {
         for (const day of event.days) {
             // console.log(`${event.timeStart} ${day}`)
-            const courseHeight = event.length * 2
+
             // key[`${event.timeStart} ${day}`] = `<!--<div class="calendar-course" style="height: ${courseHeight}px;">${event.courseTitle}</div>-->`
-            key[`${event.timeStart} ${day}`] = <div className={"calendar-course"} style={{height: courseHeight}}>{event.courseTitle}</div>
+            key[`${event.timeStart} ${day}`] = <CalendarCourse event={event} />
             // const slot = document.getElementById(`${event.timeStart} ${day}`)
             // if (slot) {
             //     slot.innerHTML = `<div class="calendar-course" style="height: ${courseHeight}px;">${event.courseTitle}</div>`
             // }
         }
     }
-    console.log(key);
+    // console.log(key);
     return key
+}
+const CalendarCourse = (props : any) => {
+    const courseHeight = props.event.length * 2
+    let event = props.event
+    return (
+        <div className={`calendar-course ${event.overlap ? 'overlap' : ''}`} style={{height: courseHeight}}>
+            <div>
+                {event.courseTitle}
+            </div>
+            <div>
+                {event.timeStart} - {event.timeEnd}
+            </div>
+        </div>
+    )
 }
 export default Calendar
