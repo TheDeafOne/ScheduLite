@@ -41,7 +41,7 @@ const BlockPage = () => {
     <div>
       <div>
         <label htmlFor="year-filter">Year:</label>
-        <select id="year-filter" onChange={handleYearFilterChange}>
+        <select className="schedule-select" id="year-filter" onChange={handleYearFilterChange}>
           <option value="">All</option>
           <option value="2022">2020</option>
           <option value="2022">2021</option>
@@ -51,7 +51,7 @@ const BlockPage = () => {
       </div>
       <div>
         <label htmlFor="semester-filter">Semester:</label>
-        <select id="semester-filter" onChange={handleSemesterFilterChange}>
+        <select className="schedule-select" id="semester-filter" onChange={handleSemesterFilterChange}>
           <option value="">All</option>
           <option value="Fall">Fall</option>
           <option value="Spring">Spring</option>

@@ -65,7 +65,13 @@ const Course = (props : any) => {
                             {course.course_title}
                         </div>
                         <div className={"subtitle"}>
-                            {course.course_prefix} {course.course_number}{course.course_section} | {course.semester}
+                            {course.course_prefix} {course.course_number}{course.course_section} | {course.converted_start_date ?
+                                course.converted_start_date.format("hh:mm")
+                                : ""}
+                            -
+                            {course.converted_end_date ?
+                                course.converted_end_date.format("hh:mm")
+                                : ""}
                         </div>
                     </div>
 

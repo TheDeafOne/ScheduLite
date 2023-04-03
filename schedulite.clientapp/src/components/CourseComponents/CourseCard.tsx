@@ -15,24 +15,15 @@ const CourseCard = ({course} :{ course : ICourse}) => {
 
     return (
         <div className={"course-card-container"}>
-            <div className={"course-card-title"}>
+            <span className={"course-card-title"}>
                 {course.course_title}<span className={"course-card-title course-section"}> - {course.course_section} | {course.credit_hours} cr.</span>
-            </div>
-            <div className={"course-card-subtitle"}>
-                {course.on_monday}{course.on_tuesday}{course.on_wednesday}{course.on_thursday}{course.on_friday}, {course.converted_start_date ? course.converted_start_date.format("hh:mm") : ""} - {course.converted_end_date ? course.converted_end_date.format("hh:mm") : ""} | {course.semester}
-            </div>
-            <div>
-                {course.course_prefix} {course.course_number}
-            </div>
-            <div>
-                Professor: {course.first_name} {course.last_name}
-            </div>
-            <div>
-                Course capacity: {course.course_capacity}
-            </div>
-            <div>
-
-            </div>
+            </span>
+            <span className={"course-card-subtitle"}>{course.on_monday}{course.on_tuesday}{course.on_wednesday}{course.on_thursday}{course.on_friday}, {course.converted_start_date ? course.converted_start_date.format("hh:mm") : ""} - {course.converted_end_date ? course.converted_end_date.format("hh:mm") : ""} | {course.semester}</span>
+            <span className={"data"}><span className={"data-title"}>Code:</span> {course.course_prefix} {course.course_number}</span>
+            <span className={"data"}><span className={"data-title"}>Professor:</span> {course.first_name} {course.last_name}</span>
+            <span className={"data"}><span className={"data-title"}>Course capacity:</span> {course.course_capacity}</span>
+            <span className={"data"}><span className={"data-title"}>Room:</span> {course.building_code} {course.room_code}</span>
+            <span className={"data"}><span className={"data-title"}>Year:</span> {course.year}</span>
         </div>
     )
 
