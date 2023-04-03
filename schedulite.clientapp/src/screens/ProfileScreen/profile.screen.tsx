@@ -10,11 +10,10 @@ const Profile = () => {
     const [userData, setUserData] = useState<string>("");
 
     useEffect(() => {
-        console.log(AuthService.getCurrentUser());
         if (user === null) {
             navigate("/signin");
         }
-    }, [])
+    }, [user])
     return (
         <div>
             <VerticalTabs />
