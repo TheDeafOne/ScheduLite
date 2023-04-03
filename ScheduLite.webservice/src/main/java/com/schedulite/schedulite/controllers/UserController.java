@@ -33,6 +33,7 @@ public class UserController {
 
     @PostMapping("/add-schedule")
     public ResponseEntity<?> addSchedule(@Valid @RequestBody Schedule newSchedule) {
+        // checking for valid user and schedule
         String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         if (userId == null) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
@@ -47,12 +48,13 @@ public class UserController {
 
         currentUser.addSchedule(newSchedule);
         userService.setUpdatedUser(currentUser);
-
+        // if user and schedule provided is valid, return successful notice
         return new ResponseEntity<>("Successfully added schedule", HttpStatus.OK);
     }
 
     @PostMapping("remove-schedule")
     public ResponseEntity<?> removeSchedule(@Valid @RequestBody Schedule oldSchedule) {
+        // checking for valid user request
         String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         if (userId == null) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
@@ -66,7 +68,7 @@ public class UserController {
 
         currentUser.removeSchedule(oldSchedule.getScheduleName());
         userService.setUpdatedUser(currentUser);
-
+        // deletes selected schedule of the current user
         return new ResponseEntity<>("Successfully removed schedule", HttpStatus.OK);
     }
 

@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CourseRepository extends MongoRepository<Course, String> {
-}
+public interface CourseRepository extends MongoRepository<Course, String> { }
+// extending mongo repository allows us to call findAll() and other basic useful methods
