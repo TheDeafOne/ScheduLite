@@ -35,6 +35,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
     const [nameFilter, setNameFilter] = useState("")
     const [timeFilter, setTimeFilter] = useState("")
     const [dayFilter, setDayFilter] = useState("")
+    console.log(`SEMESTER = ${semester}`)
     const [semesterFilter, setSemesterFilter] = useState(semester)
 
     let filters = {
@@ -67,7 +68,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         // if (semester === "") {
             // setSemesterFilter("Set semester when creating schedule!")
         // }
-        let filterParams = `semester=${semesterFilter}&name=${nameFilter}&time=${timeFilter}&days=${dayFilter}`
+        let filterParams = `semester=${semester}&name=${nameFilter}&time=${timeFilter}&days=${dayFilter}`
         if (searchType === "Course Code") {
             let params = q.split(" ")
             url = `/courses/filters?prefix=${params[0]}&number=${params[1]}&${filterParams}`

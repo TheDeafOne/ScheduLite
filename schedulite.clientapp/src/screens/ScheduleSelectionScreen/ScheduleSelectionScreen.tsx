@@ -51,7 +51,7 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
   }, [])
 
   return (
-    <div>
+    <div className={"schedule-select-container"}>
       <div>
         <label htmlFor="year-filter">Year:</label>
         <select className="schedule-select" id="year-filter" onChange={handleYearFilterChange}>

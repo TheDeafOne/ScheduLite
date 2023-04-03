@@ -43,8 +43,8 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
         }
     }
     const onCourseClick = (course : any) => {
-        console.log(course);
-        console.log(currCourse);
+        // console.log(course);
+        // console.log(currCourse);
         if (course === currCourse) {
             setViewCourse(false);
             setCourse(undefined);
@@ -68,7 +68,7 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
     }
     const addEvent = (course : ICourse) => {
         setHoverCourse(course)
-        console.log("test")
+        // console.log("test")
     }
 
     return (
