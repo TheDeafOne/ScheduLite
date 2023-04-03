@@ -59,7 +59,7 @@ const Course = (props : any) => {
                       onClick={onCourseClick}
                       onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(course.course_title) : null}
                       onMouseLeave={props.onMouseLeave ? props.onMouseLeave : null}
-                      key={props.key}>
+                      key={props.courseKey}>
                     <div className={`class-info`}>
                         <div className={"course-title"}>
                             {course.course_title}
@@ -83,7 +83,7 @@ const Course = (props : any) => {
 
                 </div>)
                 :
-                (<div className={`course ${props.overlap ? 'overlap' : ''}`} onClick={onCourseClick} key={props.key}>
+                (<div className={`course ${props.overlap ? 'overlap' : ''}`} onClick={onCourseClick} key={props.courseKey}>
                     <div className={"class-info"}>
                         <div className={"course-title"}>
                             {course.course_prefix} {course.course_number}{course.course_section} - <span className={"course-name"}>{course.course_title}</span>

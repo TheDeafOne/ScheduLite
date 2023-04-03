@@ -14,20 +14,34 @@ import Calendar from "./Calendar";
 import FilterPanel from "../SearchScreen/SearchScreenComponents/FilterPanel";
 import {hover} from "@testing-library/user-event/dist/hover";
 import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
+import {UserContext, UserContextType} from "../../context/UserContext";
 const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, setSchedule : Function, removeCourse: Function }) => {
     const [response, setResponse] = useState<ICourse[]>();
     const [hoverCourse, setHoverCourse] = useState<ICourse>();
     const [currCourse, setCourse]= useState<ICourse>();
     const [viewCourse, setViewCourse] = useState(false);
     const { saved, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
+    const { user } = useContext(UserContext) as UserContextType
+
     const [scheduleSaved, setScheduleSaved] = useState(false)
+    const [saveMessage, setSavedMessage] = useState("")
+
+
     useEffect(() => {
         console.log("CALLLLLEDDDDD")
         setScheduleSaved(saved);
         }, [saved])
     // const {}
     // const saveSchedule = () =>
-
+    const onSaveClick = () => {
+        if (user) {
+            // if ()
+            saveSchedule()
+            setSavedMessage("Saved!")
+        } else {
+            setSavedMessage("Not logged in! Sign in to save schedule")
+        }
+    }
     const onCourseClick = (course : any) => {
         console.log(course);
         console.log(currCourse);
@@ -92,7 +106,7 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
 
                     {/*<ScheduleView />*/}
                     <div className={"save-bar"}>
-                        <button className="save-button" type={"button"} onClick={saveSchedule}>Save</button>
+                        <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>
                         {
                             scheduleSaved && <span className={"saved-text"}>Saved!</span>
                         }

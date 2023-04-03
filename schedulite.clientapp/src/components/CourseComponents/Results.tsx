@@ -52,6 +52,7 @@ const Results = (props : any) => {
                                             <Course course={data}
                                                     idx={idx}
                                                     key={idx}
+                                                    courseKey={idx}
                                                 // props={...props}
                                                     onCourseClick={props.onCourseClick}
                                                     panel={props.panel}
