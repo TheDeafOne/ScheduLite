@@ -67,7 +67,7 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
           </div>
         ))}
         <div className="block new" onClick={() => {
-          setModal(<SetScheduleModal />);
+          setModal(<SetScheduleModal setIsOpen={setIsOpen}/>);
           setIsOpen(true);
         }}>
           +
