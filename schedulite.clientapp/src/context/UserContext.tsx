@@ -9,6 +9,7 @@ export interface UserContextType {
     setUser: (user: IUser) => void,
     scheduleExists: (name: string) => boolean | undefined | null,
     addUserSchedule: (schedule: ISchedule) => void
+    updateUserSchedule: (schedule: ISchedule) => void
 }
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
@@ -26,9 +27,18 @@ export const UserProvider = (props : any) => {
             setUser(tempUser)
         }
     }
+    const updateUserSchedule = (schedule: ISchedule) => {
+        if (user) {
+            let tempUser = user
+            if (tempUser.schedules) {
+                let idx = tempUser.schedules.findIndex((x) => x.scheduleName === schedule.scheduleName);
+                tempUser.schedules[idx] = schedule
+            }
+        }
+    }
     return (
         <UserContext.Provider
-            value={{user, setUser, scheduleExists, addUserSchedule}}>
+            value={{user, setUser, scheduleExists, addUserSchedule, updateUserSchedule}}>
             {props.children}
         </UserContext.Provider>
     )

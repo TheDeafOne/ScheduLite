@@ -53,8 +53,9 @@ function coursesReducer(state: State, action: Action) {
         }
         case "remove": {
             let courseIndex = -1
+            console.log("REMOVE")
             if (action.course) {
-                const courseIndex = state.courses.findIndex((x) => x.id === action.course!.id);
+                courseIndex = state.courses.findIndex((x) => x.id === action.course!.id);
             } 
             // if no match, return the previous state
             if ( courseIndex < 0) return state;
@@ -85,7 +86,7 @@ export const ScheduleProvider = (props: any) => {
     const [name, setName] = useState("default4")
     const [saved, setSaved] = useState(true)
 
-    const { user, setUser, scheduleExists, addUserSchedule } = useContext(UserContext) as UserContextType
+    const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
         // let schedule = {
         //
@@ -120,6 +121,8 @@ export const ScheduleProvider = (props: any) => {
                     console.log(response);
                     if (response.status === 200) {
                         setSaved(true)
+                        updateUserSchedule(schedule)
+                        // state.courses.findIndex((x) => x.id === action.course!.id);
                     }
                 });
         } else {

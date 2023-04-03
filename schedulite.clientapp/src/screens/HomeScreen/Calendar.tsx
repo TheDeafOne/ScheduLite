@@ -14,7 +14,7 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
     const { activeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
     // console.log(schedule);
-    console.log(`HOVER COURSE: ${hoverCourse}`)
+    // console.log(`HOVER COURSE: ${hoverCourse}`)
     const convertClassToEvent = (course : ICourse) => {
         // console.log(course);
         let days = []
@@ -61,7 +61,7 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
     function convert(input : string) {
         return moment(input, 'HH:mm').format('h:mm');
     }
-    console.log(`PROPS ACTIVE: ${schedule.activeCourses}`)
+    // console.log(`PROPS ACTIVE: ${schedule.activeCourses}`)
     const overLap = (course1 : ICourse, course2: ICourse) => {
         const startDate1 = moment(course1["start_time"], 'DD/MM/YYYY hh:mm')
         const endDate1 = moment(course1["end_time"], 'DD/MM/YYYY hh:mm A')
@@ -182,7 +182,7 @@ function loadEvents(events : any) {
 
             // key[`${event.timeStart} ${day}`] = `<!--<div class="calendar-course" style="height: ${courseHeight}px;">${event.courseTitle}</div>-->`
             key[`${event.timeStart} ${day}`] = key[`${event.timeStart} ${day}`] ? [<CalendarCourse event={event} />, ...key[`${event.timeStart} ${day}`]] : [<CalendarCourse event={event} />]
-            console.log(key)
+            // console.log(key)
             // const slot = document.getElementById(`${event.timeStart} ${day}`)
             // if (slot) {
             //     slot.innerHTML = `<div class="calendar-course" style="height: ${courseHeight}px;">${event.courseTitle}</div>`
@@ -195,8 +195,8 @@ function loadEvents(events : any) {
 const CalendarCourse = (props : any) => {
     const courseHeight = props.event.length * 2
     let event = props.event
-    console.log("FROM CALENDAR COURSE")
-    console.log(event)
+    // console.log("FROM CALENDAR COURSE")
+    // console.log(event)
     return (
         <div className={`calendar-course ${event.course.overlap ? 'overlap' : ''}`} style={{height: courseHeight}}>
             <div>
