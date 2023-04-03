@@ -52,7 +52,8 @@ const Signup = () => {
       response => {
         setMessage(response.data.message);
         setSuccessful(true);
-        navigate("/select-schedule");
+        AuthService.login(username,password);
+        navigate("/schedule-selection");
       },
       error => {
         const resMessage = (
