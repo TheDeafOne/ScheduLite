@@ -35,8 +35,15 @@ public class CourseController {
     }
 
     @GetMapping("/filters")
-    public ResponseEntity<?> getFilteredCourses(@RequestParam(required = false) String semester, @RequestParam(required = false) String title, @RequestParam(required = false) String prefix, @RequestParam(required = false) String number, @RequestParam(required = false) String time, @RequestParam(required = false) String name) {
-        return new ResponseEntity<>(courseService.getCourseByFilters(semester, title, prefix, number, time, name), HttpStatus.OK);
+    public ResponseEntity<?> getFilteredCourses(
+            @RequestParam(required = false) String semester,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String prefix,
+            @RequestParam(required = false) String number,
+            @RequestParam(required = false) String time,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String days) {
+        return new ResponseEntity<>(courseService.getCourseByFilters(semester, title, prefix, number, time, name, days), HttpStatus.OK);
     }
 
     @GetMapping("/by-schedule")
