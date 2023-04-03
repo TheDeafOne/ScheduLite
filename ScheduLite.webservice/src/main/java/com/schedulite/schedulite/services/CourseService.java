@@ -29,7 +29,7 @@ public class CourseService {
         return mongoTemplate.find(query, Course.class);
     }
 
-    public List<Course> getCourseByFilters(String semester, String title, String prefix, String number, String time, String name) {
+    public List<Course> getCourseByFilters(String semester, String title, String prefix, String number, String time, String name, String days) {
         Criteria crit = new Criteria();
         if (semester != null) { crit.and("semester").regex(semester, "i");}
         if (title != null) { crit.and("course_title").regex(title, "i");}
@@ -37,6 +37,26 @@ public class CourseService {
         if (number != null) { crit.and("course_number").is(number);}
         if (time != null) { crit.and("start_time").regex(time, "i");}
         if (name != null) { crit.and("last_name").regex(name, "i");}
+        if (days != null) {
+            for (String day : days.split("")) {
+                switch (day) {
+                    case "M":
+                        crit.and("on_monday").is("M");
+                        break;
+                    case "T":
+                        crit.and("on_tuesday").is("T");
+                        break;
+                    case "W":
+                        crit.and("on_wednesday").is("W");
+                        break;
+                    case "R":
+                        crit.and("on_thursday").is("R");
+                        break;
+                    case "F":
+                        crit.and("on_friday").is("F");
+                }
+            }
+        }
 
         Query query = new Query(crit);
         return mongoTemplate.find(query,Course.class);
