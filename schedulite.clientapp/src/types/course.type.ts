@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default interface ICourse {
     id: string,
     year: number,
@@ -21,6 +23,9 @@ export default interface ICourse {
     on_friday?: string | null,
     start_time?: string | null,
     end_time?: string | null,
-    preferred_name?: string | null
+    preferred_name?: string | null,
+    overlap?: boolean | null,
+    converted_start_date?: moment.Moment | null,
+    converted_end_date?: moment.Moment | null,
 
 }

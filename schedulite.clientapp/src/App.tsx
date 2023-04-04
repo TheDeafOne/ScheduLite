@@ -1,25 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './styles/App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './screens/HomeScreen/HomeScreen';
 import SearchPage from "./screens/SearchScreen/SearchPage";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, useTransform } from "framer-motion";
 import ISchedule from "./types/schedule.type";
 import ICourse from "./types/course.type";
 import Profile from "./screens/ProfileScreen/profile.screen"
 import Signup from "./screens/SignupScreen/signup.screen";
 import Login from "./screens/LoginScreen/login.screen";
 import NavBar from "./components/NavBar/NavBar"
+import Modal from 'react-modal';
+import { UserContext, UserContextType } from './context/UserContext';
+import IUser from './types/user.type';
+import { ScheduleProvider } from './context/ScheduleContext';
+import BlockPage from './screens/ScheduleSelectionScreen/ScheduleSelectionScreen';
+import AuthService from './services/auth.service';
+import SetScheduleModal from './components/Modals/SetScheduleModal';
+
+Modal.setAppElement('#root');
+
+export interface linkedScheduleObjType {linkedSchedule: boolean, setLinkedSchedule: React.Dispatch<React.SetStateAction<boolean>>}
 
 function App() {
+    const { setUser } = useContext(UserContext) as UserContextType;
     const location = useLocation();
-    // const active: ICourse[] = [{"id":"641463211d1ed0444011a19e","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":301,"course_section":"L","last_name":"Stauff","first_name":"Devin","course_title":"LABORATORY","credit_hours":0,"credit_variation":"N","course_capacity":9,"crs_enrollment":11,"building_code":"RO","room_code":"121","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 11:30","end_time":"1/1/1900 12:45","preferred_name":null},{"id":"641463211d1ed0444011a19f","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":305,"course_section":"A","last_name":"Dudt","first_name":"Jan","course_title":"PLANT TAXONOMY","credit_hours":4,"credit_variation":"N","course_capacity":20,"crs_enrollment":12,"building_code":"STEM","room_code":"245","on_monday":"M","on_tuesday":null,"on_wednesday":"W","on_thursday":null,"on_friday":"F","start_time":"1/1/1900 10:00","end_time":"1/1/1900 10:50","preferred_name":null},{"id":"641463211d1ed0444011a1a0","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":305,"course_section":"L","last_name":"Dudt","first_name":"Jan","course_title":"LABORATORY","credit_hours":0,"credit_variation":"N","course_capacity":20,"crs_enrollment":12,"building_code":"STEM","room_code":"126","on_monday":null,"on_tuesday":null,"on_wednesday":"W","on_thursday":null,"on_friday":null,"start_time":"1/1/1900 14:00","end_time":"1/1/1900 16:59","preferred_name":null},{"id":"641463211d1ed0444011a1a1","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":313,"course_section":"A","last_name":"Farone","first_name":"Tracy","course_title":"HISTOLOGY","credit_hours":3,"credit_variation":"N","course_capacity":20,"crs_enrollment":20,"building_code":"STEM","room_code":"245","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 13:00","end_time":"1/1/1900 14:15","preferred_name":null},{"id":"641463211d1ed0444011a1a2","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":331,"course_section":"A","last_name":"Brenner","first_name":"Frederic","course_title":"ECOLOGY","credit_hours":4,"credit_variation":"N","course_capacity":24,"crs_enrollment":7,"building_code":"RO","room_code":"218","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 8:00","end_time":"1/1/1900 9:15","preferred_name":"Fred"}]
-    // const tentative: ICourse[] = [{"id":"641463211d1ed0444011a2a6","year":2018,"semester":"Fall","course_prefix":"HUMA","course_number":102,"course_section":"H","last_name":"Shepson","first_name":"Donald","course_title":"CIV/BIBLICAL REVELATION","credit_hours":3,"credit_variation":"N","course_capacity":35,"crs_enrollment":38,"building_code":"HAL","room_code":"210","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 13:00","end_time":"1/1/1900 14:15","preferred_name":null},{"id":"641463211d1ed0444011a2ae","year":2018,"semester":"Fall","course_prefix":"HUMA","course_number":200,"course_section":"F","last_name":"Coulter","first_name":"Michael","course_title":"WESTERN CIV: FOUNDATIONS","credit_hours":3,"credit_variation":"N","course_capacity":32,"crs_enrollment":34,"building_code":"HAL","room_code":"308","on_monday":"M","on_tuesday":null,"on_wednesday":"W","on_thursday":null,"on_friday":"F","start_time":"1/1/1900 13:00","end_time":"1/1/1900 13:50","preferred_name":null},{"id":"641463211d1ed0444011a2b9","year":2018,"semester":"Fall","course_prefix":"HUMA","course_number":202,"course_section":"H","last_name":"Barbour","first_name":"Kristin","course_title":"CIV/LITERATURE","credit_hours":3,"credit_variation":"N","course_capacity":30,"crs_enrollment":31,"building_code":"PFAC","room_code":"69","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 10:05","end_time":"1/1/1900 11:20","preferred_name":null},{"id":"641463211d1ed0444011a2d0","year":2018,"semester":"Fall","course_prefix":"MARK","course_number":204,"course_section":"A","last_name":"Havrilla","first_name":"Laura","course_title":"PRINCIPLES OF MARKETING","credit_hours":3,"credit_variation":"N","course_capacity":32,"crs_enrollment":29,"building_code":"HAL","room_code":"314","on_monday":"M","on_tuesday":null,"on_wednesday":"W","on_thursday":null,"on_friday":"F","start_time":"1/1/1900 11:00","end_time":"1/1/1900 11:50","preferred_name":null},{"id":"641463211d1ed0444011a2d6","year":2018,"semester":"Fall","course_prefix":"MARK","course_number":414,"course_section":"A","last_name":"Kocur","first_name":"Richard","course_title":"SALES","credit_hours":3,"credit_variation":"N","course_capacity":15,"crs_enrollment":13,"building_code":"HAL","room_code":"323","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 11:30","end_time":"1/1/1900 12:45","preferred_name":"Rich"}]
     const active: ICourse[] = [];
     const tentative: ICourse[] = [];
-    const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative })
-    const [loggedIn, setLoggedIn] = useState<boolean>(false);
-
+    const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative, scheduleName: "new", year:"2018", semester: "Spring" })
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [modal, setModal] = useState(null);
+    const [linkedSchedule, setLinkedSchedule] = useState(false);
+    let linkedScheduleObj : linkedScheduleObjType = {
+        linkedSchedule: linkedSchedule,
+        setLinkedSchedule: setLinkedSchedule
+    }
+    const customModalStyles = {
+        content: {
+          top: '50%',
+          left: '50%',
+          width: '50%',
+        //   right: 'auto',
+        //   bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      };
+      
     const removeCourse = (courseId: string, sched: string) => {
         console.log(`Remove course :${courseId} ${schedule}`)
         let currSchedule: ICourse[];
@@ -35,7 +62,7 @@ function App() {
                 currSchedule.splice(index, 1);
             }
         });
-        setSchedule({ activeCourses: schedule.activeCourses, tentativeCourses: schedule.tentativeCourses })
+        setSchedule({ activeCourses: schedule.activeCourses, tentativeCourses: schedule.tentativeCourses, scheduleName: "new", year:"2018", semester: "Spring" })
     }
     const addCourse = (course: ICourse, sched: string) => {
         console.log("ADD COURSE")
@@ -49,14 +76,76 @@ function App() {
 
     useEffect(() => {
         const userStr = localStorage.getItem("user");
-        if (userStr)
-            setLoggedIn(true);
+        if (userStr) {
+            let user: IUser = JSON.parse(userStr);
+            AuthService.login(user.username, user.password);
+            const newUserStr = localStorage.getItem("user");
+            if (newUserStr !== null) {
+                user = JSON.parse(newUserStr);
+            }
+
+            // console.log(user);
+            setUser(user);
+        }
+        
     }, [])
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function afterOpenModal() {
+        console.log("after open model");
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
 
     const DefaultRoutes = () => {
         return (
-            <div>
-                <NavBar loggedIn={loggedIn} />
+            <div >
+                <Modal
+                    isOpen={modalIsOpen}
+                    onAfterOpen={afterOpenModal}
+                    onRequestClose={closeModal}
+                    contentLabel="modal"
+                    portalClassName="modal"
+                    shouldCloseOnEsc={true}
+                    shouldCloseOnOverlayClick={true}
+                    style={{
+                        overlay: {
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: 'rgba(17,26,29,0.62)'
+                        },
+                        content: {
+                            top: '50%',
+                            left: '50%',
+                            width: '30%',
+                            color: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: '-50%',
+                            transform: 'translate(-50%, -50%)',
+                            border: '1px solid #ccc',
+                            background: '#415561',
+                            overflow: 'auto',
+                            WebkitOverflowScrolling: 'touch',
+                            borderRadius: '10px',
+                            outline: 'none',
+                            padding: '20px'
+                        }
+                    }}
+
+                    >
+                        {modal}
+                </Modal>
+                <NavBar />
                 <Routes>
                     <Route
                         path="/"
@@ -65,41 +154,50 @@ function App() {
                                 schedule={schedule}
                                 setSchedule={setSchedule}
                                 removeCourse={removeCourse}
+                                linkedScheduleObj={linkedScheduleObj}
                             />
                         }
                     />
-                    <Route 
-                        path="/Search" 
+                    <Route
+                        path="/Search"
                         element={
-                            <SearchPage 
+                            <SearchPage
                                 schedule={schedule}
                                 setSchedule={setSchedule}
                                 addCourse={addCourse}
-                                removeCourse={removeCourse} 
+                                removeCourse={removeCourse}
+                                linkedSchedule={false}
                             />
-                        } 
+                        }
                     />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/schedule-selection" element={<BlockPage setIsOpen={setIsOpen} setModal={setModal} />} />
                 </Routes>
-        </div>
+            </div>
         )
     }
-            
-        
-    
+
+
+
 
     return (
-        <div className="App">
-            <AnimatePresence mode={"wait"}>
-                <Routes location={location} key={location.pathname}>
-                    {/*<Route path="/" element={<Home />} />*/}
-                    <Route path="/signin" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/*" Component={DefaultRoutes} />
-                </Routes>
-            </AnimatePresence>
+        <ScheduleProvider>
+            <div className="App" id={"app"}>
+                {/*<div className={"main-div"}>*/}
+                    <AnimatePresence mode={"wait"}>
+                        <Routes location={location} key={location.pathname}>
+                            {/*<Route path="/" element={<Home />} />*/}
+                            <Route path="/signin" element={<Login />} />
+                            <Route path="/signup" element={<Signup />} />
+                            <Route path="/*" Component={DefaultRoutes} />
+                        </Routes>
+                    </AnimatePresence>
 
-        </div>
+                {/*</div>*/}
+
+            </div>
+
+        </ScheduleProvider>
     );
 }
 

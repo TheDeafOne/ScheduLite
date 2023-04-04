@@ -1,13 +1,14 @@
 .calendar-container {
     display: flex;
     flex-direction: row;
-    background-color: lightgreen;
+    background-color: #344850;
     /*width: 100%;*/
     /*justify-content: space-around;*/
     /*height: 100%;*/
 
     padding: 10px;
     overflow-y: scroll;
+    color: white;
 }
 /*.calendar-content {*/
 /*    display: flex;*/
@@ -16,7 +17,7 @@
 .calendar-days {
     display: flex;
     flex-direction: column;
-    background-color: lightgreen;
+    background-color: #344850;
     width: 100%;
 }
 .calendar-header {
@@ -30,8 +31,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    border-top: 1px solid darkslategrey;
-    border-left: 1px solid darkslategrey;
+    border-top: 1px solid #f3f3f3;
+    border-left: 1px solid #f3f3f3;
     box-sizing: border-box;
     /*border-radius: 10px;*/
 
@@ -44,10 +45,10 @@
 }
 .weekday {
     text-align: center;
-    background-color: #61dafb;
+    background-color: #223239;
     width: 100%;
     box-sizing: border-box;
-    border-right: 1px solid darkslategrey;;
+    border-right: 1px solid #f3f3f3;
     /*border-radius: 10px;*/
     /*height: 100vh;*/
     /*overflow-y: scroll;*/
@@ -56,29 +57,56 @@
     display: flex;
     /*justify-content: center;*/
     /*align-items: center;*/
-    height: 60px;
+    height: 45px;
     /*transform: translateY(-9px);*/
     /*z-index: 1000;*/
     /*background-color: purple;*/
 }
 .day-slot {
+    display: flex;
+    flex-direction: row;
     padding: 1px;
-    height: 60px;
+    height: 45px;
+    /*width: 165px;*/
     /*background-color: gold;*/
     /*border-radius: 10px;*/
-    border-bottom: 1px solid darkslategrey;
+    border-bottom: 1px solid #f3f3f3;
     box-sizing: border-box;
+    font-weight: bold;
+    /*color: #282c34;*/
 }
 .calendar-course {
+    flex-grow: 1;
+    font-size: 12px;
+    /*width: 50%;*/
+    /*display: flex;*/
     /*width: 100vw;*/
     position: relative;
     /*left: calc(-50vw + 50%);*/
-    opacity: .8;
+    /*opacity: .8;*/
     /*height: 30px;*/
-    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+    border: 1px solid #c2c1c1;
     border-radius: 5px;
-    background-color: lightgrey;
+    background-color: #3a4755;
+    box-sizing: border-box;
+    text-align: start;
+    overflow-x: hidden;
 }
+/*.calendar-course:only-child {*/
+/*    width: 100%;*/
+/*}*/
+/*.calendar-course:first-child:nth-last-child(2) ~ .calendar-course {*/
+/*    width: 50%;*/
+/*}*/
+
+.overlap {
+    background-color: #5e2929;
+}
+
+
 .course-times {
     /*padding-top:;*/
     height: 100%;
