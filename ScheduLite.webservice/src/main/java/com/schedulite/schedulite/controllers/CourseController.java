@@ -28,9 +28,9 @@ public class CourseController {
     public ResponseEntity<?> getCourses() {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
-
     @GetMapping("/query")
     public ResponseEntity<?> getCourseByNumber(@RequestParam(required = false) String query) {
+        // return all courses by the given number, or none if none found
         return new ResponseEntity<>(courseService.getCourseByCourseNumber(query), HttpStatus.OK);
     }
 
@@ -43,11 +43,13 @@ public class CourseController {
             @RequestParam(required = false) String time,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String days) {
+        // returns the courses specified by given optional filters
         return new ResponseEntity<>(courseService.getCourseByFilters(semester, title, prefix, number, time, name, days), HttpStatus.OK);
     }
 
     @GetMapping("/by-schedule")
     public ResponseEntity<?> getCoursesBySchedule(@RequestParam String scheduleName) {
+        // making sure the user that created a schedule is trying to access the schedule
         String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         if (userId == null) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
@@ -64,6 +66,7 @@ public class CourseController {
                 returnSchedule = schedule;
             }
         }
+        // gathering all selected courses in their active or tentative lists
         HashMap<String, Set<Course>> courseMap = new HashMap<>();
         courseMap.put("active",returnSchedule.getActiveCourses());
         courseMap.put("tentative",returnSchedule.getTentativeCourses());

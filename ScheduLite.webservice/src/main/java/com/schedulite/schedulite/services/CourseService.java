@@ -19,24 +19,28 @@ public class CourseService {
     private CourseRepository courseRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
-    public List<Course> getAllCourses() {return courseRepository.findAll();}
+    public List<Course> getAllCourses() {return courseRepository.findAll();} // returns all courses
 
     public List<Course> getCourseByCourseNumber(String courseNumber) {
         Query query = new Query();
         query.addCriteria(
                 where("course_number").is(courseNumber)
         );
+        // basic function that returns courses by the course number. It is the only thing added to criteria
         return mongoTemplate.find(query, Course.class);
     }
 
     public List<Course> getCourseByFilters(String semester, String title, String prefix, String number, String time, String name, String days) {
         Criteria crit = new Criteria();
+        // for each given filter, add it to the query criteria.
+        // note: all strings are made case-insensitive to make searching simpler
         if (semester != null) { crit.and("semester").regex(semester, "i");}
         if (title != null) { crit.and("course_title").regex(title, "i");}
         if (prefix != null) { crit.and("course_prefix").regex(prefix, "i");}
         if (number != null) { crit.and("course_number").is(number);}
         if (time != null) { crit.and("start_time").regex(time, "i");}
         if (name != null) { crit.and("last_name").regex(name, "i");}
+        // finding each day the class occurs on
         if (days != null) {
             for (String day : days.split("")) {
                 switch (day) {
@@ -59,6 +63,7 @@ public class CourseService {
         }
 
         Query query = new Query(crit);
+        // returns all courses with given filters
         return mongoTemplate.find(query,Course.class);
     }
 }
