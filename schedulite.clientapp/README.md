@@ -1,6 +1,18 @@
-# Getting Started with Create React App
+# Getting Started with ScheduLite
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+##Install npm packages
+### `npm i`
+
+## Backend
+Ensure backend is running first before using frontend.\
+
+###how to run backend:
+### `code here`
+
+###MONGO DB whitelists IP addresses, so this will probably not work off campus. 
+###If you need to work on it at home, just send one of us the IP address of your home and we can add it to the whitelisted ips. 
 
 ## Available Scripts
 

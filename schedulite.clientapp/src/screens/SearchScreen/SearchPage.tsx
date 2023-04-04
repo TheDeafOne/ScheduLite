@@ -23,7 +23,7 @@ export interface Filters {
     semester: string,
     setSemesterFilter: Function
 }
-const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { schedule : ISchedule, setSchedule : Function, addCourse: Function, removeCourse: Function }) => {
+const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse, linkedSchedule } : { schedule : ISchedule, setSchedule : Function, addCourse: Function, removeCourse: Function, linkedSchedule: boolean }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse]= useState<ICourse | undefined>();
@@ -71,7 +71,10 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse } : { sched
         let filterParams = `semester=${semester}&name=${nameFilter}&time=${timeFilter}&days=${dayFilter}`
         if (searchType === "Course Code") {
             let params = q.split(" ")
-            url = `/courses/filters?prefix=${params[0]}&number=${params[1]}&${filterParams}`
+            console.log(params)
+            let prefix = params[0]
+            let number = params[1] ? params[1] : ""
+            url = `/courses/filters?prefix=${prefix}&number=${number}&${filterParams}`
         } else if (searchType === "Course Title") {
             url = `/courses/filters?title=${q}&${filterParams}`
         }

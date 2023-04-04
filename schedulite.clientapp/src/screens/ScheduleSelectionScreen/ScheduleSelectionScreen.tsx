@@ -6,7 +6,8 @@ import "./Block.css";
 import SetScheduleModal from "../../components/Modals/SetScheduleModal";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import { MdSouth } from "react-icons/md";
-
+import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar";
+import "../../components/Modals/ScheduleModal.scss"
 
 const blocks: ISchedule[] = [];
 
@@ -16,19 +17,25 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
   const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
 
-  const [yearFilter, setYearFilter] = useState<number | undefined>();
+  const [yearFilter, setYearFilter] = useState<string | undefined>();
   const [semesterFilter, setSemesterFilter] = useState<string | undefined>();
+  const [initialFilteredBlocks, setInitialFilteredBlocks] = useState<ISchedule[] | undefined>(blocks)
   const [filteredBlocks, setFilteredBlocks] = useState<ISchedule[] | undefined>(blocks);
   const navigate = useNavigate();
 
+  const routeChange = () =>{
+    let path = `/Search`;
+    navigate(path);
+  }
   useEffect(() => {
-    const yearFilteredBlocks = yearFilter !== undefined ? filteredBlocks!.filter((block) => Number(block.year ) === yearFilter) : filteredBlocks;
-    const semesterFilteredBlocks = semesterFilter !== undefined ? filteredBlocks!.filter((block) => block.semester === semesterFilter) : filteredBlocks;
+    let blocks = initialFilteredBlocks
+    const yearFilteredBlocks = (yearFilter !== undefined && yearFilter !== "") ? blocks!.filter((block) => block.year === yearFilter) : blocks;
+    const semesterFilteredBlocks = (semesterFilter !== undefined && semesterFilter !== "") ? blocks!.filter((block) => block.semester === semesterFilter) : blocks;
     setFilteredBlocks(yearFilteredBlocks!.filter((block) => semesterFilteredBlocks!.includes(block)));
   }, [yearFilter, semesterFilter]);
 
   const handleYearFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setYearFilter(parseInt(event.target.value));
+    setYearFilter(event.target.value);
   };
 
   const handleSemesterFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -48,28 +55,35 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
   useEffect(() => {
     if (user !== undefined && user !== null) {
       setFilteredBlocks(user!.schedules);
+      setInitialFilteredBlocks(user!.schedules);
     }
   }, [])
 
   return (
     <div className={"schedule-select-container"}>
-      <div>
-        <label htmlFor="year-filter">Year:</label>
-        <select className="schedule-select" id="year-filter" onChange={handleYearFilterChange}>
-          <option value="">All</option>
-          <option value="2022">2020</option>
-          <option value="2022">2021</option>
-          <option value="2023">2022</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="semester-filter">Semester:</label>
-        <select className="schedule-select" id="semester-filter" onChange={handleSemesterFilterChange}>
-          <option value="">All</option>
-          <option value="Fall">Fall</option>
-          <option value="Spring">Spring</option>
-        </select>
-      </div>
+      {/*<SearchBar navigate={routeChange} autofocus={false} firstClick={true}/>*/}
+      <div className={"schedule-filter-container"}>
+        <div className={"schedule-filters"}>
+          <div className={"filter"}>
+            <label htmlFor="year-filter">Year: </label>
+            <select className="schedule-select" id="year-filter" onChange={handleYearFilterChange}>
+              <option value="">All</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>
+          </div>
+          <div className={"filter"}>
+            <label htmlFor="semester-filter">Semester: </label>
+            <select className="schedule-select" id="semester-filter" onChange={handleSemesterFilterChange}>
+              <option value="">All</option>
+              <option value="Fall">Fall</option>
+              <option value="Spring">Spring</option>
+            </select>
+          </div>
+      </div></div>
       <div className={"schedule-options"}>
         {filteredBlocks!.map((block, index) => (
           <div key={index} className="block" onClick={() => handleBlockClick(block)}>
