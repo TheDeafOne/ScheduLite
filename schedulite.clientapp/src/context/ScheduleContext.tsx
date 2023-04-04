@@ -88,9 +88,7 @@ export const ScheduleProvider = (props: any) => {
 
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
-        // let schedule = {
-        //
-        // }
+        console.log("saving")
         let activeIds = activeCourses.courses.map( (value: ICourse) => {
             return {id: value.id}
         })
@@ -104,9 +102,7 @@ export const ScheduleProvider = (props: any) => {
             tentativeCourses: tentativeIds,
             activeCourses: activeIds
         }
-        // let request = scheduleExists(name) ? "/users/update-schedule" : "/users/add-schedule";
-        // console.log(request);
-        // let schedule = requestBody
+
         let schedule: ISchedule = {
             scheduleName: name,
             semester: semester,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import "./LoginScreen.scss"
 
 import AuthService from "../../services/auth.service";
 
@@ -48,7 +49,7 @@ const Login = () => {
 
     return (
         
-        <div>
+        <div className={"login"}>
           <Formik
             initialValues={{username:"",password:""}}
             validationSchema={validationSchema}
@@ -74,9 +75,6 @@ const Login = () => {
                 </div>
                 <div className="form-group">
                 <button type="submit" disabled={loading}>
-                  {/* {loading && (
-                    <span className="spinner-border spinner-border-sm"></span>
-                  )} */}
                   <span>Login</span>
                 </button>
               </div>

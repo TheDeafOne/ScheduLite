@@ -15,7 +15,9 @@ import FilterPanel from "../SearchScreen/SearchScreenComponents/FilterPanel";
 import {hover} from "@testing-library/user-event/dist/hover";
 import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
 import {UserContext, UserContextType} from "../../context/UserContext";
-const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, setSchedule : Function, removeCourse: Function }) => {
+import {linkedScheduleObjType} from "../../App";
+// import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
+const Home = ({ schedule, setSchedule, removeCourse, linkedScheduleObj } : { schedule : ISchedule, setSchedule : Function, removeCourse: Function, linkedScheduleObj: linkedScheduleObjType }) => {
     const [response, setResponse] = useState<ICourse[]>();
     const [hoverCourse, setHoverCourse] = useState<ICourse>();
     const [currCourse, setCourse]= useState<ICourse | undefined>();
@@ -31,6 +33,10 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
         console.log("CALLLLLEDDDDD")
         setScheduleSaved(saved);
         }, [saved])
+
+    // useEffect(() => {
+    //     saveSchedule()
+    // })
     // const {}
     // const saveSchedule = () =>
     const onSaveClick = () => {
@@ -106,10 +112,11 @@ const Home = ({ schedule, setSchedule, removeCourse } : { schedule : ISchedule, 
 
                     {/*<ScheduleView />*/}
                     <div className={"save-bar"}>
-                        <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>
                         {
                             scheduleSaved && <span className={"saved-text"}>Saved!</span>
                         }
+
+                        {user && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
                     </div>
                 </div>
                 <CourseDetailPanel course={currCourse} viewCourse={viewCourse}/>

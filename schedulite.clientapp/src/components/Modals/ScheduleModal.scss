@@ -1,0 +1,75 @@
+$glass: rgba(255, 255, 255, 0.2);
+$glass-icon: rgba(255, 255, 255, 0.3);
+$option: #320a28;
+.modal-select, .schedule-select {
+  /* Reset */
+  appearance: none;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  /* Personalize */
+  width: 18em;
+  height: 3em;
+  padding: 0 4em 0 1em;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+  no-repeat right 0.8em center / 1.4em,
+  linear-gradient(to left, $glass-icon 3em, $glass 3em);
+  color: white;
+  border-radius: 0.25em;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  /* <option> colors */
+  option {
+    color: inherit;
+    background-color: $option;
+  }
+  /* Remove focus outline */
+  &:focus {
+    outline: none;
+  }
+  /* Remove IE arrow */
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+.modal-input {
+  font-size: 15px;
+  padding: 1em;
+  border-style: unset;
+  border-radius: 5px;
+  background-color: #19262b;
+  color: white;
+}
+.modal-container {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  color: white;
+  //color: #000;
+  div {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-title {
+    font-size: 20px;
+  }
+  .start-button {
+    color: inherit;
+    font-weight: inherit;
+    background-color: #688692;
+    border-style: unset;
+    padding: 1em;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: all .5s ease;
+
+    &:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+  }
+}

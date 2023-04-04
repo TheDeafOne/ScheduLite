@@ -86,6 +86,8 @@ div {
 .save-bar {
     display: flex;
     align-items: center;
+    justify-content: end;
+    border-top: 1px solid #716b6b;
     /*justify-content: center;*/
 }
 .saved-text {

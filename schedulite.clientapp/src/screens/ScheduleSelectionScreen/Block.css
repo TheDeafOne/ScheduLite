@@ -56,7 +56,10 @@
   /*  !*font-size: 16px;*!*/
   /*}*/
   
-  .block.new {
+  .new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #4c6671;
     color: #fff;
     font-size: 64px;
@@ -67,14 +70,24 @@
   .block.new:hover {
     filter: brightness(1.2);
   }
-  
-.schedule-select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  /*font-size: 16px;*/
-  /*margin-right: 16px;*/
+
+.schedule-filters-containers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.schedule-filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 10px;
+}
+.filter {
+  /*display: flex;*/
+  /*flex-grow: 0;*/
+  /*align-items: center;*/
 }
 .schedule-select-container {
   font-size: 16px;

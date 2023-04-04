@@ -18,7 +18,7 @@ const NavBar = () => {
         if (user !== null) {
             setLoggedIn(true);
         }
-    },[])
+    },[user])
 
     return (
         <div className="navbar">
