@@ -1,39 +1,42 @@
-import api from '../api/axios-config';
+import axios from "../api/axios-config";
 
+const authPrefix = 'auth'
 class AuthService {
-    login(username: string, password: string) {
-        return api
-            .post("/api/v1/signin", {
-                username,
-                password
-            })
-            .then(response => {
-                if (response.data.accessToken) {
-                    localStorage.setItem("user", JSON.stringify(response.data));
-                }
+  login(username: string, password: string) {
+    return axios
+      .post(authPrefix + "/signin", {
+        username,
+        password
+      })
+      .then(response => {
+        if (response.data.accessToken) {
+          response.data.password = password;
+          localStorage.setItem("user", JSON.stringify(response.data));
+        }
 
-                return response.data;
-            });
-    }
+        return response.data;
+      });
+  }
 
-    logout() {
-        localStorage.removeItem("user");
-    }
+  logout() {
+    localStorage.removeItem("user");
+    
+  }
 
-    register(username: string, email: string, password: string) {
-        return api.post("/api/v1/signup", {
-            username,
-            email,
-            password
-        });
-    }
+  register(username: string, email: string, password: string) {
+    return axios.post(authPrefix + "/signup", {
+      username,
+      email,
+      password
+    });
+  }
 
-    getCurrentUser() {
-        const userStr = localStorage.getItem("user");
-        if (userStr) return JSON.parse(userStr);
+  getCurrentUser() {
+    const userStr = localStorage.getItem("user");
+    if (userStr) return JSON.parse(userStr);
 
-        return null;
-    }
+    return null;
+  }
 }
 
 export default new AuthService();

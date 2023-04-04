@@ -1,7 +1,14 @@
+/*@import "./FormElementStyles/Select.scss";*/
+
 .App {
   text-align: center;
+  /*height: 100%;*/
 }
-
+html, body, #app, #app>div {
+  height: 100%;
+  background-color: #223239;
+  /*background-color: #5e2929;*/
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +42,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.modal {
+  background-color: #282c34;
 }
