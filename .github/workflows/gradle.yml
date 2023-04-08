@@ -14,9 +14,10 @@ permissions:
 
 jobs:
   build:
-
+    defaults:
+      run: 
+        working-directory: ScheduLite.webservice
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
@@ -26,6 +27,7 @@ jobs:
         distribution: 'temurin'
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
+    - name: Change wrapper permissions
+      run: chmod +x ./gradlew
     - name: Run build with Gradle Wrapper
-      working-directory: ScheduLite.webservice
       run: ./gradlew build
