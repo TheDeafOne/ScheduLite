@@ -20,6 +20,8 @@ import SetScheduleModal from './components/Modals/SetScheduleModal';
 
 Modal.setAppElement('#root');
 
+export interface linkedScheduleObjType {linkedSchedule: boolean, setLinkedSchedule: React.Dispatch<React.SetStateAction<boolean>>}
+
 function App() {
     const { setUser } = useContext(UserContext) as UserContextType;
     const location = useLocation();
@@ -28,8 +30,11 @@ function App() {
     const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative, scheduleName: "new", year:"2018", semester: "Spring" })
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modal, setModal] = useState(null);
-
-
+    const [linkedSchedule, setLinkedSchedule] = useState(false);
+    let linkedScheduleObj : linkedScheduleObjType = {
+        linkedSchedule: linkedSchedule,
+        setLinkedSchedule: setLinkedSchedule
+    }
     const customModalStyles = {
         content: {
           top: '50%',
@@ -105,9 +110,39 @@ function App() {
                     onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}
                     contentLabel="modal"
+                    portalClassName="modal"
                     shouldCloseOnEsc={true}
                     shouldCloseOnOverlayClick={true}
-                    style={customModalStyles}>
+                    style={{
+                        overlay: {
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: 'rgba(17,26,29,0.62)'
+                        },
+                        content: {
+                            top: '50%',
+                            left: '50%',
+                            width: '30%',
+                            color: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: '-50%',
+                            transform: 'translate(-50%, -50%)',
+                            border: '1px solid #ccc',
+                            background: '#415561',
+                            overflow: 'auto',
+                            WebkitOverflowScrolling: 'touch',
+                            borderRadius: '10px',
+                            outline: 'none',
+                            padding: '20px'
+                        }
+                    }}
+
+                    >
                         {modal}
                 </Modal>
                 <NavBar />
@@ -119,6 +154,7 @@ function App() {
                                 schedule={schedule}
                                 setSchedule={setSchedule}
                                 removeCourse={removeCourse}
+                                linkedScheduleObj={linkedScheduleObj}
                             />
                         }
                     />
@@ -130,6 +166,7 @@ function App() {
                                 setSchedule={setSchedule}
                                 addCourse={addCourse}
                                 removeCourse={removeCourse}
+                                linkedSchedule={false}
                             />
                         }
                     />

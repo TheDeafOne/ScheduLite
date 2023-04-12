@@ -30,7 +30,7 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
             days.push("w")
         }
         if (course.on_thursday) {
-            days.push("th")
+            days.push("r")
         }
         if (course.on_friday) {
             days.push("f")
@@ -122,7 +122,7 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
                     <div className={"weekday"} id={"M"}><Day dayOfWeek={"m"} eventKey={eventKeys} /></div>
                     <div className={"weekday"} id={"T"}><Day dayOfWeek={"t"} eventKey={eventKeys} /></div>
                     <div className={"weekday"} id={"W"}><Day dayOfWeek={"w"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"Th"}><Day dayOfWeek={"t"} eventKey={eventKeys} /></div>
+                    <div className={"weekday"} id={"E"}><Day dayOfWeek={"r"} eventKey={eventKeys} /></div>
                     <div className={"weekday"} id={"F"}><Day dayOfWeek={"f"} eventKey={eventKeys} /></div>
                 </div>
             </div>
@@ -193,7 +193,7 @@ function loadEvents(events : any) {
     return key
 }
 const CalendarCourse = (props : any) => {
-    const courseHeight = props.event.length * 2
+    const courseHeight = props.event.length * 1.5
     let event = props.event
     // console.log("FROM CALENDAR COURSE")
     // console.log(event)

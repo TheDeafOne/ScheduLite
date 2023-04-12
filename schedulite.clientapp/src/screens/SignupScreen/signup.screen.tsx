@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useNavigate } from 'react-router';
 import * as Yup from "yup";
-
+import "./SignupScreen.scss"
 import AuthService from '../../services/auth.service';
 
 const Signup = () => {
@@ -69,7 +69,7 @@ const Signup = () => {
   }
 
   return (
-    <div>
+    <div className={"signup"}>
       <div>
         <Formik
           initialValues={{ username: "", email: "", password: "" }}

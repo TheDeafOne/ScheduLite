@@ -1,3 +1,5 @@
+/*@import "./FormElementStyles/Select.scss";*/
+
 .App {
   text-align: center;
   /*height: 100%;*/
@@ -40,4 +42,8 @@ html, body, #app, #app>div {
   to {
     transform: rotate(360deg);
   }
+}
+
+.modal {
+  background-color: #282c34;
 }
