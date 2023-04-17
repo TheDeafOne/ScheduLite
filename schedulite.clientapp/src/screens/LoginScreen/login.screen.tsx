@@ -12,8 +12,7 @@ const Login = () => {
     const navigate = useNavigate();
     
     useEffect(() => {
-        const currentUser = AuthService.getCurrentUser();
-        if (currentUser) {
+        if (AuthService.getCurrentUser() !== null) {
             navigate("/profile",{replace:true});
         }
     },[])

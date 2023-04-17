@@ -7,11 +7,10 @@ import { UserContext, UserContextType } from '../../context/UserContext';
 const Profile = () => {
     const navigate = useNavigate();
     const { user } = useContext(UserContext) as UserContextType;
-    const [userData, setUserData] = useState<string>("");
 
     useEffect(() => {
         if (user === null) {
-            navigate("/signin");
+            navigate("/login");
         }
     }, [user])
     return (
@@ -19,7 +18,7 @@ const Profile = () => {
             <VerticalTabs />
             <button onClick={() => {
                 AuthService.logout();
-                navigate("/signin");
+                navigate("/login");
             }}>
                 Log Out
             </button>

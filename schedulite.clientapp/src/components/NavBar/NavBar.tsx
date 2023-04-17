@@ -8,17 +8,10 @@ import {useLocation} from "react-router-dom";
 
 const NavBar = () => {
     const { user } = useContext(UserContext) as UserContextType;
-    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const { name } = useContext(ScheduleContext) as ScheduleContextType
 
     const location = useLocation()
-    console.log(location)
-    useEffect(() => {
-        console.log(user);
-        if (user !== null) {
-            setLoggedIn(true);
-        }
-    },[user])
+
 
     return (
         <div className="navbar">
@@ -34,7 +27,7 @@ const NavBar = () => {
 
             </div>
             <div className="right-side-container">
-                {loggedIn ? <UserOptions /> : <AuthOptions />}
+                {user !== null ? <UserOptions /> : <AuthOptions />}
             </div>
         </div>
     )

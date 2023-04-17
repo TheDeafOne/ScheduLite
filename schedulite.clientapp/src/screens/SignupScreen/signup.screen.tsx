@@ -129,7 +129,7 @@ const Signup = () => {
       <label>
         already have an account?
       </label>
-      <button onClick={() => { navigate("/signin") }}>
+      <button onClick={() => { navigate("/login") }}>
         sign in
       </button>
     </div>

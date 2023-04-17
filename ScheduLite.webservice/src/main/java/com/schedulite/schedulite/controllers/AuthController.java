@@ -2,12 +2,11 @@ package com.schedulite.schedulite.controllers;
 
 import com.schedulite.schedulite.models.ERole;
 import com.schedulite.schedulite.models.Role;
-import com.schedulite.schedulite.models.Schedule;
 import com.schedulite.schedulite.models.User;
 import com.schedulite.schedulite.repositories.RoleRepository;
 import com.schedulite.schedulite.repositories.UserRepository;
 import com.schedulite.schedulite.security.jwt.JwtUtils;
-import com.schedulite.schedulite.security.payload.request.SigninRequest;
+import com.schedulite.schedulite.security.payload.request.LoginRequest;
 import com.schedulite.schedulite.security.payload.request.SignupRequest;
 import com.schedulite.schedulite.security.payload.response.JwtResponse;
 import com.schedulite.schedulite.security.payload.response.MessageResponse;
@@ -44,8 +43,8 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody SigninRequest loginRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         // checking for valid username and password
         Authentication authentication = authenticationManager.authenticate(
