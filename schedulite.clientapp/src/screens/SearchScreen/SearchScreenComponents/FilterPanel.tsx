@@ -2,7 +2,8 @@ import React, {useContext, useEffect, useState} from "react";
 import axiosConfig from "../../../api/axios-config";
 import Results from "../../../components/CourseComponents/Results/Results";
 import {useNavigate} from "react-router-dom";
-import { HiChevronLeft } from "react-icons/hi";
+// import { HiChevronLeft } from "react-icons/hi";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {Filters} from "../SearchPage";
 import {UserContext, UserContextType} from "../../../context/UserContext";
 import TextField from "@mui/material/TextField";
@@ -28,7 +29,7 @@ const FilterPanel = ({filters, onEnter} : {filters : Filters, onEnter : Function
     return (
         <div className={"side-panel left-panel"}>
             <div className={"side-panel-title"} >
-                <button onClick={onBackClick} className={"back-button"}><HiChevronLeft /></button>
+                <button onClick={onBackClick} className={"back-button"}><ArrowBackIcon /></button>
                 Filter Page
             </div>
             <div className={"filters"}>
