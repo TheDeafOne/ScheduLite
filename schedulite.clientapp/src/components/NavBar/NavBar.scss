@@ -1,7 +1,11 @@
+@use "../../styles/globals/variables" as v;
+
 .navbar {
-    height: 50px;
-    background-color: #1a2528;
-    border: 1px solid black;
+    height: 70px;
+    background-color: darken(v.$background-main, 2);
+    border-bottom: 1px solid v.$border-color-light;
+    //box-shadow: black 0 5px 15px;
+    //box-shadow: rgba(23, 23, 24, 0.314) 0px 10px 20px -10px;
     color: white;
     display: flex;
     align-items: center;

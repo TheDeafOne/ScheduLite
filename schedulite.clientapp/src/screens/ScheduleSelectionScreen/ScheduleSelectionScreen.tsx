@@ -6,7 +6,7 @@ import "./Block.css";
 import SetScheduleModal from "../../components/Modals/SetScheduleModal";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import { MdSouth } from "react-icons/md";
-import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar";
+import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
 import "../../components/Modals/ScheduleModal.scss"
 
 const blocks: ISchedule[] = [];

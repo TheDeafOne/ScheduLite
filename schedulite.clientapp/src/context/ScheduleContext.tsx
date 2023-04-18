@@ -2,12 +2,13 @@ import React, {createContext, useContext, useEffect, useReducer, useState} from 
 import ICourse from "../types/course.type";
 import {stat} from "fs";
 import {UserContext, UserContextType} from "./UserContext";
-import {bool} from "yup";
+import {bool, boolean} from "yup";
 import axios from "../api/axios-config";
 import {replace} from "formik";
 import authHeader from "../services/auth-header";
 import ISchedule from "../types/schedule.type";
 import { IconBaseProps } from "react-icons/lib";
+import moment from "moment";
 
 // export default
 // schedule =
@@ -28,6 +29,8 @@ export interface ScheduleContextType {
     tentativeCourses: State,
     setTentativeCourses: Dispatch,
     calcActiveCredits: () => number,
+    inSchedule: (course: ICourse) => boolean,
+    overlap: (course1: ICourse, course2: ICourse) => boolean,
     saved: boolean,
     year: string,
     setYear: React.Dispatch<React.SetStateAction<string>>,
@@ -76,7 +79,6 @@ function coursesReducer(state: State, action: Action) {
     }
 }
 
-
 export const ScheduleProvider = (props: any) => {
     // const empty: ICourse[] = [];
     const [activeCourses, setActiveCourses] = useReducer(coursesReducer, {courses: []})
@@ -85,6 +87,24 @@ export const ScheduleProvider = (props: any) => {
     const [year, setYear] = useState("")
     const [name, setName] = useState("")
     const [saved, setSaved] = useState(true)
+
+    const overlap = (course1: ICourse, course2: ICourse) : boolean => {
+        const startDate1 = moment(course1["start_time"], 'DD/MM/YYYY hh:mm')
+        const endDate1 = moment(course1["end_time"], 'DD/MM/YYYY hh:mm A')
+        const startDate2 = moment(course2["start_time"], 'DD/MM/YYYY hh:mm')
+        const endDate2 = moment(course2["end_time"], 'DD/MM/YYYY hh:mm A')
+
+        const daysSame = (course1.on_monday && course1.on_monday === course2.on_monday)
+            || (course1.on_tuesday && course1.on_tuesday === course2.on_tuesday)
+            || (course1.on_wednesday && course1.on_wednesday === course2.on_wednesday)
+            || (course1.on_thursday && course1.on_thursday === course2.on_thursday)
+            || (course1.on_friday && course1.on_friday === course2.on_friday)
+
+        return (startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1) && daysSame) as boolean
+    }
+    const inSchedule = (course : ICourse) : boolean => {
+        return activeCourses.courses.some((e : ICourse) => (e.id === course.id))
+    }
 
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
@@ -155,8 +175,9 @@ export const ScheduleProvider = (props: any) => {
         semester, setSemester,
         year, setYear,
         calcActiveCredits, 
-        
+        inSchedule, overlap
     }
+
     return (
         <ScheduleContext.Provider value={value}>
             {props.children}

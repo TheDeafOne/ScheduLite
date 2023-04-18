@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "../SearchScreen/SearchPage";
-import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar";
-import "../../styles/BodyStructure.css"
+import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
+// import "../../styles/BodyStructure.scss"
+import "./HomeScreen.scss"
 import CoursePanel from "./CoursePanel";
 import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
 import {useNavigate} from "react-router-dom";
@@ -10,16 +11,21 @@ import { motion } from "framer-motion"
 import ISchedule from "../../types/schedule.type";
 import ICourse from "../../types/course.type";
 
-import Calendar from "./Calendar";
+import Calendar from "./Calendar/Calendar";
 import FilterPanel from "../SearchScreen/SearchScreenComponents/FilterPanel";
 import {hover} from "@testing-library/user-event/dist/hover";
 import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
 import {UserContext, UserContextType} from "../../context/UserContext";
 import {linkedScheduleObjType} from "../../App";
+import {Popover} from "@mui/material";
+import MouseOverPopover from "../../components/PopOver/Popover";
+
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
-const Home = ({ schedule, setSchedule, removeCourse, linkedScheduleObj } : { schedule : ISchedule, setSchedule : Function, removeCourse: Function, linkedScheduleObj: linkedScheduleObjType }) => {
+const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType }) => {
+
     const [response, setResponse] = useState<ICourse[]>();
-    const [hoverCourse, setHoverCourse] = useState<ICourse>();
+    const [calendarCourseHover, setCalendarCourseHover] = useState<ICourse | undefined>();
+    const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
     const [currCourse, setCourse]= useState<ICourse | undefined>();
     const [viewCourse, setViewCourse] = useState(false);
     const { saved, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
@@ -65,15 +71,18 @@ const Home = ({ schedule, setSchedule, removeCourse, linkedScheduleObj } : { sch
         let path = `/Search`;
         navigate(path);
     }
-    const courseNames : string[] = schedule.activeCourses.map((elem) => {
-        return `{}    ${elem.course_title}    {}`
-    })
+    // const courseNames : string[] = schedule.activeCourses.map((elem) => {
+    //     return `{}    ${elem.course_title}    {}`
+    // })
 
     const removeEvent = () => {
-        setHoverCourse(Object)
+        console.log("remove event")
+        setTentativeCourseHover(undefined)
     }
     const addEvent = (course : ICourse) => {
-        setHoverCourse(course)
+        console.log("add event")
+        console.log(typeof course)
+        setTentativeCourseHover(course)
         // console.log("test")
     }
 
@@ -88,7 +97,8 @@ const Home = ({ schedule, setSchedule, removeCourse, linkedScheduleObj } : { sch
             // transition={{ duration: 2 }}
         >
             <div className={"main-body"}>
-                <CoursePanel schedule={schedule} setSchedule={setSchedule} onMouseEnter={addEvent} onMouseLeave={removeEvent} onCourseClick={onCourseClick} />
+                {/*<MouseOverPopover />*/}
+                <CoursePanel onMouseEnter={addEvent} onMouseLeave={removeEvent} onCourseClick={onCourseClick} />
                 <div className={"center-panel"}>
                     <motion.div
                         key="home"
@@ -99,18 +109,8 @@ const Home = ({ schedule, setSchedule, removeCourse, linkedScheduleObj } : { sch
                     >
                     <SearchBar navigate={routeChange} autofocus={false} firstClick={true}/>
                     </motion.div>
-                    {/*{courseNames}*/}
-                    <Calendar schedule={schedule} hoverCourse={hoverCourse}/>
-                    {/*{hoverCourse.toString()}*/}
-                    {/*<motion.div*/}
-                    {/*    className={"expand"}*/}
-                    {/*    exit={{ zIndex: 100, scale: 50, transformOrigin: "top"}}*/}
-                    {/*    transition={{ duration: 2 }}*/}
-                    {/*>*/}
 
-                    {/*</motion.div>*/}
-
-                    {/*<ScheduleView />*/}
+                    <Calendar tentativeCourseHover={tentativeCourseHover} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse}/>
                     <div className={"save-bar"}>
                         {
                             scheduleSaved && <span className={"saved-text"}>Saved!</span>
@@ -119,7 +119,7 @@ const Home = ({ schedule, setSchedule, removeCourse, linkedScheduleObj } : { sch
                         {user && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
                     </div>
                 </div>
-                <CourseDetailPanel course={currCourse} viewCourse={viewCourse}/>
+                <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover}/>
             </div>
         </motion.div>
     )
