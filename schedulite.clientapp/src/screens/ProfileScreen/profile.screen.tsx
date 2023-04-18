@@ -6,13 +6,12 @@ import { UserContext, UserContextType } from '../../context/UserContext';
 
 const Profile = () => {
     const navigate = useNavigate();
-    const { user } = useContext(UserContext) as UserContextType;
 
     useEffect(() => {
-        if (user === null) {
-            navigate("/login");
+        if (AuthService.getCurrentUser() === null) {
+            navigate("/login", { replace: true });
         }
-    }, [user])
+    }, [])
     return (
         <div>
             <VerticalTabs />
