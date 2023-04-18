@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./LoginScreen.scss"
 
 import AuthService from "../../services/auth.service";
+import {UserContext, UserContextType} from "../../context/UserContext";
 
 const Login = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
     const navigate = useNavigate();
-    
+    const { setUser } = useContext(UserContext) as UserContextType
+
     useEffect(() => {
         if (AuthService.getCurrentUser() !== null) {
             navigate("/profile",{replace:true});
@@ -30,6 +32,7 @@ const Login = () => {
         setLoading(true);
         AuthService.login(username, password).then(
             () => {
+                setUser(AuthService.getCurrentUser());
                 navigate("/profile",{replace:true});
             },
             error => {

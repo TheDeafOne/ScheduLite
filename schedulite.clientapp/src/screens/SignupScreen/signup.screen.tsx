@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useNavigate } from 'react-router';
 import * as Yup from "yup";
 import "./SignupScreen.scss"
 import AuthService from '../../services/auth.service';
+import {UserContext, UserContextType} from "../../context/UserContext";
 
 const Signup = () => {
   const [successful, setSuccessful] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext) as UserContextType
 
   function validationSchema() {
     return Yup.object().shape({
@@ -53,6 +55,7 @@ const Signup = () => {
         setMessage(response.data.message);
         setSuccessful(true);
         AuthService.login(username,password);
+        setUser(AuthService.getCurrentUser());
         navigate("/schedule-selection");
       },
       error => {
