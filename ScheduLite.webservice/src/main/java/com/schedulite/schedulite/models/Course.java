@@ -9,54 +9,50 @@ public class Course {
     public String id;
     public String year;
     public String semester;
-    public String course_prefix;
-    public String course_number;
-    public String course_section;
-    public String last_name;
-    public String first_name;
-    public String course_title;
-    public String credit_hours;
-    public String credit_variation;
-    public String course_capacity;
-    public String crs_enrollment;
-    public String building_code;
-    public String room_code;
-    public String on_monday;
-    public String on_tuesday;
-    public String on_wednesday;
-    public String on_thursday;
-    public String on_friday;
-    public String start_time;
-    public String end_time;
-    public String preferred_name;
+    public String coursePrefix;
+    public String courseNumber;
+    public String courseSection;
+    public String lastName;
+    public String firstName;
+    public String courseTitle;
+    public String creditHours;
+    public String creditVariation;
+    public String courseCapacity;
+    public String buildingCode;
+    public String roomCode;
+    public String onMonday;
+    public String onTuesday;
+    public String onWednesday;
+    public String onThursday;
+    public String onFriday;
+    public String startTime;
+    public String endTime;
 
     public Course() {
     }
 
-    public Course(String id, String year, String semester, String course_prefix, String course_number, String course_section, String last_name, String first_name, String course_title, String credit_hours, String credit_variation, String course_capacity, String crs_enrollment, String building_code, String room_code, String on_monday, String on_tuesday, String on_wednesday, String on_thursday, String on_friday, String start_time, String end_time, String preferred_name) {
+    public Course(String id, String year, String semester, String coursePrefix, String courseNumber, String courseSection, String lastName, String firstName, String courseTitle, String creditHours, String creditVariation, String courseCapacity, String buildingCode, String roomCode, String onMonday, String onTuesday, String onWednesday, String onThursday, String onFriday, String startTime, String endTime) {
         this.id = id;
         this.year = year;
         this.semester = semester;
-        this.course_prefix = course_prefix;
-        this.course_number = course_number;
-        this.course_section = course_section;
-        this.last_name = last_name;
-        this.first_name = first_name;
-        this.course_title = course_title;
-        this.credit_hours = credit_hours;
-        this.credit_variation = credit_variation;
-        this.course_capacity = course_capacity;
-        this.crs_enrollment = crs_enrollment;
-        this.building_code = building_code;
-        this.room_code = room_code;
-        this.on_monday = on_monday;
-        this.on_tuesday = on_tuesday;
-        this.on_wednesday = on_wednesday;
-        this.on_thursday = on_thursday;
-        this.on_friday = on_friday;
-        this.start_time = start_time;
-        this.end_time = end_time;
-        this.preferred_name = preferred_name;
+        this.coursePrefix = coursePrefix;
+        this.courseNumber = courseNumber;
+        this.courseSection = courseSection;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.courseTitle = courseTitle;
+        this.creditHours = creditHours;
+        this.creditVariation = creditVariation;
+        this.courseCapacity = courseCapacity;
+        this.buildingCode = buildingCode;
+        this.roomCode = roomCode;
+        this.onMonday = onMonday;
+        this.onTuesday = onTuesday;
+        this.onWednesday = onWednesday;
+        this.onThursday = onThursday;
+        this.onFriday = onFriday;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getId() {
@@ -83,164 +79,148 @@ public class Course {
         this.semester = semester;
     }
 
-    public String getCourse_prefix() {
-        return course_prefix;
+    public String getCoursePrefix() {
+        return coursePrefix;
     }
 
-    public void setCourse_prefix(String course_prefix) {
-        this.course_prefix = course_prefix;
+    public void setCoursePrefix(String coursePrefix) {
+        this.coursePrefix = coursePrefix;
     }
 
-    public String getCourse_number() {
-        return course_number;
+    public String getCourseNumber() {
+        return courseNumber;
     }
 
-    public void setCourse_number(String course_number) {
-        this.course_number = course_number;
+    public void setCourseNumber(String courseNumber) {
+        this.courseNumber = courseNumber;
     }
 
-    public String getCourse_section() {
-        return course_section;
+    public String getCourseSection() {
+        return courseSection;
     }
 
-    public void setCourse_section(String course_section) {
-        this.course_section = course_section;
+    public void setCourseSection(String courseSection) {
+        this.courseSection = courseSection;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getCourse_title() {
-        return course_title;
+    public String getCourseTitle() {
+        return courseTitle;
     }
 
-    public void setCourse_title(String course_title) {
-        this.course_title = course_title;
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
     }
 
-    public String getCredit_hours() {
-        return credit_hours;
+    public String getCreditHours() {
+        return creditHours;
     }
 
-    public void setCredit_hours(String credit_hours) {
-        this.credit_hours = credit_hours;
+    public void setCreditHours(String creditHours) {
+        this.creditHours = creditHours;
     }
 
-    public String getCredit_variation() {
-        return credit_variation;
+    public String getCreditVariation() {
+        return creditVariation;
     }
 
-    public void setCredit_variation(String credit_variation) {
-        this.credit_variation = credit_variation;
+    public void setCreditVariation(String creditVariation) {
+        this.creditVariation = creditVariation;
     }
 
-    public String getCourse_capacity() {
-        return course_capacity;
+    public String getCourseCapacity() {
+        return courseCapacity;
     }
 
-    public void setCourse_capacity(String course_capacity) {
-        this.course_capacity = course_capacity;
+    public void setCourseCapacity(String courseCapacity) {
+        this.courseCapacity = courseCapacity;
     }
 
-    public String getCrs_enrollment() {
-        return crs_enrollment;
+    public String getBuildingCode() {
+        return buildingCode;
     }
 
-    public void setCrs_enrollment(String crs_enrollment) {
-        this.crs_enrollment = crs_enrollment;
+    public void setBuildingCode(String buildingCode) {
+        this.buildingCode = buildingCode;
     }
 
-    public String getBuilding_code() {
-        return building_code;
+    public String getRoomCode() {
+        return roomCode;
     }
 
-    public void setBuilding_code(String building_code) {
-        this.building_code = building_code;
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode;
     }
 
-    public String getRoom_code() {
-        return room_code;
+    public String getOnMonday() {
+        return onMonday;
     }
 
-    public void setRoom_code(String room_code) {
-        this.room_code = room_code;
+    public void setOnMonday(String onMonday) {
+        this.onMonday = onMonday;
     }
 
-    public String getOn_monday() {
-        return on_monday;
+    public String getOnTuesday() {
+        return onTuesday;
     }
 
-    public void setOn_monday(String on_monday) {
-        this.on_monday = on_monday;
+    public void setOnTuesday(String onTuesday) {
+        this.onTuesday = onTuesday;
     }
 
-    public String getOn_tuesday() {
-        return on_tuesday;
+    public String getOnWednesday() {
+        return onWednesday;
     }
 
-    public void setOn_tuesday(String on_tuesday) {
-        this.on_tuesday = on_tuesday;
+    public void setOnWednesday(String onWednesday) {
+        this.onWednesday = onWednesday;
     }
 
-    public String getOn_wednesday() {
-        return on_wednesday;
+    public String getOnThursday() {
+        return onThursday;
     }
 
-    public void setOn_wednesday(String on_wednesday) {
-        this.on_wednesday = on_wednesday;
+    public void setOnThursday(String onThursday) {
+        this.onThursday = onThursday;
     }
 
-    public String getOn_thursday() {
-        return on_thursday;
+    public String getOnFriday() {
+        return onFriday;
     }
 
-    public void setOn_thursday(String on_thursday) {
-        this.on_thursday = on_thursday;
+    public void setOnFriday(String onFriday) {
+        this.onFriday = onFriday;
     }
 
-    public String getOn_friday() {
-        return on_friday;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setOn_friday(String on_friday) {
-        this.on_friday = on_friday;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getStart_time() {
-        return start_time;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setStart_time(String start_time) {
-        this.start_time = start_time;
-    }
-
-    public String getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(String end_time) {
-        this.end_time = end_time;
-    }
-
-    public String getPreferred_name() {
-        return preferred_name;
-    }
-
-    public void setPreferred_name(String preferred_name) {
-        this.preferred_name = preferred_name;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     @Override
@@ -249,26 +229,24 @@ public class Course {
                 "id='" + id + '\'' +
                 ", year='" + year + '\'' +
                 ", semester='" + semester + '\'' +
-                ", course_prefix='" + course_prefix + '\'' +
-                ", course_number='" + course_number + '\'' +
-                ", course_section='" + course_section + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", course_title='" + course_title + '\'' +
-                ", credit_hours='" + credit_hours + '\'' +
-                ", credit_variation='" + credit_variation + '\'' +
-                ", course_capacity='" + course_capacity + '\'' +
-                ", crs_enrollment='" + crs_enrollment + '\'' +
-                ", building_code='" + building_code + '\'' +
-                ", room_code='" + room_code + '\'' +
-                ", on_monday='" + on_monday + '\'' +
-                ", on_tuesday='" + on_tuesday + '\'' +
-                ", on_wednesday='" + on_wednesday + '\'' +
-                ", on_thursday='" + on_thursday + '\'' +
-                ", on_friday='" + on_friday + '\'' +
-                ", start_time='" + start_time + '\'' +
-                ", end_time='" + end_time + '\'' +
-                ", preferred_name='" + preferred_name + '\'' +
+                ", coursePrefix='" + coursePrefix + '\'' +
+                ", courseNumber='" + courseNumber + '\'' +
+                ", courseSection='" + courseSection + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", courseTitle='" + courseTitle + '\'' +
+                ", creditHours='" + creditHours + '\'' +
+                ", creditVariation='" + creditVariation + '\'' +
+                ", courseCapacity='" + courseCapacity + '\'' +
+                ", buildingCode='" + buildingCode + '\'' +
+                ", roomCode='" + roomCode + '\'' +
+                ", onMonday='" + onMonday + '\'' +
+                ", onTuesday='" + onTuesday + '\'' +
+                ", onWednesday='" + onWednesday + '\'' +
+                ", onThursday='" + onThursday + '\'' +
+                ", onFriday='" + onFriday + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
                 '}';
     }
 }
