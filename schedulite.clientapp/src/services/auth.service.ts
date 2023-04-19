@@ -1,10 +1,11 @@
+import { MdSouth } from "react-icons/md";
 import axios from "../api/axios-config";
 
 const authPrefix = 'auth'
 class AuthService {
   login(username: string, password: string) {
     return axios
-      .post(authPrefix + "/signin", {
+      .post(authPrefix + "/login", {
         username,
         password
       })
