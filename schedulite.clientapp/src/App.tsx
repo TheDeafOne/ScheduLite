@@ -156,7 +156,7 @@ function AppBody() {
                     <AnimatePresence mode={"wait"}>
                         <Routes location={location} key={location.pathname}>
                             {/*<Route path="/" element={<Home />} />*/}
-                            <Route path="/signin" element={<Login />} />
+                            <Route path="/login" element={<Login />} />
                             <Route path="/signup" element={<Signup />} />
                             <Route path="/*" Component={DefaultRoutes} />
                         </Routes>

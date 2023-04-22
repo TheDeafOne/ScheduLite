@@ -10,7 +10,7 @@ const AuthOptions = () => {
             <button className="auth-button signup" onClick={() => { navigate("/signup") }}>
                 Sign Up
             </button>
-            <button className="auth-button login" onClick={() => { navigate("/signin") }}>
+            <button className="auth-button login" onClick={() => { navigate("/login") }}>
                 Log In
             </button>
         </div>

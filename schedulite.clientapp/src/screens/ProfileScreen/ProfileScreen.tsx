@@ -6,20 +6,18 @@ import { UserContext, UserContextType } from '../../context/UserContext';
 
 const Profile = () => {
     const navigate = useNavigate();
-    const { user } = useContext(UserContext) as UserContextType;
-    const [userData, setUserData] = useState<string>("");
 
     useEffect(() => {
-        if (user === null) {
-            navigate("/signin");
+        if (AuthService.getCurrentUser() === null) {
+            navigate("/login", { replace: true });
         }
-    }, [user])
+    }, [])
     return (
         <div>
             <VerticalTabs />
             <button onClick={() => {
                 AuthService.logout();
-                navigate("/signin");
+                navigate("/login");
             }}>
                 Log Out
             </button>
