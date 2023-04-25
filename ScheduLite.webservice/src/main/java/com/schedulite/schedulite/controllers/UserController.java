@@ -100,7 +100,24 @@ public class UserController {
     @RequestMapping("upload-transcript")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> classify(@Valid @NotNull @RequestParam("file") final MultipartFile pdfFile) {
+        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if (userId == null) {
+            return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
+        }
 
+        Optional<User> optionalUser = userService.getUserByUserId(userId);
+        if (optionalUser.isEmpty()) {
+            return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
+        }
+        User currentUser = optionalUser.get();
+        try {
+            String transcriptContent = userService.extractContent(pdfFile);
+            List<String> classes = findClasses(transcriptContent);
+            currentUser.setCompletedCourses(classes);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>("Error parsing PDF", HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>("Successfully added completed courses", HttpStatus.OK);
     }
 
