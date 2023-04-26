@@ -1,0 +1,51 @@
+@use "variables";
+
+.main-body {
+  background-color: variables.$background-main;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 94vh;
+
+  .center-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 3 1 0;
+    overflow-y: scroll;
+  }
+  .side-panel {
+    flex: 1 1 0;
+    text-align: start;
+    color: white;
+    padding: 5px;
+    overflow-y: scroll;
+
+    .side-panel-title {
+      padding: 20px 10px 0 10px;
+      font-weight: bold;
+      font-size: 23px;
+    }
+  }
+
+  .right-panel {
+    border-left: 1px solid variables.$border-color;
+  }
+  .left-panel {
+    border-right: 1px solid variables.$border-color;
+  }
+  .side-panel-title-container {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid variables.$border-color;
+  }
+  .credits {
+    color: #b2b2b8;
+    font-size: 23px;
+  }
+}
+
+
+
+
+

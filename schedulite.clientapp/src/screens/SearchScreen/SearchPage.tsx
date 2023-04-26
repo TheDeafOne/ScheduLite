@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
 import axiosConfig from "../../api/axios-config";
-import Results from "../../components/CourseComponents/Results";
-import SearchBar from "./SearchScreenComponents/SearchBar";
+import Results from "../../components/CourseComponents/Results/Results";
+import SearchBar from "./SearchScreenComponents/SearchBar/SearchBar";
 import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
-import "../../styles/BodyStructure.css"
+import "./SearchPage.scss";
 import Course from "../../components/CourseComponents/Course";
 import { motion } from "framer-motion";
 import ICourse from "../../types/course.type";
@@ -23,7 +23,7 @@ export interface Filters {
     semester: string,
     setSemesterFilter: Function
 }
-const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse, linkedSchedule } : { schedule : ISchedule, setSchedule : Function, addCourse: Function, removeCourse: Function, linkedSchedule: boolean }) => {
+const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse]= useState<ICourse | undefined>();
@@ -58,12 +58,19 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse, linkedSche
         }
     }
     // const active: ICourse[] = [{"id":"641463211d1ed0444011a19e","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":301,"course_section":"L","last_name":"Stauff","first_name":"Devin","course_title":"LABORATORY","credit_hours":0,"credit_variation":"N","course_capacity":9,"crs_enrollment":11,"building_code":"RO","room_code":"121","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 11:30","end_time":"1/1/1900 12:45","preferred_name":null},{"id":"641463211d1ed0444011a19f","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":305,"course_section":"A","last_name":"Dudt","first_name":"Jan","course_title":"PLANT TAXONOMY","credit_hours":4,"credit_variation":"N","course_capacity":20,"crs_enrollment":12,"building_code":"STEM","room_code":"245","on_monday":"M","on_tuesday":null,"on_wednesday":"W","on_thursday":null,"on_friday":"F","start_time":"1/1/1900 10:00","end_time":"1/1/1900 10:50","preferred_name":null},{"id":"641463211d1ed0444011a1a0","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":305,"course_section":"L","last_name":"Dudt","first_name":"Jan","course_title":"LABORATORY","credit_hours":0,"credit_variation":"N","course_capacity":20,"crs_enrollment":12,"building_code":"STEM","room_code":"126","on_monday":null,"on_tuesday":null,"on_wednesday":"W","on_thursday":null,"on_friday":null,"start_time":"1/1/1900 14:00","end_time":"1/1/1900 16:59","preferred_name":null},{"id":"641463211d1ed0444011a1a1","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":313,"course_section":"A","last_name":"Farone","first_name":"Tracy","course_title":"HISTOLOGY","credit_hours":3,"credit_variation":"N","course_capacity":20,"crs_enrollment":20,"building_code":"STEM","room_code":"245","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 13:00","end_time":"1/1/1900 14:15","preferred_name":null},{"id":"641463211d1ed0444011a1a2","year":2018,"semester":"Fall","course_prefix":"BIOL","course_number":331,"course_section":"A","last_name":"Brenner","first_name":"Frederic","course_title":"ECOLOGY","credit_hours":4,"credit_variation":"N","course_capacity":24,"crs_enrollment":7,"building_code":"RO","room_code":"218","on_monday":null,"on_tuesday":"T","on_wednesday":null,"on_thursday":"R","on_friday":null,"start_time":"1/1/1900 8:00","end_time":"1/1/1900 9:15","preferred_name":"Fred"}]
-    const onEnter = (q : any) => {
-        console.log("PRESSED ENTER")
-        console.log(q);
-        console.log(filters);
-        console.log(searchType);
-        setResponse([])
+    const onEnter = (searchQuery : any) => {
+        if (searchQuery === "") {
+            setResponse([])
+            return
+        }
+        // console.log("PRESSED ENTER")
+        // console.log(q);
+        // console.log(filters);
+        // console.log(searchType);
+        console.log("QUERY")
+        console.log(searchQuery)
+        let q = searchQuery;
+        // setResponse([])
         let url = ""
         // if (semester === "") {
             // setSemesterFilter("Set semester when creating schedule!")
@@ -112,7 +119,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse, linkedSche
         >
             <div className={"main-body"}>
                 {/*FILTER PANEL*/}
-                <FilterPanel filters={filters}/>
+                <FilterPanel filters={filters} onEnter={onEnter}/>
                 <div className={"center-panel"}>
                     <motion.div
                         key="search"
@@ -127,6 +134,7 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse, linkedSche
                     <SearchBar
                         setResponse={setSearchResponse}
                         onEnter={onEnter}
+                        setQuery={setQuery}
                         autofocus={true}
                         firstClick={false}
                         searchType={searchType}
@@ -135,11 +143,12 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse, linkedSche
                     </motion.div>
                     <Results response={response}
                              onCourseClick={onCourseClick}
-                             addCourse={addCourse}
-                             removeCourse={removeCourse}
-                             sched={schedule}/>
+                             // addCourse={addCourse}
+                             // removeCourse={removeCourse}
+                             // sched={schedule}
+                    />
                 </div>
-                <CourseDetailPanel course={currCourse} viewCourse={viewCourse}/>
+                <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined}/>
                 {/*DETAIL VIEW*/}
             </div>
         </motion.div>
@@ -148,6 +157,6 @@ const SearchPage = ({ schedule, setSchedule, addCourse, removeCourse, linkedSche
 }
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
-// import "./App.css";
+// import "./App.scss";
 
 export default SearchPage;

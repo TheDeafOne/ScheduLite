@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import IUser from "../../types/user.type";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 interface Personal {
   firstName: string;
@@ -37,6 +39,12 @@ const Personal = () => {
       <div style={{ padding: "80px 20px 20px 20px" }}></div>
       <form onSubmit={handleSubmit}>
         <div>
+          <TextField
+              id="outlined-basic"
+              label="First Name"
+              variant="outlined"
+          />
+
           <label htmlFor="firstName">First Name:</label>
           <input
             type="text"
