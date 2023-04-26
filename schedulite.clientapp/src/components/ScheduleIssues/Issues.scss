@@ -11,6 +11,9 @@
   }
   border: 1px solid variables.$border-color;
   margin: 0.25em 0 0.25em 0;
+  .issue {
+    padding: .5em 0 .5em 0;
+  }
 
   .error-container-title {
     //padding-top: 10px;
@@ -88,7 +91,8 @@
 }
 .warning {
  background-color: variables.$background-warning;
+  //background-color: #40ff00;
 }
 .warning-title {
-  color: #a280ff;
+  color: #fffcda;
 }

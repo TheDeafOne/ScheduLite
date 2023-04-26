@@ -6,7 +6,7 @@
   flex-direction: row;
   justify-content: center;
   overflow-y: scroll;
-  height: 94vh;
+  height: 92vh;
 
   .center-panel {
     display: flex;
@@ -25,6 +25,7 @@
       padding: 20px 10px 0 10px;
       font-weight: bold;
       font-size: 23px;
+      //border-bottom: 1px solid variables.$border-color;
     }
     .no-courses {
       padding: 10px;
@@ -42,6 +43,27 @@
     flex-direction: column;
     //justify-content: space-between;
     border-left: 1px solid variables.$border-color;
+    //justify-content: space-between;
+    .issues {
+      flex: 1 1 0;
+      //background-color: #2e54ee;
+      overflow-y: scroll;
+    }
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1 1 0;
+
+      //justify-content: space-between;
+      //align-items: end;
+      //background-color: #5e2929;
+      border-bottom: 1px solid variables.$border-color;
+      .course-detail-card {
+        padding-top: 5px;
+      }
+    }
+
     //justify-content: space-between;
   }
   .left-panel {
