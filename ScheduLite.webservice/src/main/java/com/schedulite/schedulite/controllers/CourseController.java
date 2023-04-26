@@ -29,22 +29,19 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
     @GetMapping("/query")
-    public ResponseEntity<?> getCourseByNumber(@RequestParam(required = false) String query) {
-        // return all courses by the given number, or none if none found
-        return new ResponseEntity<>(courseService.getCourseByCourseNumber(query), HttpStatus.OK);
-    }
-
-    @GetMapping("/filters")
-    public ResponseEntity<?> getFilteredCourses(
+    public ResponseEntity<?> getCourseByNumber(
+            @RequestParam(required = false) String query,
             @RequestParam(required = false) String semester,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String prefix,
             @RequestParam(required = false) String number,
             @RequestParam(required = false) String time,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String days) {
-        // returns the courses specified by given optional filters
-        return new ResponseEntity<>(courseService.getCourseByFilters(semester, title, prefix, number, time, name, days), HttpStatus.OK);
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String days
+    ) {
+        // return all courses by the given number, or none if none found
+        return new ResponseEntity<>(courseService.getCourseByCourseNumber(query), HttpStatus.OK);
     }
 
     @GetMapping("/by-schedule")
