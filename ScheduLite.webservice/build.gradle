@@ -12,13 +12,13 @@ repositories {
 	mavenCentral()
 }
 
-ext {
-	pdfboxVersion = '2.0.28'
-}
-
 dependencies {
 	// https://svn.apache.org/viewvc/pdfbox/trunk/parent/pom.xml?view=markup
-	implementation "org.apache.pdfbox:pdfbox:${pdfboxVersion}"
+	implementation "org.apache.pdfbox:pdfbox:2.0.22"
+//	implementation 'com.ironsoftware:ironpdf:2023.4.4'
+	// https://mvnrepository.com/artifact/e-iceblue/spire.pdf
+//	implementation 'e-iceblue:spire.pdf:9.3.11'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'

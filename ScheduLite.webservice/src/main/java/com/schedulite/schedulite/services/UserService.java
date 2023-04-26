@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
+import java.nio.file.Files;
 import java.util.Optional;
 
 @Service
@@ -37,7 +38,7 @@ public class UserService {
             final PDFTextStripper pdfStripper = new PDFTextStripper();
             text = pdfStripper.getText(document);
         } catch (final Exception ex) {
-            throw new Exception("Error parsing PDF");
+            throw new Exception(ex.getMessage());
         }
 
         return text;

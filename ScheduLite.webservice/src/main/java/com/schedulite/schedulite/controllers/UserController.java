@@ -1,22 +1,31 @@
 package com.schedulite.schedulite.controllers;
 
+import com.schedulite.schedulite.businesslogic.BusinessLogic;
 import com.schedulite.schedulite.models.Course;
 import com.schedulite.schedulite.models.Schedule;
 import com.schedulite.schedulite.models.User;
 import com.schedulite.schedulite.services.RoleService;
 import com.schedulite.schedulite.services.UserDetailsImpl;
 import com.schedulite.schedulite.services.UserService;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +37,8 @@ public class UserController {
     private RoleService roleService;
     @Autowired
     private UserService userService;
+
+    private BusinessLogic businessLogic;
 
     @GetMapping("/roles")
     public ResponseEntity<?> getRoles() {
@@ -97,33 +108,36 @@ public class UserController {
     }
 
 
-    @RequestMapping("upload-transcript")
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> classify(@Valid @NotNull @RequestParam("file") final MultipartFile pdfFile) {
-        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        if (userId == null) {
-            return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
-        }
-
-        Optional<User> optionalUser = userService.getUserByUserId(userId);
-        if (optionalUser.isEmpty()) {
-            return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
-        }
-        User currentUser = optionalUser.get();
-        try {
-            String transcriptContent = userService.extractContent(pdfFile);
-            List<String> classes = findClasses(transcriptContent);
-            currentUser.setCompletedCourses(classes);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("Error parsing PDF", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("Successfully added completed courses", HttpStatus.OK);
+    @PostMapping("upload-transcript")
+    public ResponseEntity<?> uploadTranscript(@Valid @NotNull @RequestParam("file") MultipartFile pdfFile) throws IOException {
+//        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+//        if (userId == null) {
+//            return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
+//        }
+//
+//        Optional<User> optionalUser = userService.getUserByUserId(userId);
+//        if (optionalUser.isEmpty()) {
+//            return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
+//        }
+//        User currentUser = optionalUser.get();
+//        System.out.println(fileName);
+//        File file = new File(fileName);
+        PDDocument document = PDDocument.load(pdfFile.getInputStream());
+        PDFTextStripper pdfStripper = new PDFTextStripper();
+        String text = pdfStripper.getText(document);
+        List<String> classes = findClasses(text);
+        //document.close();
+//        try {
+//            String transcriptContent = userService.extractContent(pdfFile);
+//            classes = findClasses(transcriptContent);
+//        }
+//        catch (Exception e) {
+//            return new ResponseEntity<>("Error parsing PDF", HttpStatus.BAD_REQUEST);
+//        }
+        return new ResponseEntity<>(classes, HttpStatus.OK);
     }
 
-
-
-        public List<String> findClasses(String input) {
+    public List<String> findClasses(String input) {
         List<String> result = new ArrayList<>();
         String[] lines = input.split("\n");
 
