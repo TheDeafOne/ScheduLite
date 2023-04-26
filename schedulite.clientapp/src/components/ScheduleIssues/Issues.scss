@@ -1,0 +1,94 @@
+@use "../../styles/globals/variables";
+
+.issue-container {
+  border-radius: 15px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  //row-gap: .5em;
+  .issue + .issue {
+    border-top: solid 1px variables.$border-color;
+  }
+  border: 1px solid variables.$border-color;
+  margin: 0.25em 0 0.25em 0;
+
+  .error-container-title {
+    //padding-top: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .error-container-subtitle {
+    //padding-top: 10px;
+    display: flex;
+    font-size: 19px;
+    font-weight: bold;
+    color: variables.$text-color;
+  }
+
+  .error-courses-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1em;
+    //row-gap: .25em;
+
+
+    .error-course {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      //border-radius: 5px;
+      //background-color: lighten(variables.$background-error, 5%);
+      padding: .25em;
+      font-weight: bold;
+      .error-course-title {
+        display: flex;
+        text-wrap: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .action-buttons {
+        display: inherit;
+        flex-direction: row;
+      }
+    }
+    .error-course + .error-course {
+      border-top: solid 1px variables.$border-color;
+    }
+  }
+}
+.course-button {
+  all: unset;
+  cursor: pointer;
+  font-size: 20px;
+  height: 25px;
+  width: 25px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*padding: 5px 5px 5px 5px;*/
+  border-radius: 5px;
+  /*text-align: center;*/
+  &:hover {
+    background-color: #4b566c;
+  }
+  &:focus {
+    outline: orange 5px auto;
+  }
+}
+.error {
+  background-color: variables.$background-error;
+}
+.error-title {
+  color: #ffadad;
+}
+.warning {
+ background-color: variables.$background-warning;
+}
+.warning-title {
+  color: #a280ff;
+}

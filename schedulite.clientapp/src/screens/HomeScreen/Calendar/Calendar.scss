@@ -54,19 +54,23 @@
 }
 .day-slot {
     display: flex;
+    flex-grow: 1;
+    //flex: 0 0 auto;
     flex-direction: row;
     padding: 1px;
     height: 45px;
+    width: 165px;
     border-bottom: 1px solid variables.$border-color;
     box-sizing: border-box;
     font-weight: bold;
     /*color: #282c34;*/
 }
 .calendar-course {
+    display: flex;
     flex-grow: 1;
+    flex-basis: 100%;
     font-size: 12px;
     position: relative;
-    display: flex;
 
     flex-direction: column;
     padding: 7px;
@@ -77,6 +81,9 @@
     box-sizing: border-box;
     text-align: start;
     overflow-x: hidden;
+    text-wrap: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     &:hover {
         filter: brightness(1.4);
     }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import UserOptions from '../UserOptions/UserOptions';
-import AuthOptions from '../AuthOptions/AuthOptions';
+import UserOptions from './UserOptions/UserOptions';
+import AuthOptions from './AuthOptions/AuthOptions';
 import { UserContext, UserContextType } from '../../context/UserContext';
 import './NavBar.scss';
 import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
