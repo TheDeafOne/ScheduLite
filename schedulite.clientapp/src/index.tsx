@@ -4,6 +4,7 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { UserProvider } from './context/UserContext';
+import {ScheduleProvider} from "./context/ScheduleContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <UserProvider>
-      <App />
+        <ScheduleProvider>
+          <App />
+        </ScheduleProvider>
     </UserProvider>
   </BrowserRouter>
 );

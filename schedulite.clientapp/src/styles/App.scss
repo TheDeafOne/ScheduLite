@@ -1,0 +1,15 @@
+/*@import "./FormElementStyles/Select.scss";*/
+@use "globals/variables";
+
+.App {
+  text-align: center;
+}
+html, body, #app, #app>div {
+  font-family: Arial, serif;
+  height: 100%;
+  background-color: variables.$background-main;
+}
+
+.modal {
+  background-color: #282c34;
+}

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import './styles/App.css';
+import './styles/App.scss';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './screens/HomeScreen/HomeScreen';
 import SearchPage from "./screens/SearchScreen/SearchPage";
 import { AnimatePresence, useTransform } from "framer-motion";
 import ISchedule from "./types/schedule.type";
 import ICourse from "./types/course.type";
-import Profile from "./screens/ProfileScreen/profile.screen"
-import Signup from "./screens/SignupScreen/signup.screen";
-import Login from "./screens/LoginScreen/login.screen";
+import Profile from "./screens/ProfileScreen/ProfileScreen"
+import Signup from "./screens/SignupScreen/SignupScreen";
+import Login from "./screens/LoginScreen/LoginScreen";
 import NavBar from "./components/NavBar/NavBar"
 import Modal from 'react-modal';
 import { UserContext, UserContextType } from './context/UserContext';
@@ -17,20 +17,31 @@ import { ScheduleProvider } from './context/ScheduleContext';
 import BlockPage from './screens/ScheduleSelectionScreen/ScheduleSelectionScreen';
 import AuthService from './services/auth.service';
 import SetScheduleModal from './components/Modals/SetScheduleModal';
+import {useTheme, createTheme, ThemeProvider, CssBaseline} from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import {getDesignTokens} from "./styles/CustomPalette";
+// import Brightness4Icon from '@mui/icons-material/Brightness4';
+// import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 Modal.setAppElement('#root');
 
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+
 export interface linkedScheduleObjType {linkedSchedule: boolean, setLinkedSchedule: React.Dispatch<React.SetStateAction<boolean>>}
 
-function App() {
+// const defaultTheme = {
+//
+// }
+function AppBody() {
+    const theme = useTheme();
+    const colorMode = React.useContext(ColorModeContext);
+
     const { setUser } = useContext(UserContext) as UserContextType;
     const location = useLocation();
-    const active: ICourse[] = [];
-    const tentative: ICourse[] = [];
-    const [schedule, setSchedule] = useState<ISchedule>({ activeCourses: active, tentativeCourses: tentative, scheduleName: "new", year:"2018", semester: "Spring" })
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modal, setModal] = useState(null);
     const [linkedSchedule, setLinkedSchedule] = useState(false);
+
     let linkedScheduleObj : linkedScheduleObjType = {
         linkedSchedule: linkedSchedule,
         setLinkedSchedule: setLinkedSchedule
@@ -46,33 +57,6 @@ function App() {
           transform: 'translate(-50%, -50%)',
         },
       };
-      
-    const removeCourse = (courseId: string, sched: string) => {
-        console.log(`Remove course :${courseId} ${schedule}`)
-        let currSchedule: ICourse[];
-        if (sched === "active") {
-            console.log("active here")
-            currSchedule = schedule.activeCourses
-        } else {
-            console.log("tentative here")
-            currSchedule = schedule.tentativeCourses
-        }
-        currSchedule.forEach(function (elem: ICourse, index: number) {
-            if (elem["id"] === courseId) {
-                currSchedule.splice(index, 1);
-            }
-        });
-        setSchedule({ activeCourses: schedule.activeCourses, tentativeCourses: schedule.tentativeCourses, scheduleName: "new", year:"2018", semester: "Spring" })
-    }
-    const addCourse = (course: ICourse, sched: string) => {
-        console.log("ADD COURSE")
-        if (sched === "active") {
-            schedule.activeCourses.push(course);
-        } else {
-            schedule.tentativeCourses.push(course);
-        }
-    }
-    // const addCourseToSchedule = ()
 
     useEffect(() => {
         const userStr = localStorage.getItem("user");
@@ -84,7 +68,7 @@ function App() {
                 user = JSON.parse(newUserStr);
             }
 
-            // console.log(user);
+            // THIS IS HAPPENING EVERY TIME BRUH
             setUser(user);
         }
         
@@ -104,7 +88,7 @@ function App() {
 
     const DefaultRoutes = () => {
         return (
-            <div >
+            <div>
                 <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}
@@ -141,7 +125,6 @@ function App() {
                             padding: '20px'
                         }
                     }}
-
                     >
                         {modal}
                 </Modal>
@@ -150,24 +133,13 @@ function App() {
                     <Route
                         path="/"
                         element={
-                            <Home
-                                schedule={schedule}
-                                setSchedule={setSchedule}
-                                removeCourse={removeCourse}
-                                linkedScheduleObj={linkedScheduleObj}
-                            />
+                            <Home linkedScheduleObj={linkedScheduleObj}/>
                         }
                     />
                     <Route
                         path="/Search"
                         element={
-                            <SearchPage
-                                schedule={schedule}
-                                setSchedule={setSchedule}
-                                addCourse={addCourse}
-                                removeCourse={removeCourse}
-                                linkedSchedule={false}
-                            />
+                            <SearchPage linkedSchedule={false}/>
                         }
                     />
                     <Route path="/profile" element={<Profile />} />
@@ -177,11 +149,8 @@ function App() {
         )
     }
 
-
-
-
     return (
-        <ScheduleProvider>
+        // <ScheduleProvider>
             <div className="App" id={"app"}>
                 {/*<div className={"main-div"}>*/}
                     <AnimatePresence mode={"wait"}>
@@ -197,9 +166,30 @@ function App() {
 
             </div>
 
-        </ScheduleProvider>
+        // </ScheduleProvider>
     );
 }
+function App() {
+    const [mode, setMode] = React.useState<'light' | 'dark'>('dark');
 
+    const colorMode = React.useMemo(
+        () => ({
+            toggleColorMode: () => {
+                setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+            },
+        }),
+        [],
+    );
+
+    const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode])
+
+    return (
+        <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+                <AppBody />
+            </ThemeProvider>
+        </ColorModeContext.Provider>
+    );
+}
 
 export default App;

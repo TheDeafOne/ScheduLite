@@ -2,12 +2,13 @@ import React, {createContext, useContext, useEffect, useReducer, useState} from 
 import ICourse from "../types/course.type";
 import {stat} from "fs";
 import {UserContext, UserContextType} from "./UserContext";
-import {bool} from "yup";
+import {bool, boolean} from "yup";
 import axios from "../api/axios-config";
 import {replace} from "formik";
 import authHeader from "../services/auth-header";
 import ISchedule from "../types/schedule.type";
 import { IconBaseProps } from "react-icons/lib";
+import moment from "moment";
 
 // export default
 // schedule =
@@ -21,13 +22,16 @@ type Action = {course: ICourse | null, type: 'add' | 'remove' | 'setAll', unshif
 
 type Dispatch = (action: Action) => void
 type State = {courses: Array<ICourse>}
-
+type Errors = {overlap: {value: boolean, courses: Array<ICourse>}}
+type Warnings = {credits: {value: boolean, message: string}, sameCourse: {value: boolean, courses: Array<ICourse>, message: string}}
 export interface ScheduleContextType {
     activeCourses: State,
     setActiveCourses: Dispatch,
     tentativeCourses: State,
     setTentativeCourses: Dispatch,
     calcActiveCredits: () => number,
+    inSchedule: (course: ICourse) => boolean,
+    overlap: (course1: ICourse, course2: ICourse) => boolean,
     saved: boolean,
     year: string,
     setYear: React.Dispatch<React.SetStateAction<string>>,
@@ -35,7 +39,9 @@ export interface ScheduleContextType {
     setName: React.Dispatch<React.SetStateAction<string>>,
     semester: string,
     setSemester: React.Dispatch<React.SetStateAction<string>>,
-    saveSchedule: () => void
+    saveSchedule: () => void,
+    errors: () => Errors,
+    warnings: () => Warnings
 }
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);
 
@@ -76,7 +82,6 @@ function coursesReducer(state: State, action: Action) {
     }
 }
 
-
 export const ScheduleProvider = (props: any) => {
     // const empty: ICourse[] = [];
     const [activeCourses, setActiveCourses] = useReducer(coursesReducer, {courses: []})
@@ -85,6 +90,52 @@ export const ScheduleProvider = (props: any) => {
     const [year, setYear] = useState("")
     const [name, setName] = useState("")
     const [saved, setSaved] = useState(true)
+
+    const errors = () => {
+        let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
+        console.log(coursesWithOverlap);
+
+
+        return {
+            overlap : {
+                value: coursesWithOverlap.length > 0,
+                courses: coursesWithOverlap
+            }
+        }
+    }
+    const warnings = () => {
+        let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)))
+
+        return {
+            credits: {
+                value: calcActiveCredits() > 18,
+                message: `Number of active credits ${calcActiveCredits()} is greater 18.`
+            },
+            sameCourse: {
+                value: sameCourseDiffSections.length > 0,
+                courses: sameCourseDiffSections,
+                message: "Schedule contains two of the same course with different sections."
+            }
+        }
+    }
+
+    const overlap = (course1: ICourse, course2: ICourse) : boolean => {
+        const startDate1 = moment(course1["startTime"], 'YYYY/MM/DD h:mm:ss')
+        const endDate1 = moment(course1["endTime"], 'YYYY/MM/DD h:mm:ss')
+        const startDate2 = moment(course2["startTime"], 'YYYY/MM/DD h:mm:ss')
+        const endDate2 = moment(course2["endTime"], 'YYYY/MM/DD h:mm:ss')
+
+        const daysSame = (course1.onMonday && course1.onMonday === course2.onMonday)
+            || (course1.onTuesday && course1.onTuesday === course2.onTuesday)
+            || (course1.onWednesday && course1.onWednesday === course2.onWednesday)
+            || (course1.onThursday && course1.onThursday === course2.onThursday)
+            || (course1.onFriday && course1.onFriday === course2.onFriday)
+
+        return (startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1) && daysSame) as boolean
+    }
+    const inSchedule = (course : ICourse) : boolean => {
+        return activeCourses.courses.some((e : ICourse) => (e.id === course.id))
+    }
 
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
@@ -138,7 +189,7 @@ export const ScheduleProvider = (props: any) => {
     const calcActiveCredits = () : number => {
         let credits : number = 0
         activeCourses.courses.forEach(function(elem : ICourse, index : number) {
-            credits += +elem.credit_hours;
+            credits += +elem.creditHours;
         });
         return credits
     }
@@ -155,8 +206,10 @@ export const ScheduleProvider = (props: any) => {
         semester, setSemester,
         year, setYear,
         calcActiveCredits, 
-        
+        inSchedule, overlap,
+        errors, warnings
     }
+
     return (
         <ScheduleContext.Provider value={value}>
             {props.children}
