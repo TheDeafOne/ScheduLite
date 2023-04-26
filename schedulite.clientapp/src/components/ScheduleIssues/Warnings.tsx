@@ -8,6 +8,7 @@ import ICourse from "../../types/course.type";
 const Warnings = () => {
     const { warnings, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
     let scheduleWarnings = warnings()
+    console.log("WARNINGS UPDATED")
     const conditionalRemoveCourse = (course: ICourse) => {
         setActiveCourses({course: course, type: "remove"});
     }
@@ -22,12 +23,12 @@ const Warnings = () => {
                 (scheduleWarnings.credits.value || scheduleWarnings.sameCourse.value) && (
                     <div>
                         <div className={"issue-container warning"}>
+                            <div className={"error-container-title warning-title"}>
+                                Warnings
+                            </div>
                             {
                                 scheduleWarnings.credits.value && (
                                     <div className={"issue"}>
-                                        <div className={"error-container-title warning-title"}>
-                                            Warnings
-                                        </div>
                                         <div className={"error-container-subtitle"}>
                                             <ErrorOutlineIcon sx={{paddingRight: "5px"}}/> {scheduleWarnings.credits.message}
                                         </div>
