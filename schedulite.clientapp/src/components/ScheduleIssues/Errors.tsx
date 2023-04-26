@@ -11,6 +11,8 @@ import ICourse from "../../types/course.type";
 const Errors = () => {
     const { errors, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
     let scheduleErrors = errors()
+    console.log("ERRORS UPDATED")
+    console.log(JSON.stringify(scheduleErrors))
     const conditionalRemoveCourse = (course: ICourse) => {
         setActiveCourses({course: course, type: "remove"});
     }
