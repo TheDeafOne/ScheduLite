@@ -56,6 +56,7 @@ const Course = (props : any) => {
     const onClick = (event : any) => {
         event.stopPropagation();
         props.switchAction(course)
+        props.onMouseLeave();
     }
 
     const conditionalRemoveCourse = () => {

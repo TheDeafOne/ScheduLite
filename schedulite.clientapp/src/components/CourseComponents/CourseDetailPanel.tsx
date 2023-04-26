@@ -14,31 +14,38 @@ const CourseDetailPanel = ({course, viewCourse, calendarCourseHover}: {course : 
 
     return (
         <div className={"side-panel right-panel"}>
-            <div>
-                <div className={"side-panel-title"} >
-                    Course Detail View
-                </div>
-                <br />
+            <div className={"details"}>
                 <div>
-                    {
-                        viewCourse &&
-                        (course ? <CourseCard course={calendarCourseHover ? calendarCourseHover : course} />
-                                : (calendarCourseHover ? <CourseCard course={calendarCourseHover} /> : <></>)
-                        )
-                    }
+                    <div className={"side-panel-title-container"}>
+                        <div className={"side-panel-title"}>
+                            Course Detail View
+                        </div>
+                    </div>
+                    <div className={"course-detail-card"}>
+                        {
+                            viewCourse &&
+                            (course ? <CourseCard course={calendarCourseHover ? calendarCourseHover : course}/>
+                                    : (calendarCourseHover ? <CourseCard course={calendarCourseHover}/> : <></>)
+                            )
+                        }
+                    </div>
+
+                </div>
+                <div>
+                    <div className={"side-panel-title"}>
+                        Issues
+                    </div>
                 </div>
             </div>
-            <div>
-                <div className={"side-panel-title"} >
-                    Issues
-                </div>
-                <div>
-                    <Errors />
-                    <Warnings />
+            <div className={"issues"}>
+
+                <div className={"issues-container"}>
+                    <Errors/>
+                    <Warnings/>
                 </div>
             </div>
 
         </div>
-    )
+    );
 }
 export default CourseDetailPanel;
