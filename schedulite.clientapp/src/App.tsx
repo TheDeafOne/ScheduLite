@@ -7,8 +7,8 @@ import { AnimatePresence, useTransform } from "framer-motion";
 import ISchedule from "./types/schedule.type";
 import ICourse from "./types/course.type";
 import Profile from "./screens/ProfileScreen/profile.screen"
-import Signup from "./screens/SignupScreen/signup.screen";
-import Login from "./screens/LoginScreen/login.screen";
+import Signup from "./screens/SignupScreen/SignupScreen";
+import Login from "./screens/LoginScreen/LoginScreen";
 import NavBar from "./components/NavBar/NavBar"
 import Modal from 'react-modal';
 import { UserContext, UserContextType } from './context/UserContext';
