@@ -15,21 +15,6 @@ const Results = (props : any) => {
 
     const { overlap, inSchedule, activeCourses, tentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
-    // const overLap = (course1 : ICourse, course2: ICourse) => {
-    //     const startDate1 = moment(course1["start_time"], 'DD/MM/YYYY hh:mm')
-    //     const endDate1 = moment(course1["end_time"], 'DD/MM/YYYY hh:mm A')
-    //     const startDate2 = moment(course2["start_time"], 'DD/MM/YYYY hh:mm')
-    //     const endDate2 = moment(course2["end_time"], 'DD/MM/YYYY hh:mm A')
-    //
-    //     const daysSame = (course1.on_monday && course1.on_monday === course2.on_monday)
-    //         || (course1.on_tuesday && course1.on_tuesday === course2.on_tuesday)
-    //         || (course1.on_wednesday && course1.on_wednesday === course2.on_wednesday)
-    //         || (course1.on_thursday && course1.on_thursday === course2.on_thursday)
-    //         || (course1.on_friday && course1.on_friday === course2.on_friday)
-    //
-    //     return (startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1) && daysSame)
-    // }
-
     return (
         <>
             {

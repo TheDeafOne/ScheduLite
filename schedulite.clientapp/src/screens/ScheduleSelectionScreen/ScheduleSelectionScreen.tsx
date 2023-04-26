@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext, UserContextType } from '../../context/UserContext';
 import ISchedule from "../../types/schedule.type";
-import "./Block.css";
+import "./Block.scss";
 import SetScheduleModal from "../../components/Modals/SetScheduleModal";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import { MdSouth } from "react-icons/md";

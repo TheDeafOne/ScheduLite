@@ -26,10 +26,23 @@
       font-weight: bold;
       font-size: 23px;
     }
+    .no-courses {
+      padding: 10px;
+      font-style: italic;
+      color: variables.$secondary-text-color;
+
+      a {
+        color: #6787ff;
+      }
+    }
   }
 
   .right-panel {
+    display: inherit;
+    flex-direction: column;
+    justify-content: space-between;
     border-left: 1px solid variables.$border-color;
+    //justify-content: space-between;
   }
   .left-panel {
     border-right: 1px solid variables.$border-color;

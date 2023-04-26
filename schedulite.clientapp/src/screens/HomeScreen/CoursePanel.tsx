@@ -35,6 +35,14 @@ const CoursePanel = (props : any) => {
                 </div>
                 <div className={"side-panel-title credits"}>{calcActiveCredits()} cr.</div>
             </div>
+            {
+                calcActiveCredits() === 0 &&
+                (
+                    <div className={"no-courses"}>
+                        No courses! Add courses <a href={"/Search"}>here.</a>
+                    </div>
+                )
+            }
             <Results
                 response={activeCourses.courses}
                 panel={true}

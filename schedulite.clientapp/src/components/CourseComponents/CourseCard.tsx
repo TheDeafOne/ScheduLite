@@ -16,13 +16,13 @@ const CourseCard = ({course} :{ course : ICourse}) => {
     return (
         <div className={"course-card-container"}>
             <span className={"course-card-title"}>
-                {course.course_title}<span className={"course-card-title course-section"}> - {course.course_section} | {course.credit_hours} cr.</span>
+                {course.courseTitle}<span className={"course-card-title course-section"}> - {course.courseSection} | {course.creditHours} cr.</span>
             </span>
-            <span className={"course-card-subtitle"}>{course.on_monday}{course.on_tuesday}{course.on_wednesday}{course.on_thursday}{course.on_friday}, {course.converted_start_date ? course.converted_start_date.format("hh:mm") : ""} - {course.converted_end_date ? course.converted_end_date.format("hh:mm") : ""} | {course.semester}</span>
-            <span className={"data"}><span className={"data-title"}>Code:</span> {course.course_prefix} {course.course_number}</span>
-            <span className={"data"}><span className={"data-title"}>Professor:</span> {course.first_name} {course.last_name}</span>
-            <span className={"data"}><span className={"data-title"}>Course capacity:</span> {course.course_capacity}</span>
-            <span className={"data"}><span className={"data-title"}>Room:</span> {course.building_code} {course.room_code}</span>
+            <span className={"course-card-subtitle"}>{course.onMonday === "True" ? "M" : ""}{course.onTuesday === "True" ? "T" : ""}{course.onWednesday === "True" ? "W" : ""}{course.onThursday === "True" ? "R" : ""}{course.onFriday === "True" ? "F" : ""}, {course.convertedStartDate ? course.convertedStartDate.format("hh:mm") : ""} - {course.convertedEndDate ? course.convertedEndDate.format("hh:mm") : ""} | {course.semester}</span>
+            <span className={"data"}><span className={"data-title"}>Code:</span> {course.coursePrefix} {course.courseNumber}</span>
+            <span className={"data"}><span className={"data-title"}>Professor:</span> {course.firstName} {course.lastName}</span>
+            <span className={"data"}><span className={"data-title"}>Course capacity:</span> {course.courseCapacity}</span>
+            <span className={"data"}><span className={"data-title"}>Room:</span> {course.buildingCode} {course.roomCode}</span>
             <span className={"data"}><span className={"data-title"}>Year:</span> {course.year}</span>
         </div>
     )

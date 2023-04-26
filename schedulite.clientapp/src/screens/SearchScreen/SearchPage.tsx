@@ -6,7 +6,7 @@ import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPan
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import "./SearchPage.scss";
 import Course from "../../components/CourseComponents/Course";
-import { motion } from "framer-motion";
+import {color, motion} from "framer-motion";
 import ICourse from "../../types/course.type";
 import ISchedule from "../../types/schedule.type";
 import moment from "moment";
@@ -88,12 +88,16 @@ const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
         console.log(url)
         axiosConfig.get(url)
             .then(r => {
-                r.data.forEach(function(course : ICourse, index : number, array : Array<ICourse>) {
-                    array[index].converted_start_date = moment(course["start_time"], 'DD/MM/YYYY h:mm');
-                    array[index].converted_end_date = moment(course["end_time"], 'DD/MM/YYYY h:mm');
+                let data = r.data.splice(0,20)
+                data.forEach(function(course : ICourse, index : number, array : Array<ICourse>) {
+                    array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
+                    array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
+                    console.log(course)
+                    // console.log(moment(course["startTime"], 'DD/MM/YYYY h:mm:ss'));
+                    // console.log(moment(course["endTime"], 'DD/MM/YYYY h:mm:ss'));
                 })
-                setResponse(r.data.splice(0,20));
-                console.log(`r = ${r}`)
+                setResponse(data);
+                // console.log(`r = ${JSON.stringify(r)}`)
                 }
             )
     };
