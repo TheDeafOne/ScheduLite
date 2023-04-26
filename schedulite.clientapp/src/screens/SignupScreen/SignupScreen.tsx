@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { Card, Link, TextField, Button, Grid, CardContent } from '@mui/material';
+import { Card, Link, TextField, Button, Grid, CardContent, Alert } from '@mui/material';
 import * as yup from 'yup';
+
+import AuthService from '../../services/auth.service';
+import { UserContext, UserContextType } from "../../context/UserContext";
 
 import './SignupScreen.scss';
 
@@ -21,6 +25,9 @@ const validationSchema = yup.object().shape({
 });
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext) as UserContextType
+  const [message, setMessage] = useState("");
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -29,8 +36,21 @@ const Signup = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
+      AuthService.register(
+        values.username,
+        values.email,
+        values.password
+      ).then(
+        response => {
+          if (response.status == 200) {
+            AuthService.login(values.username, values.password).then(() => {
+              setUser(AuthService.getCurrentUser());
+              navigate("/schedule-selection");
+            })
+          }
+        },
+      );
+    }
   });
 
   return (
@@ -79,7 +99,8 @@ const Signup = () => {
                   helperText={formik.touched.password && formik.errors.password}
                 />
               </Grid>
-              <Button color="primary" variant="contained" fullWidth type="submit">
+              {message !== "" && <Alert severity="error">{message}</Alert>}
+              <Button sx={{marginBottom: "10px"}} color="primary" variant="contained" fullWidth type="submit">
                 Submit
               </Button>
             </form>
