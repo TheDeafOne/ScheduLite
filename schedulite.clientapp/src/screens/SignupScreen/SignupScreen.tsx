@@ -40,15 +40,21 @@ const Signup = () => {
         values.username,
         values.email,
         values.password
-      ).then(
-        response => {
-          if (response.status == 200) {
-            AuthService.login(values.username, values.password).then(() => {
-              setUser(AuthService.getCurrentUser());
-              navigate("/schedule-selection");
-            })
-          }
+      ).then(() => {
+          AuthService.login(values.username, values.password).then(() => {
+            setUser(AuthService.getCurrentUser());
+            navigate("/schedule-selection");
+          })
         },
+        error => {
+          const resMessage = (
+            error.response &&
+            error.response.data &&
+            error.response.data.message
+          ) || error.message || error.toString();
+
+          setMessage(resMessage);
+        }
       );
     }
   });
@@ -99,13 +105,13 @@ const Signup = () => {
                   helperText={formik.touched.password && formik.errors.password}
                 />
               </Grid>
-              {message !== "" && <Alert severity="error">{message}</Alert>}
+              {message !== "" && <Alert sx={{marginBottom: "10px"}} severity="error">{message}</Alert>}
               <Button sx={{marginBottom: "10px"}} color="primary" variant="contained" fullWidth type="submit">
                 Submit
               </Button>
             </form>
             <Link href="/login">
-              Already have an account? Log In Here
+              Already have an account? Log In
             </Link>
           </div>
         </CardContent>
