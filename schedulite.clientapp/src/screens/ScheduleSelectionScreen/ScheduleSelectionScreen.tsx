@@ -59,6 +59,40 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     }
   }, [])
 
+  const handleDeleteClick = (schedule: ISchedule) => {
+    const confirmDelete = window.confirm(`Are you sure you want to delete schedule ${schedule.name}?`);
+    if (confirmDelete) {
+      // delete schedule from database
+    }
+  };
+
+  const handleCopyClick = (schedule: ISchedule) => {
+    // Prompt the user to enter a new name for the copied schedule
+    const newScheduleName = window.prompt("Enter a name for the copied schedule:");
+
+    // If the user didn't cancel the prompt and entered a name, create a copy of the schedule
+    if (newScheduleName !== null && newScheduleName !== "") {
+      // Create a copy of the original schedule with a new name
+      const newSchedule: ISchedule = {
+        name: newScheduleName,
+        year: schedule.year,
+        semester: schedule.semester,
+        activeCourses: schedule.activeCourses,
+        tentativeCourses: schedule.tentativeCourses
+      };
+
+      // Add the new schedule to the context
+      setName(newSchedule.name);
+      setSemester(newSchedule.semester);
+      setYear(newSchedule.year);
+      setActiveCourses(newSchedule.activeCourses);
+      setTentativeCourses(newSchedule.tentativeCourses);
+    }
+  };
+
+
+
+
   return (
     <div className={"schedule-select-container"}>
       {/*<SearchBar navigate={routeChange} autofocus={false} firstClick={true}/>*/}
