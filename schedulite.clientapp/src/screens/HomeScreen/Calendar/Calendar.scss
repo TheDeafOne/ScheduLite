@@ -1,0 +1,114 @@
+@use "../../../styles/globals/variables";
+.calendar-container {
+    display: flex;
+    flex-direction: row;
+    background-color: variables.$background-main;
+    padding: 10px;
+    overflow-y: scroll;
+    color: white;
+}
+/*.calendar-content {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+.calendar-days {
+    display: flex;
+    flex-direction: column;
+    background-color: variables.$background-main;
+    width: 100%;
+}
+.calendar-header {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+.calendar-body {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-top: 1px solid variables.$border-color;
+    border-left: 1px solid variables.$border-color;
+    box-sizing: border-box;
+    position: relative;
+}
+.weekday-header {
+    width: 100%;
+}
+.weekday {
+    text-align: center;
+    //background-color: lighten(variables.$background-light, 1%);
+    background-color: variables.$background-dark;
+    width: 100%;
+    box-sizing: border-box;
+    border-right: 1px solid variables.$border-color;
+    /*border-radius: 10px;*/
+    /*height: 100vh;*/
+    /*overflow-y: scroll;*/
+}
+.time-slot {
+    display: flex;
+    height: 45px;
+}
+.day-slot {
+    display: flex;
+    flex-grow: 1;
+    //flex: 0 0 auto;
+    flex-direction: row;
+    padding: 1px;
+    height: 45px;
+    width: 165px;
+    border-bottom: 1px solid variables.$border-color;
+    box-sizing: border-box;
+    font-weight: bold;
+    /*color: #282c34;*/
+}
+.calendar-course {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 100%;
+    font-size: 12px;
+    position: relative;
+
+    flex-direction: column;
+    padding: 7px;
+    border: 1px solid variables.$border-color;
+    border-radius: 5px;
+    background-color: variables.$background-light;
+
+    box-sizing: border-box;
+    text-align: start;
+    overflow-x: hidden;
+    text-wrap: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    &:hover {
+        filter: brightness(1.4);
+    }
+}
+/*.calendar-course:only-child {*/
+/*    width: 100%;*/
+/*}*/
+/*.calendar-course:first-child:nth-last-child(2) ~ .calendar-course {*/
+/*    width: 50%;*/
+/*}*/
+
+.hover {
+    opacity: .6;
+}
+.overlap {
+    background-color: #5e2929;
+}
+
+
+.course-times {
+    /*padding-top:;*/
+    height: 100%;
+    /*overflow-y: scroll;*/
+}
+.times-header {
+    opacity: 0;
+    /*overflow-y: scroll;*/
+}

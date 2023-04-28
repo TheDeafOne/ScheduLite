@@ -1,0 +1,63 @@
+@use "../../styles/globals/variables";
+.course {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: variables.$background-light;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid #636363;
+    &:hover {
+        filter: brightness(1.4);
+    }
+}
+.overlap {
+    background-color: #5e2929;
+}
+.active {
+    filter: brightness(.85);
+}
+.add-course {
+    display: flex;
+    column-gap: 10px;
+    text-align: center;
+}
+.panel {
+    column-gap: 0;
+}
+.class-info {
+    text-align: start;
+    /*background-color: #597179;*/
+}
+
+.course-title {
+    font-weight: bold;
+    font-size: larger;
+
+    text-overflow: ellipsis;
+}
+.course-name {
+    color: #d0d0d0;
+}
+.subtitle {
+    color: #c4c4c4;
+}
+.course-button {
+    all: unset;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    font-weight: bold;
+    /*padding: 5px 5px 5px 5px;*/
+    border-radius: 5px;
+    /*text-align: center;*/
+    &:hover {
+        background-color: #4b566c;
+    }
+    &:focus {
+        outline: orange 5px auto;
+    }
+}

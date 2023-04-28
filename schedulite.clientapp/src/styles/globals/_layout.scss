@@ -1,0 +1,86 @@
+@use "variables";
+
+.main-body {
+  background-color: variables.$background-main;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 92vh;
+
+  .center-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 3 1 0;
+    overflow-y: scroll;
+  }
+  .side-panel {
+    flex: 1 1 0;
+    text-align: start;
+    color: white;
+    padding: 5px;
+    overflow-y: scroll;
+
+    .side-panel-title {
+      padding: 20px 10px 0 10px;
+      font-weight: bold;
+      font-size: 23px;
+      //border-bottom: 1px solid variables.$border-color;
+    }
+    .no-courses {
+      padding: 10px;
+      font-style: italic;
+      color: variables.$secondary-text-color;
+
+      a {
+        color: #6787ff;
+      }
+    }
+  }
+
+  .right-panel {
+    display: inherit;
+    flex-direction: column;
+    //justify-content: space-between;
+    border-left: 1px solid variables.$border-color;
+    //justify-content: space-between;
+    .issues {
+      flex: 1 1 0;
+      //background-color: #2e54ee;
+      overflow-y: scroll;
+    }
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1 1 0;
+
+      //justify-content: space-between;
+      //align-items: end;
+      //background-color: #5e2929;
+      border-bottom: 1px solid variables.$border-color;
+      .course-detail-card {
+        padding-top: 5px;
+      }
+    }
+
+    //justify-content: space-between;
+  }
+  .left-panel {
+    border-right: 1px solid variables.$border-color;
+  }
+  .side-panel-title-container {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid variables.$border-color;
+  }
+  .credits {
+    color: #b2b2b8;
+    font-size: 23px;
+  }
+}
+
+
+
+
+

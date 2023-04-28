@@ -1,0 +1,21 @@
+$-background-base: #021627;
+//$-background-base: #ffffff;
+//$-background-base: #39ff3f;
+
+$background-light: lighten($-background-base, 5%);
+$background-main: $-background-base;
+$background-dark: darken($-background-base, 2%);
+
+$background-error: #5e2929;
+$background-warning: #845a00;
+
+$border-color: rgba(255, 255, 255, 0.24);
+$border-color-light: rgba(255, 255, 255, 0.39);
+
+//$primary-color: #434e5a;
+$primary-color: #2b4543;
+$primary-color-light: lighten($primary-color, 5);
+
+$text-color: white;
+$secondary-text-color: #c7c7c7;
+
