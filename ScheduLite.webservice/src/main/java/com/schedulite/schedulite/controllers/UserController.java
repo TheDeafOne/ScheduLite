@@ -38,7 +38,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private BusinessLogic businessLogic;
+    private BusinessLogic businessLogic = new BusinessLogic();
 
     @GetMapping("/roles")
     public ResponseEntity<?> getRoles() {
@@ -109,53 +109,25 @@ public class UserController {
 
 
     @PostMapping("upload-transcript")
-    public ResponseEntity<?> uploadTranscript(@Valid @NotNull @RequestParam("file") MultipartFile pdfFile) throws IOException {
-//        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-//        if (userId == null) {
-//            return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
-//        }
-//
-//        Optional<User> optionalUser = userService.getUserByUserId(userId);
-//        if (optionalUser.isEmpty()) {
-//            return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
-//        }
-//        User currentUser = optionalUser.get();
-//        System.out.println(fileName);
-//        File file = new File(fileName);
-        PDDocument document = PDDocument.load(pdfFile.getInputStream());
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        String text = pdfStripper.getText(document);
-        List<String> classes = findClasses(text);
-        //document.close();
-//        try {
-//            String transcriptContent = userService.extractContent(pdfFile);
-//            classes = findClasses(transcriptContent);
-//        }
-//        catch (Exception e) {
-//            return new ResponseEntity<>("Error parsing PDF", HttpStatus.BAD_REQUEST);
-//        }
-        return new ResponseEntity<>(classes, HttpStatus.OK);
-    }
-
-    public List<String> findClasses(String input) {
-        List<String> result = new ArrayList<>();
-        String[] lines = input.split("\n");
-
-        for (String line : lines) {
-            String[] words = line.split(" ");
-            String prevWord = null;
-            for (String word : words) {
-                if (word.matches("\\d{3}[A-Z]")) {
-                    if (prevWord != null) {
-                        result.add(prevWord + " " + word);
-                    }
-                    prevWord = "found";
-                } else {
-                    prevWord = word;
-                }
-            }
+    public ResponseEntity<?> uploadTranscript(@Valid @NotNull @RequestParam("file") final MultipartFile pdfFile) throws Exception {
+        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if (userId == null) {
+            return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
         }
 
-        return result;
+        Optional<User> optionalUser = userService.getUserByUserId(userId);
+        if (optionalUser.isEmpty()) {
+            return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
+        }
+        User currentUser = optionalUser.get();
+        List<String> classes;
+        try {
+            String transcriptContent = userService.extractContent(pdfFile);
+            classes = businessLogic.findClasses(transcriptContent);
+            currentUser.setCompletedCourses(classes);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error parsing PDF", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Successfully added courses from transcript", HttpStatus.OK);
     }
 }
