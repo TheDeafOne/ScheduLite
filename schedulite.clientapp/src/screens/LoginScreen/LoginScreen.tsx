@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
-import { Card, Link, TextField, Button, Grid, CardContent, Alert } from '@mui/material';
+import { Link, TextField, Button, Grid, Alert } from '@mui/material';
 
 import * as Yup from "yup";
 import "./LoginScreen.scss"
@@ -63,8 +63,7 @@ const Login = () => {
     return (
         
         <div className="card-container">
-        <Card>
-            <CardContent>
+       
             <div className="form-container">
                 <form onSubmit={formik.handleSubmit}>
                 <Grid>
@@ -103,8 +102,7 @@ const Login = () => {
                     Don't have an account? Sign Up
                 </Link>
             </div>
-            </CardContent>
-        </Card>
+
         </div>
     )
 }
