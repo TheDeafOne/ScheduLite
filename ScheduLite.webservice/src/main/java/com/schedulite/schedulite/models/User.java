@@ -32,6 +32,8 @@ public class User {
 
     private ArrayList<Schedule> schedules = new ArrayList<>();
 
+    private List<String> completedCourses = new ArrayList<>();
+
     public User() {
 
     }
@@ -88,6 +90,12 @@ public class User {
 
     public void setSchedules(ArrayList<Schedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public List<String> getCompletedCourses() { return completedCourses;}
+
+    public void setCompletedCourses(List<String> completedCourses) {
+        this.completedCourses = completedCourses;
     }
 
     public void addSchedule(Schedule schedule) {
