@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { TextField } from "@mui/material";
+import { useFormik } from 'formik';
+import { Link, TextField, Button, Grid, Alert } from '@mui/material';
+
 import * as Yup from "yup";
 import "./LoginScreen.scss"
 
@@ -9,10 +10,11 @@ import AuthService from "../../services/auth.service";
 import {UserContext, UserContextType} from "../../context/UserContext";
 
 const Login = () => {
-    const [loading, setLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
     const navigate = useNavigate();
     const { setUser } = useContext(UserContext) as UserContextType
+
+    
 
     useEffect(() => {
         if (AuthService.getCurrentUser() !== null) {
@@ -27,10 +29,8 @@ const Login = () => {
         });
     }
 
-    function handleLogin(formValue: {username: string; password: string }) {
-        const {username, password} = formValue;
+    function handleLogin(username: string, password: string) {
         setMessage("");
-        setLoading(true);
         AuthService.login(username, password).then(
             () => {
                 setUser(AuthService.getCurrentUser());
@@ -43,59 +43,66 @@ const Login = () => {
                     error.response.data.message
                 ) || error.message || error.toString();
                 
-                setLoading(false);
                 setMessage(resMessage);
             }
         );
     }
 
 
+    const formik = useFormik({
+        initialValues: {
+          username: '',
+          password: '',
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+          handleLogin(values.username, values.password);
+        }
+      });
+
     return (
         
-        <div className={"login"}>
-          <Formik
-            initialValues={{username:"",password:""}}
-            validationSchema={validationSchema}
-            onSubmit={handleLogin}
-        >
-            <Form>
-                <div>
-                    {/*<TextField label={"username"}>*/}
-                    {/*</TextField>*/}
-                    <label htmlFor="username">username</label>
-                    <Field name="username" type="text" />
-                    <ErrorMessage
-                        name="username"
-                        component="div"
+        <div className="card-container">
+       
+            <div className="form-container">
+                <form onSubmit={formik.handleSubmit}>
+                <Grid>
+                    <TextField
+                    id="username"
+                    name="username"
+                    label="Username"
+                    variant="outlined"
+                    sx={{paddingBottom: "10px"}}
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    error={formik.touched.username && Boolean(formik.errors.username)}
+                    helperText={formik.touched.username && formik.errors.username}
                     />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <Field name="password" type="password" className="form-control" />
-                    <ErrorMessage
+                </Grid>
+                <Grid>
+                    <TextField
+                    id="password"
                     name="password"
-                    component="div"
-                    className="alert alert-danger"
+                    label="Password"
+                    type="password"
+                    variant="outlined"
+                    sx={{paddingBottom: "10px"}}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
                     />
-                </div>
-                <div className="form-group">
-                <button type="submit" disabled={loading}>
-                  <span>Login</span>
-                </button>
-              </div>
-              {message && (
-                <div>
-                  <div role="alert">
-                    {message}
-                  </div>
-                </div>
-              )}
-            </Form>
-        </Formik>
-        <label>
-            need an account?
-        </label>
-        <button onClick={() => {navigate("/signup")}}>sign up</button>
+                </Grid>
+                {message !== "" && <Alert sx={{marginBottom: "10px"}} severity="error">{message}</Alert>}
+                <Button sx={{marginBottom: "10px"}} color="primary" variant="contained" fullWidth type="submit">
+                    Submit
+                </Button>
+                </form>
+                <Link href="/signup">
+                    Don't have an account? Sign Up
+                </Link>
+            </div>
+
         </div>
     )
 }
