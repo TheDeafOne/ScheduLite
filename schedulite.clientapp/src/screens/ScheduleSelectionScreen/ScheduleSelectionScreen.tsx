@@ -8,15 +8,16 @@ import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleCont
 import { MdSouth } from "react-icons/md";
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
 import "../../components/Modals/ScheduleModal.scss"
+import api from "../../api/axios-config";
+import authHeader from "../../services/auth-header";
+import authService from "../../services/auth.service";
+
 
 const blocks: ISchedule[] = [];
 
-
 const BlockPage = ({setIsOpen, setModal}: any) => {
-  const { user } = useContext(UserContext) as UserContextType;
+  const { user,setUser } = useContext(UserContext) as UserContextType;
   const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
-
-
   const [yearFilter, setYearFilter] = useState<string | undefined>();
   const [semesterFilter, setSemesterFilter] = useState<string | undefined>();
   const [initialFilteredBlocks, setInitialFilteredBlocks] = useState<ISchedule[] | undefined>(blocks)
@@ -59,38 +60,89 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     }
   }, [])
 
-  const handleDeleteClick = (schedule: ISchedule) => {
-    const confirmDelete = window.confirm(`Are you sure you want to delete schedule ${schedule.name}?`);
-    if (confirmDelete) {
-      // delete schedule from database
+  function handleCopyClick(block: ISchedule): void {
+    const newScheduleName = prompt("Please enter a name for the new schedule");
+
+      if (newScheduleName === null) {
+      return; // User cancelled prompt
     }
-  };
 
-  const handleCopyClick = (schedule: ISchedule) => {
-    // Prompt the user to enter a new name for the copied schedule
-    const newScheduleName = window.prompt("Enter a name for the copied schedule:");
-
-    // If the user didn't cancel the prompt and entered a name, create a copy of the schedule
-    if (newScheduleName !== null && newScheduleName !== "") {
-      // Create a copy of the original schedule with a new name
-      const newSchedule: ISchedule = {
-        name: newScheduleName,
-        year: schedule.year,
-        semester: schedule.semester,
-        activeCourses: schedule.activeCourses,
-        tentativeCourses: schedule.tentativeCourses
-      };
-
-      // Add the new schedule to the context
-      setName(newSchedule.name);
-      setSemester(newSchedule.semester);
-      setYear(newSchedule.year);
-      setActiveCourses(newSchedule.activeCourses);
-      setTentativeCourses(newSchedule.tentativeCourses);
+    const existingScheduleNames = filteredBlocks!.map((schedule) => schedule.scheduleName);
+    if (existingScheduleNames.includes(newScheduleName)) {
+      navigate("/schedule-selection");
+      alert("A schedule with that name already exists. Please choose a different name.");
+      return;
     }
-  };
 
+    if (newScheduleName) {
+      const newSchedule = { ...block, scheduleName: newScheduleName };
+      api.post('/users/add-schedule', JSON.stringify(newSchedule), { headers: authHeader() })
+        .then(response => {
+          if (response.status === 200) {
+            // If the response is successful, add the new schedule to the list of filtered blocks
+            const updatedBlocks = [...filteredBlocks!, newSchedule];
+            setFilteredBlocks(updatedBlocks);
+            setInitialFilteredBlocks(updatedBlocks);
+            if (user !== null) {
+              user.schedules = [...user.schedules!, newSchedule];
+            }
+            navigate("/schedule-selection");
+          } else {
+            // If the response is not successful, display an error message 
+            navigate("/schedule-selection");
+            throw new Error('Failed to add schedule');
+           
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          alert('Failed to add schedule');
+          navigate("/schedule-selection");
+        });
+    }
+  }
+  
+  
+  
 
+const handleDeleteClick = (schedule: ISchedule) => {
+  const confirmDelete = window.confirm(`Are you sure you want to delete schedule ${schedule.scheduleName}?`);
+  if (confirmDelete) {
+    // Send an HTTP POST request to the backend to remove the schedule
+     // fetch('/remove-schedule', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(schedule)
+    // })
+    api.post('/users/remove-schedule', JSON.stringify(schedule),{headers: authHeader()})
+    .then(response => {
+      if (response.status === 200) {
+        // If the response is successful, remove the schedule from the list of filtered blocks
+        const remainingBlocks = filteredBlocks!.filter(block => block !== schedule);
+        setFilteredBlocks(remainingBlocks);
+        setInitialFilteredBlocks(remainingBlocks);
+        if (user !== null) {
+          user.schedules = user?.schedules?.filter((delete_schedule) => {
+            if (delete_schedule.scheduleName !== schedule.scheduleName) {
+              return delete_schedule;
+            }
+            navigate("/schedule-selection");
+            return null
+          })
+        }
+      } else {
+        // If the response is not successful, display an error message
+        throw new Error('Failed to remove schedule');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert('Failed to remove schedule');
+    });
+  }
+};
 
 
   return (
@@ -122,6 +174,9 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
         {filteredBlocks!.map((block, index) => (
           <div key={index} className="block" onClick={() => handleBlockClick(block)}>
             <div className={"schedule-name"}>{block.scheduleName}</div><div>Semester: {block.semester ? block.semester : "No Semester"}</div><div>Year: {block.year}</div>
+            <div className="delete-button" onClick={(e) => handleDeleteClick(block)}></div>
+            <div className="copy-button" onClick={(e) => handleCopyClick(block)}></div>
+        
           </div>
         ))}
         <div className="block new" onClick={() => {

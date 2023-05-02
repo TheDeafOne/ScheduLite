@@ -47,22 +47,26 @@
     margin-bottom: 8px;
   }
 
+
   .delete-button,
   .copy-button {
     position: absolute;
     top: 8px;
-    left: 8px;
+    right: 8px;
     width: 24px;
     height: 24px;
     cursor: pointer;
-    background-image: url("path/to/delete-image.jpg"); // replace with actual image path
+    background-image: url("delete-image.jpg"); // replace with actual image path
     background-size: cover;
     background-position: center;
+    background-color: transparent;
+    border: none;
+    opacity: .6;
   }
 
   .copy-button {
-    left: 40px; // position the copy button to the right of the delete button
-    background-image: url("path/to/copy-image.jpg"); // replace with actual image path
+    right: 40px; // position the copy button to the right of the delete button
+    background-image: url("copy-image.jpg"); // replace with actual image path
   }
 
 
