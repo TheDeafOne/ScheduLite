@@ -1,11 +1,12 @@
 package com.schedulite.schedulite.services;
 
+import com.mongodb.BasicDBObject;
 import com.schedulite.schedulite.models.Course;
 import com.schedulite.schedulite.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.*;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -30,40 +31,54 @@ public class CourseService {
         return mongoTemplate.find(query, Course.class);
     }
 
-    public List<Course> getCourseByFilters(String semester, String title, String prefix, String number, String time, String name, String days) {
-        Criteria crit = new Criteria();
+    public List<Course> getCourseByFiltersAndQuery(String searchString, String courseTitle, String coursePrefix, String courseNumber,
+                                                   String semester, String courseTime, String firstName, String lastName, String days) {
+        Criteria filterCriteria = new Criteria();
         // for each given filter, add it to the query criteria.
         // note: all strings are made case-insensitive to make searching simpler
-        if (semester != null) { crit.and("semester").regex(semester, "i");}
-        if (title != null) { crit.and("courseTitle").regex(title, "i");}
-        if (prefix != null) { crit.and("coursePrefix").regex(prefix, "i");}
-        if (number != null) { crit.and("courseNumber").is(number);}
-        if (time != null) { crit.and("startTime").regex(time, "i");}
-        if (name != null) { crit.and("lastName").regex(name, "i");}
+        if (semester != null) { filterCriteria.and("semester").regex(semester, "i");}
+        if (courseTitle != null) { filterCriteria.and("courseTitle").regex(courseTitle, "i");}
+        if (coursePrefix != null) { filterCriteria.and("coursePrefix").regex(coursePrefix, "i");}
+        if (courseNumber != null) { filterCriteria.and("courseNumber").is(courseNumber);}
+        if (courseTime != null) { filterCriteria.and("startTime").regex(courseTime, "i");}
+        if (lastName != null) { filterCriteria.and("lastName").regex(lastName, "i");}
+        if (firstName != null) { filterCriteria.and("firstName").regex(firstName, "i");}
         // finding each day the class occurs on
         if (days != null) {
             for (String day : days.split("")) {
                 switch (day) {
                     case "M":
-                        crit.and("onMonday").is(true);
+                        filterCriteria.and("onMonday").is(true);
                         break;
                     case "T":
-                        crit.and("onTuesday").is(true);
+                        filterCriteria.and("onTuesday").is(true);
                         break;
                     case "W":
-                        crit.and("onWednesday").is(true);
+                        filterCriteria.and("onWednesday").is(true);
                         break;
                     case "R":
-                        crit.and("onThursday").is(true);
+                        filterCriteria.and("onThursday").is(true);
                         break;
                     case "F":
-                        crit.and("onFriday").is(true);
+                        filterCriteria.and("onFriday").is(true);
                 }
             }
         }
 
-        Query query = new Query(crit);
+        Query query;
+        if (searchString.length() != 0) {
+            query = TextQuery
+                    .queryText(new TextCriteria().matchingAny(searchString.split(" ")))
+                    .sortByScore()
+                    .includeScore();
+        } else {
+            query = new Query(filterCriteria);
+        }
+
+
+
         // returns all courses with given filters
         return mongoTemplate.find(query,Course.class);
+
     }
 }
