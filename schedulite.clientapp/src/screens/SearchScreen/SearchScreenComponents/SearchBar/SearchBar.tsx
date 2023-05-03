@@ -7,7 +7,6 @@ import "./SearchBar.scss";
 import SearchTypeDropdown from "../SearchTypeDropdown";
 
 const SearchBar = (props : any) => {
-    const [query, setQuery] = useState("")
     const onclick = () => {
         if (props.firstClick) {
             // setFirstClick(false)
@@ -16,8 +15,7 @@ const SearchBar = (props : any) => {
     }
 
     const handleKeyDown = (event : any) => {
-        props.setQuery(event.target.value)
-        props.onEnter();
+        props.onEnter(event.target.value);
     };
     return (
         <div className={"searchBar"}>
