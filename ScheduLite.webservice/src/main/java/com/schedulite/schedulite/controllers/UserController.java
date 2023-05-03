@@ -1,31 +1,20 @@
 package com.schedulite.schedulite.controllers;
 
 import com.schedulite.schedulite.businesslogic.BusinessLogic;
-import com.schedulite.schedulite.models.Course;
 import com.schedulite.schedulite.models.Schedule;
 import com.schedulite.schedulite.models.User;
 import com.schedulite.schedulite.services.RoleService;
 import com.schedulite.schedulite.services.UserDetailsImpl;
 import com.schedulite.schedulite.services.UserService;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,9 +36,11 @@ public class UserController {
 
     @PostMapping("/add-schedule")
     public ResponseEntity<?> addSchedule(@Valid @RequestBody Schedule newSchedule) {
-        // checking for valid user and schedule
-        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        if (userId == null) {
+        String userId;
+        try {
+            userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        }
+        catch (ClassCastException e) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
         }
 
@@ -68,9 +59,11 @@ public class UserController {
 
     @PostMapping("remove-schedule")
     public ResponseEntity<?> removeSchedule(@Valid @RequestBody Schedule oldSchedule) {
-        // checking for valid user request
-        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        if (userId == null) {
+        String userId;
+        try {
+            userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        }
+        catch (ClassCastException e) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
         }
 
@@ -88,8 +81,11 @@ public class UserController {
 
     @PostMapping("update-schedule")
     public ResponseEntity<?> updateSchedule(@Valid @RequestBody Schedule updatedSchedule) {
-        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        if (userId == null) {
+        String userId;
+        try {
+            userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        }
+        catch (ClassCastException e) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
         }
 
@@ -110,11 +106,13 @@ public class UserController {
 
     @PostMapping("upload-transcript")
     public ResponseEntity<?> uploadTranscript(@Valid @NotNull @RequestParam("file") final MultipartFile pdfFile) throws Exception {
-        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        if (userId == null) {
+        String userId;
+        try {
+            userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        }
+        catch (ClassCastException e) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
         }
-
         Optional<User> optionalUser = userService.getUserByUserId(userId);
         if (optionalUser.isEmpty()) {
             return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
