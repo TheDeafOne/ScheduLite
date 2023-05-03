@@ -59,7 +59,6 @@ function coursesReducer(state: State, action: Action) {
         }
         case "remove": {
             let courseIndex = -1
-            console.log("REMOVE")
             if (action.course) {
                 courseIndex = state.courses.findIndex((x) => x.id === action.course!.id);
             }
@@ -93,8 +92,6 @@ export const ScheduleProvider = (props: any) => {
 
     const errors = () => {
         let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
-        console.log(coursesWithOverlap);
-
 
         return {
             overlap: {
@@ -139,7 +136,6 @@ export const ScheduleProvider = (props: any) => {
 
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
-        console.log("saving")
         let activeIds = activeCourses.courses.map((value: ICourse) => {
             return { id: value.id }
         })
@@ -161,12 +157,10 @@ export const ScheduleProvider = (props: any) => {
             tentativeCourses: tentativeCourses.courses,
             activeCourses: activeCourses.courses
         }
-        console.log(name)
         if (scheduleExists(name)) {
             axios
                 .post("/users/update-schedule", JSON.stringify(requestBody), { headers: authHeader() })
                 .then(response => {
-                    console.log(response);
                     if (response.status === 200) {
                         setSaved(true)
                         updateUserSchedule(schedule)
@@ -177,7 +171,6 @@ export const ScheduleProvider = (props: any) => {
             axios
                 .post("/users/add-schedule", JSON.stringify(requestBody), { headers: authHeader() })
                 .then(response => {
-                    console.log(response);
                     if (response.status === 200) {
                         setSaved(true)
                         addUserSchedule(schedule)

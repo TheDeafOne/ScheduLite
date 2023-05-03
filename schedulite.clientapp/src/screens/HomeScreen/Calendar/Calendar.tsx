@@ -15,8 +15,6 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
     // const [activeCourses, setActiveCourses] = useState<ICourse[]>(schedule.activeCourses)
     // const [objStringified, setObj] = useState(JSON.stringify(schedule.activeCourses))
     const { overlap, activeCourses } = useContext(ScheduleContext) as ScheduleContextType
-    console.log(typeof tentativeCourseHover);
-    console.log(JSON.stringify(tentativeCourseHover));
     // console.log(schedule);
     // console.log(`HOVER COURSE: ${hoverCourse}`)
     const convertClassToEvent = (course: ICourse, hover: boolean) => {
@@ -78,7 +76,6 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
             events.push(convertClassToEvent(course, false));
         }
         if (tentativeCourseHover) {
-            console.log("HERE")
             events.push(convertClassToEvent(tentativeCourseHover, true));
         }
 
@@ -200,16 +197,13 @@ const CalendarCourse = (props: any) => {
     const handleMouseEnter = () => {
         props.setCalendarCourseHover(event.course);
         props.setViewCourse(true);
-        console.log("setting course event");
     }
     const handleMouseLeave = () => {
         // props.hoverCourse = null;
-        console.log("removing course event");
         props.setCalendarCourseHover(undefined);
         // props.setViewCourse(false);
     }
     // console.log("FROM CALENDAR COURSE")
-    console.log(event)
     return (
         // <MouseOverPopover course={event.course}>
         <div className={`calendar-course ${event.hover ? 'hover' : ''} ${event.course.overlap ? 'overlap' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ height: courseHeight }}>

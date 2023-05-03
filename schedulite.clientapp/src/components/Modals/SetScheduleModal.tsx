@@ -23,7 +23,6 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     className={"modal-input"}
                     placeholder="name"
                     onBlur={(nameElement) => {
-                        console.log(nameElement)
                         setScheduleName(nameElement.target.value);
                     }} />
             </div>

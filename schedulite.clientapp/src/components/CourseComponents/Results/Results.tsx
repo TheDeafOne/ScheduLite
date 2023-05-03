@@ -25,7 +25,6 @@ const Results = (props : any) => {
                                 props.response.map((data : ICourse , idx: number) => {
 
                                     if (props.sched) {
-                                        console.log("QWERTYUIOP")
                                         const courseInSchedule = inSchedule(data);
                                         // const inSchedule = activeCourses.courses.some((e : ICourse) => (e.id === data.id))
                                         const actOverlap = courseInSchedule && activeCourses.courses.some((e : ICourse) => (e.id !== data.id
@@ -55,7 +54,6 @@ const Results = (props : any) => {
                                         )
                                     } else {
                                         // console.log("not props.sched")
-                                        console.log("ASDFGHJKL")
                                         // const actOverlap = props.response.some((e : ICourse) => (e.id !== data.id
                                         //     && overlap(e, data)
                                         //     && (props.schedule==="active")))

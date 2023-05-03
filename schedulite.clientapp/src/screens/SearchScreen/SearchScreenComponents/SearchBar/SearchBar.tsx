@@ -17,14 +17,7 @@ const SearchBar = (props : any) => {
 
     const handleKeyDown = (event : any) => {
         props.setQuery(event.target.value)
-        console.log("EVENT TARGET VALUE")
-        console.log(event.target.value)
-        props.onEnter(event.target.value);
-
-        // if (event.key === 'Enter') {
-        //     // 👇 Get input value
-        //     props.onEnter(query);
-        // }
+        props.onEnter();
     };
     return (
         <div className={"searchBar"}>
