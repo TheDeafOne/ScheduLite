@@ -1,0 +1,180 @@
+div {
+    font-family: Arial, serif;
+}
+.main-div {
+    height: 100vh;
+}
+.main-body {
+    /*padding: 20px;*/
+    background-color: crimson;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow-y: scroll;
+    height: 94vh;
+}
+.center-panel {
+    display: flex;
+    /*gap: 20px;*/
+    background-color: #344850;
+    flex-direction: column;
+    flex: 3 1 0;
+    overflow-y: scroll;
+    /*height: 100%;*/
+    /*row-gap: 20px;*/
+    /*column-gap: 20px;*/
+}
+.side-panel {
+    flex: 1 1 0;
+    background-color: #344850;
+    text-align: start;
+    color: white;
+    padding: 5px;
+    /*column-gap: 10px;*/
+    /*height: 100vh;*/
+    /*height: 100%;*/
+    overflow-y: scroll;
+}
+.right-panel {
+    border-left: 1px solid #636363;
+    /*background-color: #61dafb;*/
+}
+.left-panel {
+    border-right: 1px solid #636363;
+}
+
+.side-panel-title {
+    padding: 20px 10px 0 10px;
+    font-weight: bold;
+    font-size: 23px;
+}
+.credits {
+    color: #b2b2b8;
+    font-size: 23px;
+}
+.side-panel-title-container {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #636363;
+
+}
+.expand {
+    /*background-color: #223239;*/
+    background-color: gold;
+    width: 60px;
+    height: 20px;
+    position: relative;
+    left: 50%;
+    top: 3%;
+    border-radius: 2px;
+}
+.background {
+    background-color: #223239;
+
+}
+.save-button {
+    /*all: unset;*/
+    font-size: 20px;
+    /*width: ;*/
+    width: 70px;
+    padding: 15px;
+    /*height: 2em;*/
+    color: white;
+    background-color: #5353ff;
+    border-radius: 5px;
+}
+.save-bar {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    border-top: 1px solid #716b6b;
+    /*justify-content: center;*/
+}
+.saved-text {
+    color: #00ff00;
+    font-weight: bold;
+}
+.save-button {
+    align-items: center;
+    background-color: #2e54ee;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .5rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 10px;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: 70px;
+}
+.save-button:hover, .save-button:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(43, 43, 43, 0.34) 0 4px 12px;
+    color: rgba(255, 252, 252, 0.65);
+}
+.save-button:hover {
+    transform: translateY(-1px);
+}
+.save-button:active {
+    background-color: rgba(46, 84, 238, 0.76);
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(255, 255, 255, 0.65);
+    transform: translateY(0);
+}
+
+.back-button {
+    all: unset;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    font-weight: bold;
+    margin: 5px;
+    border-radius: 5px;
+}
+.back-button:hover {
+    background-color: #4b566c;
+}
+
+.back-button:focus {
+    outline: orange 5px auto;
+}
+.filter-input {
+    font-size: 15px;
+    padding: 1em;
+    border-style: unset;
+    border-radius: 5px;
+    background-color: #19262b;
+    color: white;
+}
+label {
+    padding-bottom: 5px;
+}
+.filters {
+    /*line-height: 2em;*/
+    display: flex;
+    flex-direction: column;
+}
+.filter-input:disabled {
+    background-color: #243740;
+    font-weight: bold;
+    color: #282c34;
+}
+.filter-input:disabled:hover {
+    cursor: not-allowed;
+}

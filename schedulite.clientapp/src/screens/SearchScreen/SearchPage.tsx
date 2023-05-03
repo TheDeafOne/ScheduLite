@@ -36,15 +36,15 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
     const [semesterFilter, setSemesterFilter] = useState(semester)
 
     let filters = [
-        { name: "year", paramName: "yearFilter", type: "selection", value: yearFilter, setFilter: setYearFilter, options: ["2018", "2019", "2020", "2021"] },
-        { name: "semester", paramName: "semesterFilter", type: "selection", value: semesterFilter, setFilter: setSemesterFilter, options: ["spring", "fall"] },
-        { name: "course prefix", paramName: "coursePrefixFilter", type: "text", value: coursePrefixFilter, setFilter: setCoursePrefixFilter },
-        { name: "course code", paramName: "courseCodeFilter", type: "text", value: courseCodeFilter, setFilter: setCourseCodeFilter },
-        { name: "course title", paramName: "courseTitleFilter", type: "text", value: courseTitleFilter, setFilter: setCourseTitleFilter },
-        { name: "course time", paramName: "courseTimeFilter", type: "text", value: courseTimeFilter, setFilter: setCourseTimeFilter },
-        { name: "first name", paramName: "firstNameFilter", type: "text", value: firstNameFilter, setFilter: setFirstNameFilter },
-        { name: "last name", paramName: "lastNameFilter", type: "text", value: lastNameFilter, setFilter: setLastNameFilter },
-        { name: "days", paramName: "daysFilter", type: "text", value: daysFilter, setFilter: setDaysFilter },
+        { name: "year", paramName: "year", type: "selection", value: yearFilter, setFilter: setYearFilter, options: ["2018", "2019", "2020", "2021"] },
+        { name: "semester", paramName: "semester", type: "selection", value: semesterFilter, setFilter: setSemesterFilter, options: ["spring", "fall"] },
+        { name: "course prefix", paramName: "coursePrefix", type: "text", value: coursePrefixFilter, setFilter: setCoursePrefixFilter },
+        { name: "course code", paramName: "courseNumber", type: "text", value: courseCodeFilter, setFilter: setCourseCodeFilter },
+        { name: "course title", paramName: "courseTitle", type: "text", value: courseTitleFilter, setFilter: setCourseTitleFilter },
+        { name: "course time", paramName: "courseTime", type: "text", value: courseTimeFilter, setFilter: setCourseTimeFilter },
+        { name: "first name", paramName: "firstName", type: "text", value: firstNameFilter, setFilter: setFirstNameFilter },
+        { name: "last name", paramName: "lastName", type: "text", value: lastNameFilter, setFilter: setLastNameFilter },
+        { name: "days", paramName: "days", type: "text", value: daysFilter, setFilter: setDaysFilter },
     ]
 
     const setSearchResponse = (newValue: any) => {
@@ -60,29 +60,36 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
         }
     }
 
-    const onEnter = (searchQuery: any) => {
+    const onEnter = () => {
         let baseApiEnpoint = "/courses";
         let filterParams = filters.map((filter) => {
             if (filter.value !== "") {
                 return `${filter.paramName}=${filter.value}`
             }
-        }).filter((item) => {return item !== undefined}).join('&')
-        
+        }).filter((item) => {return item !== undefined})
+        if (query != "") {
+            filterParams.push(`query=${query}`)
+        }
+        let stringifiedFilterParams = filterParams.join('&');
 
-        // axiosConfig.get(url)
-        //     .then(r => {
-        //         let data = r.data.splice(0,20)
-        //         data.forEach(function(course : ICourse, index : number, array : Array<ICourse>) {
-        //             array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
-        //             array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
-        //             console.log(course)
-        //             // console.log(moment(course["startTime"], 'DD/MM/YYYY h:mm:ss'));
-        //             // console.log(moment(course["endTime"], 'DD/MM/YYYY h:mm:ss'));
-        //         })
-        //         setResponse(data);
-        //         // console.log(`r = ${JSON.stringify(r)}`)
-        //         }
-        //     )
+        let url = baseApiEnpoint;
+        if (filterParams.length > 0 || query != "") {
+            url += `/query?${stringifiedFilterParams}`; 
+        }
+       
+        console.log(url);
+
+        axiosConfig.get(url)
+            .then(r => {
+                let data = r.data.splice(0,20)
+                data.forEach(function(course : ICourse, index : number, array : Array<ICourse>) {
+                    array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
+                    array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
+                    
+                })
+                setResponse(data);
+                }
+            )
     };
 
 

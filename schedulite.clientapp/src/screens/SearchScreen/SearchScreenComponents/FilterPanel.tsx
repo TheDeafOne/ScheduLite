@@ -24,11 +24,6 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
         }
     }
 
-    useEffect(() => {
-        const timeOutId = setTimeout(() => onEnter(), 500);
-        return () => clearTimeout(timeOutId);
-    }, [filters])
-
 
     return (
         <div className={"side-panel left-panel"}>
@@ -48,7 +43,12 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                         sx={{paddingBottom:"10px"}}
                         select={filterInfo.type === "selection"}
                         size="small"
-                        onChange={(event) => handleFilterChange(event, filterInfo.setFilter)}
+                        onChange={(event) =>{
+                            handleFilterChange(event, filterInfo.setFilter)
+                            if (filterInfo.type === "selection") {
+                                onEnter();
+                            }
+                        }}
                         onKeyDown={handleKeyDown}
                         value={filterInfo.value}
                         label={filterInfo.name}
