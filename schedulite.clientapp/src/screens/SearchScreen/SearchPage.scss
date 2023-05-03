@@ -21,12 +21,6 @@
   }
 }
 .filter-input {
-  font-size: 15px;
-  padding: 1em;
-  border-style: unset;
-  border-radius: 5px;
-  background-color: #19262b;
-  color: white;
   &:disabled {
     background-color: #243740;
     font-weight: bold;
