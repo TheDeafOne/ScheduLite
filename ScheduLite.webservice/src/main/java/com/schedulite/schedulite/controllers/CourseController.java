@@ -35,6 +35,7 @@ public class CourseController {
             @RequestParam(required = false) String coursePrefix,
             @RequestParam(required = false) String courseNumber,
             @RequestParam(required = false) String semester,
+            @RequestParam(required = false) String year,
             @RequestParam(required = false) String courseTime,
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
@@ -42,7 +43,7 @@ public class CourseController {
     ) {
         // return all courses by the given number, or none if none found
         return new ResponseEntity<>(courseService.getCourseByFiltersAndQuery(query, courseTitle, coursePrefix, courseNumber,
-                semester, courseTime, firstName, lastName, days), HttpStatus.OK);
+                semester, year, courseTime, firstName, lastName, days), HttpStatus.OK);
     }
 
     @GetMapping("/by-schedule")
