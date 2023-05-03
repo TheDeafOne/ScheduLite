@@ -37,7 +37,7 @@ public class CourseService {
         // for each given filter, add it to the query criteria.
         // note: all strings are made case-insensitive to make searching simpler
         if (semester != null) { filterCriteria.and("semester").regex(semester, "i");}
-        if (semester != null) { filterCriteria.and("year").regex(semester, "i");}
+        if (year != null) { filterCriteria.and("year").regex(year, "i");}
         if (courseTitle != null) { filterCriteria.and("courseTitle").regex(courseTitle, "i");}
         if (coursePrefix != null) { filterCriteria.and("coursePrefix").regex(coursePrefix, "i");}
         if (courseNumber != null) { filterCriteria.and("courseNumber").is(courseNumber);}
@@ -66,8 +66,9 @@ public class CourseService {
             }
         }
 
+
         Query query;
-        if (searchString.length() != 0) {
+        if (searchString != null) {
             query = TextQuery
                     .queryText(new TextCriteria().matchingAny(searchString.split(" ")))
                     .sortByScore()

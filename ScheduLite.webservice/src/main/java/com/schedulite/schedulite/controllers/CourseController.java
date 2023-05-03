@@ -28,6 +28,7 @@ public class CourseController {
     public ResponseEntity<?> getCourses() {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
+
     @GetMapping("/query")
     public ResponseEntity<?> getCoursesByQuery(
             @RequestParam(required = false) String query,
@@ -42,6 +43,7 @@ public class CourseController {
             @RequestParam(required = false) String days
     ) {
         // return all courses by the given number, or none if none found
+        System.out.println(query);
         return new ResponseEntity<>(courseService.getCourseByFiltersAndQuery(query, courseTitle, coursePrefix, courseNumber,
                 semester, year, courseTime, firstName, lastName, days), HttpStatus.OK);
     }
