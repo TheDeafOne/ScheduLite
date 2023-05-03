@@ -7,20 +7,21 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {UserContext, UserContextType} from "../../../context/UserContext";
 import TextField from "@mui/material/TextField";
 import { MenuItem } from "@mui/material";
+import IFilter from "../../../types/filter.type";
 
-const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) => {
+const FilterPanel = ({filters, setFilters, onEnter} : {filters : IFilter[], setFilters: Function, onEnter : Function}) => {
 
     const navigate = useNavigate();
     const onBackClick = () => {
         navigate("/")
     }
-    const handleFilterChange = (event: any, setFilter: any) => {
-        console.log(event.target.value);
-        setFilter(event.target.value);
-        console.log(filters);
-        onEnter();
+    const handleFilterChange = (event: any, filterIndex: any) => {
+        //https://stackoverflow.com/questions/72950841/component-not-re-rendering-after-change-in-an-object-state-in-react
+        const newFilters = [...filters]
+        newFilters[filterIndex].value = event.target.value
+        setFilters(newFilters);
+        onEnter(); 
     };
-
 
     return (
         <div className={"side-panel left-panel"}>
@@ -31,7 +32,7 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                 </div>
             </div>
             <div className={"filters"}>
-                {filters.map((filterInfo: any) => {
+                {filters.map((filterInfo: any, i) => {
                     
                     return (
                         <TextField 
@@ -41,12 +42,7 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                         select={filterInfo.type === "selection"}
                         size="small"
                         onChange={(event) =>{
-                            handleFilterChange(event, filterInfo.setFilter);
-                            // if (filterInfo.type === "selection") {
-                            //     filterInfo.setFilter(event.target.value);
-                            //     console.log(filterInfo);
-                            //     onEnter();
-                            // }
+                            handleFilterChange(event, i);
                         }}
                         // onKeyDown={handleKeyDown}
                         value={filterInfo.value}

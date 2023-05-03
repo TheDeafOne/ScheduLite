@@ -12,6 +12,7 @@ import ISchedule from "../../types/schedule.type";
 import moment from "moment";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import { UserContext, UserContextType } from "../../context/UserContext";
+import { CircularProgress } from "@mui/material";
 
 
 const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
@@ -20,32 +21,36 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
     const [currCourse, setCourse] = useState<ICourse | undefined>();
     const [searchType, setSearchType] = useState("Course Title")
     const [viewCourse, setViewCourse] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { user } = useContext(UserContext) as UserContextType
 
 
     const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, semester, year } = useContext(ScheduleContext) as ScheduleContextType
     // filters
-    const [courseTitleFilter, setCourseTitleFilter] = useState("")
-    const [coursePrefixFilter, setCoursePrefixFilter] = useState("")
-    const [courseCodeFilter, setCourseCodeFilter] = useState("")
-    const [courseTimeFilter, setCourseTimeFilter] = useState("")
-    const [firstNameFilter, setFirstNameFilter] = useState("")
-    const [lastNameFilter, setLastNameFilter] = useState("")
-    const [daysFilter, setDaysFilter] = useState("")
-    const [yearFilter, setYearFilter] = useState(year)
-    const [semesterFilter, setSemesterFilter] = useState(semester)
+    // const [courseTitleFilter, setCourseTitleFilter] = useState("")
+    // const [coursePrefixFilter, setCoursePrefixFilter] = useState("")
+    // const [courseCodeFilter, setCourseCodeFilter] = useState("")
+    // const [courseTimeFilter, setCourseTimeFilter] = useState("")
+    // const [firstNameFilter, setFirstNameFilter] = useState("")
+    // const [lastNameFilter, setLastNameFilter] = useState("")
+    // const [daysFilter, setDaysFilter] = useState("")
+    // const [yearFilter, setYearFilter] = useState(year)
+    // const [semesterFilter, setSemesterFilter] = useState(semester)
 
-    let filters = [
-        { name: "year", paramName: "year", type: "selection", value: yearFilter, setFilter: setYearFilter, options: ["2018", "2019", "2020", "2021"] },
-        { name: "semester", paramName: "semester", type: "selection", value: semesterFilter, setFilter: setSemesterFilter, options: ["spring", "fall"] },
-        { name: "course prefix", paramName: "coursePrefix", type: "text", value: coursePrefixFilter, setFilter: setCoursePrefixFilter },
-        { name: "course code", paramName: "courseNumber", type: "text", value: courseCodeFilter, setFilter: setCourseCodeFilter },
-        { name: "course title", paramName: "courseTitle", type: "text", value: courseTitleFilter, setFilter: setCourseTitleFilter },
-        { name: "course time", paramName: "courseTime", type: "text", value: courseTimeFilter, setFilter: setCourseTimeFilter },
-        { name: "first name", paramName: "firstName", type: "text", value: firstNameFilter, setFilter: setFirstNameFilter },
-        { name: "last name", paramName: "lastName", type: "text", value: lastNameFilter, setFilter: setLastNameFilter },
-        { name: "days", paramName: "days", type: "text", value: daysFilter, setFilter: setDaysFilter },
+    let filterSet = [
+        { name: "year", paramName: "year", type: "selection", value: "", options: ["2018", "2019", "2020"] },
+        { name: "semester", paramName: "semester", type: "selection", value: "", options: ["spring", "fall"] },
+        { name: "course prefix", paramName: "coursePrefix", type: "text", value: "" },
+        { name: "course code", paramName: "courseNumber", type: "text", value: "" },
+        { name: "course title", paramName: "courseTitle", type: "text", value: "" },
+        { name: "course time", paramName: "courseTime", type: "text", value: "" },
+        { name: "first name", paramName: "firstName", type: "text", value: "" },
+        { name: "last name", paramName: "lastName", type: "text", value: "" },
+        { name: "days", paramName: "days", type: "text", value: "" },
     ]
+
+    const [filters, setFilters] = useState(filterSet)
+
 
     const setSearchResponse = (newValue: any) => {
         setResponse(newValue);
@@ -61,13 +66,14 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
     }
 
     const onEnter = () => {
+        setLoading(true);
         let baseApiEnpoint = "/courses";
-        console.log(filters)
+        console.log(filters);
         let filterParams = filters.map((filter) => {
             if (filter.value !== "") {
                 return `${filter.paramName}=${filter.value}`
             }
-        }).filter((item) => {return item !== undefined})
+        }).filter((item) => { return item !== undefined })
         if (query != "") {
             filterParams.push(`query=${query}`)
         }
@@ -75,22 +81,22 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
 
         let url = baseApiEnpoint;
         if (filterParams.length > 0 || query != "") {
-            url += `/query?${stringifiedFilterParams}`; 
+            url += `/query?${stringifiedFilterParams}`;
         }
-       
-        console.log(url);
+
 
         axiosConfig.get(url)
             .then(r => {
-                let data = r.data.splice(0,20)
-                data.forEach(function(course : ICourse, index : number, array : Array<ICourse>) {
+                let data = r.data.splice(0, 20)
+                data.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
                     array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
                     array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
-                    
+
                 })
                 setResponse(data);
-                }
-            )
+            }
+        )
+        setLoading(false);
     };
 
 
@@ -103,7 +109,7 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
                 transition={{ duration: 3 }}
             >
                 <div className={"main-body"}>
-                    <FilterPanel filters={filters} onEnter={onEnter} />
+                    <FilterPanel filters={filters} setFilters={setFilters} onEnter={onEnter} />
                     <div className={"center-panel"}>
                         <motion.div
                             key="search"
@@ -111,6 +117,7 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
                             initial={{ scale: .97 }}
                             animate={{ scale: 1 }}
                             transition={{ duration: .75 }}
+                            
                         >
                             <SearchBar
                                 setResponse={setSearchResponse}
@@ -124,7 +131,8 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
                         </motion.div>
                         <Results response={response} onCourseClick={onCourseClick} />
                     </div>
-                    <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} />
+
+                        <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} />
                 </div>
             </motion.div>
         </div>
