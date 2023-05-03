@@ -14,20 +14,22 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
     const onBackClick = () => {
         navigate("/")
     }
-    const handleKeyDown = (event: any, setFilter: any) => {
-        console.log(event)
+    const handleFilterChange = (event: any, setFilter: any) => {
         setFilter(event.target.value);
-        if (event.key === 'Enter') {
-            onEnter();
-        }
     };
+
+    // useEffect(() => {
+
+    // })
 
 
     return (
         <div className={"side-panel left-panel"}>
-            <button onClick={onBackClick} className={"back-button"}><ArrowBackIcon /></button>
-            <div className={""}>
-                Back to Schedule
+            <div className={"back-button-container"}>
+                <button onClick={onBackClick} className={"back-button"}><ArrowBackIcon /></button>
+                <div className={"back-button-title"}>
+                    Back to Schedule
+                </div>
             </div>
             <div className={"filters"}>
                 {filters.map((filterInfo: any) => {
@@ -39,7 +41,7 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                         sx={{paddingBottom:"10px"}}
                         select={filterInfo.type === "selection"}
                         size="small"
-                        onKeyDown={(event) => handleKeyDown(event, filterInfo.setFilter)}
+                        onChange={(event) => handleFilterChange(event, filterInfo.setFilter)}
                         value={filterInfo.value}
                         label={filterInfo.name}
                         className="filter-input"
@@ -53,26 +55,6 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                         </TextField>
                     )
                 })}
-                
-                {/* <label htmlFor={"name-filter"}>Last name: </label>
-                <TextField
-                    id="outlined-basic"
-                    label="Start Time"
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    onBlur={(event) => filters.setTimeFilter(event.target.value)}
-                    onKeyDown={(event) => handleKeyDown(event, filters.setTimeFilter)}
-                    // disabled={user !== null}
-                />
-                <TextField
-                    id="outlined-basic"
-                    label="Days"
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    onBlur={(event) => filters.setDayFilter(event.target.value)}
-                    onKeyDown={(event) => handleKeyDown(event, filters.setDayFilter)}
-                    // disabled={user !== null}
-                /> */}
             </div>
         </div>
     )
