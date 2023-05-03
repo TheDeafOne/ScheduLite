@@ -6,7 +6,7 @@ import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPan
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import "./SearchPage.scss";
 import Course from "../../components/CourseComponents/Course";
-import {color, motion} from "framer-motion";
+import { color, motion } from "framer-motion";
 import ICourse from "../../types/course.type";
 import ISchedule from "../../types/schedule.type";
 import moment from "moment";
@@ -14,7 +14,7 @@ import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleCont
 import { UserContext, UserContextType } from "../../context/UserContext";
 
 
-const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
+const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse] = useState<ICourse | undefined>();
@@ -36,15 +36,15 @@ const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
     const [semesterFilter, setSemesterFilter] = useState(semester)
 
     let filters = [
-        {name: "year", type: "selection",value: yearFilter, setFilter: setYearFilter, options: ["2018","2019", "2020", "2021"]},
-        {name: "semester", type: "selection",value: semesterFilter, setFilter: setSemesterFilter, options: ["spring","fall"]},
-        {name: "course prefix", type: "text",value: coursePrefixFilter, setFilter: setCoursePrefixFilter},
-        {name: "course code", type: "text",value: courseCodeFilter, setFilter: setCourseCodeFilter},
-        {name: "course title", type: "text",value: courseTitleFilter, setFilter: setCourseTitleFilter},
-        {name: "course time", type: "text",value: courseTimeFilter, setFilter: setCourseTimeFilter},
-        {name: "first name", type: "text",value: firstNameFilter, setFilter: setFirstNameFilter},
-        {name: "last name", type: "text",value: lastNameFilter, setFilter: setLastNameFilter},
-        {name: "days", type: "text",value: daysFilter, setFilter: setDaysFilter},
+        { name: "year", paramName: "yearFilter", type: "selection", value: yearFilter, setFilter: setYearFilter, options: ["2018", "2019", "2020", "2021"] },
+        { name: "semester", paramName: "semesterFilter", type: "selection", value: semesterFilter, setFilter: setSemesterFilter, options: ["spring", "fall"] },
+        { name: "course prefix", paramName: "coursePrefixFilter", type: "text", value: coursePrefixFilter, setFilter: setCoursePrefixFilter },
+        { name: "course code", paramName: "courseCodeFilter", type: "text", value: courseCodeFilter, setFilter: setCourseCodeFilter },
+        { name: "course title", paramName: "courseTitleFilter", type: "text", value: courseTitleFilter, setFilter: setCourseTitleFilter },
+        { name: "course time", paramName: "courseTimeFilter", type: "text", value: courseTimeFilter, setFilter: setCourseTimeFilter },
+        { name: "first name", paramName: "firstNameFilter", type: "text", value: firstNameFilter, setFilter: setFirstNameFilter },
+        { name: "last name", paramName: "lastNameFilter", type: "text", value: lastNameFilter, setFilter: setLastNameFilter },
+        { name: "days", paramName: "daysFilter", type: "text", value: daysFilter, setFilter: setDaysFilter },
     ]
 
     const setSearchResponse = (newValue: any) => {
@@ -60,12 +60,15 @@ const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
         }
     }
 
-    const onEnter = (searchQuery : any) => {
+    const onEnter = (searchQuery: any) => {
         let baseApiEnpoint = "/courses";
+        let filterParams = filters.map((filter) => {
+            if (filter.value !== "") {
+                return `${filter.paramName}=${filter.value}`
+            }
+        }).filter((item) => {return item !== undefined}).join('&')
+        
 
-        // let filterParams = `semester=${semester}&name=${nameFilter}&time=${timeFilter}&days=${dayFilter}`
-        // console.log(filterParams);
- 
         // axiosConfig.get(url)
         //     .then(r => {
         //         let data = r.data.splice(0,20)
@@ -86,37 +89,37 @@ const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
 
     return (
         <div className={"background"}>
-        <motion.div
-            key="search"
-            className="container text-center"
-            transition={{ duration: 3 }}
-        >
-            <div className={"main-body"}>
-                <FilterPanel filters={filters} onEnter={onEnter}/>
-                <div className={"center-panel"}>
-                    <motion.div
-                        key="search"
-                        className="container text-center"
-                        initial={{scale: .97 }}
-                        animate={{scale: 1 }}
-                        transition={{ duration: .75 }}
-                    >
-                    <SearchBar
-                        setResponse={setSearchResponse}
-                        onEnter={onEnter}
-                        setQuery={setQuery}
-                        autofocus={true}
-                        firstClick={false}
-                        searchType={searchType}
-                        setSearchType={setSearchType}
-                    />
-                    </motion.div>
-                    <Results response={response} onCourseClick={onCourseClick}/>
+            <motion.div
+                key="search"
+                className="container text-center"
+                transition={{ duration: 3 }}
+            >
+                <div className={"main-body"}>
+                    <FilterPanel filters={filters} onEnter={onEnter} />
+                    <div className={"center-panel"}>
+                        <motion.div
+                            key="search"
+                            className="container text-center"
+                            initial={{ scale: .97 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: .75 }}
+                        >
+                            <SearchBar
+                                setResponse={setSearchResponse}
+                                onEnter={onEnter}
+                                setQuery={setQuery}
+                                autofocus={true}
+                                firstClick={false}
+                                searchType={searchType}
+                                setSearchType={setSearchType}
+                            />
+                        </motion.div>
+                        <Results response={response} onCourseClick={onCourseClick} />
+                    </div>
+                    <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} />
                 </div>
-                <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined}/>
-            </div>
-        </motion.div>
-    </div>
+            </motion.div>
+        </div>
     )
 }
 export default SearchPage;
