@@ -67,15 +67,15 @@ public class CourseService {
         }
 
 
-        Query query;
-        if (searchString != null) {
+        Query query = new Query();
+        if (searchString != null && !searchString.equals("")) {
             query = TextQuery
                     .queryText(new TextCriteria().matchingAny(searchString.split(" ")))
                     .sortByScore()
                     .includeScore();
-        } else {
-            query = new Query(filterCriteria);
         }
+        query.addCriteria(filterCriteria);
+
 
 
 
