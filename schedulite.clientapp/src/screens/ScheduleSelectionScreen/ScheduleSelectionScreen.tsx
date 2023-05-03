@@ -13,16 +13,18 @@ import authHeader from "../../services/auth-header";
 import authService from "../../services/auth.service";
 
 
-const blocks: ISchedule[] = [];
+export const blocks: ISchedule[] = [];
+export const filteredBlocks: ISchedule[] = [];
 
 const BlockPage = ({setIsOpen, setModal}: any) => {
   const { user,setUser } = useContext(UserContext) as UserContextType;
   const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
   const [yearFilter, setYearFilter] = useState<string | undefined>();
   const [semesterFilter, setSemesterFilter] = useState<string | undefined>();
-  const [initialFilteredBlocks, setInitialFilteredBlocks] = useState<ISchedule[] | undefined>(blocks)
+   const [initialFilteredBlocks, setInitialFilteredBlocks] = useState<ISchedule[] | undefined>(blocks)
   const [filteredBlocks, setFilteredBlocks] = useState<ISchedule[] | undefined>(blocks);
   const navigate = useNavigate();
+   
 
   const routeChange = () =>{
     let path = `/Search`;
@@ -60,12 +62,19 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     }
   }, [])
 
+  function isWhitespace(str: string): boolean {
+    return /^\s*$/.test(str);
+  }
+  
   function handleCopyClick(block: ISchedule): void {
     const newScheduleName = prompt("Please enter a name for the new schedule");
 
       if (newScheduleName === null) {
       return; // User cancelled prompt
-    }
+    }else if (isWhitespace(newScheduleName)){
+      alert("input error no null names");
+      return;
+  }
 
     const existingScheduleNames = filteredBlocks!.map((schedule) => schedule.scheduleName);
     if (existingScheduleNames.includes(newScheduleName)) {
@@ -188,6 +197,7 @@ const handleDeleteClick = (schedule: ISchedule) => {
       </div>
     </div>
   );
+  
 };
 
 export default BlockPage;
