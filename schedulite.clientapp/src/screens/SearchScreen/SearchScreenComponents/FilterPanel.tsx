@@ -4,55 +4,58 @@ import Results from "../../../components/CourseComponents/Results/Results";
 import {useNavigate} from "react-router-dom";
 // import { HiChevronLeft } from "react-icons/hi";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {Filters} from "../SearchPage";
 import {UserContext, UserContextType} from "../../../context/UserContext";
 import TextField from "@mui/material/TextField";
+import { MenuItem } from "@mui/material";
 
-// import TextField from "@mui/material/TextField";
-// import List from "./Components/List";
-// import "./App.scss";
+const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) => {
 
-const FilterPanel = ({filters, onEnter} : {filters : Filters, onEnter : Function}) => {
-    const { user } = useContext(UserContext) as UserContextType
     const navigate = useNavigate();
     const onBackClick = () => {
         navigate("/")
     }
-    const handleKeyDown = (event : any, setFilter : Function) => {
+    const handleKeyDown = (event: any, setFilter: any) => {
+        console.log(event)
+        setFilter(event.target.value);
         if (event.key === 'Enter') {
-            setFilter(event.target.value)
-            // 👇 Get input value
             onEnter();
         }
     };
 
+
     return (
         <div className={"side-panel left-panel"}>
-            <div className={"side-panel-title"} >
-                <button onClick={onBackClick} className={"back-button"}><ArrowBackIcon /></button>
-                Filter Page
+            <button onClick={onBackClick} className={"back-button"}><ArrowBackIcon /></button>
+            <div className={""}>
+                Back to Schedule
             </div>
             <div className={"filters"}>
                 <label htmlFor={"semester-filter"}>Semester: </label>
-                <input className={"filter-input"} id="semester-filter"  value={filters.semester} disabled={user !== null}/><br/>
-                {/*<label htmlFor={"name-filter"}>Last name: </label>*/}
-                <TextField
-                    id="outlined-basic"
-                    value={filters.semester}
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    disabled={user !== null}
-                    // disabled={user !== null}
-                />
-                <TextField
-                    id="outlined-basic"
-                    label="Last Name"
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    onBlur={(event) => filters.setNameFilter(event.target.value)}
-                    onKeyDown={(event) => handleKeyDown(event, filters.setNameFilter)}
-                    // disabled={user !== null}
-                />
+                {filters.map((filterInfo: any) => {
+                    
+                    return (
+                        <TextField 
+                        key={filterInfo.name} 
+                        variant="outlined"
+                        sx={{paddingBottom:"10px"}}
+                        select={filterInfo.type === "selection"}
+                        size="small"
+                        onChange={(event) => handleKeyDown(event, filterInfo.setFilter)}
+                        value={filterInfo.value}
+                        label={filterInfo.name}
+                        className="filter-input"
+                        >
+                        {filterInfo.type === "text" ? filterInfo.name :
+                        filterInfo.options.map((option: any) => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                        </TextField>
+                    )
+                })}
+                
+                {/* <label htmlFor={"name-filter"}>Last name: </label>
                 <TextField
                     id="outlined-basic"
                     label="Start Time"
@@ -70,13 +73,7 @@ const FilterPanel = ({filters, onEnter} : {filters : Filters, onEnter : Function
                     onBlur={(event) => filters.setDayFilter(event.target.value)}
                     onKeyDown={(event) => handleKeyDown(event, filters.setDayFilter)}
                     // disabled={user !== null}
-                />
-                {/*<label htmlFor={"name-filter"}>Last name: </label>*/}
-                {/*<input className={"filter-input"} id="name-filter" placeholder={"Enter Last Name"} onBlur={(event) => filters.setNameFilter(event.target.value)}/><br/>*/}
-                {/*<label htmlFor={"time-filter"}>Start Time: </label>*/}
-                {/*<input className={"filter-input"} id="time-filter" placeholder={"Enter Time, e.g. 10:00"} onBlur={(event) => filters.setTimeFilter(event.target.value)}/><br/>*/}
-                {/*<label htmlFor={"day-filter"}>Days: </label>*/}
-                {/*<input className={"filter-input"} id="day-filter" placeholder={"Enter Days, e.g. MWF, or MW"} onBlur={(event) => filters.setDayFilter(event.target.value)}/><br/>*/}
+                /> */}
             </div>
         </div>
     )
