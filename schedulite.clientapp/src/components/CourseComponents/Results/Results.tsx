@@ -1,14 +1,9 @@
 
-import React, {useContext, useEffect, useState} from 'react'
-import axiosConfig from "../../../api/axios-config";
-import SearchPage from "../../../screens/SearchScreen/SearchPage";
-import Course from "../Course";
-import "./Results.scss"
+import { useContext } from 'react';
+import { ScheduleContext, ScheduleContextType } from "../../../context/ScheduleContext";
 import ICourse from "../../../types/course.type";
-import courseDetailPanel from "../CourseDetailPanel";
-import moment from "moment";
-import course from "../Course";
-import {ScheduleContext, ScheduleContextType} from "../../../context/ScheduleContext";
+import Course from "../Course";
+import "./Results.scss";
 
 
 const Results = (props : any) => {

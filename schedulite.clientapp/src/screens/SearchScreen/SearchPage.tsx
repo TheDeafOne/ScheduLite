@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import axiosConfig from "../../api/axios-config";
-import Results from "../../components/CourseComponents/Results/Results";
-import SearchBar from "./SearchScreenComponents/SearchBar/SearchBar";
-import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
-import FilterPanel from "./SearchScreenComponents/FilterPanel";
-import "./SearchPage.scss";
-import Course from "../../components/CourseComponents/Course";
-import { color, motion } from "framer-motion";
-import ICourse from "../../types/course.type";
-import ISchedule from "../../types/schedule.type";
+import { motion } from "framer-motion";
 import moment from "moment";
+import { useContext, useState } from "react";
+import axiosConfig from "../../api/axios-config";
+import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
+import Results from "../../components/CourseComponents/Results/Results";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import { UserContext, UserContextType } from "../../context/UserContext";
-import { CircularProgress } from "@mui/material";
+import ICourse from "../../types/course.type";
+import "./SearchPage.scss";
+import FilterPanel from "./SearchScreenComponents/FilterPanel";
+import SearchBar from "./SearchScreenComponents/SearchBar/SearchBar";
 
 
 const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
@@ -25,21 +22,11 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
     const { user } = useContext(UserContext) as UserContextType
 
 
-    const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, semester, year } = useContext(ScheduleContext) as ScheduleContextType
-    // filters
-    // const [courseTitleFilter, setCourseTitleFilter] = useState("")
-    // const [coursePrefixFilter, setCoursePrefixFilter] = useState("")
-    // const [courseCodeFilter, setCourseCodeFilter] = useState("")
-    // const [courseTimeFilter, setCourseTimeFilter] = useState("")
-    // const [firstNameFilter, setFirstNameFilter] = useState("")
-    // const [lastNameFilter, setLastNameFilter] = useState("")
-    // const [daysFilter, setDaysFilter] = useState("")
-    // const [yearFilter, setYearFilter] = useState(year)
-    // const [semesterFilter, setSemesterFilter] = useState(semester)
+    const { semester, year } = useContext(ScheduleContext) as ScheduleContextType
 
     let filterSet = [
-        { name: "year", paramName: "year", type: "selection", value: "", options: ["2018", "2019", "2020"] },
-        { name: "semester", paramName: "semester", type: "selection", value: "", options: ["spring", "fall"] },
+        { name: "year", paramName: "year", type: "selection", value: year, options: ["2018", "2019", "2020"] },
+        { name: "semester", paramName: "semester", type: "selection", value: semester, options: ["spring", "fall"] },
         { name: "course prefix", paramName: "coursePrefix", type: "text", value: "" },
         { name: "course code", paramName: "courseNumber", type: "text", value: "" },
         { name: "course title", paramName: "courseTitle", type: "text", value: "" },

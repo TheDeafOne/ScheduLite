@@ -1,12 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
-import axiosConfig from "../../../api/axios-config";
-import Results from "../../../components/CourseComponents/Results/Results";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { HiChevronLeft } from "react-icons/hi";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {UserContext, UserContextType} from "../../../context/UserContext";
-import TextField from "@mui/material/TextField";
 import { MenuItem } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import IFilter from "../../../types/filter.type";
 
 const FilterPanel = ({filters, setFilters, onEnter} : {filters : IFilter[], setFilters: Function, onEnter : Function}) => {
