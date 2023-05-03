@@ -83,14 +83,14 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
             }
         }).filter((item) => { return item !== undefined })
 
-        if (searchQuery !== undefined) {
-            setQuery(searchQuery);
-            if (searchQuery !== "") {
-                filterParams.push(`query=${searchQuery}`)
-            }
-            setWaittime(500);
-        } else {
+        if (searchQuery === undefined && query == "") {
             setWaittime(0);
+        } else {
+            if (searchQuery !== undefined) {
+                setQuery(searchQuery);
+            }
+            filterParams.push(`query=${searchQuery === undefined ? query : searchQuery}`)
+            setWaittime(500);
         }
  
         let stringifiedFilterParams = filterParams.join('&');
