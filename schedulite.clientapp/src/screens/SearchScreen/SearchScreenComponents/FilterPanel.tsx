@@ -30,7 +30,6 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                 Back to Schedule
             </div>
             <div className={"filters"}>
-                <label htmlFor={"semester-filter"}>Semester: </label>
                 {filters.map((filterInfo: any) => {
                     
                     return (
@@ -40,7 +39,7 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                         sx={{paddingBottom:"10px"}}
                         select={filterInfo.type === "selection"}
                         size="small"
-                        onChange={(event) => handleKeyDown(event, filterInfo.setFilter)}
+                        onKeyDown={(event) => handleKeyDown(event, filterInfo.setFilter)}
                         value={filterInfo.value}
                         label={filterInfo.name}
                         className="filter-input"
