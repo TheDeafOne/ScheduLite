@@ -62,6 +62,7 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
 
     const onEnter = () => {
         let baseApiEnpoint = "/courses";
+        console.log(filters)
         let filterParams = filters.map((filter) => {
             if (filter.value !== "") {
                 return `${filter.paramName}=${filter.value}`

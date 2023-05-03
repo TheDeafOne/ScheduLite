@@ -15,14 +15,11 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
         navigate("/")
     }
     const handleFilterChange = (event: any, setFilter: any) => {
+        console.log(event.target.value);
         setFilter(event.target.value);
+        console.log(filters);
+        onEnter();
     };
-
-    const handleKeyDown = (event: any) => {
-        if (event.key === "Enter") {
-            onEnter()
-        }
-    }
 
 
     return (
@@ -44,12 +41,14 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                         select={filterInfo.type === "selection"}
                         size="small"
                         onChange={(event) =>{
-                            handleFilterChange(event, filterInfo.setFilter)
-                            if (filterInfo.type === "selection") {
-                                onEnter();
-                            }
+                            handleFilterChange(event, filterInfo.setFilter);
+                            // if (filterInfo.type === "selection") {
+                            //     filterInfo.setFilter(event.target.value);
+                            //     console.log(filterInfo);
+                            //     onEnter();
+                            // }
                         }}
-                        onKeyDown={handleKeyDown}
+                        // onKeyDown={handleKeyDown}
                         value={filterInfo.value}
                         label={filterInfo.name}
                         className="filter-input"
