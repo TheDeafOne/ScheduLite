@@ -3,5 +3,5 @@ export default interface IFilter {
     paramName: string,
     type: string,
     value: string,
-    options?: string[]
+    options?: any[]
 }

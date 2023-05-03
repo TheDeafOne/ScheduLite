@@ -26,8 +26,8 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
     const { semester, year } = useContext(ScheduleContext) as ScheduleContextType
 
     let filterSet = [
-        { name: "year", paramName: "year", type: "selection", value: year, options: ["2018", "2019", "2020"] },
-        { name: "semester", paramName: "semester", type: "selection", value: semester, options: ["spring", "fall"] },
+        { name: "year", paramName: "year", type: "selection", value: year, options: [{label: "2018",value:"2018"}, {label: "2019",value:"2019"}, {label: "2020",value:"2020"}, {label: "all", value:""}] },
+        { name: "semester", paramName: "semester", type: "selection", value: semester, options: [{label: "spring", value: "spring"}, {label: "fall", value: "fall"}, {label: "all", value:""}] },
         { name: "course prefix", paramName: "coursePrefix", type: "text", value: "" },
         { name: "course code", paramName: "courseNumber", type: "text", value: "" },
         { name: "course title", paramName: "courseTitle", type: "text", value: "" },

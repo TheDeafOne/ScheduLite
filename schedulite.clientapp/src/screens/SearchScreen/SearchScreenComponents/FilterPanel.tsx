@@ -47,8 +47,8 @@ const FilterPanel = ({filters, setFilters, onEnter} : {filters : IFilter[], setF
                         >
                         {filterInfo.type === "text" ? filterInfo.name :
                         filterInfo.options.map((option: any) => (
-                            <MenuItem key={option} value={option}>
-                                {option}
+                            <MenuItem key={option.label} value={option.value}>
+                                {option.label}
                             </MenuItem>
                         ))}
                         </TextField>
