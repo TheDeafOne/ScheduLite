@@ -2,6 +2,9 @@ import React, {useContext, useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "../SearchScreen/SearchPage";
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 // import "../../styles/BodyStructure.scss"
 import "./HomeScreen.scss"
 import CoursePanel from "./CoursePanel";
@@ -28,8 +31,9 @@ const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
     const [currCourse, setCourse]= useState<ICourse | undefined>();
     const [viewCourse, setViewCourse] = useState(false);
-    const { saved, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
+    const { saved, saveSchedule, errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType
+    const [panelVisible, setPanelVisible] = useState<Boolean>(true);
 
     const [scheduleSaved, setScheduleSaved] = useState(false)
     const [saveMessage, setSavedMessage] = useState("")
@@ -118,8 +122,17 @@ const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType
 
                         {user && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
                     </div>
+                    <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${warnings.credits.value || warnings.sameCourse.value && !panelVisible ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
+                        {
+                            panelVisible ? <ChevronRightIcon /> : <ChevronLeftIcon />
+                        }
+                    </button>
                 </div>
-                <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover}/>
+                {
+                    panelVisible && (
+                        <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover}/>
+                    )
+                }
             </div>
         </motion.div>
     )

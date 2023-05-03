@@ -6,16 +6,19 @@
     padding: 10px;
     overflow-y: scroll;
     color: white;
+    box-sizing: border-box;
+    width: 100%;
 }
-/*.calendar-content {*/
+/*calendar-content {*/
 /*    display: flex;*/
 /*    flex-direction: column;*/
 /*}*/
 .calendar-days {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     background-color: variables.$background-main;
-    width: 100%;
+    width: 95%;
 }
 .calendar-header {
     position: relative;
@@ -23,6 +26,7 @@
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
+    color: variables.$secondary-text-color;
 }
 .calendar-body {
     margin-top: 10px;
@@ -33,6 +37,7 @@
     border-left: 1px solid variables.$border-color;
     box-sizing: border-box;
     position: relative;
+    width: 100%;
 }
 .weekday-header {
     width: 100%;
@@ -41,16 +46,14 @@
     text-align: center;
     //background-color: lighten(variables.$background-light, 1%);
     background-color: variables.$background-dark;
-    width: 100%;
+    width: 20%;
     box-sizing: border-box;
     border-right: 1px solid variables.$border-color;
-    /*border-radius: 10px;*/
-    /*height: 100vh;*/
-    /*overflow-y: scroll;*/
 }
 .time-slot {
     display: flex;
     height: 45px;
+    color: variables.$secondary-text-color;
 }
 .day-slot {
     display: flex;
@@ -59,17 +62,23 @@
     flex-direction: row;
     padding: 1px;
     height: 45px;
-    width: 165px;
+    width: 100%;
     border-bottom: 1px solid variables.$border-color;
     box-sizing: border-box;
     font-weight: bold;
     /*color: #282c34;*/
 }
+//.days {
+//    width165px;
+//}
 .calendar-course {
     display: flex;
+    //width: 50px;
+    //flex: 0 0 available;
     flex-grow: 1;
     flex-basis: 100%;
     font-size: 12px;
+    width: border-box;
     position: relative;
 
     flex-direction: column;
@@ -82,8 +91,9 @@
     text-align: start;
     overflow-x: hidden;
     text-wrap: none;
-    white-space: nowrap;
+    //white-space: nowrap;
     text-overflow: ellipsis;
+
     &:hover {
         filter: brightness(1.4);
     }

@@ -40,8 +40,8 @@ export interface ScheduleContextType {
     semester: string,
     setSemester: React.Dispatch<React.SetStateAction<string>>,
     saveSchedule: () => void,
-    errors: () => Errors,
-    warnings: () => Warnings
+    errors: Errors,
+    warnings: Warnings
 }
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);
 
@@ -90,34 +90,21 @@ export const ScheduleProvider = (props: any) => {
     const [year, setYear] = useState("")
     const [name, setName] = useState("")
     const [saved, setSaved] = useState(true)
+    const [errors, setErrors] = useState<Errors>({overlap: {value: false, courses: []}})
+    const [warnings, setWarnings] = useState<Warnings>({credits: {value: false, message: ""}, sameCourse: {value: false, courses: [], message: ""}})
 
-    const errors = () => {
-        let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
-        console.log(coursesWithOverlap);
+    const calcErrors = () => {
 
-
-        return {
-            overlap : {
-                value: coursesWithOverlap.length > 0,
-                courses: coursesWithOverlap
-            }
-        }
     }
-    const warnings = () => {
-        let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)))
+    const calcWarnings = () => {
 
-        return {
-            credits: {
-                value: calcActiveCredits() > 18,
-                message: `Number of active credits ${calcActiveCredits()} is greater 18.`
-            },
-            sameCourse: {
-                value: sameCourseDiffSections.length > 0,
-                courses: sameCourseDiffSections,
-                message: "Schedule contains two of the same course with different sections."
-            }
-        }
     }
+
+    // const issuesExist = () => {
+    //     let warning = warnings()
+    //     let error = errors()
+    //     return warning.credits.value && warning.sameCourse.value && error.overlap.value
+    // }
 
     const overlap = (course1: ICourse, course2: ICourse) : boolean => {
         const startDate1 = moment(course1["startTime"], 'YYYY/MM/DD h:mm:ss')
@@ -195,6 +182,28 @@ export const ScheduleProvider = (props: any) => {
     }
     useEffect(() => {
         setSaved(false);
+        let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
+        console.log(coursesWithOverlap);
+        setErrors({
+                overlap : {
+                    value: coursesWithOverlap.length > 0,
+                    courses: coursesWithOverlap
+                }
+            }
+        )
+        let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)))
+
+        setWarnings( {
+            credits: {
+                value: calcActiveCredits() > 18,
+                message: `Number of active credits ${calcActiveCredits()} is greater 18.`
+            },
+            sameCourse: {
+                value: sameCourseDiffSections.length > 0,
+                courses: sameCourseDiffSections,
+                message: "Schedule contains two of the same course with different sections."
+            }
+        })
         // console.log(saved);
     }, [activeCourses, tentativeCourses])
     // const [saved]

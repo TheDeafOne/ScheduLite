@@ -10,16 +10,19 @@
 
   .center-panel {
     display: flex;
+    position: relative;
     flex-direction: column;
     flex: 3 1 0;
     overflow-y: scroll;
   }
   .side-panel {
-    flex: 1 1 0;
+    width: 20vw;
+    //flex: 1 1 0;
     text-align: start;
     color: white;
     padding: 5px;
     overflow-y: scroll;
+    //width: 100px;
 
     .side-panel-title {
       padding: 20px 10px 0 10px;
@@ -68,6 +71,7 @@
   }
   .left-panel {
     border-right: 1px solid variables.$border-color;
+    //width: 10vw;
   }
   .side-panel-title-container {
     display: flex;
