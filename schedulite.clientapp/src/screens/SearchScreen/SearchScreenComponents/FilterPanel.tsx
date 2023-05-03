@@ -18,9 +18,16 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
         setFilter(event.target.value);
     };
 
-    // useEffect(() => {
+    const handleKeyDown = (event: any) => {
+        if (event.key === "Enter") {
+            onEnter()
+        }
+    }
 
-    // })
+    useEffect(() => {
+        const timeOutId = setTimeout(() => onEnter(), 500);
+        return () => clearTimeout(timeOutId);
+    }, [filters])
 
 
     return (
@@ -42,6 +49,7 @@ const FilterPanel = ({filters, onEnter} : {filters : any, onEnter : Function}) =
                         select={filterInfo.type === "selection"}
                         size="small"
                         onChange={(event) => handleFilterChange(event, filterInfo.setFilter)}
+                        onKeyDown={handleKeyDown}
                         value={filterInfo.value}
                         label={filterInfo.name}
                         className="filter-input"
