@@ -89,8 +89,11 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
             if (searchQuery !== undefined) {
                 setQuery(searchQuery);
             }
-            filterParams.push(`query=${searchQuery === undefined ? query : searchQuery}`)
-            setWaittime(500);
+            let pushQuery = searchQuery === undefined ? query : searchQuery
+            if (pushQuery !== "" && pushQuery !== undefined) {
+                setWaittime(500);
+                filterParams.push(`query=${pushQuery}`)
+            }
         }
  
         let stringifiedFilterParams = filterParams.join('&');
