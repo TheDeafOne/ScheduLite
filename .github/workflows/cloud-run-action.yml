@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@n3
       - name: Setup GCP Service Account
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v1
         with:
           version: 'latest'
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
