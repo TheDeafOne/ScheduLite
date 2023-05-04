@@ -37,11 +37,15 @@ const CourseDetailPanel = ({course, viewCourse, calendarCourseHover}: {course : 
                     </div>
 
                 </div>
-                {/*<div>*/}
-                {/*    <div className={"side-panel-title"}>*/}
-                {/*        Issues*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                {(errors.overlap.value || warnings.sameCourse.value || warnings.credits.value) && (
+                    <div>
+                        <div className={"side-panel-title"}>
+                            Issues
+                        </div>
+                    </div>
+                )}
+
+
                 {/*{*/}
                 {/*    issuesExist() && (*/}
                 {/*        <div>*/}
@@ -53,14 +57,15 @@ const CourseDetailPanel = ({course, viewCourse, calendarCourseHover}: {course : 
                 {/*}*/}
 
             </div>
-            <div className={"issues"}>
+            {(errors.overlap.value || warnings.sameCourse.value || warnings.credits.value) && (
+                <div className={"issues"}>
 
-                <div className={"issues-container"}>
-                    <Errors/>
-                    <Warnings/>
+                    <div className={"issues-container"}>
+                        <Errors/>
+                        <Warnings/>
+                    </div>
                 </div>
-            </div>
-
+            )}
         </div>
     );
 }

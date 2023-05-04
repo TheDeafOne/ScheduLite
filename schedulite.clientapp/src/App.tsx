@@ -41,6 +41,7 @@ function AppBody() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modal, setModal] = useState(null);
     const [linkedSchedule, setLinkedSchedule] = useState(false);
+    const [panelVisible, setPanelVisible] = useState<boolean>(true);
 
     let linkedScheduleObj : linkedScheduleObjType = {
         linkedSchedule: linkedSchedule,
@@ -133,13 +134,13 @@ function AppBody() {
                     <Route
                         path="/"
                         element={
-                            <Home linkedScheduleObj={linkedScheduleObj}/>
+                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible}/>
                         }
                     />
                     <Route
                         path="/Search"
                         element={
-                            <SearchPage linkedSchedule={false}/>
+                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible}/>
                         }
                     />
                     <Route path="/profile" element={<Profile />} />

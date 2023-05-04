@@ -24,7 +24,7 @@ import {Popover} from "@mui/material";
 import MouseOverPopover from "../../components/PopOver/Popover";
 
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
-const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType }) => {
+const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedScheduleObj: linkedScheduleObjType, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
     const [response, setResponse] = useState<ICourse[]>();
     const [calendarCourseHover, setCalendarCourseHover] = useState<ICourse | undefined>();
@@ -33,7 +33,7 @@ const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType
     const [viewCourse, setViewCourse] = useState(false);
     const { saved, saveSchedule, errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType
-    const [panelVisible, setPanelVisible] = useState<Boolean>(true);
+
 
     const [scheduleSaved, setScheduleSaved] = useState(false)
     const [saveMessage, setSavedMessage] = useState("")
@@ -107,8 +107,8 @@ const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType
                     <motion.div
                         key="home"
                         className="container text-center"
-                        initial={{scale: 1 }}
-                        animate={{scale: .97 }}
+                        initial={{scale: .97 }}
+                        // animate={{scale: .97 }}
                         transition={{ duration: .75 }}
                     >
                     <SearchBar navigate={routeChange} autofocus={false} firstClick={true}/>
