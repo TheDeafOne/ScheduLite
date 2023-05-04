@@ -42,7 +42,8 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
         setName(scheduleName);
         setSemester(scheduleSemester);
         setYear(scheduleYear);
-        saveSchedule();
+
+        console.log("SCHEDULE SHOULD BE SAVED")
         navigate("/");
     }
 

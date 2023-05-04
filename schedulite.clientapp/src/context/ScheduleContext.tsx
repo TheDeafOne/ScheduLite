@@ -140,6 +140,10 @@ export const ScheduleProvider = (props: any) => {
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
         console.log("saving")
+        console.log(name)
+        console.log(semester)
+        console.log(year)
+        console.log("done")
         let activeIds = activeCourses.courses.map( (value: ICourse) => {
             return {id: value.id}
         })
@@ -195,6 +199,7 @@ export const ScheduleProvider = (props: any) => {
     }
     useEffect(() => {
         setSaved(false);
+        saveSchedule()
         // console.log(saved);
     }, [activeCourses, tentativeCourses])
     // const [saved]

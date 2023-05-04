@@ -39,15 +39,17 @@ const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType
         console.log("CALLLLLEDDDDD")
         setScheduleSaved(saved);
         }, [saved])
-
+    useEffect(() => {
+        onSaveClick()
+    }, [])
     // useEffect(() => {
     //     saveSchedule()
     // })
     // const {}
     // const saveSchedule = () =>
+
     const onSaveClick = () => {
         if (user) {
-            // if ()
             saveSchedule()
             setSavedMessage("Saved!")
         } else {

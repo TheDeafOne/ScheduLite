@@ -20,7 +20,7 @@ export const filteredBlocks: ISchedule[] = [];
 
 const BlockPage = ({setIsOpen, setModal}: any) => {
   const { user,setUser } = useContext(UserContext) as UserContextType;
-  const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
+  const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
   const [yearFilter, setYearFilter] = useState<string | undefined>();
   const [semesterFilter, setSemesterFilter] = useState<string | undefined>();
    const [initialFilteredBlocks, setInitialFilteredBlocks] = useState<ISchedule[] | undefined>(blocks)
@@ -32,6 +32,13 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     let path = `/Search`;
     navigate(path);
   }
+  useEffect(() => {
+    if (user !== undefined && user !== null) {
+      console.log("HERE ITS WORKING")
+      setFilteredBlocks(user!.schedules);
+      setInitialFilteredBlocks(user!.schedules);
+    }
+  })
   useEffect(() => {
     let blocks = initialFilteredBlocks
     const yearFilteredBlocks = (yearFilter !== undefined && yearFilter !== "") ? blocks!.filter((block) => block.year === yearFilter) : blocks;
@@ -54,15 +61,11 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     setYear(currentSchedule.year);
     setActiveCourses({course: null, type:"setAll", courseList:currentSchedule.activeCourses});
     setTentativeCourses({course: null, type:"setAll", courseList:currentSchedule.tentativeCourses});
+    // saveSchedule()
     navigate("/");
   };
 
-  useEffect(() => {
-    if (user !== undefined && user !== null) {
-      setFilteredBlocks(user!.schedules);
-      setInitialFilteredBlocks(user!.schedules);
-    }
-  }, [])
+
 
   function isWhitespace(str: string): boolean {
     return /^\s*$/.test(str);
