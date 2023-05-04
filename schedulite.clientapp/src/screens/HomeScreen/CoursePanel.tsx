@@ -1,9 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "../SearchScreen/SearchPage";
-import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar";
-import Results from "../../components/CourseComponents/Results";
-// import {Sortab}
+import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
+import Results from "../../components/CourseComponents/Results/Results";
 import {useDraggable} from '@dnd-kit/core';
 import Course from "../../components/CourseComponents/Course";
 import ISchedule from "../../types/schedule.type";
@@ -36,6 +35,14 @@ const CoursePanel = (props : any) => {
                 </div>
                 <div className={"side-panel-title credits"}>{calcActiveCredits()} cr.</div>
             </div>
+            {
+                calcActiveCredits() === 0 &&
+                (
+                    <div className={"no-courses"}>
+                        No courses! Add courses <a href={"/Search"}>here.</a>
+                    </div>
+                )
+            }
             <Results
                 response={activeCourses.courses}
                 panel={true}
@@ -53,7 +60,7 @@ const CoursePanel = (props : any) => {
                 panel={true}
                 onCourseClick={props.onCourseClick}
                 onMouseEnter={props.onMouseEnter}
-                onMouseLeave={props.onMouseEnter}
+                onMouseLeave={props.onMouseLeave}
                 switchAction={tentativeToActive}
                 button={<HiOutlinePlus />}
                 schedule="tentative"/>

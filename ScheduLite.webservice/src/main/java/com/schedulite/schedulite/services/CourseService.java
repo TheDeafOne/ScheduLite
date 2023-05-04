@@ -7,11 +7,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Service
 public class CourseService {
@@ -35,29 +34,29 @@ public class CourseService {
         // for each given filter, add it to the query criteria.
         // note: all strings are made case-insensitive to make searching simpler
         if (semester != null) { crit.and("semester").regex(semester, "i");}
-        if (title != null) { crit.and("course_title").regex(title, "i");}
-        if (prefix != null) { crit.and("course_prefix").regex(prefix, "i");}
-        if (number != null) { crit.and("course_number").is(number);}
-        if (time != null) { crit.and("start_time").regex(time, "i");}
-        if (name != null) { crit.and("last_name").regex(name, "i");}
+        if (title != null) { crit.and("courseTitle").regex(title, "i");}
+        if (prefix != null) { crit.and("coursePrefix").regex(prefix, "i");}
+        if (number != null) { crit.and("courseNumber").is(number);}
+        if (time != null) { crit.and("startTime").regex(time, "i");}
+        if (name != null) { crit.and("lastName").regex(name, "i");}
         // finding each day the class occurs on
         if (days != null) {
             for (String day : days.split("")) {
                 switch (day) {
                     case "M":
-                        crit.and("on_monday").is("M");
+                        crit.and("onMonday").is(true);
                         break;
                     case "T":
-                        crit.and("on_tuesday").is("T");
+                        crit.and("onTuesday").is(true);
                         break;
                     case "W":
-                        crit.and("on_wednesday").is("W");
+                        crit.and("onWednesday").is(true);
                         break;
                     case "R":
-                        crit.and("on_thursday").is("R");
+                        crit.and("onThursday").is(true);
                         break;
                     case "F":
-                        crit.and("on_friday").is("F");
+                        crit.and("onFriday").is(true);
                 }
             }
         }

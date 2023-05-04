@@ -1,99 +1,102 @@
+@use "../../../styles/globals/variables";
 .calendar-container {
     display: flex;
     flex-direction: row;
-    background-color: #344850;
-    /*width: 100%;*/
-    /*justify-content: space-around;*/
-    /*height: 100%;*/
-
+    background-color: variables.$background-main;
     padding: 10px;
     overflow-y: scroll;
     color: white;
+    box-sizing: border-box;
+    width: 100%;
 }
-/*.calendar-content {*/
+/*calendar-content {*/
 /*    display: flex;*/
 /*    flex-direction: column;*/
 /*}*/
 .calendar-days {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    background-color: #344850;
-    width: 100%;
+    background-color: variables.$background-main;
+    width: 95%;
 }
 .calendar-header {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
+    color: variables.$secondary-text-color;
 }
 .calendar-body {
     margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    border-top: 1px solid #f3f3f3;
-    border-left: 1px solid #f3f3f3;
+    border-top: 1px solid variables.$border-color;
+    border-left: 1px solid variables.$border-color;
     box-sizing: border-box;
-    /*border-radius: 10px;*/
-
-    /*height: 100%;*/
     position: relative;
-    /*overflow-y: scroll;*/
+    width: 100%;
 }
 .weekday-header {
     width: 100%;
 }
 .weekday {
     text-align: center;
-    background-color: #223239;
-    width: 100%;
+    //background-color: lighten(variables.$background-light, 1%);
+    background-color: variables.$background-dark;
+    width: 20%;
     box-sizing: border-box;
-    border-right: 1px solid #f3f3f3;
-    /*border-radius: 10px;*/
-    /*height: 100vh;*/
-    /*overflow-y: scroll;*/
+    border-right: 1px solid variables.$border-color;
 }
 .time-slot {
     display: flex;
-    /*justify-content: center;*/
-    /*align-items: center;*/
     height: 45px;
-    /*transform: translateY(-9px);*/
-    /*z-index: 1000;*/
-    /*background-color: purple;*/
+    color: variables.$secondary-text-color;
 }
 .day-slot {
     display: flex;
+    flex-grow: 1;
+    //flex: 0 0 auto;
     flex-direction: row;
     padding: 1px;
     height: 45px;
-    /*width: 165px;*/
-    /*background-color: gold;*/
-    /*border-radius: 10px;*/
-    border-bottom: 1px solid #f3f3f3;
+    width: 100%;
+    border-bottom: 1px solid variables.$border-color;
     box-sizing: border-box;
     font-weight: bold;
     /*color: #282c34;*/
 }
+//.days {
+//    width165px;
+//}
 .calendar-course {
-    flex-grow: 1;
-    font-size: 12px;
-    /*width: 50%;*/
-    /*display: flex;*/
-    /*width: 100vw;*/
-    position: relative;
-    /*left: calc(-50vw + 50%);*/
-    /*opacity: .8;*/
-    /*height: 30px;*/
     display: flex;
+    //width: 50px;
+    //flex: 0 0 available;
+    flex-grow: 1;
+    flex-basis: 100%;
+    font-size: 12px;
+    width: border-box;
+    position: relative;
+
     flex-direction: column;
     padding: 7px;
-    border: 1px solid #c2c1c1;
+    border: 1px solid variables.$border-color;
     border-radius: 5px;
-    background-color: #3a4755;
+    background-color: variables.$background-light;
+
     box-sizing: border-box;
     text-align: start;
     overflow-x: hidden;
+    text-wrap: none;
+    //white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &:hover {
+        filter: brightness(1.4);
+    }
 }
 /*.calendar-course:only-child {*/
 /*    width: 100%;*/
@@ -102,6 +105,9 @@
 /*    width: 50%;*/
 /*}*/
 
+.hover {
+    opacity: .6;
+}
 .overlap {
     background-color: #5e2929;
 }

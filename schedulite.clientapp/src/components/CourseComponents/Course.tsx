@@ -2,7 +2,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "../../screens/SearchScreen/SearchPage";
-import "../../styles/Course.css"
+import "./Course.scss"
 import { BiListPlus, BiListCheck } from 'react-icons/bi'
 import { HiOutlinePlus, HiOutlineMinus, HiX, HiCheck } from 'react-icons/hi'
 import { MdOutlinePlaylistAddCheck, MdOutlinePlaylistAdd } from "react-icons/md";
@@ -13,13 +13,21 @@ import ICourse from "../../types/course.type";
 
 
 const Course = (props : any) => {
-    const { setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
+    const { activeCourses, tentativeCourses, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
+
     const course: ICourse = props.course
+
     const onCourseClick = (event : any) => {
         props.onCourseClick(course)
     }
-    const [active, setActive] = useState(props.active)
-    const [tentative, setTentative] = useState(props.tentative)
+
+    const [active, setActive] = useState(activeCourses.courses.some((e : ICourse) => e.id === course.id))
+    const [tentative, setTentative] = useState(tentativeCourses.courses.some((e : ICourse) => e.id === course.id))
+    useEffect(() => {
+        setActive(activeCourses.courses.some((e : ICourse) => e.id === course.id))
+        setTentative(tentativeCourses.courses.some((e : ICourse) => e.id === course.id))
+    }, [course])
+
     const addToActive = (event : any) => {
         event.stopPropagation();
         setTentative(false)
@@ -30,6 +38,9 @@ const Course = (props : any) => {
             setActiveCourses({course: course, type: "remove"})
         }
         setActive(!active)
+        // if (props.onMouseLeave) {
+        //     props.onMouseLeave()
+        // }
     }
     const addToTentative = (event : any) => {
         event.stopPropagation();
@@ -45,7 +56,9 @@ const Course = (props : any) => {
     const onClick = (event : any) => {
         event.stopPropagation();
         props.switchAction(course)
+        props.onMouseLeave();
     }
+
     const conditionalRemoveCourse = () => {
         props.schedule==="active"
             ? setActiveCourses({course: course, type: "remove"})
@@ -57,20 +70,20 @@ const Course = (props : any) => {
             {props.panel ?
                 (<div className={`course ${props.overlap ? 'overlap' : ''}`}
                       onClick={onCourseClick}
-                      onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(course.course_title) : null}
+                      onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(course) : null}
                       onMouseLeave={props.onMouseLeave ? props.onMouseLeave : null}
                       key={props.courseKey}>
                     <div className={`class-info`}>
                         <div className={"course-title"}>
-                            {course.course_title}
+                            {course.courseTitle}
                         </div>
                         <div className={"subtitle"}>
-                            {course.course_prefix} {course.course_number}{course.course_section} | {course.converted_start_date ?
-                                course.converted_start_date.format("hh:mm")
+                            {course.coursePrefix} {course.courseNumber}{course.courseSection} | {course.convertedStartDate ?
+                                course.convertedStartDate.format("hh:mm")
                                 : ""}
                             -
-                            {course.converted_end_date ?
-                                course.converted_end_date.format("hh:mm")
+                            {course.convertedEndDate ?
+                                course.convertedEndDate.format("hh:mm")
                                 : ""}
                         </div>
                     </div>
@@ -92,17 +105,17 @@ const Course = (props : any) => {
                 (<div className={`course ${props.overlap ? 'overlap' : ''}`} onClick={onCourseClick} key={props.courseKey}>
                     <div className={"class-info"}>
                         <div className={"course-title"}>
-                            {course.course_prefix} {course.course_number}{course.course_section} - <span className={"course-name"}>{course.course_title}</span>
+                            {course.coursePrefix} {course.courseNumber}{course.courseSection} - <span className={"course-name"}>{course.courseTitle}</span>
                         </div>
 
                         <div className={"subtitle"}>
                         {course.semester} |
-                        {course.converted_start_date ?
-                            course.converted_start_date.format("hh:mm")
+                        {course.convertedStartDate ?
+                            course.convertedStartDate.format("hh:mm")
                             : ""}
                         -
-                        {course.converted_end_date ?
-                            course.converted_end_date.format("hh:mm")
+                        {course.convertedEndDate ?
+                            course.convertedEndDate.format("hh:mm")
                             : ""}
                         </div>
                         {/*{props.data.id}*/}

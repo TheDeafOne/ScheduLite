@@ -1,3 +1,4 @@
+@use "../../styles/globals/variables";
 .schedule-options {
   padding: 10px;
   display: flex;
@@ -11,6 +12,7 @@
 }
 
 .block {
+  position: relative; // to position the new buttons
   /*display: inline-block;*/
   display: flex;
   flex-direction: column;
@@ -24,21 +26,19 @@
   /*margin: 8px;*/
   padding: 8px;
   text-align: center;
-  background-color: #19262b;
+  background-color: variables.$background-light;
   border-radius: 10px;
   border: 1px solid rgba(143, 143, 158, 0.32);
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.41);
-  color: white;
+  //box-shadow: 0 5px 5px rgba(0, 0, 0, 0.41);
+  //color: white;
   transition: all .5s ease;
-}
-.block:hover {
-  cursor:pointer;
-  filter: brightness(1.2);
-  transform: translateY(-3px);
+  &:hover {
+    cursor:pointer;
+    filter: brightness(1.2);
+    transform: translateY(-3px);
 
-}
-  
-  .block img {
+  }
+  img {
     /*display: block;*/
     /*width: 100%;*/
     /*height: calc(3 / 5 * 100%);*/
@@ -46,7 +46,37 @@
     object-position: center;
     margin-bottom: 8px;
   }
-  
+
+
+  .delete-button,
+  .copy-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    //width: 24px;
+    //height: 24px;
+    cursor: pointer;
+    color: white;
+    //background-image: url("delete-image.jpg"); // replace with actual image path
+    background-size: cover;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    opacity: .6;
+    border-radius: 5px;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+
+    }
+  }
+
+  .copy-button {
+    right: 40px; // position the copy button to the right of the delete button
+    //background-image: url("copy-image.jpg"); // replace with actual image path
+  }
+
+
+}
   /*.block div {*/
   /*  !*height: calc(2 / 5 * 100%);*!*/
   /*  display: flex;*/
@@ -56,16 +86,16 @@
   /*  !*font-size: 16px;*!*/
   /*}*/
   
-  .new {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #4c6671;
-    color: #fff;
-    font-size: 64px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+.new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4c6671;
+  color: #fff;
+  font-size: 64px;
+  font-weight: bold;
+  cursor: pointer;
+}
   
   .block.new:hover {
     filter: brightness(1.2);

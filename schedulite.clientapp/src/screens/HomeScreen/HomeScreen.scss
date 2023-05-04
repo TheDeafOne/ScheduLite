@@ -1,0 +1,108 @@
+@use "../../styles/globals/variables";
+@use "../../styles/globals/layout";
+
+
+.save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  border-top: 1px solid #716b6b;
+  /*justify-content: center;*/
+}
+.saved-text {
+  color: #00ff00;
+  font-weight: bold;
+}
+.save-button {
+  align-items: center;
+  background-color: #2e54ee;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: .5rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 10px;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: 70px;
+  &:hover, &:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(43, 43, 43, 0.34) 0 4px 12px;
+    color: rgba(255, 252, 252, 0.65);
+    transform: translateY(-1px);
+  }
+  &:active {
+    background-color: rgba(46, 84, 238, 0.76);
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(255, 255, 255, 0.65);
+    transform: translateY(0);
+  }
+}
+
+.collapse-side-panel {
+  all: unset;
+  background-color: rgba(255, 255, 255, 0.32);
+  color: white;
+  width: .1rem;
+  height: 3rem;
+  padding: .5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //place-content: center;
+  //border: 1px solid variables.$border-color-light;
+  border-radius: 5px 0 0 5px;
+  position: absolute;
+  right: 0;
+  margin-top: .3em;
+  //opacity: 0;
+  //display: none;
+  transition: opacity .1s ease-out;
+  //&:hover {
+  //  opacity: .6;
+  //}
+  //top: 0;
+}
+.closed {
+  transition: opacity .1s ease-out;
+  opacity: .2;
+  &:hover {
+    opacity: .7;
+  }
+}
+.open {
+  transition: opacity .1s ease-out;
+  opacity: .2;
+  &:hover {
+    opacity: .7;
+  }
+}
+.warning-button {
+  background-color: variables.$background-warning;
+  opacity: .7;
+  &:hover {
+    opacity: .9;
+  }
+}
+.error-button {
+  background-color: variables.$background-error;
+  opacity: .7;
+  &:hover {
+    opacity: .9;
+  }
+}

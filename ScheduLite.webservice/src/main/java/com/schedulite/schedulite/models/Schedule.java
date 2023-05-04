@@ -1,11 +1,8 @@
 package com.schedulite.schedulite.models;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Schedule {

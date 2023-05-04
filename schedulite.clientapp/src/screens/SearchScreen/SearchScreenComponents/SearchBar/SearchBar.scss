@@ -1,0 +1,106 @@
+@use "../../../../styles/globals/variables";
+.searchBarInput {
+    padding: 20px 20px 20px 5px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border-style: none;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: variables.$background-dark;
+    color: #ececec;
+    z-index: 9999;
+}
+
+//.search-select {
+//    border: 1px solid #636363;
+//
+//    /* styling */
+//    background-color: #223239;
+//    /*border: thin solid blue;*/
+//    /*border: none;*/
+//    color: white;
+//    border-radius: 10px;
+//    display: inline-block;
+//    font-size: 15px;
+//    font-weight: bold;
+//    /*line-height: 1.5em;*/
+//    padding: 10px;
+//    text-align: center;
+//    /*padding: 0.5em 0.5em 0.5em 0.5em;*/
+//
+//    /* reset */
+//    margin: 0;
+//    -webkit-box-sizing: border-box;
+//    -moz-box-sizing: border-box;
+//    box-sizing: border-box;
+//    -webkit-appearance: none;
+//    -moz-appearance: none;
+//    transition: color 1s ease;
+//}
+.search-select:focus {
+    outline: none;
+}
+
+.searchBarInputContainer {
+    /*padding: 20px;*/
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    padding: 0 10px 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 20px;
+    /*border-style: none;*/
+    font-size: 25px;
+    font-weight: bold;
+    background-color: variables.$background-dark;
+    border: 1px solid #636363;
+}
+.searchBarInputContainer:focus-within {
+    outline: none;
+
+}
+.searchBarInput:focus {
+    outline: none;
+}
+.searchBarInput::placeholder {
+    opacity: .5;
+    --bg-size: 200%;
+    --color-one: hsl(221, 65%, 71%);
+    --color-two: hsl(292, 100%, 67%);
+    //font-size: clamp(3rem, 25vmin, 8rem);
+    background: linear-gradient(
+                    90deg,
+                    var(--color-one),
+                    var(--color-two),
+                    var(--color-one)
+    ) 0 0 / var(--bg-size) 100%;
+    color: transparent;
+    //background-clip:;
+    -webkit-background-clip: text;
+    animation: move-bg 4s infinite linear;
+}
+.searchBarInput:focus::placeholder {
+    //color: #c2c2c2;
+    //opacity: .7;
+}
+
+.searchBar {
+    padding: 10px 20px 10px 20px ;
+}
+
+//.boujee-text {
+//
+//}
+
+@media (prefers-reduced-motion: no-preference) {
+    //.boujee-text {
+    //    animation: move-bg 3s linear infinite;
+    //}
+    @keyframes move-bg {
+        to {
+            background-position: var(--bg-size) 0;
+        }
+    }
+}

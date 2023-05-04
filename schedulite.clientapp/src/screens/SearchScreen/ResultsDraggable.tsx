@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "./SearchPage";
 import Course from "../../components/CourseComponents/Course";
-import "../../styles/Results.css"
+import "../../components/CourseComponents/Results/Results.scss"
 import {DndContext} from '@dnd-kit/core';
 
 

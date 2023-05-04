@@ -1,60 +1,60 @@
-import "../../styles/Calendar.css"
-import {useContext, useEffect, useState} from "react";
-import ICourse from "../../types/course.type";
-import course from "../../components/CourseComponents/Course";
+import "./Calendar.scss"
+import {Dispatch, useContext, useEffect, useState} from "react";
+import ICourse from "../../../types/course.type";
+import course from "../../../components/CourseComponents/Course";
 import moment from "moment";
-import ISchedule from "../../types/schedule.type";
+import ISchedule from "../../../types/schedule.type";
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import {hover} from "@testing-library/user-event/dist/hover";
-import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
+import {ScheduleContext, ScheduleContextType} from "../../../context/ScheduleContext";
+import MouseOverPopover from "../../../components/PopOver/Popover";
+import TransitionsPopper from "../../../components/PopOver/Popper";
+import {containerClasses} from "@mui/material";
 
-const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse: ICourse | undefined}) => {
+const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse } : {tentativeCourseHover: ICourse | undefined, setCalendarCourseHover : Function, setViewCourse: Function}) => {
     // const [activeCourses, setActiveCourses] = useState<ICourse[]>(schedule.activeCourses)
     // const [objStringified, setObj] = useState(JSON.stringify(schedule.activeCourses))
-    const { activeCourses } = useContext(ScheduleContext) as ScheduleContextType
-
+    const { overlap, activeCourses } = useContext(ScheduleContext) as ScheduleContextType
+    console.log(typeof tentativeCourseHover);
+    console.log(JSON.stringify(tentativeCourseHover));
     // console.log(schedule);
     // console.log(`HOVER COURSE: ${hoverCourse}`)
-    const convertClassToEvent = (course : ICourse) => {
+    const convertClassToEvent = (course : ICourse, hover : boolean) => {
         // console.log(course);
         let days = []
-        const startDate = moment(course["start_time"], 'DD/MM/YYYY hh:mm')
-        const endDate = moment(course["end_time"], 'DD/MM/YYYY hh:mm A')
-        if (course.on_monday) {
+        const startDate = moment(course["startTime"], 'YYYY/MM/DD hh:mm')
+        const endDate = moment(course["endTime"], 'YYYY/MM/DD hh:mm A')
+        if (course.onMonday) {
             days.push("m")
         }
-        if (course.on_tuesday) {
+        if (course.onTuesday) {
             days.push("t")
         }
-        if (course.on_wednesday) {
+        if (course.onWednesday) {
             days.push("w")
         }
-        if (course.on_thursday) {
+        if (course.onThursday) {
             days.push("r")
         }
-        if (course.on_friday) {
+        if (course.onFriday) {
             days.push("f")
         }
-        // console.log(endDate)
-        // console.log(days)
         const time = (endDate.hours() - startDate.hours())*60 + (endDate.minute() - startDate.minute())
-        // console.log(time)
-        // console.log(myMomentObject.hours())
-        // console.log(myMomentObject.minute())
-        // console.log(Date.parse(course["start_time"]))
         let timeStart = convert(`${startDate.hours()}:${startDate.minute()}`)
         let timeEnd = convert(`${endDate.hours()}:${endDate.minute()}`)
 
         if (startDate.minute() === 5) {
             timeStart = convert(`${startDate.hours()}:00`)
         }
+
         const event = {
             "timeStart": timeStart,
             "timeEnd": timeEnd,
             "days": days,
             "length": time,
-            "courseTitle": course.course_title,
-            "course": course
+            "courseTitle": course.courseTitle,
+            "course": course,
+            "hover": hover
         }
         return event
     }
@@ -62,20 +62,7 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
         return moment(input, 'HH:mm').format('h:mm');
     }
     // console.log(`PROPS ACTIVE: ${schedule.activeCourses}`)
-    const overLap = (course1 : ICourse, course2: ICourse) => {
-        const startDate1 = moment(course1["start_time"], 'DD/MM/YYYY hh:mm')
-        const endDate1 = moment(course1["end_time"], 'DD/MM/YYYY hh:mm A')
-        const startDate2 = moment(course2["start_time"], 'DD/MM/YYYY hh:mm')
-        const endDate2 = moment(course2["end_time"], 'DD/MM/YYYY hh:mm A')
 
-        const daysSame = (course1.on_monday && course1.on_monday === course2.on_monday)
-            || (course1.on_tuesday && course1.on_tuesday === course2.on_tuesday)
-            || (course1.on_wednesday && course1.on_wednesday === course2.on_wednesday)
-            || (course1.on_thursday && course1.on_thursday === course2.on_thursday)
-            || (course1.on_friday && course1.on_friday === course2.on_friday)
-
-        return (startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1) && daysSame)
-    }
     const createEvents = () => {
         const minute = 1000 * 60;
         const hour = minute * 60;
@@ -85,19 +72,19 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
         for (const course of activeCourses.courses) {
             const inSchedule = activeCourses.courses.some((e : ICourse) => (e.id === course.id))
             const actOverlap = inSchedule && activeCourses.courses.some((e : ICourse) => (e.id !== course.id
-                && overLap(e, course)));
+                && overlap(e, course)));
             let tempCourse = course
             tempCourse.overlap = actOverlap
-            events.push(convertClassToEvent(course));
+            events.push(convertClassToEvent(course, false));
         }
-        if (hoverCourse) {
-            events.push(convertClassToEvent(hoverCourse));
-
+        if (tentativeCourseHover) {
+            console.log("HERE")
+            events.push(convertClassToEvent(tentativeCourseHover, true));
         }
 
         return events
     }
-    const eventKeys = loadEvents(createEvents())
+    const eventKeys = loadEvents(createEvents(), setCalendarCourseHover, setViewCourse)
     // useDeepCompareEffect(() => {
 
         // Update the document title using the browser API
@@ -130,7 +117,7 @@ const Calendar = ({ schedule, hoverCourse } : {schedule : ISchedule, hoverCourse
     )
 }
 const Times = () => {
-    let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00" ,"5:30", "6:00", "6:30", "7:00", "7:30"]
+    let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00" ,"5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30", "9:00"]
     let slots = []
     for (let i = 0; i < 24; i++) {
         slots.push(<div className={"time-slot"} id={i.toString()} key={times[i]}>
@@ -158,19 +145,34 @@ const Day = ({dayOfWeek, eventKey}: {dayOfWeek: string, eventKey: any}) => {
         //
         // } else {
         if (eventKey[`${times[i]} ${dayOfWeek}`]) {
-            slots.push(<div className={`day-slot`} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}>{eventKey[`${times[i]} ${dayOfWeek}`][0]}</div>)
+            slots.push(
+                <div
+                    className={`day-slot`}
+                    id={`${times[i]} ${dayOfWeek}`}
+                    key={`${times[i]} ${dayOfWeek}`}
+                >
+                    {eventKey[`${times[i]} ${dayOfWeek}`].reverse()}
+                </div>
+            )
         } else {
-            slots.push(<div className={"day-slot"} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}></div>)
+            slots.push(
+                <div
+                    className={"day-slot"}
+                    id={`${times[i]} ${dayOfWeek}`}
+                    key={`${times[i]} ${dayOfWeek}`}
+                >
+                </div>
+            )
         }
         // }
     }
     return (
-        <div>
+        <div className={"days"}>
             {slots}
         </div>
     )
 }
-function loadEvents(events : any) {
+function loadEvents(events : any, setCalendarCourseHover : Function, setViewCourse: Function) {
     // console.log(`events loaded: ${events}`)
     let key: any = {}
 
@@ -181,7 +183,7 @@ function loadEvents(events : any) {
             // console.log(`${event.timeStart} ${day}`)
 
             // key[`${event.timeStart} ${day}`] = `<!--<div class="calendar-course" style="height: ${courseHeight}px;">${event.courseTitle}</div>-->`
-            key[`${event.timeStart} ${day}`] = key[`${event.timeStart} ${day}`] ? [<CalendarCourse event={event} />, ...key[`${event.timeStart} ${day}`]] : [<CalendarCourse event={event} />]
+            key[`${event.timeStart} ${day}`] = key[`${event.timeStart} ${day}`] ? [<CalendarCourse event={event} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse}/>, ...key[`${event.timeStart} ${day}`]] : [<CalendarCourse event={event} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse}/>]
             // console.log(key)
             // const slot = document.getElementById(`${event.timeStart} ${day}`)
             // if (slot) {
@@ -195,17 +197,28 @@ function loadEvents(events : any) {
 const CalendarCourse = (props : any) => {
     const courseHeight = props.event.length * 1.5
     let event = props.event
+    const handleMouseEnter = () => {
+        props.setCalendarCourseHover(event.course);
+        props.setViewCourse(true);
+        console.log("setting course event");
+    }
+    const handleMouseLeave = () => {
+        // props.hoverCourse = null;
+        console.log("removing course event");
+        props.setCalendarCourseHover(undefined);
+        // props.setViewCourse(false);
+    }
     // console.log("FROM CALENDAR COURSE")
-    // console.log(event)
+    console.log(event)
     return (
-        <div className={`calendar-course ${event.course.overlap ? 'overlap' : ''}`} style={{height: courseHeight}}>
+        // <MouseOverPopover course={event.course}>
+        <div className={`calendar-course ${event.hover ? 'hover' : ''} ${event.course.overlap ? 'overlap' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{height: courseHeight}}>
             <div>
                 {event.courseTitle}
             </div>
-            <div>
-                {event.timeStart} - {event.timeEnd}
-            </div>
         </div>
+        // </MouseOverPopover>
+
     )
 }
 export default Calendar

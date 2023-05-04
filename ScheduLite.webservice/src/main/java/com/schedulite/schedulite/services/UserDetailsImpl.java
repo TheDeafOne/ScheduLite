@@ -24,13 +24,15 @@ public class UserDetailsImpl implements UserDetails {
 
     private ArrayList<Schedule> schedules;
 
+    private List<String> completedCourses;
+
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(String id, String username, String email, String password, ArrayList<Schedule> schedules,
-                           Collection<? extends GrantedAuthority> authorities) {
+                           List<String> completedCourses, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -50,6 +52,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 user.getSchedules(),
+                user.getCompletedCourses(),
                 authorities);
     }
 
@@ -60,6 +63,10 @@ public class UserDetailsImpl implements UserDetails {
     public void setSchedules(ArrayList<Schedule> schedules) {
         this.schedules = schedules;
     }
+
+    public List<String> getCompletedCourses() { return completedCourses;}
+
+    public void setCompletedCourses(List<String> completedCourses) { this.completedCourses = completedCourses;}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
