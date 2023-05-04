@@ -11,6 +11,8 @@ import ICourse from "../../types/course.type";
 import ISchedule from "../../types/schedule.type";
 import moment from "moment";
 import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 
 export interface Filters {
@@ -23,19 +25,20 @@ export interface Filters {
     semester: string,
     setSemesterFilter: Function
 }
-const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
+const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible } : { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse]= useState<ICourse | undefined>();
     const [searchType, setSearchType] = useState("Course Title")
     const [viewCourse, setViewCourse] = useState(false);
 
-    const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, semester } = useContext(ScheduleContext) as ScheduleContextType
+    const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, semester, warnings, errors } = useContext(ScheduleContext) as ScheduleContextType
     // filters
     const [nameFilter, setNameFilter] = useState("")
     const [timeFilter, setTimeFilter] = useState("")
     const [dayFilter, setDayFilter] = useState("")
     console.log(`SEMESTER = ${semester}`)
+    let animate = true
     const [semesterFilter, setSemesterFilter] = useState(semester)
 
     let filters = {
@@ -101,7 +104,9 @@ const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
                 }
             )
     };
-
+    useEffect(() => {
+        animate = false
+    }, [panelVisible])
     const handleKeyDown = (event : any) => {
         if (event.key === 'Enter') {
             // 👇 Get input value
@@ -130,10 +135,10 @@ const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
                         className="container text-center"
                     //     transformOrigin: "top center",
                     // transformOrigin: "top center",
-                        initial={{scale: .97 }}
-                        animate={{scale: 1 }}
-                        // exit={{ opacity: 0 }}
-                        transition={{ duration: .75 }}
+                        initial={{scale: 1 }}
+                        // animate={{scale: 1 }}
+                        // exit={{ scale: .97 }}
+                        transition={{ duration: .75}}
                     >
                     <SearchBar
                         setResponse={setSearchResponse}
@@ -151,8 +156,14 @@ const SearchPage = ({ linkedSchedule } : { linkedSchedule: boolean }) => {
                              // removeCourse={removeCourse}
                              // sched={schedule}
                     />
+
                 </div>
-                <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined}/>
+
+                    <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined}/>
+                {/*{*/}
+                {/*    panelVisible && (*/}
+                {/*    )*/}
+                {/*} */}
                 {/*DETAIL VIEW*/}
             </div>
         </motion.div>
