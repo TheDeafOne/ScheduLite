@@ -26,15 +26,15 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
     const { semester, year } = useContext(ScheduleContext) as ScheduleContextType
 
     let filterSet = [
-        { name: "year", paramName: "year", type: "selection", value: year, options: [{label: "2018",value:"2018"}, {label: "2019",value:"2019"}, {label: "2020",value:"2020"}, {label: "all", value:""}] },
-        { name: "semester", paramName: "semester", type: "selection", value: semester, options: [{label: "spring", value: "spring"}, {label: "fall", value: "fall"}, {label: "all", value:""}] },
-        { name: "course prefix", paramName: "coursePrefix", type: "text", value: "" },
-        { name: "course code", paramName: "courseNumber", type: "text", value: "" },
-        { name: "course title", paramName: "courseTitle", type: "text", value: "" },
-        { name: "course time", paramName: "courseTime", type: "text", value: "" },
-        { name: "first name", paramName: "firstName", type: "text", value: "" },
-        { name: "last name", paramName: "lastName", type: "text", value: "" },
-        { name: "days", paramName: "days", type: "text", value: "" },
+        { name: "Year", paramName: "year", type: "selection", value: year, options: [{label: "2018",value:"2018"}, {label: "2019",value:"2019"}, {label: "2020",value:"2020"}, {label: "all", value:""}], disabled:(year!=="") },
+        { name: "Semester", paramName: "semester", type: "selection", value: semester, options: [{label: "Spring", value: "Spring"}, {label: "Fall", value: "Fall"}, {label: "All", value:""}],disabled:(semester!=="") },
+        { name: "Course Prefix", paramName: "coursePrefix", type: "text", value: "" },
+        { name: "Course Code", paramName: "courseNumber", type: "text", value: "" },
+        { name: "Course Title", paramName: "courseTitle", type: "text", value: "" },
+        { name: "Course Time", paramName: "courseTime", type: "text", value: "" },
+        { name: "First Name", paramName: "firstName", type: "text", value: "" },
+        { name: "Last Name", paramName: "lastName", type: "text", value: "" },
+        { name: "Days", paramName: "days", type: "text", value: "" },
     ]
 
     const [filters, setFilters] = useState(filterSet)

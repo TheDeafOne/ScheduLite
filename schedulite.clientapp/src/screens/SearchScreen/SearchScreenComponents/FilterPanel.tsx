@@ -1,9 +1,11 @@
+import { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 // import { HiChevronLeft } from "react-icons/hi";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { MenuItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import IFilter from "../../../types/filter.type";
+import { ScheduleContext, ScheduleContextType } from "../../../context/ScheduleContext";
 
 const FilterPanel = ({filters, setFilters, onEnter} : {filters : IFilter[], setFilters: Function, onEnter : Function}) => {
 
@@ -11,6 +13,8 @@ const FilterPanel = ({filters, setFilters, onEnter} : {filters : IFilter[], setF
     const onBackClick = () => {
         navigate("/")
     }
+
+    const { semester, year } = useContext(ScheduleContext) as ScheduleContextType
     const handleFilterChange = (event: any, filterIndex: any) => {
         //https://stackoverflow.com/questions/72950841/component-not-re-rendering-after-change-in-an-object-state-in-react
         const newFilters = [...filters]
@@ -37,6 +41,7 @@ const FilterPanel = ({filters, setFilters, onEnter} : {filters : IFilter[], setF
                         sx={{paddingBottom:"10px"}}
                         select={filterInfo.type === "selection"}
                         size="small"
+                        disabled={filterInfo?.disabled}
                         onChange={(event) =>{
                             handleFilterChange(event, i);
                         }}
