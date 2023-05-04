@@ -14,12 +14,12 @@ RUN gradle build
 FROM amazoncorretto:11.0.18 AS runner
 
 # set environment variables
-ENV MONGO_DATABASE="schedulite"
-ENV MONGO_USER="gigaAdmin"
-ENV MONGO_PASSWORD="q4M1EZVlJjbosAFW"
-ENV MONGO_CLUSTER="schedulite.z4lenyz.mongodb.net/test"
-ENV SPRING_SECURITY_USER="schedulite-root"
-ENV SPRING_SECURITY_PASSWORD="toor-etiludehcs"
+ENV MONGO_DATABASE=${{secrets.MONGO_DATABASE}}
+ENV MONGO_USER==${{secrets.MONGO_USER}}
+ENV MONGO_PASSWORD==${{secrets.MONGO_PASSWORD}}
+ENV MONGO_CLUSTER==${{secrets.MONGO_CLUSTER}}
+ENV SPRING_SECURITY_USER==${{secrets.SPRING_SECURITY_USER}}
+ENV SPRING_SECURITY_PASSWORD==${{secrets.SPRING_SECURITY_PASSWORD}}
 ENV JAR_NAME=schedulite-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/schedulite.webservice/
 
