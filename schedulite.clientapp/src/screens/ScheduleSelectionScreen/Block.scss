@@ -29,8 +29,8 @@
   background-color: variables.$background-light;
   border-radius: 10px;
   border: 1px solid rgba(143, 143, 158, 0.32);
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.41);
-  color: white;
+  //box-shadow: 0 5px 5px rgba(0, 0, 0, 0.41);
+  //color: white;
   transition: all .5s ease;
   &:hover {
     cursor:pointer;
@@ -53,20 +53,26 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    width: 24px;
-    height: 24px;
+    //width: 24px;
+    //height: 24px;
     cursor: pointer;
-    background-image: url("delete-image.jpg"); // replace with actual image path
+    color: white;
+    //background-image: url("delete-image.jpg"); // replace with actual image path
     background-size: cover;
     background-position: center;
     background-color: transparent;
     border: none;
     opacity: .6;
+    border-radius: 5px;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+
+    }
   }
 
   .copy-button {
     right: 40px; // position the copy button to the right of the delete button
-    background-image: url("copy-image.jpg"); // replace with actual image path
+    //background-image: url("copy-image.jpg"); // replace with actual image path
   }
 
 

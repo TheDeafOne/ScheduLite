@@ -11,6 +11,8 @@ import "../../components/Modals/ScheduleModal.scss"
 import api from "../../api/axios-config";
 import authHeader from "../../services/auth-header";
 import authService from "../../services/auth.service";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 
 export const blocks: ISchedule[] = [];
@@ -66,7 +68,8 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     return /^\s*$/.test(str);
   }
   
-  function handleCopyClick(block: ISchedule): void {
+  function handleCopyClick(block: ISchedule, e: any): void {
+    e.stopPropagation();
     const newScheduleName = prompt("Please enter a name for the new schedule");
 
       if (newScheduleName === null) {
@@ -114,7 +117,8 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
   
   
 
-const handleDeleteClick = (schedule: ISchedule) => {
+const handleDeleteClick = (schedule: ISchedule, e: any) => {
+    e.stopPropagation();
   const confirmDelete = window.confirm(`Are you sure you want to delete schedule ${schedule.scheduleName}?`);
   if (confirmDelete) {
     // Send an HTTP POST request to the backend to remove the schedule
@@ -183,8 +187,10 @@ const handleDeleteClick = (schedule: ISchedule) => {
         {filteredBlocks!.map((block, index) => (
           <div key={index} className="block" onClick={() => handleBlockClick(block)}>
             <div className={"schedule-name"}>{block.scheduleName}</div><div>Semester: {block.semester ? block.semester : "No Semester"}</div><div>Year: {block.year}</div>
-            <div className="delete-button" onClick={(e) => handleDeleteClick(block)}></div>
-            <div className="copy-button" onClick={(e) => handleCopyClick(block)}></div>
+            {/*<div className="delete-button" onClick={(e) => handleDeleteClick(block, e)}></div>*/}
+            {/*<div className="copy-button" onClick={(e) => handleCopyClick(block, e)}></div>*/}
+            <button className="delete-button" onClick={(e) => handleDeleteClick(block, e)}><DeleteIcon /></button>
+            <button className="copy-button" onClick={(e) => handleCopyClick(block, e)}><ContentCopyIcon /></button>
         
           </div>
         ))}
