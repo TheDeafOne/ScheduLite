@@ -40,8 +40,7 @@ jobs:
 
       # BEGIN - Docker auth and build (NOTE: If you already have a container image, these Docker steps can be omitted)
       - name: Print GCP credentials
-        run: echo "${{ secrets.GCP_CREDENTIALS }}"
-        run: echo "${{ steps.auth.outputs }}"
+        run: echo "${{ secrets.GCP_CREDENTIALS }}" && echo "${{ steps.auth.outputs.access_token }}"
       # Authenticate Docker to Google Cloud Artifact Registry
       - name: Docker Auth
         id: docker-auth
