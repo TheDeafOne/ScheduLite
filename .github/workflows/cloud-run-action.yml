@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@n3
+        uses: actions/checkout@v3
       - name: Setup GCP Service Account
         uses: google-github-actions/setup-gcloud@v1
         with:
