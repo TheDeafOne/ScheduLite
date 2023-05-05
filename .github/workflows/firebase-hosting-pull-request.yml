@@ -11,8 +11,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Deps
         working-directory: schedulite.clientapp
-        run: cd ..
-        run: npm ci
+        run: cd .. && npm ci
       - name: Build
         working-directory: schedulite.clientapp
         run: cd ..
