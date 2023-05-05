@@ -9,6 +9,7 @@ COPY . ./
 RUN ls
 
 # Build a release artifact.
+WORKDIR /schedulite/shcedulite.webservice
 RUN gradle build
 
 # build base image
