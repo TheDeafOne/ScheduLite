@@ -24,7 +24,7 @@ ENV MONGO_CLUSTER=${{secrets.MONGO_CLUSTER}}
 ENV SPRING_SECURITY_USER=${{secrets.SPRING_SECURITY_USER}}
 ENV SPRING_SECURITY_PASSWORD=${{secrets.SPRING_SECURITY_PASSWORD}}
 ENV JAR_NAME=schedulite-0.0.1-SNAPSHOT.jar
-ENV APP_HOME=/schedulite.webservice/
+ENV APP_HOME=/ScheduLite.webservice/
 
 
 WORKDIR ${APP_HOME}
@@ -33,4 +33,4 @@ EXPOSE 8080
 
 
 # Run the web service on container startup.
-CMD ["java", "-jar", "/schedulite.webservice/build/libs/schedulite-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/ScheduLite.webservice/build/libs/schedulite-0.0.1-SNAPSHOT.jar"]
