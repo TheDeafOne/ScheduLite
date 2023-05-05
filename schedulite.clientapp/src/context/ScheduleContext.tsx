@@ -121,6 +121,7 @@ export const ScheduleProvider = (props: any) => {
 
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
+
         let activeIds = activeCourses.courses.map((value: ICourse) => {
             return { id: value.id }
         })
@@ -189,6 +190,7 @@ export const ScheduleProvider = (props: any) => {
     }
     useEffect(() => {
         setSaved(false);
+        saveSchedule()
 
         let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
         console.log(coursesWithOverlap);

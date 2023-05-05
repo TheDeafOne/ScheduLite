@@ -33,6 +33,13 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     navigate(path);
   }
   useEffect(() => {
+    if (user !== undefined && user !== null) {
+      console.log("HERE ITS WORKING")
+      setFilteredBlocks(user!.schedules);
+      setInitialFilteredBlocks(user!.schedules);
+    }
+  })
+  useEffect(() => {
     let blocks = initialFilteredBlocks
     const yearFilteredBlocks = (yearFilter !== undefined && yearFilter !== "") ? blocks!.filter((block) => block.year === yearFilter) : blocks;
     const semesterFilteredBlocks = (semesterFilter !== undefined && semesterFilter !== "") ? blocks!.filter((block) => block.semester === semesterFilter) : blocks;
@@ -58,12 +65,7 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     navigate("/");
   };
 
-  useEffect(() => {
-    if (user !== undefined && user !== null) {
-      setFilteredBlocks(user!.schedules);
-      setInitialFilteredBlocks(user!.schedules);
-    }
-  }, [])
+
 
   function isWhitespace(str: string): boolean {
     return /^\s*$/.test(str);
