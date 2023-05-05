@@ -3,7 +3,7 @@
 FROM gradle:7.1.0-jdk11 AS builder
 
 # Copy local code to the container image.
-WORKDIR /schedulite.webservice
+WORKDIR /schedulite/schedulite.webservice
 COPY /schedulite.webservice/ ./
 
 # Build a release artifact.
@@ -22,6 +22,7 @@ ENV SPRING_SECURITY_USER=${{secrets.SPRING_SECURITY_USER}}
 ENV SPRING_SECURITY_PASSWORD=${{secrets.SPRING_SECURITY_PASSWORD}}
 ENV JAR_NAME=schedulite-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/schedulite.webservice/
+
 
 WORKDIR ${APP_HOME}
 COPY --from=builder ${APP_HOME} .
