@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Deps and Build
         working-directory: schedulite.clientapp
-        run: cd .. && npm ci && npm run build 
+        run: cd .. && npm i && npm run build 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
