@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import moment from "moment";
-import { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import axiosConfig from "../../api/axios-config";
 import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
 import Results from "../../components/CourseComponents/Results/Results";
@@ -12,15 +12,13 @@ import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import SearchBar from "./SearchScreenComponents/SearchBar/SearchBar";
 import "./SearchPage.scss";
 import Course from "../../components/CourseComponents/Course";
-import {color, motion} from "framer-motion";
 import ISchedule from "../../types/schedule.type";
-import moment from "moment";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 
 
-const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
+const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse] = useState<ICourse | undefined>();
@@ -67,7 +65,8 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
         const getData = setTimeout(() => {
             axiosConfig.get(url)
                 .then(r => {
-                    let data = r.data.splice(0, 20)
+                    let filterVal = query === "" ? 5 : 50
+                    let data = r.data.splice(0, filterVal)
                     data.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
                         array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
                         array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
@@ -145,6 +144,7 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
                             />
                         </motion.div>
                         {matched ?? "No course matched your"}
+                        {query === "" ? <span className="suggested">Suggested Courses:</span> : ""}
                         <Results response={response} onCourseClick={onCourseClick} />
                     </div>
                     <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} />
