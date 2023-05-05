@@ -1,14 +1,10 @@
-import React, {createContext, useContext, useEffect, useReducer, useState} from "react";
-import ICourse from "../types/course.type";
-import {stat} from "fs";
-import {UserContext, UserContextType} from "./UserContext";
-import {bool, boolean} from "yup";
-import axios from "../api/axios-config";
-import {replace} from "formik";
-import authHeader from "../services/auth-header";
-import ISchedule from "../types/schedule.type";
-import { IconBaseProps } from "react-icons/lib";
 import moment from "moment";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import axios from "../api/axios-config";
+import authHeader from "../services/auth-header";
+import ICourse from "../types/course.type";
+import ISchedule from "../types/schedule.type";
+import { UserContext, UserContextType } from "./UserContext";
 
 // export default
 // schedule =
@@ -18,12 +14,12 @@ import moment from "moment";
 //  else {
 //  NEED LOGGED IN
 // setSchedule=(
-type Action = {course: ICourse | null, type: 'add' | 'remove' | 'setAll', unshift?: boolean | null, courseList?: ICourse[] | null}
+type Action = { course: ICourse | null, type: 'add' | 'remove' | 'setAll', unshift?: boolean | null, courseList?: ICourse[] | null }
 
 type Dispatch = (action: Action) => void
-type State = {courses: Array<ICourse>}
-type Errors = {overlap: {value: boolean, courses: Array<ICourse>}}
-type Warnings = {credits: {value: boolean, message: string}, sameCourse: {value: boolean, courses: Array<ICourse>, message: string}}
+type State = { courses: Array<ICourse> }
+type Errors = { overlap: { value: boolean, courses: Array<ICourse> } }
+type Warnings = { credits: { value: boolean, message: string }, sameCourse: { value: boolean, courses: Array<ICourse>, message: string } }
 export interface ScheduleContextType {
     activeCourses: State,
     setActiveCourses: Dispatch,
@@ -52,7 +48,7 @@ function coursesReducer(state: State, action: Action) {
                 return {
                     courses: action.unshift ? [action.course, ...state.courses] : [...state.courses, action.course]
                 }
-            } else return {courses: state.courses}
+            } else return { courses: state.courses }
             // return {
             //     courses: action.unshift ? [action.course, ...state.courses] : [...state.courses, action.course]
             // }
@@ -62,19 +58,19 @@ function coursesReducer(state: State, action: Action) {
             console.log("REMOVE")
             if (action.course) {
                 courseIndex = state.courses.findIndex((x) => x.id === action.course!.id);
-            } 
+            }
             // if no match, return the previous state
-            if ( courseIndex < 0) return state;
+            if (courseIndex < 0) return state;
             // avoid mutating the original state, create a copy
             const stateUpdate = [...state.courses];
             // then splice it out from the array
             stateUpdate.splice(courseIndex, 1);
-            return {courses: stateUpdate};
+            return { courses: stateUpdate };
         }
         case "setAll": {
-            const stateUpdate : Array<ICourse> = action.courseList ? action.courseList : state.courses
-            
-            return {courses: stateUpdate};
+            const stateUpdate: Array<ICourse> = action.courseList ? action.courseList : state.courses
+
+            return { courses: stateUpdate };
         }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`)
@@ -84,8 +80,8 @@ function coursesReducer(state: State, action: Action) {
 
 export const ScheduleProvider = (props: any) => {
     // const empty: ICourse[] = [];
-    const [activeCourses, setActiveCourses] = useReducer(coursesReducer, {courses: []})
-    const [tentativeCourses, setTentativeCourses] = useReducer(coursesReducer, {courses: []})
+    const [activeCourses, setActiveCourses] = useReducer(coursesReducer, { courses: [] })
+    const [tentativeCourses, setTentativeCourses] = useReducer(coursesReducer, { courses: [] })
     const [semester, setSemester] = useState("")
     const [year, setYear] = useState("")
     const [name, setName] = useState("")
@@ -97,7 +93,7 @@ export const ScheduleProvider = (props: any) => {
 
 
         return {
-            overlap : {
+            overlap: {
                 value: coursesWithOverlap.length > 0,
                 courses: coursesWithOverlap
             }
@@ -119,7 +115,7 @@ export const ScheduleProvider = (props: any) => {
         }
     }
 
-    const overlap = (course1: ICourse, course2: ICourse) : boolean => {
+    const overlap = (course1: ICourse, course2: ICourse): boolean => {
         const startDate1 = moment(course1["startTime"], 'YYYY/MM/DD h:mm:ss')
         const endDate1 = moment(course1["endTime"], 'YYYY/MM/DD h:mm:ss')
         const startDate2 = moment(course2["startTime"], 'YYYY/MM/DD h:mm:ss')
@@ -133,18 +129,18 @@ export const ScheduleProvider = (props: any) => {
 
         return (startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1) && daysSame) as boolean
     }
-    const inSchedule = (course : ICourse) : boolean => {
-        return activeCourses.courses.some((e : ICourse) => (e.id === course.id))
+    const inSchedule = (course: ICourse): boolean => {
+        return activeCourses.courses.some((e: ICourse) => (e.id === course.id))
     }
 
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
         console.log("saving")
-        let activeIds = activeCourses.courses.map( (value: ICourse) => {
-            return {id: value.id}
+        let activeIds = activeCourses.courses.map((value: ICourse) => {
+            return { id: value.id }
         })
-        let tentativeIds = tentativeCourses.courses.map( (value: ICourse) => {
-            return {id: value.id}
+        let tentativeIds = tentativeCourses.courses.map((value: ICourse) => {
+            return { id: value.id }
         })
         let requestBody = {
             scheduleName: name,
@@ -164,7 +160,7 @@ export const ScheduleProvider = (props: any) => {
         console.log(name)
         if (scheduleExists(name)) {
             axios
-                .post( "/users/update-schedule", JSON.stringify(requestBody),{headers: authHeader()})
+                .post("/users/update-schedule", JSON.stringify(requestBody), { headers: authHeader() })
                 .then(response => {
                     console.log(response);
                     if (response.status === 200) {
@@ -175,7 +171,7 @@ export const ScheduleProvider = (props: any) => {
                 });
         } else {
             axios
-                .post( "/users/add-schedule", JSON.stringify(requestBody),{headers: authHeader()})
+                .post("/users/add-schedule", JSON.stringify(requestBody), { headers: authHeader() })
                 .then(response => {
                     console.log(response);
                     if (response.status === 200) {
@@ -186,9 +182,9 @@ export const ScheduleProvider = (props: any) => {
         }
 
     }
-    const calcActiveCredits = () : number => {
-        let credits : number = 0
-        activeCourses.courses.forEach(function(elem : ICourse, index : number) {
+    const calcActiveCredits = (): number => {
+        let credits: number = 0
+        activeCourses.courses.forEach(function (elem: ICourse, index: number) {
             credits += +elem.creditHours;
         });
         return credits
@@ -199,13 +195,13 @@ export const ScheduleProvider = (props: any) => {
     }, [activeCourses, tentativeCourses])
     // const [saved]
     const value = {
-        activeCourses, setActiveCourses, 
-        tentativeCourses, setTentativeCourses, 
+        activeCourses, setActiveCourses,
+        tentativeCourses, setTentativeCourses,
         saved, saveSchedule,
         name, setName,
         semester, setSemester,
         year, setYear,
-        calcActiveCredits, 
+        calcActiveCredits,
         inSchedule, overlap,
         errors, warnings
     }

@@ -1,12 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react';
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { TextField } from "@mui/material";
 import * as Yup from "yup";
-import "./LoginScreen.scss"
+import "./LoginScreen.scss";
 
+import { UserContext, UserContextType } from "../../context/UserContext";
 import AuthService from "../../services/auth.service";
-import {UserContext, UserContextType} from "../../context/UserContext";
 
 const Login = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -16,9 +15,9 @@ const Login = () => {
 
     useEffect(() => {
         if (AuthService.getCurrentUser() !== null) {
-            navigate("/profile",{replace:true});
+            navigate("/profile", { replace: true });
         }
-    },[])
+    }, [])
 
     function validationSchema() {
         return Yup.object().shape({
@@ -27,14 +26,14 @@ const Login = () => {
         });
     }
 
-    function handleLogin(formValue: {username: string; password: string }) {
-        const {username, password} = formValue;
+    function handleLogin(formValue: { username: string; password: string }) {
+        const { username, password } = formValue;
         setMessage("");
         setLoading(true);
         AuthService.login(username, password).then(
             () => {
                 setUser(AuthService.getCurrentUser());
-                navigate("/profile",{replace:true});
+                navigate("/profile", { replace: true });
             },
             error => {
                 const resMessage = (
@@ -42,7 +41,7 @@ const Login = () => {
                     error.response.data &&
                     error.response.data.message
                 ) || error.message || error.toString();
-                
+
                 setLoading(false);
                 setMessage(resMessage);
             }
@@ -51,51 +50,51 @@ const Login = () => {
 
 
     return (
-        
+
         <div className={"login"}>
-          <Formik
-            initialValues={{username:"",password:""}}
-            validationSchema={validationSchema}
-            onSubmit={handleLogin}
-        >
-            <Form>
-                <div>
-                    {/*<TextField label={"username"}>*/}
-                    {/*</TextField>*/}
-                    <label htmlFor="username">username</label>
-                    <Field name="username" type="text" />
-                    <ErrorMessage
-                        name="username"
-                        component="div"
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <Field name="password" type="password" className="form-control" />
-                    <ErrorMessage
-                    name="password"
-                    component="div"
-                    className="alert alert-danger"
-                    />
-                </div>
-                <div className="form-group">
-                <button type="submit" disabled={loading}>
-                  <span>Login</span>
-                </button>
-              </div>
-              {message && (
-                <div>
-                  <div role="alert">
-                    {message}
-                  </div>
-                </div>
-              )}
-            </Form>
-        </Formik>
-        <label>
-            need an account?
-        </label>
-        <button onClick={() => {navigate("/signup")}}>sign up</button>
+            <Formik
+                initialValues={{ username: "", password: "" }}
+                validationSchema={validationSchema}
+                onSubmit={handleLogin}
+            >
+                <Form>
+                    <div>
+                        {/*<TextField label={"username"}>*/}
+                        {/*</TextField>*/}
+                        <label htmlFor="username">username</label>
+                        <Field name="username" type="text" />
+                        <ErrorMessage
+                            name="username"
+                            component="div"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password</label>
+                        <Field name="password" type="password" className="form-control" />
+                        <ErrorMessage
+                            name="password"
+                            component="div"
+                            className="alert alert-danger"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <button type="submit" disabled={loading}>
+                            <span>Login</span>
+                        </button>
+                    </div>
+                    {message && (
+                        <div>
+                            <div role="alert">
+                                {message}
+                            </div>
+                        </div>
+                    )}
+                </Form>
+            </Formik>
+            <label>
+                need an account?
+            </label>
+            <button onClick={() => { navigate("/signup") }}>sign up</button>
         </div>
     )
 }

@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as Yup from "yup";
-import "./SignupScreen.scss"
+import { UserContext, UserContextType } from "../../context/UserContext";
 import AuthService from '../../services/auth.service';
-import {UserContext, UserContextType} from "../../context/UserContext";
+import "./SignupScreen.scss";
 
 const Signup = () => {
   const [successful, setSuccessful] = useState<boolean>(false);

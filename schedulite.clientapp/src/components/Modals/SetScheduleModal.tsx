@@ -1,14 +1,14 @@
-import React, {useContext, useState} from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ScheduleContext, ScheduleContextType } from '../../context/ScheduleContext';
-import "./ScheduleModal.scss"
+import "./ScheduleModal.scss";
 
 const SetScheduleModal = ({ setIsOpen }: any) => {
-    const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
+    const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
     const navigate = useNavigate();
-    const [ scheduleSemester, setScheduleSemester ] = useState("Fall")
-    const [ scheduleName, setScheduleName ] = useState("")
-    const [ scheduleYear, setScheduleYear ] = useState("")
+    const [scheduleSemester, setScheduleSemester] = useState("Fall")
+    const [scheduleName, setScheduleName] = useState("")
+    const [scheduleYear, setScheduleYear] = useState("")
     return (
         <div className={"modal-container"}>
             <div className={"modal-title"}>
@@ -57,8 +57,8 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
             </button> */}
             <button className={"start-button"} onClick={() => {
                 setIsOpen(false);
-                setActiveCourses({course: null, type:"setAll", courseList: []});
-                setTentativeCourses({course: null, type:"setAll", courseList: []});
+                setActiveCourses({ course: null, type: "setAll", courseList: [] });
+                setTentativeCourses({ course: null, type: "setAll", courseList: [] });
                 setName(scheduleName);
                 setSemester(scheduleSemester);
                 setYear(scheduleYear);

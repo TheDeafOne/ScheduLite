@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../components/Modals/ScheduleModal.scss";
+import SetScheduleModal from "../../components/Modals/SetScheduleModal";
+import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import { UserContext, UserContextType } from '../../context/UserContext';
 import ISchedule from "../../types/schedule.type";
 import "./Block.scss";
-import SetScheduleModal from "../../components/Modals/SetScheduleModal";
-import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
-import { MdSouth } from "react-icons/md";
-import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
-import "../../components/Modals/ScheduleModal.scss"
 
 const blocks: ISchedule[] = [];
 
 
-const BlockPage = ({setIsOpen, setModal}: any) => {
+const BlockPage = ({ setIsOpen, setModal }: any) => {
   const { user } = useContext(UserContext) as UserContextType;
   const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
@@ -23,10 +21,6 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
   const [filteredBlocks, setFilteredBlocks] = useState<ISchedule[] | undefined>(blocks);
   const navigate = useNavigate();
 
-  const routeChange = () =>{
-    let path = `/Search`;
-    navigate(path);
-  }
   useEffect(() => {
     let blocks = initialFilteredBlocks
     const yearFilteredBlocks = (yearFilter !== undefined && yearFilter !== "") ? blocks!.filter((block) => block.year === yearFilter) : blocks;
@@ -47,8 +41,8 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     setName(currentSchedule.scheduleName);
     setSemester(currentSchedule.semester);
     setYear(currentSchedule.year);
-    setActiveCourses({course: null, type:"setAll", courseList:currentSchedule.activeCourses});
-    setTentativeCourses({course: null, type:"setAll", courseList:currentSchedule.tentativeCourses});
+    setActiveCourses({ course: null, type: "setAll", courseList: currentSchedule.activeCourses });
+    setTentativeCourses({ course: null, type: "setAll", courseList: currentSchedule.tentativeCourses });
     navigate("/");
   };
 
@@ -83,7 +77,7 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
               <option value="Spring">Spring</option>
             </select>
           </div>
-      </div></div>
+        </div></div>
       <div className={"schedule-options"}>
         {filteredBlocks!.map((block, index) => (
           <div key={index} className="block" onClick={() => handleBlockClick(block)}>
@@ -91,7 +85,7 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
           </div>
         ))}
         <div className="block new" onClick={() => {
-          setModal(<SetScheduleModal setIsOpen={setIsOpen}/>);
+          setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
           setIsOpen(true);
         }}>
           +
