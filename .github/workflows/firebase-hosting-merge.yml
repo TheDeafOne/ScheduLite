@@ -9,14 +9,12 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    working-directory: schedulite.webservice/
     steps:
       - uses: actions/checkout@v3
-      - name: Install Deps and Build
-        run: cd schedulite.clientapp && npm ci && npm run build 
+      - run: cd schedulite.clientapp && npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DIVINE_SURFACE_378820 }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCHEDULITE_FRONTEND }}'
           channelId: live
-          projectId: divine-surface-378820
+          projectId: schedulite-frontend
