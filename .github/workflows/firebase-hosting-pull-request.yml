@@ -12,6 +12,7 @@ jobs:
       - run: cd schedulite.clientapp && npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          entryPoint: schedulite.clientapp
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCHEDULITE_FRONTEND }}'
           projectId: schedulite-frontend
