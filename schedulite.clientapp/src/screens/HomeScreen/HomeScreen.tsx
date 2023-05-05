@@ -2,6 +2,9 @@ import React, {useContext, useEffect, useState} from 'react'
 import axiosConfig from "../../api/axios-config";
 import SearchPage from "../SearchScreen/SearchPage";
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 // import "../../styles/BodyStructure.scss"
 import "./HomeScreen.scss"
 import CoursePanel from "./CoursePanel";
@@ -21,15 +24,16 @@ import {Popover} from "@mui/material";
 import MouseOverPopover from "../../components/PopOver/Popover";
 
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
-const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType }) => {
+const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedScheduleObj: linkedScheduleObjType, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
     const [response, setResponse] = useState<ICourse[]>();
     const [calendarCourseHover, setCalendarCourseHover] = useState<ICourse | undefined>();
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
     const [currCourse, setCourse]= useState<ICourse | undefined>();
     const [viewCourse, setViewCourse] = useState(false);
-    const { saved, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
+    const { saved, saveSchedule, errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType
+
 
     const [scheduleSaved, setScheduleSaved] = useState(false)
     const [saveMessage, setSavedMessage] = useState("")
@@ -78,12 +82,9 @@ const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType
     // })
 
     const removeEvent = () => {
-        console.log("remove event")
         setTentativeCourseHover(undefined)
     }
     const addEvent = (course : ICourse) => {
-        console.log("add event")
-        console.log(typeof course)
         setTentativeCourseHover(course)
         // console.log("test")
     }
@@ -105,8 +106,8 @@ const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType
                     <motion.div
                         key="home"
                         className="container text-center"
-                        initial={{scale: 1 }}
-                        animate={{scale: .97 }}
+                        initial={{scale: .97 }}
+                        // animate={{scale: .97 }}
                         transition={{ duration: .75 }}
                     >
                     <SearchBar navigate={routeChange} autofocus={false} firstClick={true}/>
@@ -120,8 +121,17 @@ const Home = ({ linkedScheduleObj } : { linkedScheduleObj: linkedScheduleObjType
 
                         {user && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
                     </div>
+                    <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${warnings.credits.value || warnings.sameCourse.value && !panelVisible ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
+                        {
+                            panelVisible ? <ChevronRightIcon /> : <ChevronLeftIcon />
+                        }
+                    </button>
                 </div>
-                <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover}/>
+                {
+                    panelVisible && (
+                        <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover}/>
+                    )
+                }
             </div>
         </motion.div>
     )

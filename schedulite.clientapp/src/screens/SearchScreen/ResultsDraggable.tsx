@@ -20,7 +20,6 @@ const Results = (props : any) => {
     // }, [])
 
     // console.log(props.response)
-    console.log(props)
     return (
         <>
             {
