@@ -10,10 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Deps
-        working-directory: ../schedulite.clientapp
+        working-directory: schedulite.clientapp
+        run cd ..
         run: npm ci
       - name: Build
-        working-directory: ../schedulite.clientapp
+        working-directory: schedulite.clientapp
+        run: cd ..
         run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
