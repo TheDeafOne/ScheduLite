@@ -41,7 +41,8 @@ export interface ScheduleContextType {
     setSemester: React.Dispatch<React.SetStateAction<string>>,
     saveSchedule: () => void,
     errors: Errors,
-    warnings: Warnings
+    warnings: Warnings,
+    onScheduleOpen: (active: ICourse[], tentative: ICourse[]) => void
 }
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);
 
@@ -92,12 +93,7 @@ export const ScheduleProvider = (props: any) => {
     const [errors, setErrors] = useState<Errors>({overlap: {value: false, courses: []}})
     const [warnings, setWarnings] = useState<Warnings>({credits: {value: false, message: ""}, sameCourse: {value: false, courses: [], message: ""}})
 
-    const calcErrors = () => {
 
-    }
-    const calcWarnings = () => {
-
-    }
 
     // const issuesExist = () => {
     //     let warning = warnings()
@@ -175,10 +171,28 @@ export const ScheduleProvider = (props: any) => {
         });
         return credits
     }
+    const onScheduleOpen = (active: ICourse[], tentative: ICourse[]) => {
+        console.log("onscheduleopen")
+        active.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
+            array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
+            array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
+        })
+        tentative.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
+            array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
+            array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
+        })
+        for (const course of active) {
+            const inSchedule = active.some((e: ICourse) => (e.id === course.id))
+            course.overlap = inSchedule && active.some((e: ICourse) => (e.id !== course.id
+                && overlap(e, course)));
+        }
+    }
     useEffect(() => {
         setSaved(false);
+
         let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
         console.log(coursesWithOverlap);
+        // console.log(errors)
         setErrors({
                 overlap : {
                     value: coursesWithOverlap.length > 0,
@@ -211,7 +225,8 @@ export const ScheduleProvider = (props: any) => {
         year, setYear,
         calcActiveCredits,
         inSchedule, overlap,
-        errors, warnings
+        errors, warnings,
+        onScheduleOpen
     }
 
     return (

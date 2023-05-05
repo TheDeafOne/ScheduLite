@@ -79,10 +79,9 @@ const Course = (props : any) => {
                             {course.courseTitle}
                         </div>
                         <div className={"subtitle"}>
-                            {course.coursePrefix} {course.courseNumber}{course.courseSection} | {course.convertedStartDate && validDate ?
-                                course.convertedStartDate.format("h:mm")
+                            {course.coursePrefix} {course.courseNumber}{course.courseSection} {course.convertedStartDate && validDate ?
+                                <> | {course.convertedStartDate.format("h:mm")} - </>
                                 : ""}
-                            -
                             {course.convertedEndDate && validDate ?
                                 course.convertedEndDate.format("h:mm")
                                 : ""}
@@ -116,9 +115,8 @@ const Course = (props : any) => {
                             {validDate && (
                                 <span>
                                     &nbsp;{(course.convertedStartDate && validDate) ?
-                                        course.convertedStartDate.format("hh:mm")
+                                        <>{course.convertedStartDate.format("hh:mm")} - </>
                                         : ""}
-                                    -
                                     {course.convertedEndDate && validDate ?
                                         course.convertedEndDate.format("hh:mm")
                                         : ""} |

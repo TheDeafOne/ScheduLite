@@ -71,8 +71,9 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
             const inSchedule = activeCourses.courses.some((e: ICourse) => (e.id === course.id))
             const actOverlap = inSchedule && activeCourses.courses.some((e: ICourse) => (e.id !== course.id
                 && overlap(e, course)));
-            let tempCourse = course
-            tempCourse.overlap = actOverlap
+            // let tempCourse = course
+            // tempCourse.overlap = actOverlap
+            course.overlap = actOverlap
             events.push(convertClassToEvent(course, false));
         }
         if (tentativeCourseHover) {

@@ -1,12 +1,12 @@
-import "../../styles/Calendar.css"
+import "../styles/Calendar.css"
 import { useContext, useEffect, useState } from "react";
-import ICourse from "../../types/course.type";
-import course from "../../components/CourseComponents/Course";
+import ICourse from "../types/course.type";
+import course from "../components/CourseComponents/Course";
 import moment from "moment";
-import ISchedule from "../../types/schedule.type";
+import ISchedule from "../types/schedule.type";
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { hover } from "@testing-library/user-event/dist/hover";
-import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
+import { ScheduleContext, ScheduleContextType } from "../context/ScheduleContext";
 
 const Calendar = ({ schedule, hoverCourse }: { schedule: ISchedule, hoverCourse: ICourse | undefined }) => {
     // const [activeCourses, setActiveCourses] = useState<ICourse[]>(schedule.activeCourses)
