@@ -4,8 +4,7 @@ FROM gradle:7.1.0-jdk11 AS builder
 
 # Copy local code to the container image.
 WORKDIR /schedulite/schedulite.webservice
-RUN pwd
-COPY schedulite/schedulite.webservice/ ./
+COPY . ./
 
 # Build a release artifact.
 RUN gradle build
