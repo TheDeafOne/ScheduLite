@@ -65,7 +65,21 @@
     outline: none;
 }
 .searchBarInput::placeholder {
-    opacity: .8;
+    opacity: .5;
+    --bg-size: 200%;
+    --color-one: hsl(221, 65%, 71%);
+    --color-two: hsl(292, 100%, 67%);
+    //font-size: clamp(3rem, 25vmin, 8rem);
+    background: linear-gradient(
+                    90deg,
+                    var(--color-one),
+                    var(--color-two),
+                    var(--color-one)
+    ) 0 0 / var(--bg-size) 100%;
+    color: transparent;
+    //background-clip:;
+    -webkit-background-clip: text;
+    animation: move-bg 4s infinite linear;
 }
 .searchBarInput:focus::placeholder {
     //color: #c2c2c2;
@@ -73,5 +87,20 @@
 }
 
 .searchBar {
-    padding: 10px;
+    padding: 10px 20px 10px 20px ;
+}
+
+//.boujee-text {
+//
+//}
+
+@media (prefers-reduced-motion: no-preference) {
+    //.boujee-text {
+    //    animation: move-bg 3s linear infinite;
+    //}
+    @keyframes move-bg {
+        to {
+            background-position: var(--bg-size) 0;
+        }
+    }
 }

@@ -7,7 +7,8 @@ import ICourse from "../../types/course.type";
 
 const Warnings = () => {
     const { warnings, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
-    let scheduleWarnings = warnings()
+    // let scheduleWarnings = warnings()
+    console.log("WARNINGS UPDATED")
     const conditionalRemoveCourse = (course: ICourse) => {
         setActiveCourses({course: course, type: "remove"});
     }
@@ -19,30 +20,30 @@ const Warnings = () => {
 
         <>
             {
-                (scheduleWarnings.credits.value || scheduleWarnings.sameCourse.value) && (
+                (warnings.credits.value || warnings.sameCourse.value) && (
                     <div>
                         <div className={"issue-container warning"}>
                             <div className={"error-container-title warning-title"}>
                                 Warnings
                             </div>
                             {
-                                scheduleWarnings.credits.value && (
+                                warnings.credits.value && (
                                     <div className={"issue"}>
                                         <div className={"error-container-subtitle"}>
-                                            <ErrorOutlineIcon sx={{paddingRight: "5px"}}/> {scheduleWarnings.credits.message}
+                                            <ErrorOutlineIcon sx={{paddingRight: "5px"}}/> {warnings.credits.message}
                                         </div>
                                     </div>
                                 )
                             }
                             {
-                                scheduleWarnings.sameCourse.value && (
+                                warnings.sameCourse.value && (
                                     <div className={"issue"}>
                                         <div className={"error-container-subtitle"}><ErrorOutlineIcon
                                             sx={{paddingRight: "5px"}}/> Same courses:
                                         </div>
                                         <div className={"error-courses-container"}>
                                             {
-                                                scheduleWarnings.sameCourse.courses.map((course) => {
+                                                warnings.sameCourse.courses.map((course) => {
                                                     return (
                                                         <div className={"error-course"}>
                                                             <div className={"error-course-title"}>

@@ -10,6 +10,13 @@ import ICourse from "../../types/course.type";
 import "./SearchPage.scss";
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import SearchBar from "./SearchScreenComponents/SearchBar/SearchBar";
+import "./SearchPage.scss";
+import Course from "../../components/CourseComponents/Course";
+import {color, motion} from "framer-motion";
+import ISchedule from "../../types/schedule.type";
+import moment from "moment";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 
 
@@ -95,7 +102,7 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
                 filterParams.push(`query=${pushQuery}`)
             }
         }
- 
+
         let stringifiedFilterParams = filterParams.join('&');
 
         let newUrl = baseApiEnpoint;
@@ -124,7 +131,7 @@ const SearchPage = ({ linkedSchedule }: { linkedSchedule: boolean }) => {
                             initial={{ scale: .97 }}
                             animate={{ scale: 1 }}
                             transition={{ duration: .75 }}
-                            
+
                         >
                             <SearchBar
                                 setResponse={setSearchResponse}

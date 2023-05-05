@@ -16,18 +16,18 @@
 
         &:hover {
             color: white;
-            box-shadow: 0 0 20px rgba(186, 180, 224, 0.6);
-            background-color: rgba(104, 85, 224, 1);
+            box-shadow: 0 0 20px rgb(103,135,255,0.6);
+            background-color: rgb(103,135,255);
         }
     }
     .signup {
-        color: rgb(104, 85, 224);
+        color: rgb(103,135,255);
         background-color: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(104, 85, 224, 1);
+        border: 1px solid rgb(103,135,255)
     }
 
     .login {
         color: white;
-        background-color: rgba(104, 85, 224, 1);
+        background-color: rgb(103,135,255);
     }
 }

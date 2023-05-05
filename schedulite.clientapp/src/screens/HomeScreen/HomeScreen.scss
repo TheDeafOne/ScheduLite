@@ -53,3 +53,56 @@
     transform: translateY(0);
   }
 }
+
+.collapse-side-panel {
+  all: unset;
+  background-color: rgba(255, 255, 255, 0.32);
+  color: white;
+  width: .1rem;
+  height: 3rem;
+  padding: .5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //place-content: center;
+  //border: 1px solid variables.$border-color-light;
+  border-radius: 5px 0 0 5px;
+  position: absolute;
+  right: 0;
+  margin-top: .3em;
+  //opacity: 0;
+  //display: none;
+  transition: opacity .1s ease-out;
+  //&:hover {
+  //  opacity: .6;
+  //}
+  //top: 0;
+}
+.closed {
+  transition: opacity .1s ease-out;
+  opacity: .2;
+  &:hover {
+    opacity: .7;
+  }
+}
+.open {
+  transition: opacity .1s ease-out;
+  opacity: .2;
+  &:hover {
+    opacity: .7;
+  }
+}
+.warning-button {
+  background-color: variables.$background-warning;
+  opacity: .7;
+  &:hover {
+    opacity: .9;
+  }
+}
+.error-button {
+  background-color: variables.$background-error;
+  opacity: .7;
+  &:hover {
+    opacity: .9;
+  }
+}
