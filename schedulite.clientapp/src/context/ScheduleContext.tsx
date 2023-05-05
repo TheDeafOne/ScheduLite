@@ -125,6 +125,7 @@ export const ScheduleProvider = (props: any) => {
 
     const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
+
         let activeIds = activeCourses.courses.map((value: ICourse) => {
             return { id: value.id }
         })
@@ -177,29 +178,7 @@ export const ScheduleProvider = (props: any) => {
     }
     useEffect(() => {
         setSaved(false);
-        let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
-        console.log(coursesWithOverlap);
-        setErrors({
-                overlap : {
-                    value: coursesWithOverlap.length > 0,
-                    courses: coursesWithOverlap
-                }
-            }
-        )
-        let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)))
-
-        setWarnings( {
-            credits: {
-                value: calcActiveCredits() > 18,
-                message: `Number of active credits ${calcActiveCredits()} is greater 18.`
-            },
-            sameCourse: {
-                value: sameCourseDiffSections.length > 0,
-                courses: sameCourseDiffSections,
-                message: "Schedule contains two of the same course with different sections."
-            }
-        })
-        // console.log(saved);
+        saveSchedule()
     }, [activeCourses, tentativeCourses])
     // const [saved]
     const value = {
