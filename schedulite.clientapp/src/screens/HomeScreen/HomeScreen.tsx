@@ -80,12 +80,9 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
     // })
 
     const removeEvent = () => {
-        console.log("remove event")
         setTentativeCourseHover(undefined)
     }
     const addEvent = (course : ICourse) => {
-        console.log("add event")
-        console.log(typeof course)
         setTentativeCourseHover(course)
         // console.log("test")
     }

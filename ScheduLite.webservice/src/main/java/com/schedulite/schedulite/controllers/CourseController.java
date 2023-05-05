@@ -30,23 +30,23 @@ public class CourseController {
     public ResponseEntity<?> getCourses() {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
-    @GetMapping("/query")
-    public ResponseEntity<?> getCourseByNumber(@RequestParam(required = false) String query) {
-        // return all courses by the given number, or none if none found
-        return new ResponseEntity<>(courseService.getCourseByCourseNumber(query), HttpStatus.OK);
-    }
 
-    @GetMapping("/filters")
-    public ResponseEntity<?> getFilteredCourses(
+    @GetMapping("/query")
+    public ResponseEntity<?> getCoursesByQuery(
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) String courseTitle,
+            @RequestParam(required = false) String coursePrefix,
+            @RequestParam(required = false) String courseNumber,
             @RequestParam(required = false) String semester,
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) String prefix,
-            @RequestParam(required = false) String number,
-            @RequestParam(required = false) String time,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String days) {
-        // returns the courses specified by given optional filters
-        return new ResponseEntity<>(courseService.getCourseByFilters(semester, title, prefix, number, time, name, days), HttpStatus.OK);
+            @RequestParam(required = false) String year,
+            @RequestParam(required = false) String courseTime,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String days
+    ) {
+        // return all courses by the given number, or none if none found
+        return new ResponseEntity<>(courseService.getCourseByFiltersAndQuery(query, courseTitle, coursePrefix, courseNumber,
+                semester, year, courseTime, firstName, lastName, days), HttpStatus.OK);
     }
 
     @GetMapping("/by-schedule")

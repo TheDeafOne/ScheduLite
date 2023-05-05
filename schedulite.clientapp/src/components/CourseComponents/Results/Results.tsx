@@ -1,14 +1,9 @@
 
-import React, {useContext, useEffect, useState} from 'react'
-import axiosConfig from "../../../api/axios-config";
-import SearchPage from "../../../screens/SearchScreen/SearchPage";
-import Course from "../Course";
-import "./Results.scss"
+import { useContext } from 'react';
+import { ScheduleContext, ScheduleContextType } from "../../../context/ScheduleContext";
 import ICourse from "../../../types/course.type";
-import courseDetailPanel from "../CourseDetailPanel";
-import moment from "moment";
-import course from "../Course";
-import {ScheduleContext, ScheduleContextType} from "../../../context/ScheduleContext";
+import Course from "../Course";
+import "./Results.scss";
 
 
 const Results = (props : any) => {
@@ -25,7 +20,6 @@ const Results = (props : any) => {
                                 props.response.map((data : ICourse , idx: number) => {
 
                                     if (props.sched) {
-                                        console.log("QWERTYUIOP")
                                         const courseInSchedule = inSchedule(data);
                                         // const inSchedule = activeCourses.courses.some((e : ICourse) => (e.id === data.id))
                                         const actOverlap = courseInSchedule && activeCourses.courses.some((e : ICourse) => (e.id !== data.id
@@ -55,7 +49,6 @@ const Results = (props : any) => {
                                         )
                                     } else {
                                         // console.log("not props.sched")
-                                        console.log("ASDFGHJKL")
                                         // const actOverlap = props.response.some((e : ICourse) => (e.id !== data.id
                                         //     && overlap(e, data)
                                         //     && (props.schedule==="active")))

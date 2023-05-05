@@ -1,8 +1,16 @@
 package com.schedulite.schedulite.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 @Document(collection = "courses")
+@CompoundIndexes({
+        @CompoundIndex(
+                name = "smart_search_index",
+                def = "{'lastName' : 5, 'coursePrefix': 4, 'courseTitle': 2, 'courseNumber': 3, 'firstName': 1}")
+})
 public class Course {
 
     @Id

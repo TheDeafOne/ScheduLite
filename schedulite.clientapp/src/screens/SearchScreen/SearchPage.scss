@@ -1,32 +1,7 @@
 @use "../../styles/globals/layout";
 @use "../../styles/globals/variables";
 
-.back-button {
-  all: unset;
-  cursor: pointer;
-  font-size: 20px;
-  height: 30px;
-  width: 30px;
-  font-weight: bold;
-  margin: 5px;
-  border-radius: 5px;
-  text-align: center;
-  justify-content: center;
-  &:hover  {
-    background-color: #4b566c;
-  }
-  &:focus {
-    outline: orange 5px auto;
-
-  }
-}
 .filter-input {
-  font-size: 15px;
-  padding: 1em;
-  border-style: unset;
-  border-radius: 5px;
-  background-color: #19262b;
-  color: white;
   &:disabled {
     background-color: #243740;
     font-weight: bold;
@@ -44,6 +19,45 @@ label {
   /*line-height: 2em;*/
   display: flex;
   flex-direction: column;
+}
+
+
+.back-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .back-button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    font-weight: bold;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+    &:hover  {
+      background-color: #4b566c;
+    }
+    &:focus {
+      outline: orange 5px auto;
+
+    }
+  }
+  .back-button-title {
+    font-size: 20px;
+  }
+}
+
+.results-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .collapse-side-panel {
@@ -97,4 +111,11 @@ label {
   &:hover {
     opacity: .9;
   }
+}
+.suggested {
+  color: variables.$text-color;
+  font-size: 24px;
+  text-align: start;
+  padding: 1rem 0 .25rem .5rem;
+
 }

@@ -1,27 +1,25 @@
-import "./Calendar.scss"
-import { Dispatch, useContext, useEffect, useState } from "react";
-import ICourse from "../../../types/course.type";
-import course from "../../../components/CourseComponents/Course";
+import "../../styles/Calendar.css"
+import { useContext, useEffect, useState } from "react";
+import ICourse from "../../types/course.type";
+import course from "../../components/CourseComponents/Course";
 import moment from "moment";
-import ISchedule from "../../../types/schedule.type";
+import ISchedule from "../../types/schedule.type";
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { hover } from "@testing-library/user-event/dist/hover";
-import { ScheduleContext, ScheduleContextType } from "../../../context/ScheduleContext";
-import MouseOverPopover from "../../../components/PopOver/Popover";
-import TransitionsPopper from "../../../components/PopOver/Popper";
-import { containerClasses } from "@mui/material";
+import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 
-const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse }: { tentativeCourseHover: ICourse | undefined, setCalendarCourseHover: Function, setViewCourse: Function }) => {
+const Calendar = ({ schedule, hoverCourse }: { schedule: ISchedule, hoverCourse: ICourse | undefined }) => {
     // const [activeCourses, setActiveCourses] = useState<ICourse[]>(schedule.activeCourses)
     // const [objStringified, setObj] = useState(JSON.stringify(schedule.activeCourses))
-    const { overlap, activeCourses } = useContext(ScheduleContext) as ScheduleContextType
+    const { activeCourses } = useContext(ScheduleContext) as ScheduleContextType
+
     // console.log(schedule);
     // console.log(`HOVER COURSE: ${hoverCourse}`)
-    const convertClassToEvent = (course: ICourse, hover: boolean) => {
+    const convertClassToEvent = (course: ICourse) => {
         // console.log(course);
         let days = []
-        const startDate = moment(course["startTime"], 'YYYY/MM/DD hh:mm')
-        const endDate = moment(course["endTime"], 'YYYY/MM/DD hh:mm A')
+        const startDate = moment(course["startTime"], 'DD/MM/YYYY hh:mm')
+        const endDate = moment(course["endTime"], 'DD/MM/YYYY hh:mm A')
         if (course.onMonday) {
             days.push("m")
         }
@@ -37,22 +35,26 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
         if (course.onFriday) {
             days.push("f")
         }
+        // console.log(endDate)
+        // console.log(days)
         const time = (endDate.hours() - startDate.hours()) * 60 + (endDate.minute() - startDate.minute())
+        // console.log(time)
+        // console.log(myMomentObject.hours())
+        // console.log(myMomentObject.minute())
+        // console.log(Date.parse(course["startTime"]))
         let timeStart = convert(`${startDate.hours()}:${startDate.minute()}`)
         let timeEnd = convert(`${endDate.hours()}:${endDate.minute()}`)
 
         if (startDate.minute() === 5) {
             timeStart = convert(`${startDate.hours()}:00`)
         }
-
         const event = {
             "timeStart": timeStart,
             "timeEnd": timeEnd,
             "days": days,
             "length": time,
             "courseTitle": course.courseTitle,
-            "course": course,
-            "hover": hover
+            "course": course
         }
         return event
     }
@@ -60,7 +62,20 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
         return moment(input, 'HH:mm').format('h:mm');
     }
     // console.log(`PROPS ACTIVE: ${schedule.activeCourses}`)
+    const overLap = (course1: ICourse, course2: ICourse) => {
+        const startDate1 = moment(course1["startTime"], 'DD/MM/YYYY hh:mm')
+        const endDate1 = moment(course1["endTime"], 'DD/MM/YYYY hh:mm A')
+        const startDate2 = moment(course2["startTime"], 'DD/MM/YYYY hh:mm')
+        const endDate2 = moment(course2["endTime"], 'DD/MM/YYYY hh:mm A')
 
+        const daysSame = (course1.onMonday && course1.onMonday === course2.onMonday)
+            || (course1.onTuesday && course1.onTuesday === course2.onTuesday)
+            || (course1.onWednesday && course1.onWednesday === course2.onWednesday)
+            || (course1.onThursday && course1.onThursday === course2.onThursday)
+            || (course1.onFriday && course1.onFriday === course2.onFriday)
+
+        return (startDate1.isBefore(endDate2) && startDate2.isBefore(endDate1) && daysSame)
+    }
     const createEvents = () => {
         const minute = 1000 * 60;
         const hour = minute * 60;
@@ -70,18 +85,19 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
         for (const course of activeCourses.courses) {
             const inSchedule = activeCourses.courses.some((e: ICourse) => (e.id === course.id))
             const actOverlap = inSchedule && activeCourses.courses.some((e: ICourse) => (e.id !== course.id
-                && overlap(e, course)));
+                && overLap(e, course)));
             let tempCourse = course
             tempCourse.overlap = actOverlap
-            events.push(convertClassToEvent(course, false));
+            events.push(convertClassToEvent(course));
         }
-        if (tentativeCourseHover) {
-            events.push(convertClassToEvent(tentativeCourseHover, true));
+        if (hoverCourse) {
+            events.push(convertClassToEvent(hoverCourse));
+
         }
 
         return events
     }
-    const eventKeys = loadEvents(createEvents(), setCalendarCourseHover, setViewCourse)
+    const eventKeys = loadEvents(createEvents())
     // useDeepCompareEffect(() => {
 
     // Update the document title using the browser API
@@ -114,7 +130,7 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
     )
 }
 const Times = () => {
-    let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00" ,"5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30", "9:00"]
+    let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30"]
     let slots = []
     for (let i = 0; i < 24; i++) {
         slots.push(<div className={"time-slot"} id={i.toString()} key={times[i]}>
@@ -142,34 +158,19 @@ const Day = ({ dayOfWeek, eventKey }: { dayOfWeek: string, eventKey: any }) => {
         //
         // } else {
         if (eventKey[`${times[i]} ${dayOfWeek}`]) {
-            slots.push(
-                <div
-                    className={`day-slot`}
-                    id={`${times[i]} ${dayOfWeek}`}
-                    key={`${times[i]} ${dayOfWeek}`}
-                >
-                    {eventKey[`${times[i]} ${dayOfWeek}`].reverse()}
-                </div>
-            )
+            slots.push(<div className={`day-slot`} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}>{eventKey[`${times[i]} ${dayOfWeek}`][0]}</div>)
         } else {
-            slots.push(
-                <div
-                    className={"day-slot"}
-                    id={`${times[i]} ${dayOfWeek}`}
-                    key={`${times[i]} ${dayOfWeek}`}
-                >
-                </div>
-            )
+            slots.push(<div className={"day-slot"} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}></div>)
         }
         // }
     }
     return (
-        <div className={"days"}>
+        <div>
             {slots}
         </div>
     )
 }
-function loadEvents(events: any, setCalendarCourseHover: Function, setViewCourse: Function) {
+function loadEvents(events: any) {
     // console.log(`events loaded: ${events}`)
     let key: any = {}
 
@@ -180,7 +181,7 @@ function loadEvents(events: any, setCalendarCourseHover: Function, setViewCourse
             // console.log(`${event.timeStart} ${day}`)
 
             // key[`${event.timeStart} ${day}`] = `<!--<div class="calendar-course" style="height: ${courseHeight}px;">${event.courseTitle}</div>-->`
-            key[`${event.timeStart} ${day}`] = key[`${event.timeStart} ${day}`] ? [<CalendarCourse event={event} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse} />, ...key[`${event.timeStart} ${day}`]] : [<CalendarCourse event={event} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse} />]
+            key[`${event.timeStart} ${day}`] = key[`${event.timeStart} ${day}`] ? [<CalendarCourse event={event} />, ...key[`${event.timeStart} ${day}`]] : [<CalendarCourse event={event} />]
             // console.log(key)
             // const slot = document.getElementById(`${event.timeStart} ${day}`)
             // if (slot) {
@@ -194,25 +195,17 @@ function loadEvents(events: any, setCalendarCourseHover: Function, setViewCourse
 const CalendarCourse = (props: any) => {
     const courseHeight = props.event.length * 1.5
     let event = props.event
-    const handleMouseEnter = () => {
-        props.setCalendarCourseHover(event.course);
-        props.setViewCourse(true);
-    }
-    const handleMouseLeave = () => {
-        // props.hoverCourse = null;
-        props.setCalendarCourseHover(undefined);
-        // props.setViewCourse(false);
-    }
     // console.log("FROM CALENDAR COURSE")
+    // console.log(event)
     return (
-        // <MouseOverPopover course={event.course}>
-        <div className={`calendar-course ${event.hover ? 'hover' : ''} ${event.course.overlap ? 'overlap' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ height: courseHeight }}>
+        <div className={`calendar-course ${event.course.overlap ? 'overlap' : ''}`} style={{ height: courseHeight }}>
             <div>
                 {event.courseTitle}
             </div>
+            <div>
+                {event.timeStart} - {event.timeEnd}
+            </div>
         </div>
-        // </MouseOverPopover>
-
     )
 }
 export default Calendar
