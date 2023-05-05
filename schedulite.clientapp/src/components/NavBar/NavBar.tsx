@@ -1,12 +1,10 @@
 import { useContext } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import { UserContext, UserContextType } from '../../context/UserContext';
 import AuthOptions from './AuthOptions/AuthOptions';
 import './NavBar.scss';
-import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import UserOptions from './UserOptions/UserOptions';
 
 const NavBar = () => {
     const { user } = useContext(UserContext) as UserContextType;

@@ -123,8 +123,8 @@ const Appearance = () => {
       <label>
         Font Size:
         <input type="number" value={settings.fontSize} onChange={handleFontSizeChange} />
-        </label>     
-              <br />
+      </label>
+      <br />
       <label>
         Background Color:
         <input
@@ -167,4 +167,4 @@ const Appearance = () => {
 };
 
 export default Appearance;
-    
+

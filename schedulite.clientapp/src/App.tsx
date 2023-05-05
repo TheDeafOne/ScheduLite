@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme, useTheme } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
@@ -39,17 +39,6 @@ function AppBody() {
         linkedSchedule: linkedSchedule,
         setLinkedSchedule: setLinkedSchedule
     }
-    const customModalStyles = {
-        content: {
-          top: '50%',
-          left: '50%',
-          width: '50%',
-        //   right: 'auto',
-        //   bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-        },
-      };
     useEffect(() => {
         window.addEventListener("beforeunload", alertUser);
         return () => {
@@ -74,7 +63,7 @@ function AppBody() {
             // THIS IS HAPPENING EVERY TIME BRUH
             setUser(user);
         }
-    // eslint-disable-line
+        // eslint-disable-next-line
     }, [])
 
     function afterOpenModal() {
@@ -132,13 +121,13 @@ function AppBody() {
                     <Route
                         path="/"
                         element={
-                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible}/>
+                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible} />
                         }
                     />
                     <Route
                         path="/Search"
                         element={
-                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible}/>
+                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible} />
                         }
                     />
                     <Route path="/profile" element={<Profile />} />

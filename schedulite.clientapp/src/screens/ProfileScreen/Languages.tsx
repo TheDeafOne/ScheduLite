@@ -113,29 +113,29 @@ const Languages: React.FC = () => {
         >
           <option value="ltr">Left-to-right</option>
           <option value="rtl">Right-to-left</option>
-          </select>
-  </div>
-  <div>
-    <label htmlFor="datetime-format-select">
-      Select date/time format:
-    </label>
-    <select
-      id="datetime-format-select"
-      value={dateTimeFormat}
-      onChange={handleDateTimeFormatChange}
-    >
-      <option value="short">Short format</option>
-      <option value="long">Long format</option>
-    </select>
-  </div>
-  <div>
-    <p>Selected language: {selectedLanguage}</p>
-    {selectedVariant && <p>Selected variant: {selectedVariant}</p>}
-    <p>Selected text direction: {textDirection}</p>
-    <p>Selected date/time format: {dateTimeFormat}</p>
-  </div>
-</div>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="datetime-format-select">
+          Select date/time format:
+        </label>
+        <select
+          id="datetime-format-select"
+          value={dateTimeFormat}
+          onChange={handleDateTimeFormatChange}
+        >
+          <option value="short">Short format</option>
+          <option value="long">Long format</option>
+        </select>
+      </div>
+      <div>
+        <p>Selected language: {selectedLanguage}</p>
+        {selectedVariant && <p>Selected variant: {selectedVariant}</p>}
+        <p>Selected text direction: {textDirection}</p>
+        <p>Selected date/time format: {dateTimeFormat}</p>
+      </div>
+    </div>
   );
-            };
-            export default Languages;
+};
+export default Languages;
 

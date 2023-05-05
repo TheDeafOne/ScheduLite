@@ -14,7 +14,7 @@
   /*display: inline-block;*/
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  /* justify-content: end; */
   align-items: start;
   column-gap: 10px;
   /*row-gap: 10px;*/

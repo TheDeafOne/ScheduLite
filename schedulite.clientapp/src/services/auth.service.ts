@@ -38,5 +38,5 @@ class AuthService {
     return null;
   }
 }
-// eslint-disable-line
+// eslint-disable-next-line
 export default new AuthService();

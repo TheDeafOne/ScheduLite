@@ -1,5 +1,5 @@
 import { PaletteMode } from '@mui/material';
-import { amber, blue, deepOrange, grey } from '@mui/material/colors';
+import { amber, blue, grey } from '@mui/material/colors';
 export const getDesignTokens = (mode: PaletteMode) => ({
     overrides: {
         MuiCssBaseline: {

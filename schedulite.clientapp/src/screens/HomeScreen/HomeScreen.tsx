@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
-import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useContext, useEffect, useState } from 'react';
+import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
 
 // import "../../styles/BodyStructure.scss"
 import { motion } from "framer-motion";
@@ -17,9 +17,8 @@ import { UserContext, UserContextType } from "../../context/UserContext";
 import Calendar from "./Calendar/Calendar";
 
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
-const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedScheduleObj: linkedScheduleObjType, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: { linkedScheduleObj: linkedScheduleObjType, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
-    const [response, setResponse] = useState<ICourse[]>();
     const [calendarCourseHover, setCalendarCourseHover] = useState<ICourse | undefined>();
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
     const [currCourse, setCourse] = useState<ICourse | undefined>();
@@ -35,9 +34,10 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
     useEffect(() => {
         console.log("CALLLLLEDDDDD")
         setScheduleSaved(saved);
-        }, [saved])
+    }, [saved])
     useEffect(() => {
         onSaveClick()
+        // eslint-disable-next-line
     }, [])
     // useEffect(() => {
     //     saveSchedule()
@@ -52,6 +52,7 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
         } else {
             setSavedMessage("Not logged in! Sign in to save schedule")
         }
+        console.log(saveMessage);
     }
     const onCourseClick = (course: any) => {
         // console.log(course);
@@ -77,7 +78,7 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
     const removeEvent = () => {
         setTentativeCourseHover(undefined)
     }
-    const addEvent = (course : ICourse) => {
+    const addEvent = (course: ICourse) => {
         setTentativeCourseHover(course)
         // console.log("test")
     }
@@ -99,7 +100,7 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
                     <motion.div
                         key="home"
                         className="container text-center"
-                        initial={{scale: .97 }}
+                        initial={{ scale: .97 }}
                         // animate={{scale: .97 }}
                         transition={{ duration: .75 }}
                     >
@@ -114,7 +115,7 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
 
                         {user && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
                     </div>
-                    <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${warnings.credits.value || warnings.sameCourse.value && !panelVisible ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
+                    <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${(warnings.credits.value) || (warnings.sameCourse.value && !panelVisible) ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
                         {
                             panelVisible ? <ChevronRightIcon /> : <ChevronLeftIcon />
                         }
@@ -122,7 +123,7 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
                 </div>
                 {
                     panelVisible && (
-                        <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover}/>
+                        <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover} />
                     )
                 }
             </div>

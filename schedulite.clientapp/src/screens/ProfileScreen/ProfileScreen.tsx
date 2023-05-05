@@ -10,7 +10,7 @@ const Profile = () => {
         if (AuthService.getCurrentUser() === null) {
             navigate("/login", { replace: true });
         }
-    // eslint-disable-line
+        // eslint-disable-next-line
     }, [])
     return (
         <div>

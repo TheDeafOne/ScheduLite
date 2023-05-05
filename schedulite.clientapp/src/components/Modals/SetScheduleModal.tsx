@@ -1,26 +1,25 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ScheduleContext, ScheduleContextType } from '../../context/ScheduleContext';
-import "./ScheduleModal.scss"
-import {filteredBlocks} from "../../screens/ScheduleSelectionScreen/ScheduleSelectionScreen"
 import { UserContext, UserContextType } from '../../context/UserContext';
+import "./ScheduleModal.scss";
 
 const SetScheduleModal = ({ setIsOpen }: any) => {
-    const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
+    const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
-    const [ scheduleSemester, setScheduleSemester ] = useState("Fall")
-    const [ scheduleName, setScheduleName ] = useState("")
-    const [ scheduleYear, setScheduleYear ] = useState("")
+    const [scheduleSemester, setScheduleSemester] = useState("Fall")
+    const [scheduleName, setScheduleName] = useState("")
+    const [scheduleYear, setScheduleYear] = useState("")
     function isWhitespace(str: string): boolean {
         return /^\s*$/.test(str);
-      }
-      
+    }
+
     const handleStart = () => {
         if (!scheduleName) {
             alert('Please enter a schedule name');
             return;
-        }else if (isWhitespace(scheduleName)){
+        } else if (isWhitespace(scheduleName)) {
             alert("input error no null names");
             return;
         }
@@ -35,10 +34,10 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
             return;
         }
 
-        
+
         setIsOpen(false);
-        setActiveCourses({course: null, type:"setAll", courseList: []});
-        setTentativeCourses({course: null, type:"setAll", courseList: []});
+        setActiveCourses({ course: null, type: "setAll", courseList: [] });
+        setTentativeCourses({ course: null, type: "setAll", courseList: [] });
         setName(scheduleName);
         setSemester(scheduleSemester);
         setYear(scheduleYear);

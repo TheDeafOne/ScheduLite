@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from "react";
-import axiosConfig from "../../../api/axios-config";
-import Results from "../../../components/CourseComponents/Results";
+import { useState } from "react";
 // import TextField from "@mui/material/TextField";
 // import List from "./Components/List";
 import "../../../styles/SearchBar.css";
 import SearchTypeDropdown from "./SearchTypeDropdown";
 
-const SearchBar = (props : any) => {
+const SearchBar = (props: any) => {
     // const [response, setResponse] = useState(props.response);
     const [query, setQuery] = useState("")
     // const [firstClick, setFirstClick] = useState(true)
@@ -24,7 +22,7 @@ const SearchBar = (props : any) => {
         }
     }
 
-    const handleKeyDown = (event : any) => {
+    const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
             // 👇 Get input value
             props.onEnter(query);
@@ -48,14 +46,14 @@ const SearchBar = (props : any) => {
                     props.firstClick ?
                         null
                         :
-                        <SearchTypeDropdown searchType={props.searchType} setSearchType={props.setSearchType}/>
+                        <SearchTypeDropdown searchType={props.searchType} setSearchType={props.setSearchType} />
                 }
                 <input placeholder="Search Classes"
-                       className={"searchBarInput"}
-                       autoFocus={props.autofocus}
-                       onChange={event => setQuery(event.target.value)}
-                       onKeyDown={handleKeyDown}
-                       onClick={onclick}/>
+                    className={"searchBarInput"}
+                    autoFocus={props.autofocus}
+                    onChange={event => setQuery(event.target.value)}
+                    onKeyDown={handleKeyDown}
+                    onClick={onclick} />
             </div>
 
             {/*DETAIL VIEW*/}

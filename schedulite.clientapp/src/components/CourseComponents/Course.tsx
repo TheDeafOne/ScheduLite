@@ -13,7 +13,7 @@ const Course = (props: any) => {
 
     const course: ICourse = props.course
     const validDate = course.convertedStartDate!.isValid() || course.convertedEndDate!.isValid()
-    const onCourseClick = (event : any) => {
+    const onCourseClick = (event: any) => {
         props.onCourseClick(course)
         console.log(validDate)
     }
@@ -23,7 +23,7 @@ const Course = (props: any) => {
     useEffect(() => {
         setActive(activeCourses.courses.some((e: ICourse) => e.id === course.id))
         setTentative(tentativeCourses.courses.some((e: ICourse) => e.id === course.id))
-    // eslint-disable-line
+        // eslint-disable-next-line
     }, [course])
 
     const addToActive = (event: any) => {

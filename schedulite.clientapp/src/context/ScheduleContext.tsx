@@ -1,12 +1,10 @@
 import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
-import ICourse from "../types/course.type";
-import { stat } from "fs";
-import { UserContext, UserContextType } from "./UserContext";
-import { bool, boolean } from "yup";
 import axios from "../api/axios-config";
-import { replace } from "formik";
 import authHeader from "../services/auth-header";
+import ICourse from "../types/course.type";
 import ISchedule from "../types/schedule.type";
+import { UserContext, UserContextType } from "./UserContext";
+import moment from "moment";
 
 // export default
 // schedule =
@@ -88,8 +86,8 @@ export const ScheduleProvider = (props: any) => {
     const [year, setYear] = useState("")
     const [name, setName] = useState("")
     const [saved, setSaved] = useState(true)
-    const [errors, setErrors] = useState<Errors>({overlap: {value: false, courses: []}})
-    const [warnings, setWarnings] = useState<Warnings>({credits: {value: false, message: ""}, sameCourse: {value: false, courses: [], message: ""}})
+    const [errors, setErrors] = useState<Errors>({ overlap: { value: false, courses: [] } })
+    const [warnings, setWarnings] = useState<Warnings>({ credits: { value: false, message: "" }, sameCourse: { value: false, courses: [], message: "" } })
 
 
 
@@ -117,7 +115,7 @@ export const ScheduleProvider = (props: any) => {
         return activeCourses.courses.some((e: ICourse) => (e.id === course.id))
     }
 
-    const { user, setUser, scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
+    const { scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
 
         let activeIds = activeCourses.courses.map((value: ICourse) => {
@@ -194,15 +192,15 @@ export const ScheduleProvider = (props: any) => {
         console.log(coursesWithOverlap);
         // console.log(errors)
         setErrors({
-                overlap : {
-                    value: coursesWithOverlap.length > 0,
-                    courses: coursesWithOverlap
-                }
+            overlap: {
+                value: coursesWithOverlap.length > 0,
+                courses: coursesWithOverlap
             }
+        }
         )
         let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)))
 
-        setWarnings( {
+        setWarnings({
             credits: {
                 value: calcActiveCredits() > 18,
                 message: `Number of active credits ${calcActiveCredits()} is greater 18.`
@@ -213,7 +211,7 @@ export const ScheduleProvider = (props: any) => {
                 message: "Schedule contains two of the same course with different sections."
             }
         })
-        // console.log(saved);
+        // eslint-disable-next-line
     }, [activeCourses, tentativeCourses])
     // const [saved]
     const value = {

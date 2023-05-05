@@ -30,7 +30,7 @@ const Warnings = () => {
                                 warnings.credits.value && (
                                     <div className={"issue"}>
                                         <div className={"error-container-subtitle"}>
-                                            <ErrorOutlineIcon sx={{paddingRight: "5px"}}/> {warnings.credits.message}
+                                            <ErrorOutlineIcon sx={{ paddingRight: "5px" }} /> {warnings.credits.message}
                                         </div>
                                     </div>
                                 )

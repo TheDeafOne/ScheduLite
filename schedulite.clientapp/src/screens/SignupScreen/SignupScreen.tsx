@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { useNavigate } from 'react-router-dom';
+import { Alert, Button, Grid, Link, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { Card, Link, TextField, Button, Grid, CardContent, Alert } from '@mui/material';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-import AuthService from '../../services/auth.service';
 import { UserContext, UserContextType } from "../../context/UserContext";
+import AuthService from '../../services/auth.service';
 
 import './SignupScreen.scss';
 
@@ -41,11 +40,11 @@ const Signup = () => {
         values.email,
         values.password
       ).then(() => {
-          AuthService.login(values.username, values.password).then(() => {
-            setUser(AuthService.getCurrentUser());
-            navigate("/schedule-selection");
-          })
-        },
+        AuthService.login(values.username, values.password).then(() => {
+          setUser(AuthService.getCurrentUser());
+          navigate("/schedule-selection");
+        })
+      },
         error => {
           const resMessage = (
             error.response &&
@@ -69,7 +68,7 @@ const Signup = () => {
               name="username"
               label="Username"
               variant="outlined"
-              sx={{paddingBottom: "10px"}}
+              sx={{ paddingBottom: "10px" }}
               value={formik.values.username}
               onChange={formik.handleChange}
               error={formik.touched.username && Boolean(formik.errors.username)}
@@ -82,7 +81,7 @@ const Signup = () => {
               name="email"
               label="Email"
               variant="outlined"
-              sx={{paddingBottom: "10px"}}
+              sx={{ paddingBottom: "10px" }}
               value={formik.values.email}
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}
@@ -96,15 +95,15 @@ const Signup = () => {
               label="Password"
               type="password"
               variant="outlined"
-              sx={{paddingBottom: "10px"}}
+              sx={{ paddingBottom: "10px" }}
               value={formik.values.password}
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
             />
           </Grid>
-          {message !== "" && <Alert sx={{marginBottom: "10px"}} severity="error">{message}</Alert>}
-          <Button sx={{marginBottom: "10px"}} color="primary" variant="contained" fullWidth type="submit">
+          {message !== "" && <Alert sx={{ marginBottom: "10px" }} severity="error">{message}</Alert>}
+          <Button sx={{ marginBottom: "10px" }} color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
         </form>
