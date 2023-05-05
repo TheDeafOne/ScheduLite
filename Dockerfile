@@ -3,13 +3,13 @@
 FROM gradle:7.1.0-jdk11 AS builder
 
 # Copy local code to the container image.
-WORKDIR /ScheduLite/ScheduLite.webservice
+WORKDIR /ScheduLite.webservice
 COPY . ./
 
 RUN ls
 
 # Build a release artifact.
-WORKDIR /ScheduLite/ScheduLite.webservice
+WORKDIR /ScheduLite.webservice
 RUN gradle build
 
 # build base image
