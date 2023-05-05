@@ -1,15 +1,20 @@
-import moment from "moment";
-import { useContext } from "react";
-import { ScheduleContext, ScheduleContextType } from "../../../context/ScheduleContext";
+import "./Calendar.scss"
+import { Dispatch, useContext, useEffect, useState } from "react";
 import ICourse from "../../../types/course.type";
-import "./Calendar.scss";
+import course from "../../../components/CourseComponents/Course";
+import moment from "moment";
+import ISchedule from "../../../types/schedule.type";
+import useDeepCompareEffect from 'use-deep-compare-effect';
+import { hover } from "@testing-library/user-event/dist/hover";
+import { ScheduleContext, ScheduleContextType } from "../../../context/ScheduleContext";
+import MouseOverPopover from "../../../components/PopOver/Popover";
+import TransitionsPopper from "../../../components/PopOver/Popper";
+import { containerClasses } from "@mui/material";
 
 const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse }: { tentativeCourseHover: ICourse | undefined, setCalendarCourseHover: Function, setViewCourse: Function }) => {
     // const [activeCourses, setActiveCourses] = useState<ICourse[]>(schedule.activeCourses)
     // const [objStringified, setObj] = useState(JSON.stringify(schedule.activeCourses))
     const { overlap, activeCourses } = useContext(ScheduleContext) as ScheduleContextType
-    console.log(typeof tentativeCourseHover);
-    console.log(JSON.stringify(tentativeCourseHover));
     // console.log(schedule);
     // console.log(`HOVER COURSE: ${hoverCourse}`)
     const convertClassToEvent = (course: ICourse, hover: boolean) => {
@@ -65,12 +70,12 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
             const inSchedule = activeCourses.courses.some((e: ICourse) => (e.id === course.id))
             const actOverlap = inSchedule && activeCourses.courses.some((e: ICourse) => (e.id !== course.id
                 && overlap(e, course)));
-            let tempCourse = course
-            tempCourse.overlap = actOverlap
+            // let tempCourse = course
+            // tempCourse.overlap = actOverlap
+            course.overlap = actOverlap
             events.push(convertClassToEvent(course, false));
         }
         if (tentativeCourseHover) {
-            console.log("HERE")
             events.push(convertClassToEvent(tentativeCourseHover, true));
         }
 
@@ -109,7 +114,7 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
     )
 }
 const Times = () => {
-    let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30"]
+    let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00" ,"5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30", "9:00"]
     let slots = []
     for (let i = 0; i < 24; i++) {
         slots.push(<div className={"time-slot"} id={i.toString()} key={times[i]}>
@@ -192,24 +197,18 @@ const CalendarCourse = (props: any) => {
     const handleMouseEnter = () => {
         props.setCalendarCourseHover(event.course);
         props.setViewCourse(true);
-        console.log("setting course event");
     }
     const handleMouseLeave = () => {
         // props.hoverCourse = null;
-        console.log("removing course event");
         props.setCalendarCourseHover(undefined);
         // props.setViewCourse(false);
     }
     // console.log("FROM CALENDAR COURSE")
-    console.log(event)
     return (
         // <MouseOverPopover course={event.course}>
         <div className={`calendar-course ${event.hover ? 'hover' : ''} ${event.course.overlap ? 'overlap' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ height: courseHeight }}>
             <div>
                 {event.courseTitle}
-            </div>
-            <div>
-                {event.timeStart} - {event.timeEnd}
             </div>
         </div>
         // </MouseOverPopover>

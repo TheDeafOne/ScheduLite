@@ -26,7 +26,6 @@ const Personal = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(Personal);
   };
 
   return (

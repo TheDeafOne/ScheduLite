@@ -1,142 +1,119 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router';
-import * as Yup from "yup";
-import { UserContext, UserContextType } from "../../context/UserContext";
+import React, { useContext, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { Card, Link, TextField, Button, Grid, CardContent, Alert } from '@mui/material';
+import * as yup from 'yup';
+
 import AuthService from '../../services/auth.service';
-import "./SignupScreen.scss";
+import { UserContext, UserContextType } from "../../context/UserContext";
+
+import './SignupScreen.scss';
+
+const validationSchema = yup.object().shape({
+  username: yup.string()
+    .required('Username is required')
+    .min(3, 'Username must be at least 3 characters')
+    .max(20, 'Username must not exceed 20 characters'),
+  email: yup.string()
+    .required('Email is required')
+    .email('Email is invalid'),
+  password: yup.string()
+    .required('Password is required')
+    .min(4, 'Password must be at least 4 characters')
+    .max(40, 'Password must not exceed 40 characters')
+});
 
 const Signup = () => {
-  const [successful, setSuccessful] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>("");
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext) as UserContextType
+  const [message, setMessage] = useState("");
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      email: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      AuthService.register(
+        values.username,
+        values.email,
+        values.password
+      ).then(() => {
+          AuthService.login(values.username, values.password).then(() => {
+            setUser(AuthService.getCurrentUser());
+            navigate("/schedule-selection");
+          })
+        },
+        error => {
+          const resMessage = (
+            error.response &&
+            error.response.data &&
+            error.response.data.message
+          ) || error.message || error.toString();
 
-  function validationSchema() {
-    return Yup.object().shape({
-      username: Yup.string()
-        .test(
-          "len",
-          "The username must be between 3 and 20 characters.",
-          (val: any) =>
-            val &&
-            val.toString().length >= 3 &&
-            val.toString().length <= 20
-        )
-        .required("This field is required!"),
-      email: Yup.string()
-        .email("This is not a valid email.")
-        .required("This field is required!"),
-      password: Yup.string()
-        .test(
-          "len",
-          "The password must be between 6 and 40 characters.",
-          (val: any) =>
-            val &&
-            val.toString().length >= 6 &&
-            val.toString().length <= 40
-        )
-        .required("This field is required!"),
-    });
-  }
-
-  function handleRegister(formValue: { username: string; email: string; password: string }) {
-    const { username, email, password } = formValue;
-
-    setMessage("");
-    setSuccessful(false);
-
-    AuthService.register(
-      username,
-      email,
-      password
-    ).then(
-      response => {
-        setMessage(response.data.message);
-        setSuccessful(true);
-        AuthService.login(username,password);
-        setUser(AuthService.getCurrentUser());
-        navigate("/schedule-selection");
-      },
-      error => {
-        const resMessage = (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) || error.message || error.toString();
-
-        setSuccessful(false);
-        setMessage(resMessage);
-      }
-    );
-  }
+          setMessage(resMessage);
+        }
+      );
+    }
+  });
 
   return (
-    <div className={"signup"}>
-      <div>
-        <Formik
-          initialValues={{ username: "", email: "", password: "" }}
-          validationSchema={validationSchema}
-          onSubmit={handleRegister}
-        >
-          <Form>
-            {!successful && (
-              <div>
-                <div>
-                  <label htmlFor="username"> Username </label>
-                  <Field name="username" type="text" />
-                  <ErrorMessage
-                    name="username"
-                    component="div"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email"> Email </label>
-                  <Field name="email" type="email" />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="password"> Password </label>
-                  <Field
-                    name="password"
-                    type="password"
-                  />
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                  />
-                </div>
-                <div>
-                  <button type="submit">Sign Up</button>
-                </div>
-              </div>
-            )}
-
-            {message && (
-              <div>
-                <div
-                  role="alert"
-                >
-                  {message}
-                </div>
-              </div>
-            )}
-          </Form>
-        </Formik>
+    <div className="card-container">
+      <div className="form-container">
+        <form onSubmit={formik.handleSubmit}>
+          <Grid>
+            <TextField
+              id="username"
+              name="username"
+              label="Username"
+              variant="outlined"
+              sx={{paddingBottom: "10px"}}
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              id="email"
+              name="email"
+              label="Email"
+              variant="outlined"
+              sx={{paddingBottom: "10px"}}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              variant="outlined"
+              sx={{paddingBottom: "10px"}}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+          </Grid>
+          {message !== "" && <Alert sx={{marginBottom: "10px"}} severity="error">{message}</Alert>}
+          <Button sx={{marginBottom: "10px"}} color="primary" variant="contained" fullWidth type="submit">
+            Submit
+          </Button>
+        </form>
+        <Link href="/login">
+          Already have an account? Log In
+        </Link>
       </div>
-      <label>
-        already have an account?
-      </label>
-      <button onClick={() => { navigate("/login") }}>
-        sign in
-      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

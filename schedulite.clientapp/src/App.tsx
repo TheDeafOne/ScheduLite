@@ -33,12 +33,34 @@ function AppBody() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modal, setModal] = useState(null);
     const [linkedSchedule, setLinkedSchedule] = useState(false);
+    const [panelVisible, setPanelVisible] = useState<boolean>(true);
 
     let linkedScheduleObj: linkedScheduleObjType = {
         linkedSchedule: linkedSchedule,
         setLinkedSchedule: setLinkedSchedule
     }
+    const customModalStyles = {
+        content: {
+          top: '50%',
+          left: '50%',
+          width: '50%',
+        //   right: 'auto',
+        //   bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      };
+    useEffect(() => {
+        window.addEventListener("beforeunload", alertUser);
+        return () => {
+            window.removeEventListener("beforeunload", alertUser);
+        };
+    }, []);
 
+    const alertUser = (e: any) => {
+        e.preventDefault();
+        e.returnValue = "";
+    };
     useEffect(() => {
         const userStr = localStorage.getItem("user");
         if (userStr) {
@@ -110,13 +132,13 @@ function AppBody() {
                     <Route
                         path="/"
                         element={
-                            <Home linkedScheduleObj={linkedScheduleObj} />
+                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible}/>
                         }
                     />
                     <Route
                         path="/Search"
                         element={
-                            <SearchPage linkedSchedule={false} />
+                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible}/>
                         }
                     />
                     <Route path="/profile" element={<Profile />} />

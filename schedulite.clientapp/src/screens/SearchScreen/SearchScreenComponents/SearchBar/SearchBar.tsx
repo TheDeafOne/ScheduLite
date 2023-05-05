@@ -2,7 +2,7 @@
 // import List from "./Components/List";
 import "./SearchBar.scss";
 
-const SearchBar = (props: any) => {
+const SearchBar = (props : any) => {
     const onclick = () => {
         if (props.firstClick) {
             // setFirstClick(false)
@@ -10,16 +10,8 @@ const SearchBar = (props: any) => {
         }
     }
 
-    const handleKeyDown = (event: any) => {
-        props.setQuery(event.target.value)
-        console.log("EVENT TARGET VALUE")
-        console.log(event.target.value)
+    const handleKeyDown = (event : any) => {
         props.onEnter(event.target.value);
-
-        // if (event.key === 'Enter') {
-        //     // 👇 Get input value
-        //     props.onEnter(query);
-        // }
     };
     return (
         <div className={"searchBar"}>

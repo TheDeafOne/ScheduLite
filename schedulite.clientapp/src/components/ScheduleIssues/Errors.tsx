@@ -8,9 +8,9 @@ import "./Issues.scss";
 
 const Errors = () => {
     const { errors, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
-    let scheduleErrors = errors()
-    console.log("ERRORS UPDATED")
-    console.log(JSON.stringify(scheduleErrors))
+    // let scheduleErrors = errors()
+    console.log("FROM ERRORS")
+    console.log(JSON.stringify(errors))
     const conditionalRemoveCourse = (course: ICourse) => {
         setActiveCourses({ course: course, type: "remove" });
     }
@@ -21,13 +21,13 @@ const Errors = () => {
     return (
         <>
             {
-                scheduleErrors.overlap.value && (
+                errors.overlap.value && (
                     <div className={"issue-container error"}>
                         <div className={"error-container-title error-title"}>Errors</div>
                         <div className={"error-container-subtitle"}><ErrorOutlineIcon sx={{ paddingRight: "5px" }} />Courses overlap: </div>
                         <div className={"error-courses-container"}>
                             {
-                                scheduleErrors.overlap.courses.map((course) => {
+                                errors.overlap.courses.map((course) => {
                                     return (
                                         <div className={"error-course"}>
                                             <div className={"error-course-title"}>

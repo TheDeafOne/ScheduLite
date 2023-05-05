@@ -12,9 +12,10 @@ const Course = (props: any) => {
     const { activeCourses, tentativeCourses, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
     const course: ICourse = props.course
-
-    const onCourseClick = (event: any) => {
+    const validDate = course.convertedStartDate!.isValid() || course.convertedEndDate!.isValid()
+    const onCourseClick = (event : any) => {
         props.onCourseClick(course)
+        console.log(validDate)
     }
 
     const [active, setActive] = useState(activeCourses.courses.some((e: ICourse) => e.id === course.id))
@@ -75,12 +76,11 @@ const Course = (props: any) => {
                             {course.courseTitle}
                         </div>
                         <div className={"subtitle"}>
-                            {course.coursePrefix} {course.courseNumber}{course.courseSection} | {course.convertedStartDate ?
-                                course.convertedStartDate.format("hh:mm")
+                            {course.coursePrefix} {course.courseNumber}{course.courseSection} {course.convertedStartDate && validDate ?
+                                <> | {course.convertedStartDate.format("h:mm")} - </>
                                 : ""}
-                            -
-                            {course.convertedEndDate ?
-                                course.convertedEndDate.format("hh:mm")
+                            {course.convertedEndDate && validDate ?
+                                course.convertedEndDate.format("h:mm")
                                 : ""}
                         </div>
                     </div>
@@ -106,14 +106,23 @@ const Course = (props: any) => {
                         </div>
 
                         <div className={"subtitle"}>
-                            {course.semester} |
-                            {course.convertedStartDate ?
-                                course.convertedStartDate.format("hh:mm")
-                                : ""}
-                            -
-                            {course.convertedEndDate ?
-                                course.convertedEndDate.format("hh:mm")
-                                : ""}
+                            <span>
+                                {course.semester} |
+                            </span>
+                            {validDate && (
+                                <span>
+                                    &nbsp;{(course.convertedStartDate && validDate) ?
+                                        <>{course.convertedStartDate.format("hh:mm")} - </>
+                                        : ""}
+                                    {course.convertedEndDate && validDate ?
+                                        course.convertedEndDate.format("hh:mm")
+                                        : ""} |
+
+                                </span>
+                            )}
+                            <span>
+                                &nbsp;{course.lastName}
+                            </span>
                         </div>
                         {/*{props.data.id}*/}
                     </div>
