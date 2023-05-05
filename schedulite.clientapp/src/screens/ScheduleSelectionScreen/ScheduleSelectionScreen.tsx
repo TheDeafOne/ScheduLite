@@ -20,7 +20,7 @@ export const filteredBlocks: ISchedule[] = [];
 
 const BlockPage = ({setIsOpen, setModal}: any) => {
   const { user,setUser } = useContext(UserContext) as UserContextType;
-  const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
+  const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses, onScheduleOpen } = useContext(ScheduleContext) as ScheduleContextType
   const [yearFilter, setYearFilter] = useState<string | undefined>();
   const [semesterFilter, setSemesterFilter] = useState<string | undefined>();
    const [initialFilteredBlocks, setInitialFilteredBlocks] = useState<ISchedule[] | undefined>(blocks)
@@ -61,7 +61,7 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
     setYear(currentSchedule.year);
     setActiveCourses({course: null, type:"setAll", courseList:currentSchedule.activeCourses});
     setTentativeCourses({course: null, type:"setAll", courseList:currentSchedule.tentativeCourses});
-    // saveSchedule()
+    onScheduleOpen(currentSchedule.activeCourses, currentSchedule.tentativeCourses);
     navigate("/");
   };
 

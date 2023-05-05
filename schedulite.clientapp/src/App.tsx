@@ -58,7 +58,17 @@ function AppBody() {
           transform: 'translate(-50%, -50%)',
         },
       };
+    useEffect(() => {
+        window.addEventListener("beforeunload", alertUser);
+        return () => {
+            window.removeEventListener("beforeunload", alertUser);
+        };
+    }, []);
 
+    const alertUser = (e: any) => {
+        e.preventDefault();
+        e.returnValue = "";
+    };
     useEffect(() => {
         const userStr = localStorage.getItem("user");
         if (userStr) {

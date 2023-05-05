@@ -65,7 +65,7 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
         const getData = setTimeout(() => {
             axiosConfig.get(url)
                 .then(r => {
-                    let filterVal = query === "" ? 5 : 50
+                    let filterVal = query === "" && filters.every(x => x.value === "") ? 5 : 50
                     let data = r.data.splice(0, filterVal)
                     data.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
                         array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
@@ -144,7 +144,7 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
                             />
                         </motion.div>
                         {matched ?? "No course matched your"}
-                        {query === "" ? <span className="suggested">Suggested Courses:</span> : ""}
+                        {query === "" && filters.every(x => x.value === "") ? <span className="suggested">Suggested Courses:</span> : ""}
                         <Results response={response} onCourseClick={onCourseClick} />
                     </div>
                     <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} />

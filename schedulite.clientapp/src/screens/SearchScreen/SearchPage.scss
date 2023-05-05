@@ -26,6 +26,7 @@ label {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-bottom: 5px;
   .back-button {
     all: unset;
     display: flex;
@@ -49,6 +50,7 @@ label {
   }
   .back-button-title {
     font-size: 20px;
+    font-weight: bold;
   }
 }
 
