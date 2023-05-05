@@ -9,8 +9,7 @@ COPY . ./
 RUN ls
 
 # Build a release artifact.
-WORKDIR /schedulite/shcedulite.webservice
-RUN gradle build
+RUN gradle -p schedulite.webservice build
 
 # build base image
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
