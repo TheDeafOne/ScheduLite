@@ -6,6 +6,8 @@ FROM gradle:7.1.0-jdk11 AS builder
 WORKDIR /schedulite/schedulite.webservice
 COPY . ./
 
+RUN ls
+
 # Build a release artifact.
 RUN gradle build
 
