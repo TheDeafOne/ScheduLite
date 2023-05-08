@@ -2,7 +2,6 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import {grey} from '@mui/material/colors';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import NavBar from "./components/NavBar/NavBar";
 import { UserContext, UserContextType } from './context/UserContext';
