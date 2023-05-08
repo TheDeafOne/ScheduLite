@@ -2,6 +2,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import {grey} from '@mui/material/colors';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import NavBar from "./components/NavBar/NavBar";
 import { UserContext, UserContextType } from './context/UserContext';
@@ -15,6 +16,7 @@ import AuthService from './services/auth.service';
 import './styles/App.scss';
 import { getDesignTokens } from "./styles/CustomPalette";
 import IUser from './types/user.type';
+import './components/Modals/ScheduleModal.scss';
 // import Brightness4Icon from '@mui/icons-material/Brightness4';
 // import Brightness7Icon from '@mui/icons-material/Brightness7';
 
@@ -85,6 +87,7 @@ function AppBody() {
                     portalClassName="modal"
                     shouldCloseOnEsc={true}
                     shouldCloseOnOverlayClick={true}
+                    
                     style={{
                         overlay: {
                             position: 'fixed',
@@ -98,6 +101,7 @@ function AppBody() {
                             top: '50%',
                             left: '50%',
                             width: '30%',
+                            height: "50%",
                             color: 'white',
                             display: 'flex',
                             alignItems: 'center',
@@ -105,7 +109,7 @@ function AppBody() {
                             marginRight: '-50%',
                             transform: 'translate(-50%, -50%)',
                             border: '1px solid #ccc',
-                            background: '#415561',
+                            background: '#254058',
                             overflow: 'auto',
                             WebkitOverflowScrolling: 'touch',
                             borderRadius: '10px',
@@ -157,6 +161,7 @@ function AppBody() {
         // </ScheduleProvider>
     );
 }
+
 function App() {
     const [mode, setMode] = React.useState<'light' | 'dark'>('dark');
 
