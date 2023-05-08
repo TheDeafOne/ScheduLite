@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useReducer, useState} from "react";
+import React, {createContext, useContext, useEffect, useReducer, useState} from "react";
 import IUser from "../types/user.type";
 import ICourse from "../types/course.type";
 import ISchedule from "../types/schedule.type";
@@ -20,11 +20,18 @@ export const UserProvider = (props : any) => {
     const scheduleExists = (name: string) => {
         return user && user.schedules && user.schedules.some((e : ISchedule) => e.scheduleName === name)
     }
+    useEffect(() => {
+        console.log(user?.schedules)
+    }, [user])
     const addUserSchedule = (schedule: ISchedule) => {
         if (user) {
-            let tempUser = user
-            tempUser.schedules = tempUser.schedules ? [...tempUser.schedules, schedule] : [schedule]
-            setUser(tempUser)
+            // if (!scheduleExists(schedule.scheduleName)) {
+                let tempUser = user
+                tempUser.schedules = tempUser.schedules ? [...tempUser.schedules, schedule] : [schedule]
+                console.log("ADDING SCHEDULE TO USER")
+                setUser(tempUser)
+            // }
+
         }
     }
     const updateUserSchedule = (schedule: ISchedule) => {

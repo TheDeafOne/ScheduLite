@@ -35,10 +35,17 @@ const BlockPage = ({setIsOpen, setModal}: any) => {
   useEffect(() => {
     if (user !== undefined && user !== null) {
       console.log("HERE ITS WORKING")
+      console.log(user!.schedules)
       setFilteredBlocks(user!.schedules);
       setInitialFilteredBlocks(user!.schedules);
     }
   })
+  useEffect(() => {
+    if (user !== undefined && user !== null) {
+      setFilteredBlocks(user!.schedules);
+      setInitialFilteredBlocks(user!.schedules);
+    }
+  }, [user])
   useEffect(() => {
     let blocks = initialFilteredBlocks
     const yearFilteredBlocks = (yearFilter !== undefined && yearFilter !== "") ? blocks!.filter((block) => block.year === yearFilter) : blocks;

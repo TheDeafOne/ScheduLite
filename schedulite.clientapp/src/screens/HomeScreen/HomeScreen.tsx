@@ -43,9 +43,11 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
         console.log("CALLLLLEDDDDD")
         setScheduleSaved(saved);
         }, [saved])
-    useEffect(() => {
-        onSaveClick()
-    }, [])
+
+    // useEffect(() => {
+    //     console.log("called twice")
+    //     onSaveClick()
+    // }, [saved])
     // useEffect(() => {
     //     saveSchedule()
     // })
@@ -53,6 +55,7 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible } : { linkedSch
     // const saveSchedule = () =>
 
     const onSaveClick = () => {
+        console.log("saved (shuold only be once)")
         if (user) {
             saveSchedule()
             setSavedMessage("Saved!")

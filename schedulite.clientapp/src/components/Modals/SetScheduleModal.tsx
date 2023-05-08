@@ -6,7 +6,7 @@ import {filteredBlocks} from "../../screens/ScheduleSelectionScreen/ScheduleSele
 import { UserContext, UserContextType } from '../../context/UserContext';
 
 const SetScheduleModal = ({ setIsOpen }: any) => {
-    const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
+    const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses, saveSchedule, onScheduleOpen } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
     const [ scheduleSemester, setScheduleSemester ] = useState("Fall")
