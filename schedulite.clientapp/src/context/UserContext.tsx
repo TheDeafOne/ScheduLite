@@ -19,9 +19,7 @@ export const UserProvider = (props: any) => {
     const scheduleExists = (name: string) => {
         return user && user.schedules && user.schedules.some((e: ISchedule) => e.scheduleName === name)
     }
-    useEffect(() => {
-        console.log(user?.schedules)
-    }, [user])
+
     const addUserSchedule = (schedule: ISchedule) => {
         if (user) {
             // if (!scheduleExists(schedule.scheduleName)) {
