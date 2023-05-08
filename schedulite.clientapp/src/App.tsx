@@ -1,41 +1,33 @@
-import React, { useState, useEffect, useContext } from 'react';
-import './styles/App.scss';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import Home from './screens/HomeScreen/HomeScreen';
-import SearchPage from "./screens/SearchScreen/SearchPage";
-import { AnimatePresence, useTransform } from "framer-motion";
-import ISchedule from "./types/schedule.type";
-import ICourse from "./types/course.type";
-import Profile from "./screens/ProfileScreen/ProfileScreen"
-import Signup from "./screens/SignupScreen/SignupScreen";
-import Login from "./screens/LoginScreen/LoginScreen";
-import NavBar from "./components/NavBar/NavBar"
+import { ThemeProvider, createTheme } from "@mui/material";
+import { AnimatePresence } from "framer-motion";
+import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import NavBar from "./components/NavBar/NavBar";
 import { UserContext, UserContextType } from './context/UserContext';
-import IUser from './types/user.type';
-import { ScheduleProvider } from './context/ScheduleContext';
+import Home from './screens/HomeScreen/HomeScreen';
+import Login from "./screens/LoginScreen/LoginScreen";
+import Profile from "./screens/ProfileScreen/ProfileScreen";
 import BlockPage from './screens/ScheduleSelectionScreen/ScheduleSelectionScreen';
+import SearchPage from "./screens/SearchScreen/SearchPage";
+import Signup from "./screens/SignupScreen/SignupScreen";
 import AuthService from './services/auth.service';
-import SetScheduleModal from './components/Modals/SetScheduleModal';
-import {useTheme, createTheme, ThemeProvider, CssBaseline} from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import {getDesignTokens} from "./styles/CustomPalette";
+import './styles/App.scss';
+import { getDesignTokens } from "./styles/CustomPalette";
+import IUser from './types/user.type';
 // import Brightness4Icon from '@mui/icons-material/Brightness4';
 // import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 Modal.setAppElement('#root');
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
-export interface linkedScheduleObjType {linkedSchedule: boolean, setLinkedSchedule: React.Dispatch<React.SetStateAction<boolean>>}
+export interface linkedScheduleObjType { linkedSchedule: boolean, setLinkedSchedule: React.Dispatch<React.SetStateAction<boolean>> }
 
 // const defaultTheme = {
 //
 // }
 function AppBody() {
-    const theme = useTheme();
-    const colorMode = React.useContext(ColorModeContext);
-
     const { setUser } = useContext(UserContext) as UserContextType;
     const location = useLocation();
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -43,22 +35,21 @@ function AppBody() {
     const [linkedSchedule, setLinkedSchedule] = useState(false);
     const [panelVisible, setPanelVisible] = useState<boolean>(true);
 
-    let linkedScheduleObj : linkedScheduleObjType = {
+    let linkedScheduleObj: linkedScheduleObjType = {
         linkedSchedule: linkedSchedule,
         setLinkedSchedule: setLinkedSchedule
     }
-    const customModalStyles = {
-        content: {
-          top: '50%',
-          left: '50%',
-          width: '50%',
-        //   right: 'auto',
-        //   bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-        },
-      };
+    useEffect(() => {
+        window.addEventListener("beforeunload", alertUser);
+        return () => {
+            window.removeEventListener("beforeunload", alertUser);
+        };
+    }, []);
 
+    const alertUser = (e: any) => {
+        e.preventDefault();
+        e.returnValue = "";
+    };
     useEffect(() => {
         const userStr = localStorage.getItem("user");
         if (userStr) {
@@ -72,12 +63,8 @@ function AppBody() {
             // THIS IS HAPPENING EVERY TIME BRUH
             setUser(user);
         }
-        
+        // eslint-disable-next-line
     }, [])
-
-    function openModal() {
-        setIsOpen(true);
-    }
 
     function afterOpenModal() {
         console.log("after open model");
@@ -126,21 +113,21 @@ function AppBody() {
                             padding: '20px'
                         }
                     }}
-                    >
-                        {modal}
+                >
+                    {modal}
                 </Modal>
                 <NavBar />
                 <Routes>
                     <Route
                         path="/"
                         element={
-                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible}/>
+                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible} />
                         }
                     />
                     <Route
                         path="/Search"
                         element={
-                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible}/>
+                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible} />
                         }
                     />
                     <Route path="/profile" element={<Profile />} />
@@ -152,20 +139,20 @@ function AppBody() {
 
     return (
         // <ScheduleProvider>
-            <div className="App" id={"app"}>
-                {/*<div className={"main-div"}>*/}
-                    <AnimatePresence mode={"wait"}>
-                        <Routes location={location} key={location.pathname}>
-                            {/*<Route path="/" element={<Home />} />*/}
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/signup" element={<Signup />} />
-                            <Route path="/*" Component={DefaultRoutes} />
-                        </Routes>
-                    </AnimatePresence>
+        <div className="App" id={"app"}>
+            {/*<div className={"main-div"}>*/}
+            <AnimatePresence mode={"wait"}>
+                <Routes location={location} key={location.pathname}>
+                    {/*<Route path="/" element={<Home />} />*/}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/*" Component={DefaultRoutes} />
+                </Routes>
+            </AnimatePresence>
 
-                {/*</div>*/}
+            {/*</div>*/}
 
-            </div>
+        </div>
 
         // </ScheduleProvider>
     );

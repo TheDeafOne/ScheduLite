@@ -1,13 +1,10 @@
 
-import React, {useEffect, useState} from 'react'
-import axiosConfig from "../../api/axios-config";
-import SearchPage from "./SearchPage";
+import { useState } from 'react';
 import Course from "../../components/CourseComponents/Course";
-import "../../components/CourseComponents/Results/Results.scss"
-import {DndContext} from '@dnd-kit/core';
+import "../../components/CourseComponents/Results/Results.scss";
 
 
-const Results = (props : any) => {
+const Results = (props: any) => {
     const [isDropped, setIsDropped] = useState(false);
     // useEffect(() => {
     //     axiosConfig.get("/users/roles")
@@ -20,23 +17,22 @@ const Results = (props : any) => {
     // }, [])
 
     // console.log(props.response)
-    console.log(props)
     return (
         <>
             {
                 props.response[1] &&
-                    (
-                        <div className={"results"}>
-                            {
-                                props.response.map((data :{} , idx: number) => {
-                                    return (
-                                        // <Course /> WILL PROBABLY GO HERE WITH ALL THE INFORMATION ABOUT EACH COURSE
-                                        <Course data={data} idx={idx} key={idx} onCourseClick={props.onCourseClick}/>
-                                    )
-                                })
-                            }
-                        </div>
-                    )
+                (
+                    <div className={"results"}>
+                        {
+                            props.response.map((data: {}, idx: number) => {
+                                return (
+                                    // <Course /> WILL PROBABLY GO HERE WITH ALL THE INFORMATION ABOUT EACH COURSE
+                                    <Course data={data} idx={idx} key={idx} onCourseClick={props.onCourseClick} />
+                                )
+                            })
+                        }
+                    </div>
+                )
             }
 
         </>

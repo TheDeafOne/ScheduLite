@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/auth.service';
 import VerticalTabs from './VerticalTabs';
-import { useNavigate } from 'react-router-dom';
-import { UserContext, UserContextType } from '../../context/UserContext';
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -11,6 +10,7 @@ const Profile = () => {
         if (AuthService.getCurrentUser() === null) {
             navigate("/login", { replace: true });
         }
+        // eslint-disable-next-line
     }, [])
     return (
         <div>

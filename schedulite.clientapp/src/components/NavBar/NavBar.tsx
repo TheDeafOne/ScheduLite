@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
-import UserOptions from './UserOptions/UserOptions';
-import AuthOptions from './AuthOptions/AuthOptions';
-import { UserContext, UserContextType } from '../../context/UserContext';
-import './NavBar.scss';
+import { useContext } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { UserContext, UserContextType } from '../../context/UserContext';
+import AuthOptions from './AuthOptions/AuthOptions';
+import './NavBar.scss';
+import UserOptions from './UserOptions/UserOptions';
 
 const NavBar = () => {
     const { user } = useContext(UserContext) as UserContextType;
@@ -23,7 +22,7 @@ const NavBar = () => {
                 </div>
                 {["/", "/Search"].includes(location.pathname) &&
                     <div className={"nav-bar-schedule-name"}>
-                        {name != "" ? name : "No name for schedule"}
+                        {name !== "" ? name : "No name for schedule"}
                     </div>
                 }
 

@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthService from "../../services/auth.service";
-import IUser from "../../types/user.type";
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
 
-interface Personal {
+interface IPersonal {
   firstName: string;
   lastName: string;
   major: string;
@@ -14,7 +10,7 @@ interface Personal {
 }
 
 const Personal = () => {
-  const [Personal, setPersonal] = useState<Personal>({
+  const [Personal, setPersonal] = useState<IPersonal>({
     firstName: "",
     lastName: "",
     major: "",
@@ -30,7 +26,6 @@ const Personal = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(Personal);
   };
 
   return (
@@ -40,9 +35,9 @@ const Personal = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <TextField
-              id="outlined-basic"
-              label="First Name"
-              variant="outlined"
+            id="outlined-basic"
+            label="First Name"
+            variant="outlined"
           />
 
           <label htmlFor="firstName">First Name:</label>

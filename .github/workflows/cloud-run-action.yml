@@ -26,8 +26,6 @@ env:
   SPRING_SECURITY_USER: '${{ secrets.SPRING_SECURITY_USER }}'
   SPRING_SECURITY_PASSWORD: '${{ secrets.SPRING_SECURITY_PASSWORD }}'
 
-
-
 jobs:
   deploy:
     name: cloud run deployment

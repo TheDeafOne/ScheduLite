@@ -1,82 +1,61 @@
-import React, {useContext, useEffect, useState} from "react";
-import axiosConfig from "../../../api/axios-config";
-import Results from "../../../components/CourseComponents/Results/Results";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { HiChevronLeft } from "react-icons/hi";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {Filters} from "../SearchPage";
-import {UserContext, UserContextType} from "../../../context/UserContext";
+import { MenuItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import IFilter from "../../../types/filter.type";
 
-// import TextField from "@mui/material/TextField";
-// import List from "./Components/List";
-// import "./App.scss";
+const FilterPanel = ({ filters, setFilters, onEnter }: { filters: IFilter[], setFilters: Function, onEnter: Function }) => {
 
-const FilterPanel = ({filters, onEnter} : {filters : Filters, onEnter : Function}) => {
-    const { user } = useContext(UserContext) as UserContextType
     const navigate = useNavigate();
     const onBackClick = () => {
         navigate("/")
     }
-    const handleKeyDown = (event : any, setFilter : Function) => {
-        if (event.key === 'Enter') {
-            setFilter(event.target.value)
-            // 👇 Get input value
-            onEnter();
-        }
+
+    const handleFilterChange = (event: any, filterIndex: any) => {
+        //https://stackoverflow.com/questions/72950841/component-not-re-rendering-after-change-in-an-object-state-in-react
+        const newFilters = [...filters]
+        newFilters[filterIndex].value = event.target.value
+        setFilters(newFilters);
+        onEnter();
     };
 
     return (
         <div className={"side-panel left-panel"}>
-            <div className={"side-panel-title"} >
+            <div className={"back-button-container"}>
                 <button onClick={onBackClick} className={"back-button"}><ArrowBackIcon /></button>
-                Filter Page
+                <div className={"back-button-title"}>
+                    Back to Schedule
+                </div>
             </div>
             <div className={"filters"}>
-                <label htmlFor={"semester-filter"}>Semester: </label>
-                <input className={"filter-input"} id="semester-filter"  value={filters.semester} disabled={user !== null}/><br/>
-                {/*<label htmlFor={"name-filter"}>Last name: </label>*/}
-                <TextField
-                    id="outlined-basic"
-                    value={filters.semester}
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    disabled={user !== null}
-                    // disabled={user !== null}
-                />
-                <TextField
-                    id="outlined-basic"
-                    label="Last Name"
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    onBlur={(event) => filters.setNameFilter(event.target.value)}
-                    onKeyDown={(event) => handleKeyDown(event, filters.setNameFilter)}
-                    // disabled={user !== null}
-                />
-                <TextField
-                    id="outlined-basic"
-                    label="Start Time"
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    onBlur={(event) => filters.setTimeFilter(event.target.value)}
-                    onKeyDown={(event) => handleKeyDown(event, filters.setTimeFilter)}
-                    // disabled={user !== null}
-                />
-                <TextField
-                    id="outlined-basic"
-                    label="Days"
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    onBlur={(event) => filters.setDayFilter(event.target.value)}
-                    onKeyDown={(event) => handleKeyDown(event, filters.setDayFilter)}
-                    // disabled={user !== null}
-                />
-                {/*<label htmlFor={"name-filter"}>Last name: </label>*/}
-                {/*<input className={"filter-input"} id="name-filter" placeholder={"Enter Last Name"} onBlur={(event) => filters.setNameFilter(event.target.value)}/><br/>*/}
-                {/*<label htmlFor={"time-filter"}>Start Time: </label>*/}
-                {/*<input className={"filter-input"} id="time-filter" placeholder={"Enter Time, e.g. 10:00"} onBlur={(event) => filters.setTimeFilter(event.target.value)}/><br/>*/}
-                {/*<label htmlFor={"day-filter"}>Days: </label>*/}
-                {/*<input className={"filter-input"} id="day-filter" placeholder={"Enter Days, e.g. MWF, or MW"} onBlur={(event) => filters.setDayFilter(event.target.value)}/><br/>*/}
+                {filters.map((filterInfo: any, i) => {
+
+                    return (
+                        <TextField
+                            key={filterInfo.name}
+                            variant="outlined"
+                            sx={{ paddingBottom: "10px" }}
+                            select={filterInfo.type === "selection"}
+                            size="small"
+                            disabled={filterInfo?.disabled}
+                            onChange={(event) => {
+                                handleFilterChange(event, i);
+                            }}
+                            // onKeyDown={handleKeyDown}
+                            value={filterInfo.value}
+                            label={filterInfo.name}
+                            className="filter-input"
+                        >
+                            {filterInfo.type === "text" ? filterInfo.name :
+                                filterInfo.options.map((option: any) => (
+                                    <MenuItem key={option.label} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                        </TextField>
+                    )
+                })}
             </div>
         </div>
     )
