@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8080/api/v1',
+    baseURL: 'https://schedulite-webservice-z3amrpaz5q-uc.a.run.app/api/v1',
     headers: { "ngrok-skip-browser-warning": "false" }
 })
 instance.interceptors.request.use(request => {

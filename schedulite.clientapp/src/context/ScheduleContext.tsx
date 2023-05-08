@@ -118,6 +118,9 @@ export const ScheduleProvider = (props: any) => {
     const { scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
 
+        if (name === "") {
+            return;
+        }
         let activeIds = activeCourses.courses.map((value: ICourse) => {
             return { id: value.id }
         })
@@ -155,6 +158,7 @@ export const ScheduleProvider = (props: any) => {
                 .then(response => {
                     if (response.status === 200) {
                         setSaved(true)
+                        console.log("post request called twice?")
                         addUserSchedule(schedule)
                     }
                 });
@@ -188,7 +192,13 @@ export const ScheduleProvider = (props: any) => {
         setSaved(false);
         saveSchedule()
 
+        for (const course of activeCourses.courses) {
+            const inSchedule = activeCourses.courses.some((e: ICourse) => (e.id === course.id))
+            course.overlap = inSchedule && activeCourses.courses.some((e: ICourse) => (e.id !== course.id
+                && overlap(e, course)));
+        }
         let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
+        console.log(activeCourses.courses)
         console.log(coursesWithOverlap);
         // console.log(errors)
         setErrors({
