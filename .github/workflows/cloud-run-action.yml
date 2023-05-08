@@ -60,7 +60,7 @@ jobs:
       - name: Deploy
         run: |
           gcloud run deploy schedulite \
-          --region europe-west1 \
+          --region us-central1 \
           --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/schedulite \
           --platform managed \
           --allow-unauthenticated \
