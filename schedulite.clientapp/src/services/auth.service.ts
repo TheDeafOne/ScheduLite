@@ -1,4 +1,3 @@
-import { MdSouth } from "react-icons/md";
 import axios from "../api/axios-config";
 
 const authPrefix = 'auth'
@@ -21,7 +20,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("user");
-    
+
   }
 
   register(username: string, email: string, password: string) {
@@ -39,5 +38,5 @@ class AuthService {
     return null;
   }
 }
-
+// eslint-disable-next-line
 export default new AuthService();

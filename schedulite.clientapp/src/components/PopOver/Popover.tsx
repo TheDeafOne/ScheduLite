@@ -1,9 +1,9 @@
-import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import CourseCard from "../CourseComponents/CourseCard";
 
-export default function MouseOverPopover(props : any) {
+export default function MouseOverPopover(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
     const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -45,7 +45,7 @@ export default function MouseOverPopover(props : any) {
                 onClose={handlePopoverClose}
                 disableRestoreFocus
             >
-                <CourseCard course={props.course}/>
+                <CourseCard course={props.course} />
             </Popover>
         </div>
     );

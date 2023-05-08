@@ -1,38 +1,30 @@
 import { motion } from "framer-motion";
 import moment from "moment";
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axiosConfig from "../../api/axios-config";
 import CourseDetailPanel from "../../components/CourseComponents/CourseDetailPanel";
 import Results from "../../components/CourseComponents/Results/Results";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
-import { UserContext, UserContextType } from "../../context/UserContext";
 import ICourse from "../../types/course.type";
 import "./SearchPage.scss";
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import SearchBar from "./SearchScreenComponents/SearchBar/SearchBar";
-import "./SearchPage.scss";
-import Course from "../../components/CourseComponents/Course";
-import ISchedule from "../../types/schedule.type";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 
 
-const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse] = useState<ICourse | undefined>();
     const [searchType, setSearchType] = useState("Course Title")
     const [viewCourse, setViewCourse] = useState(false);
-    const [matched, setMatched] = useState(false);
-    const { user } = useContext(UserContext) as UserContextType
     const [url, setUrl] = useState("/courses");
 
     const { semester, year } = useContext(ScheduleContext) as ScheduleContextType
 
     let filterSet = [
-        { name: "Year", paramName: "year", type: "selection", value: year, options: [{label: "2018",value:"2018"}, {label: "2019",value:"2019"}, {label: "2020",value:"2020"}, {label: "all", value:""}], disabled:(year!=="") },
-        { name: "Semester", paramName: "semester", type: "selection", value: semester, options: [{label: "Spring", value: "Spring"}, {label: "Fall", value: "Fall"}, {label: "All", value:""}],disabled:(semester!=="") },
+        { name: "Year", paramName: "year", type: "selection", value: year, options: [{ label: "2018", value: "2018" }, { label: "2019", value: "2019" }, { label: "2020", value: "2020" }, { label: "all", value: "" }], disabled: (year !== "") },
+        { name: "Semester", paramName: "semester", type: "selection", value: semester, options: [{ label: "Spring", value: "Spring" }, { label: "Fall", value: "Fall" }, { label: "All", value: "" }], disabled: (semester !== "") },
         { name: "Course Prefix", paramName: "coursePrefix", type: "text", value: "" },
         { name: "Course Code", paramName: "courseNumber", type: "text", value: "" },
         { name: "Course Title", paramName: "courseTitle", type: "text", value: "" },
@@ -59,7 +51,6 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
         }
     }
 
-    const initialRender = useRef(false);
     useEffect(() => {
         console.log(url);
         const getData = setTimeout(() => {
@@ -72,12 +63,12 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
                         array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
 
                     })
-                    const firstCourse = data[0]
                     setResponse(data);
                 }
-            )
-        },waittime)
+                )
+        }, waittime)
         return () => clearTimeout(getData)
+        // eslint-disable-next-line
     }, [url])
 
     const onEnter = (searchQuery: string) => {
@@ -87,9 +78,10 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
             if (filter.value !== "") {
                 return `${filter.paramName}=${filter.value}`
             }
+            return undefined
         }).filter((item) => { return item !== undefined })
 
-        if (searchQuery === undefined && query == "") {
+        if (searchQuery === undefined && query === "") {
             setWaittime(0);
         } else {
             if (searchQuery !== undefined) {
@@ -143,7 +135,6 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
                                 setSearchType={setSearchType}
                             />
                         </motion.div>
-                        {matched ?? "No course matched your"}
                         {query === "" && filters.every(x => x.value === "") ? <span className="suggested">Suggested Courses:</span> : ""}
                         <Results response={response} onCourseClick={onCourseClick} />
                     </div>

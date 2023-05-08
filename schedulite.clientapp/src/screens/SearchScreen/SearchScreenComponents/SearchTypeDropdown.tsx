@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const SearchTypeDropdown = (props : any) => {
+const SearchTypeDropdown = (props: any) => {
 
     // const [value, setValue] = useState(props.searchType);
 

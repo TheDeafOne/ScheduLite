@@ -1,26 +1,27 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { useNavigate } from "react-router-dom";
+import { Alert, Button, Grid, Link, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { Link, TextField, Button, Grid, Alert } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import * as Yup from "yup";
-import "./LoginScreen.scss"
+import "./LoginScreen.scss";
 
+import { UserContext, UserContextType } from "../../context/UserContext";
 import AuthService from "../../services/auth.service";
-import {UserContext, UserContextType} from "../../context/UserContext";
 
 const Login = () => {
     const [message, setMessage] = useState<string>("");
     const navigate = useNavigate();
     const { setUser } = useContext(UserContext) as UserContextType
 
-    
+
 
     useEffect(() => {
         if (AuthService.getCurrentUser() !== null) {
-            navigate("/profile",{replace:true});
+            navigate("/profile", { replace: true });
         }
-    },[])
+        // eslint-disable-next-line
+    }, [])
 
     function validationSchema() {
         return Yup.object().shape({
@@ -34,7 +35,7 @@ const Login = () => {
         AuthService.login(username, password).then(
             () => {
                 setUser(AuthService.getCurrentUser());
-                navigate("/profile",{replace:true});
+                navigate("/profile", { replace: true });
             },
             error => {
                 const resMessage = (
@@ -42,7 +43,7 @@ const Login = () => {
                     error.response.data &&
                     error.response.data.message
                 ) || error.message || error.toString();
-                
+
                 setMessage(resMessage);
             }
         );
@@ -51,52 +52,52 @@ const Login = () => {
 
     const formik = useFormik({
         initialValues: {
-          username: '',
-          password: '',
+            username: '',
+            password: '',
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-          handleLogin(values.username, values.password);
+            handleLogin(values.username, values.password);
         }
-      });
+    });
 
     return (
-        
+
         <div className="card-container">
-       
+
             <div className="form-container">
                 <form onSubmit={formik.handleSubmit}>
-                <Grid>
-                    <TextField
-                    id="username"
-                    name="username"
-                    label="Username"
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    value={formik.values.username}
-                    onChange={formik.handleChange}
-                    error={formik.touched.username && Boolean(formik.errors.username)}
-                    helperText={formik.touched.username && formik.errors.username}
-                    />
-                </Grid>
-                <Grid>
-                    <TextField
-                    id="password"
-                    name="password"
-                    label="Password"
-                    type="password"
-                    variant="outlined"
-                    sx={{paddingBottom: "10px"}}
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    error={formik.touched.password && Boolean(formik.errors.password)}
-                    helperText={formik.touched.password && formik.errors.password}
-                    />
-                </Grid>
-                {message !== "" && <Alert sx={{marginBottom: "10px"}} severity="error">{message}</Alert>}
-                <Button sx={{marginBottom: "10px"}} color="primary" variant="contained" fullWidth type="submit">
-                    Submit
-                </Button>
+                    <Grid>
+                        <TextField
+                            id="username"
+                            name="username"
+                            label="Username"
+                            variant="outlined"
+                            sx={{ paddingBottom: "10px" }}
+                            value={formik.values.username}
+                            onChange={formik.handleChange}
+                            error={formik.touched.username && Boolean(formik.errors.username)}
+                            helperText={formik.touched.username && formik.errors.username}
+                        />
+                    </Grid>
+                    <Grid>
+                        <TextField
+                            id="password"
+                            name="password"
+                            label="Password"
+                            type="password"
+                            variant="outlined"
+                            sx={{ paddingBottom: "10px" }}
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
+                        />
+                    </Grid>
+                    {message !== "" && <Alert sx={{ marginBottom: "10px" }} severity="error">{message}</Alert>}
+                    <Button sx={{ marginBottom: "10px" }} color="primary" variant="contained" fullWidth type="submit">
+                        Submit
+                    </Button>
                 </form>
                 <Link href="/signup">
                     Don't have an account? Sign Up

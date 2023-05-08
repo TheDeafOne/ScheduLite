@@ -1,11 +1,10 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
-import CourseCard from "../CourseComponents/CourseCard";
+import Popper from '@mui/material/Popper';
 import Typography from "@mui/material/Typography";
+import * as React from 'react';
+import CourseCard from "../CourseComponents/CourseCard";
 
-export default function TransitionsPopper( props : any ) {
+export default function TransitionsPopper(props: any) {
 
     const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -41,7 +40,7 @@ export default function TransitionsPopper( props : any ) {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         {/*<Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>*/}
-                            <CourseCard course={props.course} />
+                        <CourseCard course={props.course} />
                         {/*</Box>*/}
                     </Fade>
                 )}

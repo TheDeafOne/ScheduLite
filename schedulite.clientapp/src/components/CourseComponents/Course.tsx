@@ -1,79 +1,76 @@
 
-import React, {useContext, useEffect, useState} from 'react'
-import axiosConfig from "../../api/axios-config";
-import SearchPage from "../../screens/SearchScreen/SearchPage";
-import "./Course.scss"
-import { BiListPlus, BiListCheck } from 'react-icons/bi'
-import { HiOutlinePlus, HiOutlineMinus, HiX, HiCheck } from 'react-icons/hi'
-import { MdOutlinePlaylistAddCheck, MdOutlinePlaylistAdd } from "react-icons/md";
+import { useContext, useEffect, useState } from 'react';
+import { BiListCheck, BiListPlus } from 'react-icons/bi';
+import { HiCheck, HiOutlinePlus, HiX } from 'react-icons/hi';
+import "./Course.scss";
 
-import { BiAddToQueue } from 'react-icons/bi'
-import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
+import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import ICourse from "../../types/course.type";
 
 
-const Course = (props : any) => {
+const Course = (props: any) => {
     const { activeCourses, tentativeCourses, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
     const course: ICourse = props.course
     const validDate = course.convertedStartDate!.isValid() || course.convertedEndDate!.isValid()
-    const onCourseClick = (event : any) => {
+    const onCourseClick = (event: any) => {
         props.onCourseClick(course)
         console.log(validDate)
     }
 
-    const [active, setActive] = useState(activeCourses.courses.some((e : ICourse) => e.id === course.id))
-    const [tentative, setTentative] = useState(tentativeCourses.courses.some((e : ICourse) => e.id === course.id))
+    const [active, setActive] = useState(activeCourses.courses.some((e: ICourse) => e.id === course.id))
+    const [tentative, setTentative] = useState(tentativeCourses.courses.some((e: ICourse) => e.id === course.id))
     useEffect(() => {
-        setActive(activeCourses.courses.some((e : ICourse) => e.id === course.id))
-        setTentative(tentativeCourses.courses.some((e : ICourse) => e.id === course.id))
+        setActive(activeCourses.courses.some((e: ICourse) => e.id === course.id))
+        setTentative(tentativeCourses.courses.some((e: ICourse) => e.id === course.id))
+        // eslint-disable-next-line
     }, [course])
 
-    const addToActive = (event : any) => {
+    const addToActive = (event: any) => {
         event.stopPropagation();
         setTentative(false)
         if (!active) {
-            setActiveCourses({course: course, type: "add"})
-            setTentativeCourses({course: course, type: "remove"})
+            setActiveCourses({ course: course, type: "add" })
+            setTentativeCourses({ course: course, type: "remove" })
         } else {
-            setActiveCourses({course: course, type: "remove"})
+            setActiveCourses({ course: course, type: "remove" })
         }
         setActive(!active)
         // if (props.onMouseLeave) {
         //     props.onMouseLeave()
         // }
     }
-    const addToTentative = (event : any) => {
+    const addToTentative = (event: any) => {
         event.stopPropagation();
         setActive(false)
         if (!tentative) {
-            setTentativeCourses({course: course, type: "add"})
-            setActiveCourses({course: course, type: "remove"})
+            setTentativeCourses({ course: course, type: "add" })
+            setActiveCourses({ course: course, type: "remove" })
         } else {
-            setTentativeCourses({course: course, type: "remove"})
+            setTentativeCourses({ course: course, type: "remove" })
         }
         setTentative(!tentative)
     }
-    const onClick = (event : any) => {
+    const onClick = (event: any) => {
         event.stopPropagation();
         props.switchAction(course)
         props.onMouseLeave();
     }
 
     const conditionalRemoveCourse = () => {
-        props.schedule==="active"
-            ? setActiveCourses({course: course, type: "remove"})
-            : setTentativeCourses({course: course, type: "remove"})
+        props.schedule === "active"
+            ? setActiveCourses({ course: course, type: "remove" })
+            : setTentativeCourses({ course: course, type: "remove" })
     }
 
     return (
         <>
             {props.panel ?
                 (<div className={`course ${props.overlap ? 'overlap' : ''}`}
-                      onClick={onCourseClick}
-                      onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(course) : null}
-                      onMouseLeave={props.onMouseLeave ? props.onMouseLeave : null}
-                      key={props.courseKey}>
+                    onClick={onCourseClick}
+                    onMouseEnter={() => props.onMouseEnter ? props.onMouseEnter(course) : null}
+                    onMouseLeave={props.onMouseLeave ? props.onMouseLeave : null}
+                    key={props.courseKey}>
                     <div className={`class-info`}>
                         <div className={"course-title"}>
                             {course.courseTitle}
@@ -95,7 +92,7 @@ const Course = (props : any) => {
                             className="course-button"
                             type="button"
                             onClick={conditionalRemoveCourse}>
-                            <HiX style={{color: "red"}}/>
+                            <HiX style={{ color: "red" }} />
                         </button>
                         {/*<button type="button" onClick={onClick}><BiAddToQueue /></button>*/}
                     </div>
@@ -135,12 +132,12 @@ const Course = (props : any) => {
                     <div className={"add-course"}>
                         <button className="course-button" type="button" title="Add a course to active schedule!" onClick={addToActive}>
                             {active
-                                ? <HiCheck style={{color: "lightgreen"}}/>
+                                ? <HiCheck style={{ color: "lightgreen" }} />
                                 : <HiOutlinePlus />}
                         </button>
                         <button className="course-button" type="button" title="Add a course to tentative schedule!" onClick={addToTentative}>
                             {tentative
-                                ? <BiListCheck style={{color: "lightgreen"}}/>
+                                ? <BiListCheck style={{ color: "lightgreen" }} />
                                 : <BiListPlus />
                             }
 
@@ -149,7 +146,7 @@ const Course = (props : any) => {
 
                 </div>)
             }
-    </>
+        </>
     )
 }
 

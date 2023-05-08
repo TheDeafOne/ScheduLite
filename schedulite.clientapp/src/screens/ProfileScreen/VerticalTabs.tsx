@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import './VerticalTabs.css';
-import Personal from './Personal';
-import Languages from './Languages';
-import Keybinds from './Keybinds';
+import { useState } from 'react';
 import Appearance from './Appearance';
+import Keybinds from './Keybinds';
+import Languages from './Languages';
+import Personal from './Personal';
+import './VerticalTabs.css';
 interface Tab {
   name: string;
   content: JSX.Element;
@@ -23,7 +23,7 @@ const VerticalTabs = () => {
     },
     {
       name: 'Appearance',
-      content: <div> <Appearance/> </div>
+      content: <div> <Appearance /> </div>
     },
     {
       name: 'Accessibility',
@@ -31,7 +31,7 @@ const VerticalTabs = () => {
     },
     {
       name: 'Keybinds',
-      content: <div> <Keybinds/> </div>
+      content: <div> <Keybinds /> </div>
     },
     {
       name: 'Languages',
@@ -41,7 +41,7 @@ const VerticalTabs = () => {
       name: 'Advanced',
       content: <div> Advanced </div>
     }
-  ]; 
+  ];
 
   return (
     <div className="vertical-tabs">
