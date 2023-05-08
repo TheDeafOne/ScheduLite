@@ -10,6 +10,7 @@ import { UserContext, UserContextType } from '../../context/UserContext';
 import authHeader from "../../services/auth-header";
 import ISchedule from "../../types/schedule.type";
 import "./Block.scss";
+import { MenuItem, TextField } from '@mui/material';
 
 
 export const blocks: ISchedule[] = [];
@@ -27,17 +28,17 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
 
   useEffect(() => {
     if (user !== undefined && user !== null) {
-      console.log("HERE ITS WORKING")
-      console.log(user!.schedules)
-      setFilteredBlocks(user!.schedules);
-      setInitialFilteredBlocks(user!.schedules);
+      setFilteredBlocks(user.schedules);
+      setInitialFilteredBlocks(user.schedules);
+
     }
     // eslint-disable-next-line
   }, [])
+
   useEffect(() => {
     if (user !== undefined && user !== null) {
-      setFilteredBlocks(user!.schedules);
-      setInitialFilteredBlocks(user!.schedules);
+      setFilteredBlocks(user.schedules);
+      setInitialFilteredBlocks(user.schedules);
     }
   }, [user])
   useEffect(() => {
@@ -48,11 +49,11 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
     // eslint-disable-next-line
   }, [yearFilter, semesterFilter]);
 
-  const handleYearFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleYearFilterChange = (event: any) => {
     setYearFilter(event.target.value);
   };
 
-  const handleSemesterFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSemesterFilterChange = (event: any) => {
     setSemesterFilter(event.target.value);
   };
 
@@ -169,27 +170,61 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
       <div className={"schedule-filter-container"}>
         <div className={"schedule-filters"}>
           <div className={"filter"}>
-            <label htmlFor="year-filter">Year: </label>
-            <select className="schedule-select" id="year-filter" onChange={handleYearFilterChange}>
-              <option value="">All</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </select>
+          <TextField 
+              select
+              variant="outlined"
+              sx={{ width: "100%",marginTop: "10px"}}
+              size="medium"
+              label={"Year"}
+              onChange={handleYearFilterChange}
+            >
+              <MenuItem value={""}>
+                  Any
+              </MenuItem>
+              <MenuItem value={"2018"}>
+                  2018
+              </MenuItem>
+              <MenuItem value={"2019"}>
+                  2019
+              </MenuItem>
+              <MenuItem value={"2020"}>
+                  2020
+              </MenuItem>
+              
+            </TextField>
           </div>
           <div className={"filter"}>
-            <label htmlFor="semester-filter">Semester: </label>
-            <select className="schedule-select" id="semester-filter" onChange={handleSemesterFilterChange}>
-              <option value="">All</option>
-              <option value="Fall">Fall</option>
-              <option value="Spring">Spring</option>
-            </select>
+          <TextField 
+              select
+              variant="outlined"
+              sx={{ width: "100%", marginTop: "10px"}}
+              size="medium"
+              label={"Semester"}
+              onChange={handleSemesterFilterChange}
+            >
+              <MenuItem value={""}>
+                  Any
+              </MenuItem>
+              <MenuItem value={"Fall"}>
+                  Fall
+              </MenuItem>
+              <MenuItem value={"Spring"}>
+                  Spring
+              </MenuItem>
+            </TextField>
           </div>
         </div></div>
       <div className={"schedule-options"}>
-        {filteredBlocks!.map((block, index) => (
+        {filteredBlocks!.length !== 0 ? filteredBlocks!.map((block, index) => (
+          <div key={index} className="block" onClick={() => handleBlockClick(block)}>
+            <div className={"schedule-name"}>{block.scheduleName}</div><div>Semester: {block.semester ? block.semester : "No Semester"}</div><div>Year: {block.year}</div>
+            {/*<div className="delete-button" onClick={(e) => handleDeleteClick(block, e)}></div>*/}
+            {/*<div className="copy-button" onClick={(e) => handleCopyClick(block, e)}></div>*/}
+            <button className="delete-button" onClick={(e) => handleDeleteClick(block, e)}><DeleteIcon /></button>
+            <button className="copy-button" onClick={(e) => handleCopyClick(block, e)}><ContentCopyIcon /></button>
+
+          </div>
+        )) : user?.schedules && user.schedules.map((block, index) => (
           <div key={index} className="block" onClick={() => handleBlockClick(block)}>
             <div className={"schedule-name"}>{block.scheduleName}</div><div>Semester: {block.semester ? block.semester : "No Semester"}</div><div>Year: {block.year}</div>
             {/*<div className="delete-button" onClick={(e) => handleDeleteClick(block, e)}></div>*/}
