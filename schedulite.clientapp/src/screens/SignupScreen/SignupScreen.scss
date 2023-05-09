@@ -13,3 +13,9 @@
   flex-direction: column;
   height: 100vh !important;
 }
+
+.auth-link {
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -33,7 +33,7 @@ const CoursePanel = (props: any) => {
                 calcActiveCredits() === 0 &&
                 (
                     <div className={"no-courses"}>
-                        No courses! Add courses <a onClick={() => {navigate('/Search')}}>here.</a>
+                        No courses! Add courses <a className="navigate-link" onClick={() => {navigate('/Search')}}>here.</a>
                     </div>
                 )
             }

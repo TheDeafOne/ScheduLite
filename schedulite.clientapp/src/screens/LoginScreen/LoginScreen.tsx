@@ -99,7 +99,7 @@ const Login = () => {
                         Submit
                     </Button>
                 </form>
-                <Link onClick={() => {navigate('/signup')}}>
+                <Link className="auth-link" onClick={() => {navigate('/signup')}}>
                     Don't have an account? Sign Up
                 </Link>
             </div>
