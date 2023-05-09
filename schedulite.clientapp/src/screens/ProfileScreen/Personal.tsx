@@ -4,6 +4,7 @@ import AuthService from "../../services/auth.service";
 import IUser from "../../types/user.type";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 interface Personal {
   firstName: string;
@@ -23,9 +24,14 @@ const Personal = () => {
   });
 
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    setPersonal({ ...Personal, [name]: name === 'gradYear' ? parseInt(value, 10) : value });
+  const handleInputChange = (event: SelectChangeEvent<number>) => {
+    const name = event.target.name;
+    const value = event.target.value;
+  
+    setPersonal((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,79 +41,49 @@ const Personal = () => {
 
   return (
     <>
-      {/* <Header />  */}
-      <div style={{ padding: "80px 20px 20px 20px" }}></div>
+      <h1 style={{ color: "white" }}>User Settings</h1>
+      <div style={{ padding: "10px 20px 20px 20px" }}></div>
       <form onSubmit={handleSubmit}>
         <div>
+          <label htmlFor="firstName" style={{ color: "white", fontSize: "16px", verticalAlign: "middle" }}>First Name: </label>
           <TextField
-              id="outlined-basic"
-              label="First Name"
-              variant="outlined"
+            id="outlined-basic"
+            label="First Name"
+            variant="outlined"
           />
+        </div>
+        <div>
+          <label htmlFor="lastName" style={{ color: "white", fontSize: "16px", verticalAlign: "middle" }}>Last Name: </label>
+          <TextField
+            id="outlined-basic"
+            label="Last Name"
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <label htmlFor="Email" style={{ color: "white", fontSize: "16px", verticalAlign: "middle" }}>Email: </label>
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <label htmlFor="Password" style={{ color: "white", fontSize: "16px", verticalAlign: "middle" }}>Password: </label>
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+          />
+        </div>
+        
 
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            value={Personal.firstName}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={Personal.lastName}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="major">Major:</label>
-          <input
-            type="text"
-            id="major"
-            name="major"
-            value={Personal.major}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="minor">Minor:</label>
-          <input
-            type="text"
-            id="minor"
-            name="minor"
-            value={Personal.minor}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="gradYear">Graduation Year:</label>
-          <select
-            id="gradYear"
-            name="gradYear"
-            value={Personal.gradYear}
-            onChange={handleInputChange}
-          >
-            <option value="">Select a year</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-          </select>
-        </div>
         <button type="submit">Save Personal</button>
       </form>
     </>
   );
+
+  
 };
 
 export default Personal;

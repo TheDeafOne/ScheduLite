@@ -97,10 +97,15 @@ const Appearance = () => {
 
   return (
     <div>
-      <h1>Appearance Settings</h1>
-      <label>
+      <h1 style={{ color: "white" }}>Appearance Settings</h1>
+      <label htmlFor="colorScheme" style={{ color: "white" }}>
         Color Scheme:
-        <select value={settings.colorScheme} onChange={handleColorSchemeChange}>
+        <select
+          id="colorScheme"
+          value={settings.colorScheme}
+          onChange={handleColorSchemeChange}
+          
+        >
           {colorSchemes.map((colorScheme) => (
             <option key={colorScheme} value={colorScheme}>
               {colorScheme}
@@ -109,9 +114,14 @@ const Appearance = () => {
         </select>
       </label>
       <br />
-      <label>
+      <label htmlFor="font" style={{ color: "white" }}>
         Font:
-        <select value={settings.font} onChange={handleFontChange}>
+        <select
+          id="font"
+          value={settings.font}
+          onChange={handleFontChange}
+          
+        >
           {fonts.map((font) => (
             <option key={font} value={font}>
               {font}
@@ -120,23 +130,33 @@ const Appearance = () => {
         </select>
       </label>
       <br />
-      <label>
+      <label htmlFor="fontSize" style={{ color: "white" }}>
         Font Size:
-        <input type="number" value={settings.fontSize} onChange={handleFontSizeChange} />
-        </label>     
-              <br />
-      <label>
+        <input
+          id="fontSize"
+          type="number"
+          value={settings.fontSize}
+          onChange={handleFontSizeChange}
+        />
+      </label>
+      <br />
+      <label htmlFor="backgroundColor" style={{ color: "white" }}>
         Background Color:
         <input
+          id="backgroundColor"
           type="color"
           value={settings.backgroundColor}
           onChange={handleBackgroundColorChange}
         />
       </label>
       <br />
-      <label>
+      <label htmlFor="layout" style={{ color: "white" }}>
         Layout:
-        <select value={settings.layout} onChange={handleLayoutChange}>
+        <select
+          id="layout"
+          value={settings.layout}
+          onChange={handleLayoutChange}
+        >
           {layouts.map((layout) => (
             <option key={layout} value={layout}>
               {layout}
@@ -145,26 +165,42 @@ const Appearance = () => {
         </select>
       </label>
       <br />
-      <label>
+      <label htmlFor="spacing" style={{ color: "white" }}>
         Spacing:
-        <input type="number" value={settings.spacing} onChange={handleSpacingChange} />
+        <input
+          id="spacing"
+          type="number"
+          value={settings.spacing}
+          onChange={handleSpacingChange}
+        />
       </label>
       <br />
-      <label>
+      <label htmlFor="darkMode" style={{ color: "white" }}>
         Dark Mode:
-        <input type="checkbox" checked={settings.darkMode} onChange={handleDarkModeChange} />
+        <input
+          id="darkMode"
+          type="checkbox"
+          checked={settings.darkMode}
+          onChange={handleDarkModeChange}
+        />
       </label>
       <br />
-      <label>
+      <label htmlFor="customCss" style={{ color: "white" }}>
         Custom CSS:
         <br />
-        <textarea value={settings.customCss} onChange={handleCustomCssChange} />
+        <textarea
+          id="customCss"
+          value={settings.customCss}
+          onChange={handleCustomCssChange}
+        />
       </label>
       <br />
-      <button onClick={() => console.log(settings)}>Save Settings</button>
+      <button onClick={() => console.log(settings)} style={{ color: "black" }}>
+        Save Settings
+      </button>
     </div>
   );
-};
-
-export default Appearance;
-    
+  };
+  
+  export default Appearance;
+  
