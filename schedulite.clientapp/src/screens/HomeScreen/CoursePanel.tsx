@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { HiOutlineMinus, HiOutlinePlus } from 'react-icons/hi';
 import Results from "../../components/CourseComponents/Results/Results";
-
+import { useNavigate } from 'react-router-dom';
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import ICourse from "../../types/course.type";
 
 const CoursePanel = (props: any) => {
-
+    const navigate = useNavigate();
     // const [schedule, setSchedule] = useState<ISchedule>( {activeCourses : active, tentativeCourses : tentative})
     // GET BOTH THE ACTIVE AND TENTATIVE COURSE LIST FROM THE DATABASE
     const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, calcActiveCredits } = useContext(ScheduleContext) as ScheduleContextType
@@ -33,7 +33,7 @@ const CoursePanel = (props: any) => {
                 calcActiveCredits() === 0 &&
                 (
                     <div className={"no-courses"}>
-                        No courses! Add courses <a href={"/Search"}>here.</a>
+                        No courses! Add courses <a onClick={() => {navigate('/Search')}}>here.</a>
                     </div>
                 )
             }

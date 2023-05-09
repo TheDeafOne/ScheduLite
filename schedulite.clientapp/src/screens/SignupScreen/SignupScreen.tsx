@@ -107,7 +107,7 @@ const Signup = () => {
             Submit
           </Button>
         </form>
-        <Link href="/login">
+        <Link onClick={() => { navigate('/login') }}>
           Already have an account? Log In
         </Link>
       </div>

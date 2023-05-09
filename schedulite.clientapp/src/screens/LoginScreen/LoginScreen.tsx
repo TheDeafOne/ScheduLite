@@ -18,7 +18,7 @@ const Login = () => {
 
     useEffect(() => {
         if (AuthService.getCurrentUser() !== null) {
-            navigate("/profile", { replace: true });
+            navigate("/schedule-selection", { replace: true });
         }
         // eslint-disable-next-line
     }, [])
@@ -35,7 +35,7 @@ const Login = () => {
         AuthService.login(username, password).then(
             () => {
                 setUser(AuthService.getCurrentUser());
-                navigate("/profile", { replace: true });
+                navigate("/schedule-selection", { replace: true });
             },
             error => {
                 const resMessage = (
@@ -99,7 +99,7 @@ const Login = () => {
                         Submit
                     </Button>
                 </form>
-                <Link href="/signup">
+                <Link onClick={() => {navigate('/signup')}}>
                     Don't have an account? Sign Up
                 </Link>
             </div>
