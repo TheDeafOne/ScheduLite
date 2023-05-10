@@ -127,14 +127,6 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
     e.stopPropagation();
     const confirmDelete = window.confirm(`Are you sure you want to delete schedule ${schedule.scheduleName}?`);
     if (confirmDelete) {
-      // Send an HTTP POST request to the backend to remove the schedule
-      // fetch('/remove-schedule', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(schedule)
-      // })
       api.post('/users/remove-schedule', JSON.stringify(schedule), { headers: authHeader() })
         .then(response => {
           if (response.status === 200) {
@@ -177,6 +169,7 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
               size="medium"
               label={"Year"}
               onChange={handleYearFilterChange}
+              defaultValue=""
             >
               <MenuItem value={""}>
                   Any
@@ -201,6 +194,7 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
               size="medium"
               label={"Semester"}
               onChange={handleSemesterFilterChange}
+              defaultValue=""
             >
               <MenuItem value={""}>
                   Any

@@ -34,8 +34,8 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
             alert('Please select a year');
             return;
         }
-
-
+        console.log('making schedule');
+        
         setIsOpen(false);
         setActiveCourses({ course: null, type: "setAll", courseList: [] });
         setTentativeCourses({ course: null, type: "setAll", courseList: [] });
