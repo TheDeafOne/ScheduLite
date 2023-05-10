@@ -7,7 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Document(collection = "users")
 public class User {
@@ -31,6 +34,8 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     private ArrayList<Schedule> schedules = new ArrayList<>();
+
+    private List<String> completedCourses = new ArrayList<>();
 
     public User() {
 
@@ -88,6 +93,12 @@ public class User {
 
     public void setSchedules(ArrayList<Schedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public List<String> getCompletedCourses() { return completedCourses;}
+
+    public void setCompletedCourses(List<String> completedCourses) {
+        this.completedCourses = completedCourses;
     }
 
     public void addSchedule(Schedule schedule) {

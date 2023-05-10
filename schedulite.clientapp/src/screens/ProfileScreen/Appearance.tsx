@@ -1,6 +1,5 @@
 import { Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import React, { useState } from "react";
-// import { FormControl, InputLabel, Select, MenuItem, TextField, SelectChangeEvent } from '@mui/material';
 
 interface AppearanceSettings {
   colorScheme: string;
@@ -97,7 +96,7 @@ const Appearance = () => {
   return (
     <div>
       <h1 style={{ color: "white" }}>Appearance Settings</h1>
-  
+
       <div>
         <label htmlFor="colorScheme" style={{ color: "white" }}>
           Color Scheme:
@@ -118,7 +117,7 @@ const Appearance = () => {
           </FormControl>
         </label>
       </div>
-  
+
       <div>
         <label htmlFor="font" style={{ color: "white" }}>
           Font:
@@ -139,7 +138,7 @@ const Appearance = () => {
           </FormControl>
         </label>
       </div>
-  
+
       <div>
         <label htmlFor="fontSize" style={{ color: "white" }}>
           Font Size:
@@ -153,7 +152,7 @@ const Appearance = () => {
           />
         </label>
       </div>
-  
+
       <div>
         <label htmlFor="backgroundColor" style={{ color: "white" }}>
           Background Color:
@@ -167,7 +166,7 @@ const Appearance = () => {
           />
         </label>
       </div>
-  
+
       <div>
         <label htmlFor="layout" style={{ color: "white" }}>
           Layout:
@@ -188,7 +187,7 @@ const Appearance = () => {
           </FormControl>
         </label>
       </div>
-  
+
       <div>
         <label htmlFor="spacing" style={{ color: "white" }}>
           Spacing:
@@ -202,7 +201,7 @@ const Appearance = () => {
           />
         </label>
       </div>
-  
+
       <div>
         <label htmlFor="darkMode" style={{ color: "white" }}>
           Dark Mode:
@@ -219,7 +218,7 @@ const Appearance = () => {
           />
         </label>
       </div>
-  
+
       <div>
         <label htmlFor="customCss" style={{ color: "white" }}>
           Custom CSS
@@ -250,6 +249,5 @@ const Appearance = () => {
 );
 };
 
-  
+
   export default Appearance;
-  

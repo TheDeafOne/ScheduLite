@@ -10,16 +10,19 @@
 
   .center-panel {
     display: flex;
+    position: relative;
     flex-direction: column;
     flex: 3 1 0;
     overflow-y: scroll;
   }
   .side-panel {
-    flex: 1 1 0;
+    width: 20vw;
+    //flex: 1 1 0;
     text-align: start;
     color: white;
     padding: 5px;
     overflow-y: scroll;
+    //width: 100px;
 
     .side-panel-title {
       padding: 20px 10px 0 10px;
@@ -48,6 +51,7 @@
       flex: 1 1 0;
       //background-color: #2e54ee;
       overflow-y: scroll;
+      border-top: 1px solid variables.$border-color;
     }
     .details {
       display: flex;
@@ -58,7 +62,6 @@
       //justify-content: space-between;
       //align-items: end;
       //background-color: #5e2929;
-      border-bottom: 1px solid variables.$border-color;
       .course-detail-card {
         padding-top: 5px;
       }
@@ -68,6 +71,7 @@
   }
   .left-panel {
     border-right: 1px solid variables.$border-color;
+    //width: 10vw;
   }
   .side-panel-title-container {
     display: flex;
@@ -79,8 +83,6 @@
     font-size: 23px;
   }
 }
-
-
 
 
 

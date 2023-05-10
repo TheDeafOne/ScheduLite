@@ -1,5 +1,5 @@
-import {amber, blue, deepOrange, grey, purple} from '@mui/material/colors';
 import { PaletteMode } from '@mui/material';
+import { amber, blue, grey } from '@mui/material/colors';
 export const getDesignTokens = (mode: PaletteMode) => ({
     overrides: {
         MuiCssBaseline: {
@@ -28,10 +28,10 @@ export const getDesignTokens = (mode: PaletteMode) => ({
             : {
                 // palette values for dark mode
                 primary: blue,
-                divider: deepOrange[700],
+                divider: grey[700],
                 background: {
-                    default: grey[700],
-                    paper: grey[700],
+                    default: grey[900],
+                    paper: grey[900],
                 },
                 text: {
                     primary: '#fff',

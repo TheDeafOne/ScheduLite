@@ -36,8 +36,8 @@
   /*display: inline-block;*/
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  align-items: start;
+  justify-content: flex-end;
+  align-items: flex-start;
   column-gap: 10px;
   /*row-gap: 10px;*/
   width: 300px;
@@ -110,7 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #4c6671;
+  background-color: #254058;
   color: #fff;
   font-size: 64px;
   font-weight: bold;
@@ -138,6 +138,7 @@
   /*display: flex;*/
   /*flex-grow: 0;*/
   /*align-items: center;*/
+  width: 25%;
 }
 .schedule-select-container {
   font-size: 16px;

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/auth.service';
 import VerticalTabs from './VerticalTabs';
 import { useNavigate } from 'react-router-dom';

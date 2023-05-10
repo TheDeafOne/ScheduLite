@@ -1,7 +1,7 @@
 package com.schedulite.schedulite.repositories;
-import com.schedulite.schedulite.models.User;
 
- import org.springframework.data.mongodb.repository.MongoRepository;
+import com.schedulite.schedulite.models.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 

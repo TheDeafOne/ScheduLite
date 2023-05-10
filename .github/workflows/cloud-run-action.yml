@@ -1,0 +1,67 @@
+# This workflow build and push a Docker container to Google Artifact Registry and deploy it on Cloud Run when a commit is pushed to the "main" branch
+#
+# Overview:
+#
+# 1. Authenticate to Google Cloud
+# 2. Authenticate Docker to Artifact Registry
+# 3. Build a docker container
+# 4. Publish it to Google Artifact Registry
+# 5. Deploy it to Cloud Run
+
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  PROJECT_ID: divine-surface-378820 # TODO: update Google Cloud project id
+  GAR_LOCATION: us-central1 # TODO: update Artifact Registry location
+  SERVICE: schedulite-webservice # TODO: update Cloud Run service name
+  REGION: us-central1 # TODO: update Cloud Run service region
+  MONGO_DATABASE: '${{ secrets.MONGO_DATABASE }}'
+  MONGO_USER: '${{ secrets.MONGO_USER }}'
+  MONGO_PASSWORD: '${{ secrets.MONGO_PASSWORD }}'
+  MONGO_CLUSTER: '${{ secrets.MONGO_CLUSTER }}'
+  SPRING_SECURITY_USER: '${{ secrets.SPRING_SECURITY_USER }}'
+  SPRING_SECURITY_PASSWORD: '${{ secrets.SPRING_SECURITY_PASSWORD }}'
+
+jobs:
+  deploy:
+    name: cloud run deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up GCP service account
+        id: auth
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker
+      
+      - name: Build
+        run: |
+          docker build --build-arg MONGO_DATABASE=${{ env.MONGO_DATABASE}} \
+          --build-arg MONGO_USER=${{ env.MONGO_USER}} \
+          --build-arg MONGO_PASSWORD=${{ env.MONGO_PASSWORD}} \
+          --build-arg MONGO_CLUSTER=${{ env.MONGO_CLUSTER}} \
+          --build-arg SPRING_SECURITY_USER=${{ env.SPRING_SECURITY_USER}} \
+          --build-arg SPRING_SECURITY_PASSWORD=${{ env.SPRING_SECURITY_PASSWORD}} \
+          -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/schedulite:latest .
+
+      - name: Push
+        run: |
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/schedulite:latest
+
+      - name: Deploy
+        run: |
+          gcloud run deploy schedulite \
+          --region us-central1 \
+          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/schedulite \
+          --platform managed \
+          --allow-unauthenticated \
+          --project ${{ secrets.GCP_PROJECT_ID }}

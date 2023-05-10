@@ -1,29 +1,23 @@
-import React, {useContext, useEffect, useState} from 'react'
-import axiosConfig from "../../api/axios-config";
-import SearchPage from "../SearchScreen/SearchPage";
-import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
+import { useContext } from 'react';
+import { HiOutlineMinus, HiOutlinePlus } from 'react-icons/hi';
 import Results from "../../components/CourseComponents/Results/Results";
-import {useDraggable} from '@dnd-kit/core';
-import Course from "../../components/CourseComponents/Course";
-import ISchedule from "../../types/schedule.type";
-import { HiOutlinePlus, HiOutlineMinus } from 'react-icons/hi'
 
+import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import ICourse from "../../types/course.type";
-import {ScheduleContext, ScheduleContextType} from "../../context/ScheduleContext";
 
-const CoursePanel = (props : any) => {
+const CoursePanel = (props: any) => {
 
     // const [schedule, setSchedule] = useState<ISchedule>( {activeCourses : active, tentativeCourses : tentative})
     // GET BOTH THE ACTIVE AND TENTATIVE COURSE LIST FROM THE DATABASE
     const { activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, calcActiveCredits } = useContext(ScheduleContext) as ScheduleContextType
 
-    const activeToTentative = (course : ICourse) => {
-        setTentativeCourses({course: course, type: "add", unshift: true})
-        setActiveCourses({course: course, type:"remove"})
+    const activeToTentative = (course: ICourse) => {
+        setTentativeCourses({ course: course, type: "add", unshift: true })
+        setActiveCourses({ course: course, type: "remove" })
     }
-    const tentativeToActive = (course : ICourse) => {
-        setActiveCourses({course : course, type: "add"})
-        setTentativeCourses({course: course, type: "remove"})
+    const tentativeToActive = (course: ICourse) => {
+        setActiveCourses({ course: course, type: "add" })
+        setTentativeCourses({ course: course, type: "remove" })
     }
 
     return (
@@ -49,7 +43,7 @@ const CoursePanel = (props : any) => {
                 onCourseClick={props.onCourseClick}
                 switchAction={activeToTentative}
                 button={<HiOutlineMinus />}
-                schedule="active"/>
+                schedule="active" />
             <div className={"side-panel-title-container"}>
                 <div className={"side-panel-title"} >
                     Tentative Courses
@@ -63,7 +57,7 @@ const CoursePanel = (props : any) => {
                 onMouseLeave={props.onMouseLeave}
                 switchAction={tentativeToActive}
                 button={<HiOutlinePlus />}
-                schedule="tentative"/>
+                schedule="tentative" />
 
 
         </div>

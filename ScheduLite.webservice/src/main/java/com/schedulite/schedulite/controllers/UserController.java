@@ -1,6 +1,6 @@
 package com.schedulite.schedulite.controllers;
 
-import com.schedulite.schedulite.models.Course;
+import com.schedulite.schedulite.businesslogic.BusinessLogic;
 import com.schedulite.schedulite.models.Schedule;
 import com.schedulite.schedulite.models.User;
 import com.schedulite.schedulite.services.RoleService;
@@ -11,9 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private BusinessLogic businessLogic = new BusinessLogic();
+
     @GetMapping("/roles")
     public ResponseEntity<?> getRoles() {
         return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
@@ -33,9 +36,11 @@ public class UserController {
 
     @PostMapping("/add-schedule")
     public ResponseEntity<?> addSchedule(@Valid @RequestBody Schedule newSchedule) {
-        // checking for valid user and schedule
-        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        if (userId == null) {
+        String userId;
+        try {
+            userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        }
+        catch (ClassCastException e) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
         }
 
@@ -54,9 +59,11 @@ public class UserController {
 
     @PostMapping("remove-schedule")
     public ResponseEntity<?> removeSchedule(@Valid @RequestBody Schedule oldSchedule) {
-        // checking for valid user request
-        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        if (userId == null) {
+        String userId;
+        try {
+            userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        }
+        catch (ClassCastException e) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
         }
 
@@ -74,8 +81,11 @@ public class UserController {
 
     @PostMapping("update-schedule")
     public ResponseEntity<?> updateSchedule(@Valid @RequestBody Schedule updatedSchedule) {
-        String userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        if (userId == null) {
+        String userId;
+        try {
+            userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        }
+        catch (ClassCastException e) {
             return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
         }
 
@@ -93,4 +103,29 @@ public class UserController {
         return new ResponseEntity<>("Successfully updated schedule", HttpStatus.OK);
     }
 
+
+    @PostMapping("upload-transcript")
+    public ResponseEntity<?> uploadTranscript(@Valid @NotNull @RequestParam("file") final MultipartFile pdfFile) throws Exception {
+        String userId;
+        try {
+            userId = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        }
+        catch (ClassCastException e) {
+            return new ResponseEntity<>("Not logged in", HttpStatus.FORBIDDEN);
+        }
+        Optional<User> optionalUser = userService.getUserByUserId(userId);
+        if (optionalUser.isEmpty()) {
+            return new ResponseEntity<>("User does not exist", HttpStatus.FORBIDDEN);
+        }
+        User currentUser = optionalUser.get();
+        List<String> classes;
+        try {
+            String transcriptContent = userService.extractContent(pdfFile);
+            classes = businessLogic.findClasses(transcriptContent);
+            currentUser.setCompletedCourses(classes);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error parsing PDF", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Successfully added courses from transcript", HttpStatus.OK);
+    }
 }

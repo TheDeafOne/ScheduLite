@@ -1,26 +1,26 @@
-import React, {useContext, useState} from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ScheduleContext, ScheduleContextType } from '../../context/ScheduleContext';
-import "./ScheduleModal.scss"
-import {filteredBlocks} from "../../screens/ScheduleSelectionScreen/ScheduleSelectionScreen"
 import { UserContext, UserContextType } from '../../context/UserContext';
+import "./ScheduleModal.scss";
+import { MenuItem, TextField } from '@mui/material';
 
 const SetScheduleModal = ({ setIsOpen }: any) => {
-    const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses, saveSchedule } = useContext(ScheduleContext) as ScheduleContextType
+    const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
-    const [ scheduleSemester, setScheduleSemester ] = useState("Fall")
-    const [ scheduleName, setScheduleName ] = useState("")
-    const [ scheduleYear, setScheduleYear ] = useState("")
+    const [scheduleSemester, setScheduleSemester] = useState("Fall")
+    const [scheduleName, setScheduleName] = useState("")
+    const [scheduleYear, setScheduleYear] = useState("")
     function isWhitespace(str: string): boolean {
         return /^\s*$/.test(str);
-      }
-      
+    }
+
     const handleStart = () => {
         if (!scheduleName) {
             alert('Please enter a schedule name');
             return;
-        }else if (isWhitespace(scheduleName)){
+        } else if (isWhitespace(scheduleName)) {
             alert("input error no null names");
             return;
         }
@@ -35,14 +35,14 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
             return;
         }
 
-        
+
         setIsOpen(false);
-        setActiveCourses({course: null, type:"setAll", courseList: []});
-        setTentativeCourses({course: null, type:"setAll", courseList: []});
+        setActiveCourses({ course: null, type: "setAll", courseList: [] });
+        setTentativeCourses({ course: null, type: "setAll", courseList: [] });
         setName(scheduleName);
         setSemester(scheduleSemester);
         setYear(scheduleYear);
-        saveSchedule();
+
         navigate("/");
     }
 
@@ -52,41 +52,60 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                 Make a new schedule!
             </div>
 
-            <div>
-                <label>schedule name</label>
-                <input
-                    id="schedule-name"
-                    type="text" required
-                    className={"modal-input"}
-                    placeholder="name"
+            <div className={"modal-row"}>
+                <TextField
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                    size="medium"
+                    label={"Title"}
                     onBlur={(nameElement) => {
                         setScheduleName(nameElement.target.value);
-                    }} />
+                    }}
+                />
+               
             </div>
 
-            <div>
-                <label>schedule year</label>
-                <select className={"modal-select"} id="schedule-year" value={scheduleYear} onChange={(change) => {
-                    setScheduleYear(change.target.value);
-                }}>
-                    <option value="any">Any</option>
-                    <option value="2018">2018</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                </select>
+            <div className={"modal-row"}>
+                <TextField 
+                    select
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                    size="medium"
+                    label={"Year"}
+                    onChange={(change) => {
+                        setScheduleYear(change.target.value);
+                    }}
+                >
+                    <MenuItem value={"2018"}>
+                        2018
+                    </MenuItem>
+                    <MenuItem value={"2019"}>
+                        2019
+                    </MenuItem>
+                    <MenuItem value={"2020"}>
+                        2020
+                    </MenuItem>
+                </TextField>
             </div>
 
-            <div>
-                <label>schedule semester</label>
-                <select className={"modal-select"} id="schedule-semester" value={scheduleSemester} onChange={(change) => {
-                    setScheduleSemester(change.target.value);
-                }}>
-                    <option value="any">Any</option>
-                    <option value="Fall">Fall</option>
-                    <option value="Spring">Spring</option>
-                </select>
+            <div className={"modal-row"}>
+                <TextField 
+                    select
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                    size="medium"
+                    label={"Semester"}
+                    onChange={(change) => {
+                        setScheduleSemester(change.target.value);
+                    }}
+                >
+                    <MenuItem value={"Fall"}>
+                        Fall
+                    </MenuItem>
+                    <MenuItem value={"Fall"}>
+                        Spring
+                    </MenuItem>
+                </TextField>
             </div>
 
             <button className={"start-button"} onClick={handleStart}>

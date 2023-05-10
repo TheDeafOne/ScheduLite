@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Button } from "@mui/material";
 
-interface Personal {
+interface IPersonal {
   firstName: string;
   lastName: string;
   major: string;
@@ -15,7 +15,7 @@ interface Personal {
 }
 
 const Personal = () => {
-  const [Personal, setPersonal] = useState<Personal>({
+  const [Personal, setPersonal] = useState<IPersonal>({
     firstName: "",
     lastName: "",
     major: "",
@@ -27,7 +27,7 @@ const Personal = () => {
   const handleInputChange = (event: SelectChangeEvent<number>) => {
     const name = event.target.name;
     const value = event.target.value;
-  
+
     setPersonal((prevState) => ({
       ...prevState,
       [name]: value
@@ -36,7 +36,6 @@ const Personal = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(Personal);
   };
 
   return (
@@ -76,14 +75,14 @@ const Personal = () => {
             variant="outlined"
           />
         </div>
-        
+
 
         <Button type="submit">Save Personal</Button>
       </form>
     </>
   );
 
-  
+
 };
 
 export default Personal;

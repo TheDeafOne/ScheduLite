@@ -1,0 +1,25 @@
+.user-options-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    .profile-icon {
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        filter: invert(1);
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .schedule-selection-icon {
+        height: 65px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    
+}
