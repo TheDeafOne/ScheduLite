@@ -65,9 +65,10 @@ const Languages: React.FC = () => {
   const variantOptions = selectedLanguageOption?.variantOptions || [];
   
   return (
-    <div>
+    <div style={{display: "flex", flexDirection: "column"}}>
       <h1 style={{ color: "white" }}>Language Settings</h1>
-      <FormControl>
+      <div>
+      <FormControl style={{minWidth: 250}}>
         <InputLabel htmlFor="language-select" style={{ color: "white" }}>
           Select a language:
         </InputLabel>
@@ -75,7 +76,7 @@ const Languages: React.FC = () => {
           id="language-select"
           value={selectedLanguage}
           onChange={handleLanguageChange}
-          style={{ color: "white" }}
+          style={{ color: "white", marginBottom: "10px" }}
         >
           {languageOptions.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -85,8 +86,8 @@ const Languages: React.FC = () => {
         </Select>
       </FormControl>
       {variantOptions.length > 0 && (
-        <div>
-          <FormControl>
+        <div style={{minWidth: 250}}>
+          <FormControl style={{minWidth: 250}}>
             <InputLabel htmlFor="variant-select" style={{ color: "white" }}>
               Select a variant:
             </InputLabel>
@@ -94,7 +95,7 @@ const Languages: React.FC = () => {
               id="variant-select"
               value={selectedVariant}
               onChange={handleVariantChange}
-              style={{ color: "white" }}
+              style={{ color: "white", marginBottom: "10px" }}
             >
               {variantOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -105,8 +106,8 @@ const Languages: React.FC = () => {
           </FormControl>
         </div>
       )}
-      <div>
-        <FormControl>
+      <div style={{minWidth: 250}}>
+        <FormControl style={{minWidth: 250}}>
           <InputLabel htmlFor="direction-select" style={{ color: "white" }}>
             Select text direction:
           </InputLabel>
@@ -114,7 +115,7 @@ const Languages: React.FC = () => {
             id="direction-select"
             value={textDirection}
             onChange={handleTextDirectionChange}
-            style={{ color: "white" }}
+            style={{ color: "white", marginBottom: "10px" }}
           >
             <MenuItem value="ltr">Left-to-right</MenuItem>
             <MenuItem value="rtl">Right-to-left</MenuItem>
@@ -122,7 +123,7 @@ const Languages: React.FC = () => {
         </FormControl>
       </div>
       <div>
-        <FormControl>
+        <FormControl style={{minWidth: 250}}>
           <InputLabel htmlFor="datetime-format-select" style={{ color: "white" }}>
             Select date/time format:
           </InputLabel>
@@ -130,7 +131,7 @@ const Languages: React.FC = () => {
             id="datetime-format-select"
             value={dateTimeFormat}
             onChange={handleDateTimeFormatChange}
-            style={{ color: "white" }}
+            style={{ color: "white", marginBottom: "10px" }}
           >
             <MenuItem value="short">Short format</MenuItem>
             <MenuItem value="long">Long format</MenuItem>
@@ -144,6 +145,7 @@ const Languages: React.FC = () => {
         )}
         <p style={{ color: "white" }}>Selected text direction: {textDirection}</p>
         <p style={{ color: "white" }}>Selected date/time format: {dateTimeFormat}</p>
+      </div>
       </div>
     </div>
   );

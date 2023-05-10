@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FormControl, InputLabel, Select, MenuItem, TextField, SelectChangeEvent } from '@mui/material';
 
 interface AppearanceSettings {
   colorScheme: string;

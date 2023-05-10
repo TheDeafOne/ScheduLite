@@ -1,0 +1,47 @@
+@use "../../styles/globals/variables";
+.vertical-tabs {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    border-radius: 10px;
+    //background-color: ;
+  /*justify-content: stretch;*/
+  }
+
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    /*flex-grow: 1;*/
+    border-right: 1px solid variables.$border-color;
+    //background-color: #5e2929;
+    border-radius: 10px 0 0 10px;
+    overflow: hidden;
+    //border-radius: inherit;
+  }
+
+  .tab {
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    cursor: pointer;
+    color: variables.$text-color;
+    //background-color: #2e54ee;
+
+    /*background-color: #f8f8f8;*/
+
+    /*border-top: 1px solid #ddd;*/
+  }
+  .tab:not(:first-child) {
+    border-top: 1px solid variables.$border-color;
+  }
+  .active {
+    background-color: lighten(variables.$background-light, 10%);
+    //background-clip;
+  }
+  .tab-content {
+    flex: 1;
+    padding: 16px;
+  }

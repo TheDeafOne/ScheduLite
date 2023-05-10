@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, TextField, SelectChangeEvent } from '@mui/material';
 
 const AcademicInfo = () => {
   const mockMajors = [
@@ -48,9 +48,9 @@ const AcademicInfo = () => {
   };
 
   return (
-    <div>
+    <div className={"academic-form"}>
       <h1 style={{ color: "white" }}>Academic Info</h1>
-      <div style={{ padding: "10px 20px 20px 20px" }}>
+      <div style={{ padding: "10px 20px 20px 20px", display: "flex", flexDirection: "column"}}>
         <FormControl style={{ minWidth: "200px", marginBottom: "10px" }}>
           <InputLabel id="major-label" style={{ color: "white" }}>Major</InputLabel>
           <Select

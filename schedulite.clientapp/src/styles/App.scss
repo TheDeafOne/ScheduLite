@@ -4,12 +4,18 @@
 .App {
   text-align: center;
 }
-html, body, #app, #app>div {
+html {
+  height: 100vh;
+}
+body, #app, #app>div, .main-app-body {
   font-family: Arial, serif;
   height: 100%;
   background-color: variables.$background-main;
 }
-
+.main-app-body {
+  display: flex;
+  flex-direction: column;
+}
 .modal {
   background-color: #282c34;
 }

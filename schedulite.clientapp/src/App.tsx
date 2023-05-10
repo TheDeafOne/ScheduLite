@@ -88,7 +88,7 @@ function AppBody() {
 
     const DefaultRoutes = () => {
         return (
-            <div>
+            <div className={"main-app-body"}>
                 <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}

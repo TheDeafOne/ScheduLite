@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './VerticalTabs.css';
+import './VerticalTabs.scss';
 import Personal from './Personal';
 import Languages from './Languages';
 import Keybinds from './Keybinds';
