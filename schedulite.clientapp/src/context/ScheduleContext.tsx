@@ -164,7 +164,6 @@ export const ScheduleProvider = (props: any) => {
         return credits
     }
     const onScheduleOpen = (active: ICourse[], tentative: ICourse[]) => {
-        console.log("onscheduleopen")
         active.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
             array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
             array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
