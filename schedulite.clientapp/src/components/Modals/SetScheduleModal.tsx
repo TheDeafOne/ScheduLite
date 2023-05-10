@@ -102,7 +102,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     <MenuItem value={"Fall"}>
                         Fall
                     </MenuItem>
-                    <MenuItem value={"Fall"}>
+                    <MenuItem value={"Spring"}>
                         Spring
                     </MenuItem>
                 </TextField>
