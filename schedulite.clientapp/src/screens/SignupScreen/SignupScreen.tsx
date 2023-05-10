@@ -1,9 +1,9 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Alert, Button, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { UserContext, UserContextType } from "../../context/UserContext";
 import AuthService from '../../services/auth.service';
@@ -62,14 +62,17 @@ const Signup = () => {
   return (
     <div className="auth-container">
       <div className={"auth-back-button-container"}>
-          <div className="abs-back-container">
-              <button onClick={() => {navigate('/')}} className={"back-button"}><ArrowBackIcon /></button>
-              <div className={"back-button-title"}>
-                  Back to Schedule
-              </div>
+        <div className="abs-back-container">
+          <button onClick={() => { navigate('/') }} className={"back-button"}><ArrowBackIcon /></button>
+          <div className={"back-button-title"}>
+            Back to Schedule
           </div>
+        </div>
       </div>
       <div className="card-container">
+        <div className="auth-title">
+          Sign Up
+        </div>
         <div className="form-container">
           <form onSubmit={formik.handleSubmit}>
             <Grid>
