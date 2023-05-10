@@ -98,9 +98,7 @@ const Appearance = () => {
       <h1 style={{ color: "white" }}>Appearance Settings</h1>
 
       <div>
-        <label htmlFor="colorScheme" style={{ color: "white" }}>
-          Color Scheme:
-          <FormControl variant="outlined" style={{ minWidth: "120px" }}>
+          <FormControl variant="outlined" style={{ minWidth: "250px", marginBottom: "10px" }}>
             <InputLabel id="colorScheme-label">Color Scheme</InputLabel>
             <Select
               labelId="colorScheme-label"
@@ -115,13 +113,10 @@ const Appearance = () => {
               ))}
             </Select>
           </FormControl>
-        </label>
       </div>
 
       <div>
-        <label htmlFor="font" style={{ color: "white" }}>
-          Font:
-          <FormControl variant="outlined" style={{ minWidth: "120px" }}>
+          <FormControl variant="outlined" style={{ minWidth: "250px", marginBottom: "10px" }}>
             <InputLabel id="font-label">Font</InputLabel>
             <Select
               labelId="font-label"
@@ -136,12 +131,12 @@ const Appearance = () => {
               ))}
             </Select>
           </FormControl>
-        </label>
       </div>
 
-      <div>
-        <label htmlFor="fontSize" style={{ color: "white" }}>
-          Font Size:
+      <div >
+        {/*<label htmlFor="fontSize" style={{ color: "white" }}>*/}
+        {/*  Font Size:*/}
+        {/*</label>*/}
           <TextField
             id="outlined-basic"
             label="Font Size"
@@ -149,13 +144,11 @@ const Appearance = () => {
             type="number"
             value={settings.fontSize}
             onChange={handleFontSizeChange}
+            style={{ minWidth: "250px", marginBottom: "10px" }}
           />
-        </label>
       </div>
 
       <div>
-        <label htmlFor="backgroundColor" style={{ color: "white" }}>
-          Background Color:
           <TextField
             id="outlined-basic"
             label="Background Color"
@@ -163,14 +156,13 @@ const Appearance = () => {
             type="color"
             value={settings.backgroundColor}
             onChange={handleBackgroundColorChange}
+            // style={{minWidth: 250}}
+            style={{ minWidth: "250px", marginBottom: "10px" }}
           />
-        </label>
       </div>
 
       <div>
-        <label htmlFor="layout" style={{ color: "white" }}>
-          Layout:
-          <FormControl variant="outlined" style={{ minWidth: "120px" }}>
+          <FormControl variant="outlined" style={{ minWidth: "250px", marginBottom: "10px" }}>
             <InputLabel id="layout-label">Layout</InputLabel>
             <Select
               labelId="layout-label"
@@ -185,12 +177,9 @@ const Appearance = () => {
               ))}
             </Select>
           </FormControl>
-        </label>
       </div>
 
       <div>
-        <label htmlFor="spacing" style={{ color: "white" }}>
-          Spacing:
           <TextField
             id="outlined-basic"
             label="Spacing"
@@ -198,13 +187,11 @@ const Appearance = () => {
             type="number"
             value={settings.spacing}
             onChange={handleSpacingChange}
+            style={{ minWidth: "250px", marginBottom: "10px" }}
           />
-        </label>
       </div>
 
       <div>
-        <label htmlFor="darkMode" style={{ color: "white" }}>
-          Dark Mode:
           <FormControlLabel
             control={
               <Checkbox
@@ -214,9 +201,9 @@ const Appearance = () => {
                 color="primary"
               />
             }
+            style={{color: "white"}}
             label="Enable Dark Mode"
           />
-        </label>
       </div>
 
       <div>

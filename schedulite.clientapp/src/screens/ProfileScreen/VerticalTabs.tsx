@@ -3,11 +3,9 @@ import './VerticalTabs.scss';
 import Personal from './Personal';
 import Languages from './Languages';
 import Keybinds from './Keybinds';
-import { useState } from 'react';
 import Appearance from './Appearance';
 import Academic from './Academic';
 import AcademicInfo from './Academic';
-import './VerticalTabs.css';
 interface Tab {
   name: string;
   content: JSX.Element;
