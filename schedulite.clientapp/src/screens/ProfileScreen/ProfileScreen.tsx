@@ -6,7 +6,7 @@ import { UserContext, UserContextType } from '../../context/UserContext';
 
 
 const Profile = () => {
-    const { user, setUser } = useContext(UserContext) as UserContextType;
+    const { setUser } = useContext(UserContext) as UserContextType;
 
     const navigate = useNavigate();
 
