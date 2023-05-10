@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { HiOutlineMinus, HiOutlinePlus } from 'react-icons/hi';
-import Results from "../../components/CourseComponents/Results/Results";
 import { useNavigate } from 'react-router-dom';
+import Results from "../../components/CourseComponents/Results/Results";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import ICourse from "../../types/course.type";
 
@@ -33,7 +33,7 @@ const CoursePanel = (props: any) => {
                 calcActiveCredits() === 0 &&
                 (
                     <div className={"no-courses"}>
-                        No courses! Add courses <a className="navigate-link" onClick={() => {navigate('/Search')}}>here.</a>
+                        No courses! Add courses <span className="auth-link" onClick={() => { navigate('/Search') }}>here.</span>
                     </div>
                 )
             }
