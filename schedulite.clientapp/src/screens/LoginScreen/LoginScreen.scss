@@ -17,7 +17,11 @@
 .auth-link {
   &:hover {
     cursor:pointer;
+    text-decoration-color: rgb(29,150,238);
   }
+  text-decoration: underline;
+  color: rgb(29,150,238); 
+  text-decoration-color: rgb(29,150,238, 0.5);
 }
 
 
