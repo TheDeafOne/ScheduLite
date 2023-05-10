@@ -43,6 +43,8 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
         setSemester(scheduleSemester);
         setYear(scheduleYear);
 
+        
+
         navigate("/");
     }
 
