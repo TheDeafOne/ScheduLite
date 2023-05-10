@@ -124,7 +124,7 @@ function AppBody() {
                     <Route
                         path="/"
                         element={
-                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible} />
+                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible} setIsOpen={setIsOpen} setModal={setModal} />
                         }
                     />
                     <Route

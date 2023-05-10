@@ -189,38 +189,40 @@ export const ScheduleProvider = (props: any) => {
         }
     }
     useEffect(() => {
-        setSaved(false);
-        saveSchedule()
+        if (name !== null) {
+            setSaved(false);
+            saveSchedule();
 
-        for (const course of activeCourses.courses) {
-            const inSchedule = activeCourses.courses.some((e: ICourse) => (e.id === course.id))
-            course.overlap = inSchedule && activeCourses.courses.some((e: ICourse) => (e.id !== course.id
-                && overlap(e, course)));
-        }
-        let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
-        console.log(activeCourses.courses)
-        console.log(coursesWithOverlap);
-        // console.log(errors)
-        setErrors({
-            overlap: {
-                value: coursesWithOverlap.length > 0,
-                courses: coursesWithOverlap
+            for (const course of activeCourses.courses) {
+                const inSchedule = activeCourses.courses.some((e: ICourse) => (e.id === course.id))
+                course.overlap = inSchedule && activeCourses.courses.some((e: ICourse) => (e.id !== course.id
+                    && overlap(e, course)));
             }
-        }
-        )
-        let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)))
+            let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
+            console.log(activeCourses.courses);
+            console.log(coursesWithOverlap);
+            // console.log(errors)
+            setErrors({
+                    overlap: {
+                        value: coursesWithOverlap.length > 0,
+                        courses: coursesWithOverlap
+                    }
+                }
+            );
+            let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)));
 
-        setWarnings({
-            credits: {
-                value: calcActiveCredits() > 18,
-                message: `Number of active credits ${calcActiveCredits()} is greater 18.`
-            },
-            sameCourse: {
-                value: sameCourseDiffSections.length > 0,
-                courses: sameCourseDiffSections,
-                message: "Schedule contains two of the same course with different sections."
-            }
-        })
+            setWarnings({
+                credits: {
+                    value: calcActiveCredits() > 18,
+                    message: `Number of active credits ${calcActiveCredits()} is greater 18.`
+                },
+                sameCourse: {
+                    value: sameCourseDiffSections.length > 0,
+                    courses: sameCourseDiffSections,
+                    message: "Schedule contains two of the same course with different sections."
+                }
+            });
+        }
         // eslint-disable-next-line
     }, [activeCourses, tentativeCourses])
     // const [saved]

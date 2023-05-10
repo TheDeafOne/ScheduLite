@@ -1,6 +1,6 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
 
 // import "../../styles/BodyStructure.scss"
@@ -15,15 +15,21 @@ import { linkedScheduleObjType } from "../../App";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import { UserContext, UserContextType } from "../../context/UserContext";
 import Calendar from "./Calendar/Calendar";
+import SetScheduleModal from "../../components/Modals/SetScheduleModal";
 
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
-const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: { linkedScheduleObj: linkedScheduleObjType, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible, setIsOpen, setModal }: {
+    linkedScheduleObj: linkedScheduleObjType,
+    panelVisible: boolean,
+    setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setModal: React.Dispatch<React.SetStateAction<any>> }) => {
 
     const [calendarCourseHover, setCalendarCourseHover] = useState<ICourse | undefined>();
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
     const [currCourse, setCourse] = useState<ICourse | undefined>();
     const [viewCourse, setViewCourse] = useState(false);
-    const { saved, saveSchedule, errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
+    const { saved, name, saveSchedule, errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType
 
 
@@ -36,7 +42,9 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: { linkedSche
         setScheduleSaved(saved);
     }, [saved])
     useEffect(() => {
-        onSaveClick()
+        if (name !== "") {
+            onSaveClick()
+        }
         // eslint-disable-next-line
     }, [])
     // useEffect(() => {
@@ -46,10 +54,18 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: { linkedSche
     // const saveSchedule = () =>
 
     const onSaveClick = () => {
-        console.log("saved (shuold only be once)")
+        console.log("saved (should only be once)")
         if (user) {
-            saveSchedule()
-            setSavedMessage("Saved!")
+            console.log("here");
+            console.log(name)
+            if (name === "") {
+                console.log("HERE WE MADE IT");
+                // setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
+                // setIsOpen(true);
+            } else {
+                saveSchedule()
+                setSavedMessage("Saved!")
+            }
         } else {
             setSavedMessage("Not logged in! Sign in to save schedule")
         }
