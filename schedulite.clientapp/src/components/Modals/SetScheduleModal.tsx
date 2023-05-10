@@ -61,6 +61,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onBlur={(nameElement) => {
                         setScheduleName(nameElement.target.value);
                     }}
+                    defaultValue=""
                 />
                
             </div>
@@ -75,6 +76,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onChange={(change) => {
                         setScheduleYear(change.target.value);
                     }}
+                    defaultValue=""
                 >
                     <MenuItem value={"2018"}>
                         2018
@@ -98,6 +100,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onChange={(change) => {
                         setScheduleSemester(change.target.value);
                     }}
+                    defaultValue=""
                 >
                     <MenuItem value={"Fall"}>
                         Fall
