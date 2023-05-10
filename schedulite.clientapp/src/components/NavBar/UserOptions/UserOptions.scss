@@ -17,9 +17,18 @@
 
     .schedule-selection-icon {
         height: 65px;
+
         &:hover {
             cursor: pointer;
         }
     }
-    
+
+    .search-icon {
+        height: 40px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
 }

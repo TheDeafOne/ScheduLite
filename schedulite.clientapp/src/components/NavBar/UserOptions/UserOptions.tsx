@@ -11,6 +11,12 @@ const UserOptions = () => {
         <div className="user-options-container">
             <img
                 alt=""
+                className="search-icon"
+                src={SearchIcon}
+                onClick={() => navigate("/Search", {replace: true})}
+            />
+            <img
+                alt=""
                 className="schedule-selection-icon"
                 src={UserScheduleSelectionIcon}
                 onClick={() => { navigate("/schedule-selection", { replace: true }) }}
@@ -20,12 +26,6 @@ const UserOptions = () => {
                 className="profile-icon"
                 src={DefaultProfileIcon}
                 onClick={() => { navigate("/profile", { replace: true }) }}
-            />
-            <img
-                alt=""
-                className="search-icon"
-                src={SearchIcon}
-                onClick={() => navigate("/Search", {replace: true})}
             />
         </div>
     )
