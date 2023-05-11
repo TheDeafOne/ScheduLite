@@ -13,3 +13,61 @@
   flex-direction: column;
   height: 100vh !important;
 }
+
+.auth-link {
+  &:hover {
+    cursor:pointer;
+    text-decoration-color: rgb(29,150,238);
+  }
+  text-decoration: underline;
+  color: rgb(29,150,238); 
+  text-decoration-color: rgb(29,150,238, 0.5);
+}
+
+
+.auth-back-button-container {
+  color: white;
+  position: absolute;
+  padding-bottom: 5px;
+  top: 20px;
+  left: 20px;
+
+  .abs-back-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .back-button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    font-weight: bold;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+    &:hover  {
+      background-color: #4b566c;
+    }
+    &:focus {
+      outline: orange 5px auto;
+
+    }
+  }
+  .back-button-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.auth-title { 
+  color:white;
+  margin:10px;
+  font-size: 30px;
+  font-weight: 500;
+}

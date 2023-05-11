@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Select, MenuItem, TextField, SelectChangeEvent } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
 
 const AcademicInfo = () => {
   const mockMajors = [

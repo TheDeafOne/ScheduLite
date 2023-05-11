@@ -9,6 +9,11 @@
   border-top: 1px solid #716b6b;
   /*justify-content: center;*/
 }
+.navigate-link {
+  &:hover {
+    cursor:pointer;
+  }
+}
 .saved-text {
   color: #00ff00;
   font-weight: bold;

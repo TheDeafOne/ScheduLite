@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import './VerticalTabs.scss';
-import Personal from './Personal';
-import Languages from './Languages';
-import Keybinds from './Keybinds';
-import Appearance from './Appearance';
-import Academic from './Academic';
+import { useState } from 'react';
 import AcademicInfo from './Academic';
+import Appearance from './Appearance';
+import Keybinds from './Keybinds';
+import Languages from './Languages';
+import Personal from './Personal';
+import './VerticalTabs.scss';
 interface Tab {
   name: string;
   content: JSX.Element;

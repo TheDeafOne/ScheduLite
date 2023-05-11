@@ -39,8 +39,8 @@ const Languages: React.FC = () => {
   const [selectedVariant, setSelectedVariant] = useState<string | undefined>(
     languageOptions[0].variantOptions?.[0]?.value
   );
-  const [textDirection, setTextDirection] = useState<"ltr" | "rtl">("ltr");
-  const [dateTimeFormat, setDateTimeFormat] = useState<"short" | "long">(
+  const [textDirection] = useState<"ltr" | "rtl">("ltr");
+  const [dateTimeFormat] = useState<"short" | "long">(
     "short"
   );
 

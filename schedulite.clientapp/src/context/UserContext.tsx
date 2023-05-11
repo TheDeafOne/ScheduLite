@@ -5,12 +5,12 @@ import IUser from "../types/user.type";
 
 export interface UserContextType {
     user: IUser | null,
-    setUser: (user: IUser) => void,
+    setUser: (user: IUser | null) => void,
     scheduleExists: (name: string) => boolean | undefined | null,
     addUserSchedule: (schedule: ISchedule) => void
     updateUserSchedule: (schedule: ISchedule) => void
 }
-export const UserContext = createContext<UserContextType | undefined>(undefined);
+export const UserContext = createContext<UserContextType | undefined | null>(undefined);
 
 export const UserProvider = (props: any) => {
 

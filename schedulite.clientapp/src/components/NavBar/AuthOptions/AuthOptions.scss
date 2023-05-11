@@ -31,3 +31,10 @@
         background-color: rgb(103,135,255);
     }
 }
+.search-icon {
+    height: 40px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

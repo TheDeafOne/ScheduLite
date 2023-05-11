@@ -13,15 +13,15 @@ import "./HomeScreen.scss";
 
 import { linkedScheduleObjType } from "../../App";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
-import { UserContext, UserContextType } from "../../context/UserContext";
+import { UserContext, UserContextType } from '../../context/UserContext';
 import Calendar from "./Calendar/Calendar";
-import SetScheduleModal from "../../components/Modals/SetScheduleModal";
 
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
 const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
     linkedScheduleObj: linkedScheduleObjType,
     panelVisible: boolean,
-    setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
+    setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
 
     const [calendarCourseHover, setCalendarCourseHover] = useState<ICourse | undefined>();
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
@@ -61,8 +61,8 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
             //     // setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
             //     // setIsOpen(true);
             // } else {
-                saveSchedule()
-                setSavedMessage("Saved!")
+            saveSchedule()
+            setSavedMessage("Saved!")
             // }
         } else {
             setSavedMessage("Not logged in! Sign in to save schedule")
@@ -70,8 +70,6 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
         console.log(saveMessage);
     }
     const onCourseClick = (course: any) => {
-        // console.log(course);
-        // console.log(currCourse);
         if (course === currCourse) {
             setViewCourse(false);
             setCourse(undefined);
@@ -86,28 +84,17 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
         let path = `/Search`;
         navigate(path);
     }
-    // const courseNames : string[] = schedule.activeCourses.map((elem) => {
-    //     return `{}    ${elem.course_title}    {}`
-    // })
 
     const removeEvent = () => {
         setTentativeCourseHover(undefined)
     }
     const addEvent = (course: ICourse) => {
         setTentativeCourseHover(course)
-        // console.log("test")
     }
 
     return (
         // <SearchPage />
-        <motion.div
-            // key="home"
-            className="container text-center"
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
-        // exit={{ scale: 0 }}
-        // transition={{ duration: 2 }}
-        >
+        <motion.div className="container text-center">
             <div className={"main-body"}>
                 {/*<MouseOverPopover />*/}
                 <CoursePanel onMouseEnter={addEvent} onMouseLeave={removeEvent} onCourseClick={onCourseClick} />
@@ -123,13 +110,10 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
                     </motion.div>
 
                     <Calendar tentativeCourseHover={tentativeCourseHover} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse} />
-                    <div className={"save-bar"}>
-                        {
-                            scheduleSaved && <span className={"saved-text"}>Saved!</span>
-                        }
 
-                        {user && name !== "" && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
-                    </div>
+                    {user && name !== "" && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
+                </div>
+                <div>
                     <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${(warnings.credits.value) || (warnings.sameCourse.value && !panelVisible) ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
                         {
                             panelVisible ? <ChevronRightIcon /> : <ChevronLeftIcon />

@@ -1,16 +1,14 @@
-import React, { useContext } from 'react';
-import { HiOutlineMinus, HiOutlinePlus } from 'react-icons/hi';
-import { MdPlaylistRemove, MdPlaylistAdd } from 'react-icons/md';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { BiListPlus } from "react-icons/bi";
 import Results from "../../components/CourseComponents/Results/Results";
-
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
-import ICourse from "../../types/course.type";
-import AddToTentativeButton from "../../styles/globals/AddToTentativeButton";
 import AddToActiveButton from "../../styles/globals/AddToActiveButton";
-import {BiListPlus} from "react-icons/bi";
+import AddToTentativeButton from "../../styles/globals/AddToTentativeButton";
+import ICourse from "../../types/course.type";
 
 const CoursePanel = (props: any) => {
-
+    const navigate = useNavigate();
     // const [schedule, setSchedule] = useState<ISchedule>( {activeCourses : active, tentativeCourses : tentative})
     // GET BOTH THE ACTIVE AND TENTATIVE COURSE LIST FROM THE DATABASE
     const { name, activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, calcActiveCredits, calcTentativeCredits } = useContext(ScheduleContext) as ScheduleContextType
@@ -39,7 +37,7 @@ const CoursePanel = (props: any) => {
                     name === "" ?
                         (
                             <div className={"no-courses"}>
-                                No Schedule! Add Schedule <a href={"/ScheduleSelection"}>here.</a>
+                                No Schedule! Add Schedule <div className="auth-link" onClick={() => {navigate("/ScheduleSelection")}}>here.</div>
                             </div>
                         )
                         :

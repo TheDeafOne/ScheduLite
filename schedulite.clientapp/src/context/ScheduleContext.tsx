@@ -6,14 +6,6 @@ import ISchedule from "../types/schedule.type";
 import { UserContext, UserContextType } from "./UserContext";
 import moment from "moment";
 
-// export default
-// schedule =
-// user = useContext(UserProvider)
-// saveScheduleToDB
-//  if user
-//  else {
-//  NEED LOGGED IN
-// setSchedule=(
 type Action = { course: ICourse | null, type: 'add' | 'remove' | 'setAll', unshift?: boolean | null, courseList?: ICourse[] | null }
 
 type Dispatch = (action: Action) => void
@@ -125,9 +117,9 @@ export const ScheduleProvider = (props: any) => {
         return activeCourses.courses.some((e: ICourse) => (e.id === course.id))
     }
 
+
     const { scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
-
         if (name === "") {
             return;
         }
@@ -168,7 +160,6 @@ export const ScheduleProvider = (props: any) => {
                 .then(response => {
                     if (response.status === 200) {
                         setSaved(true)
-                        console.log("post request called twice?")
                         addUserSchedule(schedule)
                     }
                 });
@@ -190,7 +181,6 @@ export const ScheduleProvider = (props: any) => {
         return credits
     }
     const onScheduleOpen = (active: ICourse[], tentative: ICourse[]) => {
-        console.log("onscheduleopen")
         active.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
             array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
             array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
@@ -242,6 +232,7 @@ export const ScheduleProvider = (props: any) => {
         }
         // eslint-disable-next-line
     }, [activeCourses, tentativeCourses])
+
     // const [saved]
     const value = {
         activeCourses, setActiveCourses,
