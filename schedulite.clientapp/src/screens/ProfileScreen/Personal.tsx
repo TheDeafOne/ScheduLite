@@ -10,16 +10,7 @@ interface IPersonal {
   gradYear: number;
 }
 
-const Personal = () => {
-  const [Personal, setPersonal] = useState<IPersonal>({
-    firstName: "",
-    lastName: "",
-    major: "",
-    minor: "",
-    gradYear: 0
-  });
-
-
+const Personal = () => {  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
