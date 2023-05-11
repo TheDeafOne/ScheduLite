@@ -16,6 +16,7 @@ import './styles/App.scss';
 import { getDesignTokens } from "./styles/CustomPalette";
 import IUser from './types/user.type';
 import './components/Modals/ScheduleModal.scss';
+import {ScheduleContext, ScheduleContextType} from "./context/ScheduleContext";
 // import Brightness4Icon from '@mui/icons-material/Brightness4';
 // import Brightness7Icon from '@mui/icons-material/Brightness7';
 
@@ -30,6 +31,8 @@ export interface linkedScheduleObjType { linkedSchedule: boolean, setLinkedSched
 // }
 function AppBody() {
     const { setUser } = useContext(UserContext) as UserContextType;
+    // const { setIsOpen, setModal } = useContext(ScheduleContext) as ScheduleContextType
+
     const location = useLocation();
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modal, setModal] = useState(null);
@@ -124,13 +127,13 @@ function AppBody() {
                     <Route
                         path="/"
                         element={
-                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible} setIsOpen={setIsOpen} setModal={setModal} />
+                            <Home linkedScheduleObj={linkedScheduleObj} panelVisible={panelVisible} setPanelVisible={setPanelVisible} />
                         }
                     />
                     <Route
                         path="/Search"
                         element={
-                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible} />
+                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible} setIsOpen={setIsOpen} setModal={setModal} />
                         }
                     />
                     <Route path="/profile" element={<Profile />} />

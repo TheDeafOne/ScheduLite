@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import React, {createContext, useContext, useEffect, useReducer, useRef, useState} from "react";
 import axios from "../api/axios-config";
 import authHeader from "../services/auth-header";
 import ICourse from "../types/course.type";
@@ -26,6 +26,7 @@ export interface ScheduleContextType {
     tentativeCourses: State,
     setTentativeCourses: Dispatch,
     calcActiveCredits: () => number,
+    calcTentativeCredits: () => number,
     inSchedule: (course: ICourse) => boolean,
     overlap: (course1: ICourse, course2: ICourse) => boolean,
     saved: boolean,
@@ -38,7 +39,13 @@ export interface ScheduleContextType {
     saveSchedule: () => void,
     errors: Errors,
     warnings: Warnings,
-    onScheduleOpen: (active: ICourse[], tentative: ICourse[]) => void
+    onScheduleOpen: (active: ICourse[], tentative: ICourse[]) => void,
+    modal: any,
+    setModal: React.Dispatch<React.SetStateAction<any>>,
+    modalIsOpen: boolean,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    warningsOpen: React.MutableRefObject<boolean>,
+    errorsOpen: React.MutableRefObject<boolean>
 }
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);
 
@@ -88,7 +95,10 @@ export const ScheduleProvider = (props: any) => {
     const [saved, setSaved] = useState(true)
     const [errors, setErrors] = useState<Errors>({ overlap: { value: false, courses: [] } })
     const [warnings, setWarnings] = useState<Warnings>({ credits: { value: false, message: "" }, sameCourse: { value: false, courses: [], message: "" } })
-
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [modal, setModal] = useState(null);
+    const warningsOpen = useRef(true);
+    const errorsOpen = useRef(true);
 
 
     // const issuesExist = () => {
@@ -172,6 +182,13 @@ export const ScheduleProvider = (props: any) => {
         });
         return credits
     }
+    const calcTentativeCredits = (): number => {
+        let credits: number = 0
+        tentativeCourses.courses.forEach(function (elem: ICourse, index: number) {
+            credits += +elem.creditHours;
+        });
+        return credits
+    }
     const onScheduleOpen = (active: ICourse[], tentative: ICourse[]) => {
         console.log("onscheduleopen")
         active.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
@@ -234,9 +251,13 @@ export const ScheduleProvider = (props: any) => {
         semester, setSemester,
         year, setYear,
         calcActiveCredits,
+        calcTentativeCredits,
         inSchedule, overlap,
         errors, warnings,
-        onScheduleOpen
+        onScheduleOpen,
+        modal, setModal,
+        modalIsOpen, setIsOpen,
+        warningsOpen, errorsOpen
     }
 
     return (

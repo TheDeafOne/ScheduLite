@@ -1,15 +1,17 @@
 
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BiListCheck, BiListPlus } from 'react-icons/bi';
 import { HiCheck, HiOutlinePlus, HiX } from 'react-icons/hi';
 import "./Course.scss";
 
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import ICourse from "../../types/course.type";
+import SetScheduleModal from "../Modals/SetScheduleModal";
+import DeleteCourseButton from "../../styles/globals/DeleteCourseButton";
 
 
 const Course = (props: any) => {
-    const { activeCourses, tentativeCourses, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
+    const { name, activeCourses, tentativeCourses, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
 
     const course: ICourse = props.course
     const validDate = course.convertedStartDate!.isValid() || course.convertedEndDate!.isValid()
@@ -27,15 +29,17 @@ const Course = (props: any) => {
     }, [course])
 
     const addToActive = (event: any) => {
-        event.stopPropagation();
+        event.stopPropagation()
         setTentative(false)
         if (!active) {
-            setActiveCourses({ course: course, type: "add" })
-            setTentativeCourses({ course: course, type: "remove" })
+            setActiveCourses({course: course, type: "add"})
+            setTentativeCourses({course: course, type: "remove"})
         } else {
-            setActiveCourses({ course: course, type: "remove" })
+            setActiveCourses({course: course, type: "remove"})
         }
         setActive(!active)
+
+
         // if (props.onMouseLeave) {
         //     props.onMouseLeave()
         // }
@@ -61,6 +65,7 @@ const Course = (props: any) => {
         props.schedule === "active"
             ? setActiveCourses({ course: course, type: "remove" })
             : setTentativeCourses({ course: course, type: "remove" })
+        props.onMouseLeave();
     }
 
     return (
@@ -92,7 +97,7 @@ const Course = (props: any) => {
                             className="course-button"
                             type="button"
                             onClick={conditionalRemoveCourse}>
-                            <HiX style={{ color: "red" }} />
+                            <DeleteCourseButton />
                         </button>
                         {/*<button type="button" onClick={onClick}><BiAddToQueue /></button>*/}
                     </div>
@@ -129,20 +134,22 @@ const Course = (props: any) => {
 
 
                     {/*ONLY SHOW THE BUTTON IF THE USER IS SIGNED IN*/}
-                    <div className={"add-course"}>
-                        <button className="course-button" type="button" title="Add a course to active schedule!" onClick={addToActive}>
-                            {active
-                                ? <HiCheck style={{ color: "lightgreen" }} />
-                                : <HiOutlinePlus />}
-                        </button>
-                        <button className="course-button" type="button" title="Add a course to tentative schedule!" onClick={addToTentative}>
-                            {tentative
-                                ? <BiListCheck style={{ color: "lightgreen" }} />
-                                : <BiListPlus />
-                            }
+                    {name !== "" &&
+                        <div className={"add-course"}>
+                            <button className="course-button" type="button" title="Add a course to active schedule!" onClick={addToActive}>
+                                {active
+                                    ? <HiCheck style={{ color: "lightgreen" }} />
+                                    : <HiOutlinePlus />}
+                            </button>
+                            <button className="course-button" type="button" title="Add a course to tentative schedule!" onClick={addToTentative}>
+                                {tentative
+                                    ? <BiListCheck style={{ color: "lightgreen" }} />
+                                    : <BiListPlus />
+                                }
 
-                        </button>
-                    </div>
+                            </button>
+                        </div>
+                    }
 
                 </div>)
             }

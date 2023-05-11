@@ -12,7 +12,7 @@ import SearchBar from "./SearchScreenComponents/SearchBar/SearchBar";
 
 
 
-const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible, setModal, setIsOpen }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>, setModal: React.Dispatch<React.SetStateAction<any>>, setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse] = useState<ICourse | undefined>();
@@ -136,7 +136,7 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
                             />
                         </motion.div>
                         {query === "" && filters.every(x => x.value === "") ? <span className="suggested">Suggested Courses:</span> : ""}
-                        <Results response={response} onCourseClick={onCourseClick} />
+                        <Results response={response} onCourseClick={onCourseClick} setIsOpen={setIsOpen} setModal={setModal} />
                     </div>
                     <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} />
                 </div>

@@ -18,12 +18,10 @@ import Calendar from "./Calendar/Calendar";
 import SetScheduleModal from "../../components/Modals/SetScheduleModal";
 
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
-const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible, setIsOpen, setModal }: {
+const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
     linkedScheduleObj: linkedScheduleObjType,
     panelVisible: boolean,
-    setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>,
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setModal: React.Dispatch<React.SetStateAction<any>> }) => {
+    setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
     const [calendarCourseHover, setCalendarCourseHover] = useState<ICourse | undefined>();
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
@@ -58,14 +56,14 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible, setIsOpen, set
         if (user) {
             console.log("here");
             console.log(name)
-            if (name === "") {
-                console.log("HERE WE MADE IT");
-                // setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
-                // setIsOpen(true);
-            } else {
+            // if (name === "") {
+            //     console.log("HERE WE MADE IT");
+            //     // setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
+            //     // setIsOpen(true);
+            // } else {
                 saveSchedule()
                 setSavedMessage("Saved!")
-            }
+            // }
         } else {
             setSavedMessage("Not logged in! Sign in to save schedule")
         }
@@ -130,7 +128,7 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible, setIsOpen, set
                             scheduleSaved && <span className={"saved-text"}>Saved!</span>
                         }
 
-                        {user && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
+                        {user && name !== "" && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
                     </div>
                     <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${(warnings.credits.value) || (warnings.sameCourse.value && !panelVisible) ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
                         {
