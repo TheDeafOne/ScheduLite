@@ -66,8 +66,6 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
                         array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
 
                     })
-                    let matches = []
-                    let suggested = []
                     
                     setResponse(data);
                     setLoading(false);
