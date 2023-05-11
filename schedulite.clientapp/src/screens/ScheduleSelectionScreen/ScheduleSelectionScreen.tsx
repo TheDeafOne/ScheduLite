@@ -84,6 +84,10 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
       alert("input error no null names");
       return;
     }
+    if (user?.schedules?.some((s: { scheduleName: string; }) => s.scheduleName === newScheduleName)) {
+      alert('A schedule with this name already exists. Please choose a different name.');
+      return;
+    }
 
     const existingScheduleNames = filteredBlocks!.map((schedule) => schedule.scheduleName);
     if (existingScheduleNames.includes(newScheduleName)) {
@@ -161,6 +165,8 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
       {/*<SearchBar navigate={routeChange} autofocus={false} firstClick={true}/>*/}
       <div className={"schedule-filter-container"}>
         <div className={"schedule-filters"}>
+          <div style={{fontSize: "20px", paddingTop: "10px"}}>Schedule filters:</div>
+
           <div className={"filter"}>
           <TextField 
               select
@@ -232,7 +238,12 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
           setModal(<SetScheduleModal setIsOpen={setIsOpen} navigateTo={"/"}/>);
           setIsOpen(true);
         }}>
-          +
+          <span style={{fontSize: "24px"}}>
+            Create new schedule
+          </span>
+          <span>
+            +
+          </span>
         </div>
       </div>
     </div>
