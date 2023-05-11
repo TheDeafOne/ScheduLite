@@ -66,19 +66,19 @@ public class CourseService {
             for (String day : days.split("")) {
                 switch (day) {
                     case "M":
-                        filterCriteria.and("onMonday").is(true);
+                        filterCriteria.and("onMonday").is("True");
                         break;
                     case "T":
-                        filterCriteria.and("onTuesday").is(true);
+                        filterCriteria.and("onTuesday").is("True");
                         break;
                     case "W":
-                        filterCriteria.and("onWednesday").is(true);
+                        filterCriteria.and("onWednesday").is("True");
                         break;
                     case "R":
-                        filterCriteria.and("onThursday").is(true);
+                        filterCriteria.and("onThursday").is("True");
                         break;
                     case "F":
-                        filterCriteria.and("onFriday").is(true);
+                        filterCriteria.and("onFriday").is("True");
                 }
             }
         }
