@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { TextField } from "@mui/material";
+import React, { useState } from "react";
 
 type KeybindOption = {
   label: string;
@@ -73,31 +74,26 @@ const Keybinds = () => {
     newKeybinds[`${sectionTitle}: ${optionLabel}`] = value;
     setKeybinds(newKeybinds);
   };
-
+  
   return (
     <div>
-      <h1>Keybind Settings</h1>
+      <h1 style={{ color: "white" }}>Keybind Settings</h1>
       {keybindSections.map((section) => (
         <div key={section.title}>
-          <h2>{section.title}</h2>
+          <h2 style={{ color: "white" }}>{section.title}</h2>
           {section.options.map((option) => (
             <div key={option.label}>
-              <label htmlFor={`${section.title}-${option.label}`}>
+              <label htmlFor={`${section.title}-${option.label}`} style={{ color: "white" }}>
                 {option.label}:
               </label>
-              <input
-                type="text"
+              <TextField
                 id={`${section.title}-${option.label}`}
-                value={
-                  keybinds[`${section.title}: ${option.label}`] || option.value
-                }
+                value={keybinds[`${section.title}: ${option.label}`] || option.value}
                 onChange={(e) =>
-                  handleKeybindChange(
-                    section.title,
-                    option.label,
-                    e.target.value
-                  )
+                  handleKeybindChange(section.title, option.label, e.target.value)
                 }
+                variant="outlined"
+                style={{ color: "white" }}
               />
             </div>
           ))}
@@ -105,6 +101,5 @@ const Keybinds = () => {
       ))}
     </div>
   );
-};
-
+  };
 export default Keybinds;

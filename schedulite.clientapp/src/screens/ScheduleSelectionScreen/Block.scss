@@ -10,6 +10,26 @@
   /*overflow-wrap: ;*/
   /*flex-direction: column;*/
 }
+.vertical-tabs {
+  display: flex;
+  flex-direction: row;
+  height: inherit;
+  //overflow-y: scroll;
+}
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+.tab {
+
+}
+.tab-content {
+  display: flex;
+  height: inherit;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
 
 .block {
   position: relative; // to position the new buttons
@@ -130,4 +150,32 @@
   font-size: 24px !important;
   font-weight: bold;
   padding-bottom: 10px;
+}
+
+.profile-flex-container {
+  top: 50%;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  //height: 100%;
+}
+.profile-layout {
+  //margin: auto;
+  box-shadow: 0 0 30px -5px variables.$background-dark;
+  border: 1px solid variables.$border-color-light;
+  border-radius: 10px;
+  width: 60vw;
+  height: 70vh;
+  background-color: variables.$background-light;
+}
+.log-out {
+  //margin: 10px;
+}
+.form-item {
+  padding-bottom: 10px;
+}
+.academic-form {
+  display: flex;
+  flex-direction: column;
 }

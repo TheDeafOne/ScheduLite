@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   height: 100%;
@@ -8,8 +9,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body, #App, #App>div {
-  height: 100%;
+html, body, #App, #App>div, #root {
+  height: 100vh;
   /*background-color: #282c34;*/
 }
 
