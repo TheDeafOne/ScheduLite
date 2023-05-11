@@ -1,14 +1,12 @@
-import { useEffect, useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext, UserContextType } from '../../context/UserContext';
 import AuthService from '../../services/auth.service';
 import VerticalTabs from './VerticalTabs';
-import { UserContext, UserContextType } from '../../context/UserContext';
 
 import { Button } from "@mui/material";
 
 const Profile = () => {
-    const { setUser } = useContext(UserContext) as UserContextType;
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,7 +17,7 @@ const Profile = () => {
     return (
         <div className="profile-flex-container">
             <div className={"profile-layout"}>
-                <VerticalTabs/>
+                <VerticalTabs />
                 <Button
                     sx={{
                         margin: 1,
@@ -27,9 +25,9 @@ const Profile = () => {
                     }}
                     className={"log-out"}
                     onClick={() => {
-                    AuthService.logout();
-                    navigate("/login");
-                }}>
+                        AuthService.logout();
+                        navigate("/login");
+                    }}>
                     Log Out
                 </Button>
 
