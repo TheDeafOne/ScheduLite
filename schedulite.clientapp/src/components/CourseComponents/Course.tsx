@@ -7,10 +7,12 @@ import "./Course.scss";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
 import DeleteCourseButton from "../../styles/globals/DeleteCourseButton";
 import ICourse from "../../types/course.type";
+import {UserContext, UserContextType} from "../../context/UserContext";
 
 
 const Course = (props: any) => {
     const { name, activeCourses, tentativeCourses, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
+    const { user } = useContext(UserContext) as UserContextType;
 
     const course: ICourse = props.course
     const validDate = course.convertedStartDate!.isValid() || course.convertedEndDate!.isValid()
@@ -133,7 +135,9 @@ const Course = (props: any) => {
 
 
                     {/*ONLY SHOW THE BUTTON IF THE USER IS SIGNED IN*/}
-                    {name !== "" &&
+
+                    {name !== "" ?
+                        (
                         <div className={"add-course"}>
                             <button className="course-button" type="button" title="Add a course to active schedule!" onClick={addToActive}>
                                 {active
@@ -148,6 +152,27 @@ const Course = (props: any) => {
 
                             </button>
                         </div>
+                        ) :
+                        (
+
+                            <div className={"sign-in-message"}>
+                                {
+                                    user !== null ?
+                                        (
+                                        <span>
+                                            Make a schedule to add course.
+                                        </span>
+
+                                        ) : (
+                                            <span>
+                                            Sign in to make a schedule and add courses.
+                                        </span>
+                                        )
+
+                                }
+
+                            </div>
+                        )
                     }
 
                 </div>)

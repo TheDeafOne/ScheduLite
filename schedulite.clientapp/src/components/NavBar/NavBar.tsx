@@ -22,7 +22,7 @@ const NavBar = () => {
                 </div>
                 {["/", "/Search"].includes(location.pathname) &&
                     <div className={"nav-bar-schedule-name"}>
-                        {name !== "" ? name : "No name for schedule"}
+                        {name !== "" ? name : "No schedule selected"}
                     </div>
                 }
 

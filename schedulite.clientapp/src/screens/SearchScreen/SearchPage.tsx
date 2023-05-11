@@ -54,7 +54,6 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible, setModal, s
     }
 
     useEffect(() => {
-        console.log(url);
         const getData = setTimeout(() => {
             setLoading(true);
             axiosConfig.get(url)
@@ -147,7 +146,7 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible, setModal, s
                         
                         <Results response={response} onCourseClick={onCourseClick} />
                     </div>
-                    <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} />
+                    <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} searchPage={true} />
                 </div>
             </motion.div>
         </div>
