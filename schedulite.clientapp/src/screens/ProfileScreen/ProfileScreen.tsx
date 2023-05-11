@@ -28,9 +28,11 @@ const Profile = () => {
                     onClick={() => {
                         setUser(null);
                         AuthService.logout();
-                        navigate("/login");
+
                     }}>
-                    Log Out
+                    <a href="/login" style={{all: "unset"}}>
+                        Log Out
+                    </a>
                 </Button>
 
             </div>
