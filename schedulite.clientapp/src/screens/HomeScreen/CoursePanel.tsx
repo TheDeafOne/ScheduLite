@@ -6,11 +6,14 @@ import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleCont
 import AddToActiveButton from "../../styles/globals/AddToActiveButton";
 import AddToTentativeButton from "../../styles/globals/AddToTentativeButton";
 import ICourse from "../../types/course.type";
+import {UserContext, UserContextType} from "../../context/UserContext";
 
 const CoursePanel = (props: any) => {
     const navigate = useNavigate();
     // const [schedule, setSchedule] = useState<ISchedule>( {activeCourses : active, tentativeCourses : tentative})
     // GET BOTH THE ACTIVE AND TENTATIVE COURSE LIST FROM THE DATABASE
+    const { user } = useContext(UserContext) as UserContextType;
+
     const { name, activeCourses, setActiveCourses, tentativeCourses, setTentativeCourses, calcActiveCredits, calcTentativeCredits } = useContext(ScheduleContext) as ScheduleContextType
 
     const activeToTentative = (course: ICourse) => {
@@ -37,7 +40,17 @@ const CoursePanel = (props: any) => {
                     name === "" ?
                         (
                             <div className={"no-courses"}>
-                                No Schedule! Add Schedule <div className="auth-link" onClick={() => {navigate("/schedule-selection")}}>here.</div>
+                                No Schedule!
+                                {
+                                    user !== null ?
+                                        (
+                                        <> Add Schedule <div className="auth-link" onClick={() => {navigate("/schedule-selection")}}>here.</div></>
+                                        ) : (
+                                            <> Sign in to add schedule <div className="auth-link" onClick={() => {navigate("/login")}}>here.</div></>
+                                        )
+
+                                }
+
                             </div>
                         )
                         :
