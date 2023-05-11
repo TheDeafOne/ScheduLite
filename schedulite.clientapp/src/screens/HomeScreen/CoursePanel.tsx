@@ -37,13 +37,13 @@ const CoursePanel = (props: any) => {
                     name === "" ?
                         (
                             <div className={"no-courses"}>
-                                No Schedule! Add Schedule <div className="auth-link" onClick={() => {navigate("/ScheduleSelection")}}>here.</div>
+                                No Schedule! Add Schedule <div className="auth-link" onClick={() => {navigate("/schedule-selection")}}>here.</div>
                             </div>
                         )
                         :
                         (
                             <div className={"no-courses"}>
-                                No courses! Add courses <a href={"/Search"}>here.</a>
+                                No courses! Add courses by clicking on the search bar.
                             </div>
                         )
                 )

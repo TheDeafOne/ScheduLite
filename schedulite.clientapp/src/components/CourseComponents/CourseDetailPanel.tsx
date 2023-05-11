@@ -8,7 +8,7 @@ import CourseCard from "./CourseCard";
 // import List from "./Components/List";
 // import "./App.scss";
 
-const CourseDetailPanel = ({ course, viewCourse, calendarCourseHover }: { course: ICourse | undefined, viewCourse: boolean, calendarCourseHover: ICourse | undefined }) => {
+const CourseDetailPanel = ({ course, viewCourse, calendarCourseHover, searchPage }: { course: ICourse | undefined, viewCourse: boolean, calendarCourseHover: ICourse | undefined, searchPage: boolean }) => {
     const { errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
     // const issuesExist = () => {
     //     let warning = warnings()
@@ -58,8 +58,8 @@ const CourseDetailPanel = ({ course, viewCourse, calendarCourseHover }: { course
                 <div className={"issues"}>
 
                     <div className={"issues-container"}>
-                        <Errors />
-                        <Warnings />
+                        <Errors searchPage={searchPage}/>
+                        <Warnings searchPage={searchPage}/>
                     </div>
                 </div>
             )}

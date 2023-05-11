@@ -62,26 +62,26 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
                     <motion.div
                         key="home"
                         className="container text-center"
-                        initial={{ scale: .97 }}
-                        // animate={{scale: .97 }}
+                        initial={{ scale: 1 }}
+                        animate={{scale: .97 }}
                         transition={{ duration: .75 }}
                     >
                         <SearchBar navigate={routeChange} autofocus={false} firstClick={true} />
                     </motion.div>
 
                     <Calendar tentativeCourseHover={tentativeCourseHover} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse} />
-
-                </div>
-                <div>
                     <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${(warnings.credits.value) || (warnings.sameCourse.value && !panelVisible) ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
                         {
                             panelVisible ? <ChevronRightIcon /> : <ChevronLeftIcon />
                         }
                     </button>
                 </div>
+                {/*<div>*/}
+                {/*    */}
+                {/*</div>*/}
                 {
                     panelVisible && (
-                        <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover} />
+                        <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={calendarCourseHover} searchPage={false} />
                     )
                 }
             </div>

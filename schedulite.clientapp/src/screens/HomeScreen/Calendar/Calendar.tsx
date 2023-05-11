@@ -92,11 +92,11 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
                     <div className={"weekday-header"}>Friday</div>
                 </div>
                 <div className={"calendar-body"}>
-                    <div className={"weekday"} id={"M"}><Day dayOfWeek={"m"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"T"}><Day dayOfWeek={"t"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"W"}><Day dayOfWeek={"w"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"E"}><Day dayOfWeek={"r"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"F"}><Day dayOfWeek={"f"} eventKey={eventKeys} /></div>
+                    <div className={"weekday"} id={"M"}><Day dayOfWeek={"m"} eventKey={eventKeys} key={"m"} /></div>
+                    <div className={"weekday"} id={"T"}><Day dayOfWeek={"t"} eventKey={eventKeys} key={"t"} /></div>
+                    <div className={"weekday"} id={"W"}><Day dayOfWeek={"w"} eventKey={eventKeys} key={"w"} /></div>
+                    <div className={"weekday"} id={"R"}><Day dayOfWeek={"r"} eventKey={eventKeys} key={"r"} /></div>
+                    <div className={"weekday"} id={"F"}><Day dayOfWeek={"f"} eventKey={eventKeys} key={"f"} /></div>
                 </div>
             </div>
         </div>

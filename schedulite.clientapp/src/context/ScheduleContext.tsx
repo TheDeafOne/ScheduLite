@@ -78,9 +78,9 @@ function coursesReducer(state: State, action: Action) {
 }
 
 export const ScheduleProvider = (props: any) => {
-    // const empty: ICourse[] = [];
     const [activeCourses, setActiveCourses] = useReducer(coursesReducer, { courses: [] })
     const [tentativeCourses, setTentativeCourses] = useReducer(coursesReducer, { courses: [] })
+
     const [semester, setSemester] = useState("")
     const [year, setYear] = useState("")
     const [name, setName] = useState("")
