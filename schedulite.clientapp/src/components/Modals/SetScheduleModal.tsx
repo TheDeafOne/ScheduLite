@@ -23,6 +23,9 @@ const SetScheduleModal = ({ setIsOpen, navigateTo }: any ) => {
         } else if (isWhitespace(scheduleName)) {
             alert("input error no null names");
             return;
+        } else if (scheduleName.length > 15) {
+            alert("Schedule name has to be less than 15 characters");
+            return;
         }
 
         if (user?.schedules?.some((s: { scheduleName: string; }) => s.scheduleName === scheduleName)) {

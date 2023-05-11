@@ -4,11 +4,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { MenuItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import IFilter from "../../../types/filter.type";
-import {useContext} from "react";
-import {ScheduleContext, ScheduleContextType} from "../../../context/ScheduleContext";
 
 const FilterPanel = ({ filters, setFilters, onEnter }: { filters: IFilter[], setFilters: Function, onEnter: Function }) => {
-    const { name } = useContext(ScheduleContext) as ScheduleContextType
     const navigate = useNavigate();
     const onBackClick = () => {
         navigate("/")
@@ -24,14 +21,12 @@ const FilterPanel = ({ filters, setFilters, onEnter }: { filters: IFilter[], set
 
     return (
         <div className={"side-panel left-panel"}>
-            {name !== "" &&
-                <div className={"back-button-container"}>
-                    <button onClick={onBackClick} className={"back-button"}><ArrowBackIcon/></button>
-                    <div className={"back-button-title"}>
-                        Back to Schedule
-                    </div>
+            <div className={"back-button-container"}>
+                <button onClick={onBackClick} className={"back-button"}><ArrowBackIcon/></button>
+                <div className={"back-button-title"}>
+                    Back to Schedule
                 </div>
-            }
+            </div>
             <div className={"filters"}>
                 {filters.map((filterInfo: any, i) => {
 

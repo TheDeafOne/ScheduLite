@@ -92,11 +92,11 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
                     <div className={"weekday-header"}>Friday</div>
                 </div>
                 <div className={"calendar-body"}>
-                    <div className={"weekday"} id={"M"}><Day dayOfWeek={"m"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"T"}><Day dayOfWeek={"t"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"W"}><Day dayOfWeek={"w"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"E"}><Day dayOfWeek={"r"} eventKey={eventKeys} /></div>
-                    <div className={"weekday"} id={"F"}><Day dayOfWeek={"f"} eventKey={eventKeys} /></div>
+                    <div className={"weekday"} id={"M"}><Day dayOfWeek={"m"} eventKey={eventKeys} key={"m"} /></div>
+                    <div className={"weekday"} id={"T"}><Day dayOfWeek={"t"} eventKey={eventKeys} key={"t"} /></div>
+                    <div className={"weekday"} id={"W"}><Day dayOfWeek={"w"} eventKey={eventKeys} key={"w"} /></div>
+                    <div className={"weekday"} id={"R"}><Day dayOfWeek={"r"} eventKey={eventKeys} key={"r"} /></div>
+                    <div className={"weekday"} id={"F"}><Day dayOfWeek={"f"} eventKey={eventKeys} key={"f"} /></div>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@ const Calendar = ({ tentativeCourseHover, setCalendarCourseHover, setViewCourse 
 const Times = () => {
     let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30", "9:00"]
     let slots = []
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 28; i++) {
         slots.push(<div className={"time-slot"} id={i.toString()} key={times[i]}>
             <div className={""}>{times[i]}</div>
         </div>)
@@ -122,7 +122,7 @@ const Day = ({ dayOfWeek, eventKey }: { dayOfWeek: string, eventKey: any }) => {
     let times = ["", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30"]
     // let events = [{"timeStart": "8:00", "timeEnd": "8:50", "days": ["m", "w", "f"], "length":50, "courseTitle":"Principles of Accounting 101" },
     //     {"timeStart": "4:00", "timeEnd": "5:15", "days": ["m", "w"], "length":75, "courseTitle":"Principles of Accounting 101" }]
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 28; i++) {
         // if (i === times.indexOf(events[1].timeStart) && events[1].days.includes(dayOfWeek)) {
         //     const courseHeight = events[1].length * 2
         //     slots.push(<div className={"day-slot"} id={`${times[i]} ${dayOfWeek}`} key={`${times[i]} ${dayOfWeek}`}>

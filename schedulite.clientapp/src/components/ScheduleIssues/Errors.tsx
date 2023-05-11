@@ -8,7 +8,7 @@ import DeleteCourseButton from "../../styles/globals/DeleteCourseButton";
 import ICourse from "../../types/course.type";
 import "./Issues.scss";
 
-const Errors = () => {
+const Errors = (props: any) => {
     const { errors, setActiveCourses, setTentativeCourses, errorsOpen } = useContext(ScheduleContext) as ScheduleContextType
     // let scheduleErrors = errors()
     const [open, setOpen] = useState(errorsOpen.current);
@@ -59,18 +59,24 @@ const Errors = () => {
                                                         <div className={"error-course-title"}>
                                                             {course.courseTitle}
                                                         </div>
-                                                        <div className={"action-buttons"}>
-                                                            <button className="course-button" type="button"
-                                                                    onClick={() => activeToTentative(course)}>
-                                                                <AddToTentativeButton />
-                                                            </button>
-                                                            <button
-                                                                className="course-button"
-                                                                type="button"
-                                                                onClick={() => conditionalRemoveCourse(course)}>
-                                                                <DeleteCourseButton />
-                                                            </button>
-                                                        </div>
+                                                        {
+                                                            !props.searchPage &&
+                                                            (
+                                                                <div className={"action-buttons"}>
+                                                                    <button className="course-button" type="button"
+                                                                            onClick={() => activeToTentative(course)}>
+                                                                        <AddToTentativeButton />
+                                                                    </button>
+                                                                    <button
+                                                                        className="course-button"
+                                                                        type="button"
+                                                                        onClick={() => conditionalRemoveCourse(course)}>
+                                                                        <DeleteCourseButton />
+                                                                    </button>
+                                                                </div>
+                                                            )
+                                                        }
+
                                                         {/*<button type="button" onClick={onClick}><BiAddToQueue /></button>*/}
                                                     </div>
                                                 )
