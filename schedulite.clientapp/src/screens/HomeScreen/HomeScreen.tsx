@@ -13,7 +13,6 @@ import "./HomeScreen.scss";
 
 import { linkedScheduleObjType } from "../../App";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
-import { UserContext, UserContextType } from '../../context/UserContext';
 import Calendar from "./Calendar/Calendar";
 
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
@@ -27,48 +26,9 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
     const [currCourse, setCourse] = useState<ICourse | undefined>();
     const [viewCourse, setViewCourse] = useState(false);
-    const { saved, name, saveSchedule, errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
-    const { user } = useContext(UserContext) as UserContextType
+    const { saved, errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
 
 
-    const [scheduleSaved, setScheduleSaved] = useState(false)
-    const [saveMessage, setSavedMessage] = useState("")
-
-
-    useEffect(() => {
-        console.log("CALLLLLEDDDDD")
-        setScheduleSaved(saved);
-    }, [saved])
-    useEffect(() => {
-        if (name !== "") {
-            onSaveClick()
-        }
-        // eslint-disable-next-line
-    }, [])
-    // useEffect(() => {
-    //     saveSchedule()
-    // })
-    // const {}
-    // const saveSchedule = () =>
-
-    const onSaveClick = () => {
-        console.log("saved (should only be once)")
-        if (user) {
-            console.log("here");
-            console.log(name)
-            // if (name === "") {
-            //     console.log("HERE WE MADE IT");
-            //     // setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
-            //     // setIsOpen(true);
-            // } else {
-            saveSchedule()
-            setSavedMessage("Saved!")
-            // }
-        } else {
-            setSavedMessage("Not logged in! Sign in to save schedule")
-        }
-        console.log(saveMessage);
-    }
     const onCourseClick = (course: any) => {
         if (course === currCourse) {
             setViewCourse(false);
@@ -111,7 +71,6 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
 
                     <Calendar tentativeCourseHover={tentativeCourseHover} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse} />
 
-                    {user && name !== "" && <button className="save-button" type={"button"} onClick={onSaveClick}>Save</button>}
                 </div>
                 <div>
                     <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${(warnings.credits.value) || (warnings.sameCourse.value && !panelVisible) ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
