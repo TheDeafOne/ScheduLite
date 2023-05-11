@@ -54,7 +54,6 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible, setModal, s
     }
 
     useEffect(() => {
-        console.log(url);
         const getData = setTimeout(() => {
             setLoading(true);
             axiosConfig.get(url)
