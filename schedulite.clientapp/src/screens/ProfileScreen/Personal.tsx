@@ -1,16 +1,10 @@
 import { Button } from "@mui/material";
 import TextField from '@mui/material/TextField';
-import React, { useState } from "react";
+import React from "react";
 
-interface IPersonal {
-  firstName: string;
-  lastName: string;
-  major: string;
-  minor: string;
-  gradYear: number;
-}
 
-const Personal = () => {  
+
+const Personal = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
