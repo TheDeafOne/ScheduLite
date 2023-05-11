@@ -193,11 +193,17 @@ const CalendarCourse = (props: any) => {
         // props.setViewCourse(false);
     }
     // console.log("FROM CALENDAR COURSE")
+    console.log(event);
     return (
         // <MouseOverPopover course={event.course}>
         <div className={`calendar-course ${event.hover ? 'hover' : ''} ${event.course.overlap ? 'overlap' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ height: courseHeight }}>
             <div>
-                {event.courseTitle}
+                {/* {event.courseTitle} <br /> */}
+                {event.course.coursePrefix} {event.course.courseNumber}{event.course.courseSection} <br />
+                <div className="subtitle">
+
+                    {event.course.lastName}
+                </div>
             </div>
         </div>
         // </MouseOverPopover>
