@@ -1,5 +1,4 @@
-import {HiX, HiOutlineTrash} from "react-icons/hi";
-import React from "react";
+import { HiOutlineTrash } from "react-icons/hi";
 
 const DeleteCourseButton = () => {
     return <HiOutlineTrash style={{ color: "red" }} />

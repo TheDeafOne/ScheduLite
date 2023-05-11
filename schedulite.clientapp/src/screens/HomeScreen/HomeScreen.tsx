@@ -1,6 +1,6 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
 
 // import "../../styles/BodyStructure.scss"
@@ -26,7 +26,7 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
     const [currCourse, setCourse] = useState<ICourse | undefined>();
     const [viewCourse, setViewCourse] = useState(false);
-    const { saved, errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
+    const { errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
 
 
     const onCourseClick = (course: any) => {

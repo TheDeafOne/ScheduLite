@@ -1,13 +1,12 @@
 
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BiListCheck, BiListPlus } from 'react-icons/bi';
-import { HiCheck, HiOutlinePlus, HiX } from 'react-icons/hi';
+import { HiCheck, HiOutlinePlus } from 'react-icons/hi';
 import "./Course.scss";
 
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
-import ICourse from "../../types/course.type";
-import SetScheduleModal from "../Modals/SetScheduleModal";
 import DeleteCourseButton from "../../styles/globals/DeleteCourseButton";
+import ICourse from "../../types/course.type";
 
 
 const Course = (props: any) => {

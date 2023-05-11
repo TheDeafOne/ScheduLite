@@ -1,12 +1,12 @@
 
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import {useContext, useState} from 'react';
-import {HiChevronDown, HiChevronRight, HiOutlineMinus, HiX} from "react-icons/hi";
+import { useContext, useState } from 'react';
+import { HiChevronDown, HiChevronRight } from "react-icons/hi";
 import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleContext";
+import AddToTentativeButton from "../../styles/globals/AddToTentativeButton";
+import DeleteCourseButton from "../../styles/globals/DeleteCourseButton";
 import ICourse from "../../types/course.type";
 import "./Issues.scss";
-import DeleteCourseButton from "../../styles/globals/DeleteCourseButton";
-import AddToTentativeButton from "../../styles/globals/AddToTentativeButton";
 
 const Errors = () => {
     const { errors, setActiveCourses, setTentativeCourses, errorsOpen } = useContext(ScheduleContext) as ScheduleContextType
