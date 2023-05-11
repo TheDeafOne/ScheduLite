@@ -9,7 +9,7 @@ const SetScheduleModal = ({ setIsOpen, navigateTo }: any ) => {
     const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
-    const [scheduleSemester, setScheduleSemester] = useState("Fall")
+    const [scheduleSemester, setScheduleSemester] = useState("")
     const [scheduleName, setScheduleName] = useState("")
     const [scheduleYear, setScheduleYear] = useState("")
     function isWhitespace(str: string): boolean {
@@ -34,6 +34,7 @@ const SetScheduleModal = ({ setIsOpen, navigateTo }: any ) => {
             alert('Please select a year');
             return;
         }
+        console.log('SCHEDULE',scheduleSemester);
         if (scheduleSemester === "") {
             alert('Please select a semester');
             return;
