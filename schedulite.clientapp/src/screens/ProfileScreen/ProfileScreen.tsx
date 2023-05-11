@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 
 const Profile = () => {
     const navigate = useNavigate();
-
+    const { setUser } = useContext(UserContext) as UserContextType;
     useEffect(() => {
         if (AuthService.getCurrentUser() === null) {
             navigate("/login", { replace: true });
@@ -25,6 +25,7 @@ const Profile = () => {
                     }}
                     className={"log-out"}
                     onClick={() => {
+                        setUser(null);
                         AuthService.logout();
                         navigate("/login");
                     }}>
