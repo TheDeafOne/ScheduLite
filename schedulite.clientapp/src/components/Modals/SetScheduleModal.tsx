@@ -34,14 +34,16 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
             alert('Please select a year');
             return;
         }
-
-
+        console.log('making schedule');
+        
         setIsOpen(false);
         setActiveCourses({ course: null, type: "setAll", courseList: [] });
         setTentativeCourses({ course: null, type: "setAll", courseList: [] });
         setName(scheduleName);
         setSemester(scheduleSemester);
         setYear(scheduleYear);
+
+        
 
         navigate("/");
     }
@@ -61,6 +63,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onBlur={(nameElement) => {
                         setScheduleName(nameElement.target.value);
                     }}
+                    defaultValue=""
                 />
                
             </div>
@@ -75,6 +78,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onChange={(change) => {
                         setScheduleYear(change.target.value);
                     }}
+                    defaultValue=""
                 >
                     <MenuItem value={"2018"}>
                         2018
@@ -98,11 +102,12 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onChange={(change) => {
                         setScheduleSemester(change.target.value);
                     }}
+                    defaultValue=""
                 >
                     <MenuItem value={"Fall"}>
                         Fall
                     </MenuItem>
-                    <MenuItem value={"Fall"}>
+                    <MenuItem value={"Spring"}>
                         Spring
                     </MenuItem>
                 </TextField>
