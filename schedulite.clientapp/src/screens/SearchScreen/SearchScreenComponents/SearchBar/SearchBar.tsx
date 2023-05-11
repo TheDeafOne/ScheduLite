@@ -22,6 +22,7 @@ const SearchBar = (props: any) => {
                     autoFocus={props.autofocus}
                     onChange={handleKeyDown}
                     // onKeyUp={handleKeyDown}
+                    maxLength={50}
                     onClick={onclick} />
             </div>
 
