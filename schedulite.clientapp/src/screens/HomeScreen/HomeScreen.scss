@@ -97,8 +97,14 @@
     opacity: .7;
   }
 }
+.course-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .warning-button {
   background-color: variables.$background-warning;
+
   opacity: .7;
   &:hover {
     opacity: .9;

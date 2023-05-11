@@ -5,11 +5,11 @@ import { UserContext, UserContextType } from '../../context/UserContext';
 import "./ScheduleModal.scss";
 import { MenuItem, TextField } from '@mui/material';
 
-const SetScheduleModal = ({ setIsOpen }: any) => {
+const SetScheduleModal = ({ setIsOpen, navigateTo }: any ) => {
     const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
-    const [scheduleSemester, setScheduleSemester] = useState("Fall")
+    const [scheduleSemester, setScheduleSemester] = useState("")
     const [scheduleName, setScheduleName] = useState("")
     const [scheduleYear, setScheduleYear] = useState("")
     function isWhitespace(str: string): boolean {
@@ -34,7 +34,11 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
             alert('Please select a year');
             return;
         }
-
+        console.log('SCHEDULE',scheduleSemester);
+        if (scheduleSemester === "") {
+            alert('Please select a semester');
+            return;
+        }
 
         setIsOpen(false);
         setActiveCourses({ course: null, type: "setAll", courseList: [] });
@@ -43,7 +47,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
         setSemester(scheduleSemester);
         setYear(scheduleYear);
 
-        navigate("/");
+        navigate(navigateTo);
     }
 
     return (
@@ -61,6 +65,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onBlur={(nameElement) => {
                         setScheduleName(nameElement.target.value);
                     }}
+                    defaultValue=""
                 />
                
             </div>
@@ -75,6 +80,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onChange={(change) => {
                         setScheduleYear(change.target.value);
                     }}
+                    defaultValue=""
                 >
                     <MenuItem value={"2018"}>
                         2018
@@ -98,11 +104,12 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
                     onChange={(change) => {
                         setScheduleSemester(change.target.value);
                     }}
+                    defaultValue=""
                 >
                     <MenuItem value={"Fall"}>
                         Fall
                     </MenuItem>
-                    <MenuItem value={"Fall"}>
+                    <MenuItem value={"Spring"}>
                         Spring
                     </MenuItem>
                 </TextField>

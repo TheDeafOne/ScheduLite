@@ -1,3 +1,4 @@
+import { Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 interface AppearanceSettings {
@@ -39,14 +40,11 @@ const layouts = ["default", "sidebar-left", "sidebar-right", "full-width"];
 const Appearance = () => {
   const [settings, setSettings] = useState<AppearanceSettings>(defaultSettings);
 
-  const handleColorSchemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSettings((prevSettings) => ({
-      ...prevSettings,
-      colorScheme: event.target.value,
-    }));
+  const handleColorSchemeChange = (event: SelectChangeEvent<string>) => {
+    setSettings({ ...settings, colorScheme: event.target.value });
   };
 
-  const handleFontChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFontChange = (event: SelectChangeEvent<string>) => {
     setSettings((prevSettings) => ({
       ...prevSettings,
       font: event.target.value,
@@ -67,7 +65,7 @@ const Appearance = () => {
     }));
   };
 
-  const handleLayoutChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleLayoutChange = (event:SelectChangeEvent<string>) => {
     setSettings((prevSettings) => ({
       ...prevSettings,
       layout: event.target.value,
@@ -97,74 +95,146 @@ const Appearance = () => {
 
   return (
     <div>
-      <h1>Appearance Settings</h1>
-      <label>
-        Color Scheme:
-        <select value={settings.colorScheme} onChange={handleColorSchemeChange}>
-          {colorSchemes.map((colorScheme) => (
-            <option key={colorScheme} value={colorScheme}>
-              {colorScheme}
-            </option>
-          ))}
-        </select>
-      </label>
-      <br />
-      <label>
-        Font:
-        <select value={settings.font} onChange={handleFontChange}>
-          {fonts.map((font) => (
-            <option key={font} value={font}>
-              {font}
-            </option>
-          ))}
-        </select>
-      </label>
-      <br />
-      <label>
-        Font Size:
-        <input type="number" value={settings.fontSize} onChange={handleFontSizeChange} />
-      </label>
-      <br />
-      <label>
-        Background Color:
-        <input
-          type="color"
-          value={settings.backgroundColor}
-          onChange={handleBackgroundColorChange}
-        />
-      </label>
-      <br />
-      <label>
-        Layout:
-        <select value={settings.layout} onChange={handleLayoutChange}>
-          {layouts.map((layout) => (
-            <option key={layout} value={layout}>
-              {layout}
-            </option>
-          ))}
-        </select>
-      </label>
-      <br />
-      <label>
-        Spacing:
-        <input type="number" value={settings.spacing} onChange={handleSpacingChange} />
-      </label>
-      <br />
-      <label>
-        Dark Mode:
-        <input type="checkbox" checked={settings.darkMode} onChange={handleDarkModeChange} />
-      </label>
-      <br />
-      <label>
-        Custom CSS:
+      <h1 style={{ color: "white" }}>Appearance Settings</h1>
+
+      <div>
+          <FormControl variant="outlined" style={{ minWidth: "250px", marginBottom: "10px" }}>
+            <InputLabel id="colorScheme-label">Color Scheme</InputLabel>
+            <Select
+              labelId="colorScheme-label"
+              id="colorScheme"
+              value={settings.colorScheme}
+              onChange={handleColorSchemeChange}
+            >
+              {colorSchemes.map((colorScheme) => (
+                <MenuItem key={colorScheme} value={colorScheme}>
+                  {colorScheme}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+      </div>
+
+      <div>
+          <FormControl variant="outlined" style={{ minWidth: "250px", marginBottom: "10px" }}>
+            <InputLabel id="font-label">Font</InputLabel>
+            <Select
+              labelId="font-label"
+              id="font"
+              value={settings.font}
+              onChange={handleFontChange}
+            >
+              {fonts.map((font) => (
+                <MenuItem key={font} value={font}>
+                  {font}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+      </div>
+
+      <div >
+        {/*<label htmlFor="fontSize" style={{ color: "white" }}>*/}
+        {/*  Font Size:*/}
+        {/*</label>*/}
+          <TextField
+            id="outlined-basic"
+            label="Font Size"
+            variant="outlined"
+            type="number"
+            value={settings.fontSize}
+            onChange={handleFontSizeChange}
+            style={{ minWidth: "250px", marginBottom: "10px" }}
+          />
+      </div>
+
+      <div>
+          <TextField
+            id="outlined-basic"
+            label="Background Color"
+            variant="outlined"
+            type="color"
+            value={settings.backgroundColor}
+            onChange={handleBackgroundColorChange}
+            // style={{minWidth: 250}}
+            style={{ minWidth: "250px", marginBottom: "10px" }}
+          />
+      </div>
+
+      <div>
+          <FormControl variant="outlined" style={{ minWidth: "250px", marginBottom: "10px" }}>
+            <InputLabel id="layout-label">Layout</InputLabel>
+            <Select
+              labelId="layout-label"
+              id="layout"
+              value={settings.layout}
+              onChange={handleLayoutChange}
+            >
+              {layouts.map((layout) => (
+                <MenuItem key={layout} value={layout}>
+                  {layout}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+      </div>
+
+      <div>
+          <TextField
+            id="outlined-basic"
+            label="Spacing"
+            variant="outlined"
+            type="number"
+            value={settings.spacing}
+            onChange={handleSpacingChange}
+            style={{ minWidth: "250px", marginBottom: "10px" }}
+          />
+      </div>
+
+      <div>
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="darkMode"
+                checked={settings.darkMode}
+                onChange={handleDarkModeChange}
+                color="primary"
+              />
+            }
+            style={{color: "white"}}
+            label="Enable Dark Mode"
+          />
+      </div>
+
+      <div>
+        <label htmlFor="customCss" style={{ color: "white" }}>
+          Custom CSS
+          <br />
+          <TextField
+            id="outlined-multiline"
+            label="Custom CSS"
+            variant="outlined"
+            multiline
+            rows={4}
+            value={settings.customCss}
+            onChange={handleCustomCssChange}
+          />
+        </label>
+      </div>
+
+      <div>
         <br />
-        <textarea value={settings.customCss} onChange={handleCustomCssChange} />
-      </label>
-      <br />
-      <button onClick={() => console.log(settings)}>Save Settings</button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => console.log(settings)}
+        >
+          Save Settings
+        </Button>
+      </div>
     </div>
-  );
+);
 };
 
-export default Appearance;
 
+  export default Appearance;

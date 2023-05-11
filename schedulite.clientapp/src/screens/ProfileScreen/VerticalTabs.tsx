@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import AcademicInfo from './Academic';
 import Appearance from './Appearance';
 import Keybinds from './Keybinds';
 import Languages from './Languages';
 import Personal from './Personal';
-import './VerticalTabs.css';
+import './VerticalTabs.scss';
 interface Tab {
   name: string;
   content: JSX.Element;
@@ -19,15 +20,11 @@ const VerticalTabs = () => {
     },
     {
       name: 'Academic Info',
-      content: <div> Academic Info </div>
+      content: <div> <AcademicInfo/> </div>
     },
     {
       name: 'Appearance',
       content: <div> <Appearance /> </div>
-    },
-    {
-      name: 'Accessibility',
-      content: <div> Accessibility </div>
     },
     {
       name: 'Keybinds',
@@ -36,10 +33,13 @@ const VerticalTabs = () => {
     {
       name: 'Languages',
       content: <div>  <Languages />  </div>
+    },{
+      name: 'Accessibility',
+      content: <h1 style={{ color: "white" }}>Accessibility</h1>
     },
     {
       name: 'Advanced',
-      content: <div> Advanced </div>
+      content: <h1 style={{ color: "white" }}>Advanced</h1>
     }
   ];
 

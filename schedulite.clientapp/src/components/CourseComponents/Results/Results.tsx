@@ -42,6 +42,8 @@ const Results = (props: any) => {
                                             switchAction={props.switchAction}
                                             button={props.button}
                                             schedule={props.schedule}
+                                            setIsOpen={props.setIsOpen}
+                                            setModal={props.setModal}
                                             // active={act}
                                             // tentative={tent}
                                             overlap={actOverlap}
@@ -70,6 +72,8 @@ const Results = (props: any) => {
                                             button={props.button}
                                             schedule={props.schedule}
                                             overlap={actOverlap}
+                                            setIsOpen={props.setIsOpen}
+                                            setModal={props.setModal}
                                         />
                                     )
                                 }

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import React, {createContext, useContext, useEffect, useReducer, useRef, useState} from "react";
 import axios from "../api/axios-config";
 import authHeader from "../services/auth-header";
 import ICourse from "../types/course.type";
@@ -6,14 +6,6 @@ import ISchedule from "../types/schedule.type";
 import { UserContext, UserContextType } from "./UserContext";
 import moment from "moment";
 
-// export default
-// schedule =
-// user = useContext(UserProvider)
-// saveScheduleToDB
-//  if user
-//  else {
-//  NEED LOGGED IN
-// setSchedule=(
 type Action = { course: ICourse | null, type: 'add' | 'remove' | 'setAll', unshift?: boolean | null, courseList?: ICourse[] | null }
 
 type Dispatch = (action: Action) => void
@@ -26,6 +18,7 @@ export interface ScheduleContextType {
     tentativeCourses: State,
     setTentativeCourses: Dispatch,
     calcActiveCredits: () => number,
+    calcTentativeCredits: () => number,
     inSchedule: (course: ICourse) => boolean,
     overlap: (course1: ICourse, course2: ICourse) => boolean,
     saved: boolean,
@@ -38,7 +31,13 @@ export interface ScheduleContextType {
     saveSchedule: () => void,
     errors: Errors,
     warnings: Warnings,
-    onScheduleOpen: (active: ICourse[], tentative: ICourse[]) => void
+    onScheduleOpen: (active: ICourse[], tentative: ICourse[]) => void,
+    modal: any,
+    setModal: React.Dispatch<React.SetStateAction<any>>,
+    modalIsOpen: boolean,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    warningsOpen: React.MutableRefObject<boolean>,
+    errorsOpen: React.MutableRefObject<boolean>
 }
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);
 
@@ -88,7 +87,10 @@ export const ScheduleProvider = (props: any) => {
     const [saved, setSaved] = useState(true)
     const [errors, setErrors] = useState<Errors>({ overlap: { value: false, courses: [] } })
     const [warnings, setWarnings] = useState<Warnings>({ credits: { value: false, message: "" }, sameCourse: { value: false, courses: [], message: "" } })
-
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [modal, setModal] = useState(null);
+    const warningsOpen = useRef(true);
+    const errorsOpen = useRef(true);
 
 
     // const issuesExist = () => {
@@ -115,9 +117,9 @@ export const ScheduleProvider = (props: any) => {
         return activeCourses.courses.some((e: ICourse) => (e.id === course.id))
     }
 
+
     const { scheduleExists, addUserSchedule, updateUserSchedule } = useContext(UserContext) as UserContextType
     const saveSchedule = () => {
-
         if (name === "") {
             return;
         }
@@ -158,7 +160,6 @@ export const ScheduleProvider = (props: any) => {
                 .then(response => {
                     if (response.status === 200) {
                         setSaved(true)
-                        console.log("post request called twice?")
                         addUserSchedule(schedule)
                     }
                 });
@@ -172,8 +173,14 @@ export const ScheduleProvider = (props: any) => {
         });
         return credits
     }
+    const calcTentativeCredits = (): number => {
+        let credits: number = 0
+        tentativeCourses.courses.forEach(function (elem: ICourse, index: number) {
+            credits += +elem.creditHours;
+        });
+        return credits
+    }
     const onScheduleOpen = (active: ICourse[], tentative: ICourse[]) => {
-        console.log("onscheduleopen")
         active.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
             array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
             array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
@@ -189,40 +196,43 @@ export const ScheduleProvider = (props: any) => {
         }
     }
     useEffect(() => {
-        setSaved(false);
-        saveSchedule()
+        if (name !== null) {
+            setSaved(false);
+            saveSchedule();
 
-        for (const course of activeCourses.courses) {
-            const inSchedule = activeCourses.courses.some((e: ICourse) => (e.id === course.id))
-            course.overlap = inSchedule && activeCourses.courses.some((e: ICourse) => (e.id !== course.id
-                && overlap(e, course)));
-        }
-        let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
-        console.log(activeCourses.courses)
-        console.log(coursesWithOverlap);
-        // console.log(errors)
-        setErrors({
-            overlap: {
-                value: coursesWithOverlap.length > 0,
-                courses: coursesWithOverlap
+            for (const course of activeCourses.courses) {
+                const inSchedule = activeCourses.courses.some((e: ICourse) => (e.id === course.id))
+                course.overlap = inSchedule && activeCourses.courses.some((e: ICourse) => (e.id !== course.id
+                    && overlap(e, course)));
             }
-        }
-        )
-        let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)))
+            let coursesWithOverlap = activeCourses.courses.filter((course) => course.overlap);
+            console.log(activeCourses.courses);
+            console.log(coursesWithOverlap);
+            // console.log(errors)
+            setErrors({
+                    overlap: {
+                        value: coursesWithOverlap.length > 0,
+                        courses: coursesWithOverlap
+                    }
+                }
+            );
+            let sameCourseDiffSections = activeCourses.courses.filter((course) => activeCourses.courses.some((i) => (course !== i) && (course.courseTitle === i.courseTitle)));
 
-        setWarnings({
-            credits: {
-                value: calcActiveCredits() > 18,
-                message: `Number of active credits ${calcActiveCredits()} is greater 18.`
-            },
-            sameCourse: {
-                value: sameCourseDiffSections.length > 0,
-                courses: sameCourseDiffSections,
-                message: "Schedule contains two of the same course with different sections."
-            }
-        })
+            setWarnings({
+                credits: {
+                    value: calcActiveCredits() > 18,
+                    message: `Number of active credits ${calcActiveCredits()} is greater 18.`
+                },
+                sameCourse: {
+                    value: sameCourseDiffSections.length > 0,
+                    courses: sameCourseDiffSections,
+                    message: "Schedule contains two of the same course with different sections."
+                }
+            });
+        }
         // eslint-disable-next-line
     }, [activeCourses, tentativeCourses])
+
     // const [saved]
     const value = {
         activeCourses, setActiveCourses,
@@ -232,9 +242,13 @@ export const ScheduleProvider = (props: any) => {
         semester, setSemester,
         year, setYear,
         calcActiveCredits,
+        calcTentativeCredits,
         inSchedule, overlap,
         errors, warnings,
-        onScheduleOpen
+        onScheduleOpen,
+        modal, setModal,
+        modalIsOpen, setIsOpen,
+        warningsOpen, errorsOpen
     }
 
     return (

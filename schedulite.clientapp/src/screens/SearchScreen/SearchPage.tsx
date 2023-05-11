@@ -9,16 +9,18 @@ import ICourse from "../../types/course.type";
 import "./SearchPage.scss";
 import FilterPanel from "./SearchScreenComponents/FilterPanel";
 import SearchBar from "./SearchScreenComponents/SearchBar/SearchBar";
+import { CircularProgress } from "@mui/material";
 
 
 
-const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible, setModal, setIsOpen }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>, setModal: React.Dispatch<React.SetStateAction<any>>, setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse] = useState<ICourse | undefined>();
     const [searchType, setSearchType] = useState("Course Title")
     const [viewCourse, setViewCourse] = useState(false);
     const [url, setUrl] = useState("/courses");
+    const [loading, setLoading] = useState(false);
 
     const { semester, year } = useContext(ScheduleContext) as ScheduleContextType
 
@@ -54,16 +56,19 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
     useEffect(() => {
         console.log(url);
         const getData = setTimeout(() => {
+            setLoading(true);
             axiosConfig.get(url)
                 .then(r => {
-                    let filterVal = query === "" && filters.every(x => x.value === "") ? 5 : 50
+                    let filterVal = query === "" && filters.every(x => x.value === "") ? 25 : 80
                     let data = r.data.splice(0, filterVal)
                     data.forEach(function (course: ICourse, index: number, array: Array<ICourse>) {
                         array[index].convertedStartDate = moment(course["startTime"], 'YYYY/MM/DD h:mm:ss');
                         array[index].convertedEndDate = moment(course["endTime"], 'YYYY/MM/DD h:mm:ss');
 
                     })
+                    
                     setResponse(data);
+                    setLoading(false);
                 }
                 )
         }, waittime)
@@ -135,7 +140,11 @@ const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedS
                                 setSearchType={setSearchType}
                             />
                         </motion.div>
-                        {query === "" && filters.every(x => x.value === "") ? <span className="suggested">Suggested Courses:</span> : ""}
+                        <div>
+                            {loading && <CircularProgress />}
+                        </div>
+                        {query === "" && filters.every(x => x.value === "") && response.length > 0 ? <span className="suggested">Suggested Courses:</span> : ""}
+                        
                         <Results response={response} onCourseClick={onCourseClick} />
                     </div>
                     <CourseDetailPanel course={currCourse} viewCourse={viewCourse} calendarCourseHover={undefined} />

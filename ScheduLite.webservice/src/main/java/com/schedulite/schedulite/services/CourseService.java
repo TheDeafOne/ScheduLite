@@ -40,7 +40,25 @@ public class CourseService {
         if (courseTitle != null) { filterCriteria.and("courseTitle").regex(courseTitle, "i");}
         if (coursePrefix != null) { filterCriteria.and("coursePrefix").regex(coursePrefix, "i");}
         if (courseNumber != null) { filterCriteria.and("courseNumber").is(courseNumber);}
-        if (courseTime != null) { filterCriteria.and("startTime").regex(courseTime, "i");}
+
+        if (courseTime != null) {
+            try {
+                String[] time = courseTime.split(":");
+                if (time.length > 0) {
+                    String hour = time[0];
+                    String minutes = ":00";
+                    if (time.length > 1) {
+                        minutes = ":" + time[1];
+                    }
+                    int intHour = Integer.parseInt(hour);
+                    if (intHour > 0 && intHour < 8) {
+                        intHour += 12;
+                        courseTime = intHour + minutes;
+                    }
+                    filterCriteria.and("startTime").regex(courseTime, "i");
+                }
+            } catch(NumberFormatException ignored){}
+        }
         if (lastName != null) { filterCriteria.and("lastName").regex(lastName, "i");}
         if (firstName != null) { filterCriteria.and("firstName").regex(firstName, "i");}
         // finding each day the class occurs on
@@ -48,19 +66,19 @@ public class CourseService {
             for (String day : days.split("")) {
                 switch (day) {
                     case "M":
-                        filterCriteria.and("onMonday").is(true);
+                        filterCriteria.and("onMonday").is("True");
                         break;
                     case "T":
-                        filterCriteria.and("onTuesday").is(true);
+                        filterCriteria.and("onTuesday").is("True");
                         break;
                     case "W":
-                        filterCriteria.and("onWednesday").is(true);
+                        filterCriteria.and("onWednesday").is("True");
                         break;
                     case "R":
-                        filterCriteria.and("onThursday").is(true);
+                        filterCriteria.and("onThursday").is("True");
                         break;
                     case "F":
-                        filterCriteria.and("onFriday").is(true);
+                        filterCriteria.and("onFriday").is("True");
                 }
             }
         }
