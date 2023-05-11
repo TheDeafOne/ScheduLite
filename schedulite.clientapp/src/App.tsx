@@ -16,7 +16,6 @@ import './styles/App.scss';
 import { getDesignTokens } from "./styles/CustomPalette";
 import IUser from './types/user.type';
 import './components/Modals/ScheduleModal.scss';
-import {ScheduleContext, ScheduleContextType} from "./context/ScheduleContext";
 // import Brightness4Icon from '@mui/icons-material/Brightness4';
 // import Brightness7Icon from '@mui/icons-material/Brightness7';
 
