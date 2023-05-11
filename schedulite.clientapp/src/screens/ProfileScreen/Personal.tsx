@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthService from "../../services/auth.service";
-import IUser from "../../types/user.type";
-import Box from '@mui/material/Box';
+import { Button } from "@mui/material";
 import TextField from '@mui/material/TextField';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Button } from "@mui/material";
+import React, { useState } from "react";
 
 interface IPersonal {
   firstName: string;
@@ -20,19 +16,9 @@ const Personal = () => {
     lastName: "",
     major: "",
     minor: "",
-    gradYear: 0,
+    gradYear: 0
   });
 
-
-  const handleInputChange = (event: SelectChangeEvent<number>) => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    setPersonal((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

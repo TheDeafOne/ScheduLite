@@ -13,6 +13,7 @@ const Profile = () => {
         if (AuthService.getCurrentUser() === null) {
             navigate("/login", { replace: true });
         }
+        // eslint-disable-next-line
     }, [])
     return (
         <div className="profile-flex-container">
