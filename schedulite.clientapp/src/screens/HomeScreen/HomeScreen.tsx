@@ -1,6 +1,6 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SearchBar from "../SearchScreen/SearchScreenComponents/SearchBar/SearchBar";
 
 // import "../../styles/BodyStructure.scss"
@@ -16,13 +16,18 @@ import { ScheduleContext, ScheduleContextType } from "../../context/ScheduleCont
 import Calendar from "./Calendar/Calendar";
 
 // import {linkedScheduleObj, linkedScheduleObjType} from "../../App";
-const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: { linkedScheduleObj: linkedScheduleObjType, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: {
+    linkedScheduleObj: linkedScheduleObjType,
+    panelVisible: boolean,
+    setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
 
     const [calendarCourseHover, setCalendarCourseHover] = useState<ICourse | undefined>();
     const [tentativeCourseHover, setTentativeCourseHover] = useState<ICourse | undefined>();
     const [currCourse, setCourse] = useState<ICourse | undefined>();
     const [viewCourse, setViewCourse] = useState(false);
     const { errors, warnings } = useContext(ScheduleContext) as ScheduleContextType
+
 
     const onCourseClick = (course: any) => {
         if (course === currCourse) {
@@ -66,6 +71,8 @@ const Home = ({ linkedScheduleObj, panelVisible, setPanelVisible }: { linkedSche
 
                     <Calendar tentativeCourseHover={tentativeCourseHover} setCalendarCourseHover={setCalendarCourseHover} setViewCourse={setViewCourse} />
 
+                </div>
+                <div>
                     <button className={`collapse-side-panel ${panelVisible ? "open" : "closed"} ${(warnings.credits.value) || (warnings.sameCourse.value && !panelVisible) ? "warning-button" : ""} ${errors.overlap.value && !panelVisible ? "error-button" : ""}`} onClick={() => setPanelVisible(!panelVisible)}>
                         {
                             panelVisible ? <ChevronRightIcon /> : <ChevronLeftIcon />

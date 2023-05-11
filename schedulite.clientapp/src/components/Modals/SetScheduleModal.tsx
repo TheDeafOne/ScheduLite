@@ -5,7 +5,7 @@ import { UserContext, UserContextType } from '../../context/UserContext';
 import "./ScheduleModal.scss";
 import { MenuItem, TextField } from '@mui/material';
 
-const SetScheduleModal = ({ setIsOpen }: any) => {
+const SetScheduleModal = ({ setIsOpen, navigateTo }: any ) => {
     const { setName, setSemester, setYear, setActiveCourses, setTentativeCourses } = useContext(ScheduleContext) as ScheduleContextType
     const { user } = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
@@ -34,8 +34,11 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
             alert('Please select a year');
             return;
         }
-        console.log('making schedule');
-        
+        if (scheduleSemester === "") {
+            alert('Please select a semester');
+            return;
+        }
+
         setIsOpen(false);
         setActiveCourses({ course: null, type: "setAll", courseList: [] });
         setTentativeCourses({ course: null, type: "setAll", courseList: [] });
@@ -43,9 +46,7 @@ const SetScheduleModal = ({ setIsOpen }: any) => {
         setSemester(scheduleSemester);
         setYear(scheduleYear);
 
-        
-
-        navigate("/");
+        navigate(navigateTo);
     }
 
     return (

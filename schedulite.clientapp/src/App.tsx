@@ -30,6 +30,8 @@ export interface linkedScheduleObjType { linkedSchedule: boolean, setLinkedSched
 // }
 function AppBody() {
     const { setUser } = useContext(UserContext) as UserContextType;
+    // const { setIsOpen, setModal } = useContext(ScheduleContext) as ScheduleContextType
+
     const location = useLocation();
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modal, setModal] = useState(null);
@@ -130,7 +132,7 @@ function AppBody() {
                     <Route
                         path="/Search"
                         element={
-                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible} />
+                            <SearchPage linkedSchedule={false} panelVisible={panelVisible} setPanelVisible={setPanelVisible} setIsOpen={setIsOpen} setModal={setModal} />
                         }
                     />
                     <Route path="/profile" element={<Profile />} />

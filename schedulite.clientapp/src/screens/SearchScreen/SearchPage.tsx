@@ -13,7 +13,7 @@ import { CircularProgress } from "@mui/material";
 
 
 
-const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const SearchPage = ({ linkedSchedule, panelVisible, setPanelVisible, setModal, setIsOpen }: { linkedSchedule: boolean, panelVisible: boolean, setPanelVisible: React.Dispatch<React.SetStateAction<boolean>>, setModal: React.Dispatch<React.SetStateAction<any>>, setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [response, setResponse] = useState(Array<ICourse>);
     const [query, setQuery] = useState("")
     const [currCourse, setCourse] = useState<ICourse | undefined>();

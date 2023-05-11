@@ -229,7 +229,7 @@ const BlockPage = ({ setIsOpen, setModal }: any) => {
           </div>
         ))}
         <div className="block new" onClick={() => {
-          setModal(<SetScheduleModal setIsOpen={setIsOpen} />);
+          setModal(<SetScheduleModal setIsOpen={setIsOpen} navigateTo={"/"}/>);
           setIsOpen(true);
         }}>
           +
