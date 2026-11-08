@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img" aria-labelledby="title description">
   <title id="title">ScheduLite scheduling workflow</title>
-  <desc id="description">A workflow illustration showing catalog search, active and tentative course choices, checking a weekly calendar, and saving alternatives. Example courses and times, not a screenshot.</desc>
+  <desc id="description">A workflow illustration showing catalog search, active and tentative course choices, checking a weekly calendar, and saving alternatives. Illustrated with example courses and meeting times.</desc>
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#777a89" stroke-width="1.5"/></marker>
   </defs>
@@ -41,6 +41,6 @@
     <rect x="940" y="243" width="61" height="32" rx="4" fill="#7675dc"/>
     <text x="798" y="382" font-size="15" fill="#5d6274">Overlaps · credit load · duplicate sections</text>
     <text x="798" y="410" font-size="16" font-weight="700" fill="#5455b8">Save a named schedule. Revisit it later.</text>
-    <text x="36" y="473" font-size="15" fill="#5d6274">Workflow illustration with example courses and times; not an application screenshot.</text>
+    <text x="36" y="473" font-size="15" fill="#5d6274">The scheduling workflow, illustrated with example courses and times.</text>
   </g>
 </svg>

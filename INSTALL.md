@@ -2,9 +2,9 @@
 
 ScheduLite has a React client and a Spring Boot web service. Run both, with a MongoDB database available to the web service.
 
-The original development versions were **Node.js 18.15.0, npm 9.5.0, and Java 11**. The repository includes the Gradle 7.6.1 wrapper, so a separate Gradle installation is unnecessary. Any editor can be used.
+Use **Node.js 18.15.0, npm 9.5.0, and Java 11**. The included Gradle wrapper downloads Gradle 7.6.1 and the backend dependencies.
 
-These instructions follow the repository's configuration and package scripts. They require your own database and catalog data; the original hosted environment is not included.
+Configure a MongoDB database and load the catalog you want to use before starting the applications.
 
 ## 1. Get the project
 
@@ -40,7 +40,7 @@ The web service constructs its `mongodb+srv` URI from these values. The last two
 
 ### Database contents
 
-The application uses `courses`, `roles`, and `users` collections. The repository does not include the original catalog export or an automatic database seeder.
+The application uses `courses`, `roles`, and `users` collections. Add the roles and catalog data as described below.
 
 Before using sign-up, add the role records expected by [AuthController](ScheduLite.webservice/src/main/java/com/schedulite/schedulite/controllers/AuthController.java). In `mongosh`, connected to your own database, run:
 
@@ -64,17 +64,17 @@ db.courses.createIndex({
 });
 ```
 
-Use terms that the prototype's selectors expose when trying the original workflow: the current client lists Spring/Fall and years 2018–2020. An empty catalog will produce empty search results.
+The term selectors list Spring/Fall and years 2018–2020. Use matching terms when loading a catalog for these selectors.
 
 ## 3. Point the client at the local API
 
-The checked-in [Axios configuration](schedulite.clientapp/src/api/axios-config.ts) contains the original hosted backend address. For a local setup, set its `baseURL` to:
+In the [Axios configuration](schedulite.clientapp/src/api/axios-config.ts), set `baseURL` to your local API:
 
 ```typescript
 baseURL: 'http://localhost:8080/api/v1',
 ```
 
-There is no client environment-variable override for this setting in the current prototype. If you change the web-service port with `PORT`, use that same port here.
+If you change the web-service port with `PORT`, use that same port here.
 
 ## 4. Start the backend
 

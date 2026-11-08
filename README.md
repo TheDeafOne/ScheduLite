@@ -4,7 +4,7 @@ ScheduLite is a course-scheduling prototype that helps students search for class
 
 ![The ScheduLite workflow: find courses, compare active and tentative choices, then save a schedule](docs/scheduling-workflow.svg)
 
-*Workflow illustration, not an application screenshot. The course names and times are examples.*
+*The scheduling workflow, illustrated with example courses and meeting times.*
 
 ## Motivation
 
@@ -12,9 +12,9 @@ Building a class schedule involves more than finding courses that sound interest
 
 We wanted to make that process easier to explore. Instead of moving between a catalog, a calendar, and a separate list of backup choices, students can keep those pieces together and compare alternatives as they go.
 
-The goal was class scheduling optimization through a clearer planning workflow. ScheduLite helps students make and revise their own choices; it does not automatically generate an optimal timetable.
+The goal was class scheduling optimization through a clearer planning workflow. Students can compare alternatives and adjust their choices to find a schedule that works for them.
 
-The project reached **Technology Readiness Level 5 (TRL 5)** during development. This repository preserves that prototype.
+The project reached **Technology Readiness Level 5 (TRL 5)** during development.
 
 ## Planning a schedule
 
@@ -22,8 +22,6 @@ The project reached **Technology Readiness Level 5 (TRL 5)** during development.
 2. **Keep options open.** Active courses form the current schedule. Tentative courses hold alternatives without committing them to the calendar.
 3. **Compare the week.** The calendar shows active courses together. The interface flags time overlaps, duplicate sections, and credit loads above 18 hours. Move courses between active and tentative lists while considering different combinations.
 4. **Save alternatives.** Create named schedules for a semester and year, then return to them from the schedule-selection page.
-
-These checks help make tradeoffs visible. They do not replace registration, academic advising, or institution-specific degree requirements.
 
 ## How it works
 
@@ -40,7 +38,7 @@ Useful starting points are the [search screen](schedulite.clientapp/src/screens/
 
 ## Running locally
 
-The original development environment used Node.js 18.15.0, npm 9.5.0, and Java 11. A complete local setup also needs a MongoDB Atlas database with course and role data.
+Use Node.js 18.15.0, npm 9.5.0, Java 11, and a MongoDB Atlas database with course and role data.
 
 ```sh
 git clone https://github.com/TheDeafOne/ScheduLite.git
@@ -64,4 +62,4 @@ npm start
 
 Open [http://localhost:3000](http://localhost:3000). The API uses port 8080 by default.
 
-The repository does not include the original course-catalog database. Its client also retains the original hosted API address, so follow the local-address step in the installation guide before connecting to your own backend.
+Follow the installation guide to load a course catalog and point the client at your backend.
