@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img" aria-labelledby="title description">
+  <title id="title">ScheduLite scheduling workflow</title>
+  <desc id="description">A workflow illustration showing catalog search, active and tentative course choices, checking a weekly calendar, and saving alternatives. Illustrated with example courses and meeting times.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#777a89" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="1200" height="510" fill="#f7f8fc"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#23283a">
+    <text x="36" y="43" font-size="18" font-weight="700" fill="#5455b8">SCHEDULITE</text>
+    <text x="36" y="85" font-size="30" font-weight="700">Find classes. Compare the week. Keep alternatives.</text>
+    <text x="36" y="116" font-size="17" fill="#5d6274">A planning workflow for exploring course schedules.</text>
+    <rect x="36" y="151" width="310" height="280" rx="16" fill="#fff" stroke="#dde0eb"/>
+    <rect x="386" y="151" width="350" height="280" rx="16" fill="#fff" stroke="#dde0eb"/>
+    <rect x="776" y="151" width="388" height="280" rx="16" fill="#fff" stroke="#dde0eb"/>
+    <path d="M354 291H375" fill="none" stroke="#777a89" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M744 291H765" fill="none" stroke="#777a89" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="58" y="187" font-size="21" font-weight="700">1. Find courses</text>
+    <text x="58" y="220" font-size="16" fill="#5d6274">Term · subject · instructor · time</text>
+    <rect x="58" y="245" width="266" height="66" rx="8" fill="#eeefff"/>
+    <text x="73" y="272" font-size="17" font-weight="700">Algorithms · section A</text>
+    <text x="73" y="296" font-size="15" fill="#5d6274">Mon / Wed · 10:00–11:00</text>
+    <rect x="58" y="325" width="266" height="66" rx="8" fill="#edf7f4"/>
+    <text x="73" y="352" font-size="17" font-weight="700">Algorithms · section B</text>
+    <text x="73" y="376" font-size="15" fill="#5d6274">Tue / Thu · 13:00–14:00</text>
+    <text x="408" y="187" font-size="21" font-weight="700">2. Compare choices</text>
+    <rect x="408" y="213" width="306" height="79" rx="8" fill="#eeefff"/>
+    <text x="424" y="239" font-size="14" font-weight="700" fill="#5455b8">ACTIVE</text>
+    <text x="424" y="269" font-size="18">Algorithms · A</text>
+    <rect x="408" y="307" width="306" height="79" rx="8" fill="#edf7f4"/>
+    <text x="424" y="333" font-size="14" font-weight="700" fill="#276e5d">TENTATIVE</text>
+    <text x="424" y="363" font-size="18">Algorithms · B</text>
+    <text x="408" y="411" font-size="15" fill="#5d6274">Move options between the two lists.</text>
+    <text x="798" y="187" font-size="21" font-weight="700">3. Check and save</text>
+    <text x="821" y="224" font-size="14" fill="#5d6274">MON</text>
+    <text x="887" y="224" font-size="14" fill="#5d6274">TUE</text>
+    <text x="951" y="224" font-size="14" fill="#5d6274">WED</text>
+    <text x="1018" y="224" font-size="14" fill="#5d6274">THU</text>
+    <text x="1088" y="224" font-size="14" fill="#5d6274">FRI</text>
+    <path d="M798 238H1142M798 277H1142M798 316H1142M798 355H1142M798 238V355M867 238V355M936 238V355M1005 238V355M1074 238V355M1142 238V355" fill="none" stroke="#e0e3ed"/>
+    <rect x="802" y="243" width="61" height="32" rx="4" fill="#7675dc"/>
+    <rect x="940" y="243" width="61" height="32" rx="4" fill="#7675dc"/>
+    <text x="798" y="382" font-size="15" fill="#5d6274">Overlaps · credit load · duplicate sections</text>
+    <text x="798" y="410" font-size="16" font-weight="700" fill="#5455b8">Save a named schedule. Revisit it later.</text>
+    <text x="36" y="473" font-size="15" fill="#5d6274">The scheduling workflow, illustrated with example courses and times.</text>
+  </g>
+</svg>
